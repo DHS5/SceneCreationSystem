@@ -8,6 +8,7 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public class SceneVar
     {
+        #region Initialization
         public SceneVar(SceneVar var)
         {
             uniqueID = var.uniqueID;
@@ -27,6 +28,26 @@ namespace Dhs5.SceneCreation
             maxInt = var.maxInt;
             minFloat = var.minFloat;
             maxFloat = var.maxFloat;
+        }
+        public SceneVar(SceneVar sceneVar, BalancingVar bVar)
+        {
+            uniqueID = sceneVar.uniqueID;
+            ID = sceneVar.ID;
+            type = sceneVar.type;
+            boolValue = bVar.boolValue;
+            intValue = bVar.intValue;
+            floatValue = bVar.floatValue;
+            stringValue = bVar.stringValue;
+            isStatic = bVar.IsStatic;
+            isLink = sceneVar.isLink;
+            isRandom = bVar.IsRandom;
+
+            hasMin = bVar.hasMin;
+            hasMax = bVar.hasMax;
+            minInt = bVar.minInt;
+            maxInt = bVar.maxInt;
+            minFloat = bVar.minFloat;
+            maxFloat = bVar.maxFloat;
         }
         private SceneVar(int UID, string id, SceneVarType _type, bool _isStatic, bool _isLink, bool _isRandom)
         {
@@ -85,6 +106,7 @@ namespace Dhs5.SceneCreation
                 maxFloat = 0f;
             }
         }
+        #endregion
 
         public int uniqueID = 0;
         
@@ -224,6 +246,14 @@ namespace Dhs5.SceneCreation
             }
         }
         public object LinkValue => SceneState.GetComplexSceneVarValue(uniqueID);
+
+        public void GetStaticValues(out bool boolVal, out int intVal, out float floatVal, out string stringVal)
+        {
+            boolVal = boolValue;
+            intVal = intValue;
+            floatVal = floatValue;
+            stringVal = stringValue;
+        }
         #endregion
 
         private string GetRange()

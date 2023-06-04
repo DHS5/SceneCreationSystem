@@ -32,6 +32,13 @@ namespace Dhs5.SceneCreation
             propertyHeight = 0;
 
             container = property.serializedObject.targetObject as SceneVariablesSO;
+
+            if (container == null)
+            {
+                container = (property.serializedObject.targetObject as SceneBalancingSheetSO).sceneVariablesSO;
+
+                if (container == null) return;
+            }
             
             uniqueIDProperty = property.FindPropertyRelative("uniqueID");
             idProperty = property.FindPropertyRelative("ID");
@@ -42,8 +49,7 @@ namespace Dhs5.SceneCreation
             EditorGUI.BeginProperty(position, label, property);
 
             Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-            property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, 
-                property.isExpanded ? "" : container[uniqueIDProperty.intValue].ToString());
+            property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, property.isExpanded ? "" : container[uniqueIDProperty.intValue].ToString());
             if (property.isExpanded)
             {
                 // Name
