@@ -200,23 +200,6 @@ MonoBehaviour:
     isRandom: 1
     isLink: 0
     propertyHeight: 0
-  - uniqueID: 5202
-    ID: Oupsi
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
   sceneVarLinks:
   - uniqueID: 1832
     ID: Total1
@@ -686,3 +669,5 @@ MonoBehaviour:
       isLink: 1
       propertyHeight: 0
     propertyHeight: 0
+  sceneBalancingSheets:
+  - {fileID: 11400000, guid: 06ea4c52638575e43989dd5ce794b452, type: 2}

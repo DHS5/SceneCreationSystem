@@ -38,12 +38,12 @@ namespace Dhs5.SceneCreation
             intValue = bVar.intValue;
             floatValue = bVar.floatValue;
             stringValue = bVar.stringValue;
-            isStatic = bVar.IsStatic;
+            isStatic = sceneVar.IsStatic;
             isLink = sceneVar.isLink;
-            isRandom = bVar.IsRandom;
+            isRandom = sceneVar.IsRandom;
 
-            hasMin = bVar.hasMin;
-            hasMax = bVar.hasMax;
+            hasMin = sceneVar.hasMin;
+            hasMax = sceneVar.hasMax;
             minInt = bVar.minInt;
             maxInt = bVar.maxInt;
             minFloat = bVar.minFloat;

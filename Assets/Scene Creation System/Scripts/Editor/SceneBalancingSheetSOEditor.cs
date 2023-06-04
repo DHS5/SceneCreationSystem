@@ -43,33 +43,6 @@ namespace Dhs5.SceneCreation
         }
 
         #region Helper functions
-        readonly string baseName = "BalancingSheet";
-
-        private string GetUniqueName(string path)
-        {
-            List<string> names = new();
-            string current;
-
-            foreach (var name in Directory.GetFiles(path))
-            {
-                current = name.Remove(0, name.LastIndexOf('/') + 1);
-                current = current.Substring(0, current.LastIndexOf('.'));
-                names.Add(current);
-            }
-
-            if (names.Count < 1) 
-            {
-                return baseName + "1";
-            }
-
-            int index = 1;
-
-            while (names.Contains(baseName + index))
-            {
-                index++;
-            }
-            return baseName + index;
-        }
 
         ReorderableList list;
         private void CreateReorderableList(string listPropertyName, List<BalancingVar> balancingVars, string displayName)

@@ -79,11 +79,13 @@ namespace Dhs5.SceneCreation
                         }
 
                         // Static
+                        EditorGUI.BeginDisabledGroup(true);
                         Rect staticRect = new Rect(position.x + position.width * 0.76f, position.y + propertyOffset, position.width * 0.24f,
                             EditorGUIUtility.singleLineHeight);
                         staticProperty.boolValue = EditorGUI.ToggleLeft(staticRect, "Static", staticProperty.boolValue);
                         propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
                         propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
+                        EditorGUI.EndDisabledGroup();
                     }
 
                     if (!staticProperty.boolValue && (type == SceneVarType.INT || type == SceneVarType.FLOAT))
@@ -91,10 +93,12 @@ namespace Dhs5.SceneCreation
                         hasMinProperty = property.FindPropertyRelative("hasMin");
                         hasMaxProperty = property.FindPropertyRelative("hasMax");
 
+                        EditorGUI.BeginDisabledGroup(true);
                         Rect hasMinRect = new Rect(position.x, position.y + propertyOffset, position.width * 0.11f, EditorGUIUtility.singleLineHeight);
                         Rect hasMaxRect = new Rect(position.x + position.width * 0.38f, position.y + propertyOffset, position.width * 0.12f, EditorGUIUtility.singleLineHeight);
                         hasMinProperty.boolValue = EditorGUI.ToggleLeft(hasMinRect, new GUIContent("Min", "Min inclusive"), hasMinProperty.boolValue);
                         hasMaxProperty.boolValue = EditorGUI.ToggleLeft(hasMaxRect, new GUIContent("Max", "Max inclusive"), hasMaxProperty.boolValue);
+                        EditorGUI.EndDisabledGroup();
 
                         if (hasMinProperty.boolValue)
                         {
@@ -135,9 +139,11 @@ namespace Dhs5.SceneCreation
                             }
                         }
                         // Random
+                        EditorGUI.BeginDisabledGroup(true);
                         Rect randomRect = new Rect(position.x + position.width * 0.76f, position.y + propertyOffset, position.width * 0.24f,
                             EditorGUIUtility.singleLineHeight);
                         randomProperty.boolValue = EditorGUI.ToggleLeft(randomRect, "Random", randomProperty.boolValue);
+                        EditorGUI.EndDisabledGroup();
 
                         if (randomProperty.boolValue)
                         {

@@ -36,6 +36,7 @@ namespace Dhs5.SceneCreation
         #region Template management
         public void ApplyTemplate()
         {
+            if (balancingVars == null) balancingVars = new();
             balancingVars = ApplyTemplate(balancingVars, sceneVariablesSO.sceneVars);
         }
         private List<BalancingVar> ApplyTemplate(List<BalancingVar> list, List<SceneVar> vars)

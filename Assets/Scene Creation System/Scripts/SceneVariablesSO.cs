@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.IO;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Dhs5.SceneCreation
 {
@@ -23,6 +28,7 @@ namespace Dhs5.SceneCreation
             get => SceneVars.Find(v => v.uniqueID == uniqueID);
         }
 
+        #region IDs
         public int GetUniqueIDByIndex(int index)
         {
             if (index < 0 || index >= SceneVars.Count) return 0;
@@ -88,6 +94,7 @@ namespace Dhs5.SceneCreation
             
             return uniqueID;
         }
+        #endregion
 
         private void OnValidate()
         {
@@ -111,6 +118,12 @@ namespace Dhs5.SceneCreation
 
             complexSceneVars.SetUp(this);
             complexSceneVars.SetForbiddenUID(0);
+
+            CleanBalancingSheets();
+        }
+        public void OnEditorEnable()
+        {
+            CleanBalancingSheets();
         }
 
         private void ActuSceneVarLinks()
@@ -235,6 +248,70 @@ namespace Dhs5.SceneCreation
             }
             return sceneVars;
         }
+        #endregion
+
+        #region Balancing Sheets
+        [SerializeField] private List<SceneBalancingSheetSO> sceneBalancingSheets;
+
+        readonly string baseName = "BalancingSheet";
+
+#if UNITY_EDITOR
+        public void CreateNewBalancingSheet()
+        {
+            string path = AssetDatabase.GetAssetPath(this);
+            path = path.Substring(0, path.LastIndexOf('/') + 1) + this.name + " BalancingSheets/";
+
+            SceneBalancingSheetSO balancingSheet = ScriptableObject.CreateInstance<SceneBalancingSheetSO>();
+            balancingSheet.sceneVariablesSO = this;
+            sceneBalancingSheets.Add(balancingSheet);
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            AssetDatabase.CreateAsset(balancingSheet, path + GetUniqueName(path) + ".asset");
+        }
+
+        private void CleanBalancingSheets()
+        {
+            //sceneBalancingSheets.RemoveAll(null);
+            foreach (var sheet in new List<SceneBalancingSheetSO>(sceneBalancingSheets))
+            {
+                if (sheet == null)
+                {
+                    sceneBalancingSheets.Remove(sheet);
+                }
+                if (sheet.sceneVariablesSO != this) sheet.sceneVariablesSO = this;
+            }
+        }
+
+        private string GetUniqueName(string path)
+        {
+            List<string> names = new();
+            string current;
+
+            foreach (var name in Directory.GetFiles(path))
+            {
+                current = name.Remove(0, name.LastIndexOf('/') + 1);
+                current = current.Substring(0, current.LastIndexOf('.'));
+                names.Add(current);
+            }
+
+            if (names.Count < 1)
+            {
+                return baseName + "1";
+            }
+
+            int index = 1;
+
+            while (names.Contains(baseName + index))
+            {
+                index++;
+            }
+            return baseName + index;
+        }
+#endif
         #endregion
     }
 }
