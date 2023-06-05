@@ -17,24 +17,41 @@ namespace Dhs5.SceneCreation
         {
             sceneBalancingSheetSO = target as SceneBalancingSheetSO;
 
+            if (sceneBalancingSheetSO.sceneVariablesSO == null) return;
+
             sceneBalancingSheetSO.ApplyTemplate();
 
             CreateReorderableList("balancingVars", sceneBalancingSheetSO.balancingVars, "Scene Variables overrides");
         }
 
+        bool sceneVarNull = false;
         public override void OnInspectorGUI()
         {
             //base.OnInspectorGUI();
+            sceneVarNull = sceneBalancingSheetSO.sceneVariablesSO == null;
 
             EditorGUILayout.BeginVertical();
-            
-            EditorGUI.BeginDisabledGroup(true);
+
+            if (sceneVarNull)
+            {
+                EditorGUILayout.LabelField("Can't find the corresponding SceneVariablesSO !");
+                EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 0.5f);
+            }
+
+            EditorGUI.BeginDisabledGroup(!sceneVarNull);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVariablesSO"));
             EditorGUI.EndDisabledGroup();
 
+            if (sceneVarNull)
+            {
+                EditorGUILayout.EndVertical();
+                serializedObject.ApplyModifiedProperties();
+                return;
+            }
+
             EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 1.5f);
 
-            list.DoLayoutList();
+            list?.DoLayoutList();
             
             EditorGUILayout.EndVertical();
 

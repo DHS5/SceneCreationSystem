@@ -251,7 +251,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Balancing Sheets
-        [SerializeField] private List<SceneBalancingSheetSO> sceneBalancingSheets;
+        public List<SceneBalancingSheetSO> sceneBalancingSheets;
 
         readonly string baseName = "BalancingSheet";
 
@@ -275,7 +275,7 @@ namespace Dhs5.SceneCreation
 
         private void CleanBalancingSheets()
         {
-            //sceneBalancingSheets.RemoveAll(null);
+            if (sceneBalancingSheets == null || sceneBalancingSheets.Count == 0) return;
             foreach (var sheet in new List<SceneBalancingSheetSO>(sceneBalancingSheets))
             {
                 if (sheet == null)
