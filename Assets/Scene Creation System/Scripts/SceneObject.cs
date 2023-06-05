@@ -48,6 +48,7 @@ namespace Dhs5.SceneCreation
         private void Awake()
         {
             sceneEvents.Init();
+            UpdateBelongings();
         }
 
         private void OnValidate()
@@ -59,6 +60,11 @@ namespace Dhs5.SceneCreation
         {
             sceneListeners.SetUp(sceneVariablesSO);
             sceneEvents.SetUp(sceneVariablesSO);
+        }
+        protected virtual void UpdateBelongings()
+        {
+            sceneListeners.BelongTo(this);
+            sceneEvents.BelongTo(this);
         }
 
         #endregion

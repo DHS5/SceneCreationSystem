@@ -67,6 +67,7 @@ namespace Dhs5.SceneCreation
         private static Dictionary<int, SceneVar> SceneVariables = new();
         private static Dictionary<int, ComplexSceneVar> ComplexSceneVariables = new();
         private static Dictionary<int, List<int>> SceneVarLinks = new();
+        private static Dictionary<int, object> FormerValues = new();
 
         #region Private Utility functions
         private static void Clear()
@@ -84,25 +85,37 @@ namespace Dhs5.SceneCreation
             SceneVar link = GetSceneVar(variable.uniqueID);
             ComplexSceneVariables[variable.uniqueID] = new(variable);
         }
-        private static void ChangedVar(int varUniqueID)
+
+        private static void SaveFormerValues()
+        {
+            if (SceneVariables == null) return;
+
+            FormerValues.Clear();
+            foreach (var pair in SceneVariables)
+            {
+                FormerValues[pair.Key] = pair.Value.Value;
+            }
+        }
+
+        private static void ChangedVar(int varUniqueID, SceneObject sender)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
-                SceneEventManager.TriggerEvent(varUniqueID, new SceneVar(SceneVariables[varUniqueID]));
+                SceneEventManager.TriggerEvent(varUniqueID, new(SceneVariables[varUniqueID], FormerValues[varUniqueID], sender));
             }
             if (SceneVarLinks.ContainsKey(varUniqueID))
             {
                 foreach (var complexUID in SceneVarLinks[varUniqueID])
                 {
-                    ChangedComplexVar(complexUID);
+                    ChangedComplexVar(complexUID, sender);
                 }
             }
         }
-        private static void ChangedComplexVar(int complexUID)
+        private static void ChangedComplexVar(int complexUID, SceneObject sender)
         {
             if (ComplexSceneVariables.ContainsKey(complexUID))
             {
-                SceneEventManager.TriggerEvent(complexUID, new SceneVar(SceneVariables[complexUID]));
+                SceneEventManager.TriggerEvent(complexUID, new(SceneVariables[complexUID], FormerValues[complexUID], sender));
             }
         }
         #endregion
@@ -200,29 +213,29 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Public setters
-        public static void SetSceneVars(SceneVariablesSO sceneVariablesSO)
+        public static void SetSceneVars(SceneVariablesSO sceneVariablesSO, int balancingIndex = 0)
         {
             Clear();
             if (sceneVariablesSO == null) return;
-            List<SceneVar> sceneVars = new(sceneVariablesSO.SceneVars);
+            List<SceneVar> sceneVars = new(sceneVariablesSO.BalancedSceneVars(balancingIndex));
             List<ComplexSceneVar> complexSceneVars = new(sceneVariablesSO.complexSceneVars);
             SetSceneVars(sceneVars);
             SetComplexSceneVars(complexSceneVars);
             SetSceneLinks();
         }
-        public static void SetSceneVars(List<SceneVar> sceneVars)
+        private static void SetSceneVars(List<SceneVar> sceneVars)
         {
             foreach (SceneVar sceneVar in sceneVars)
                 AddVar(sceneVar);
         }
-        public static void SetComplexSceneVars(List<ComplexSceneVar> complexSceneVars)
+        private static void SetComplexSceneVars(List<ComplexSceneVar> complexSceneVars)
         {
             foreach (ComplexSceneVar var in complexSceneVars)
             {
                 AddComplexVar(var);
             }
         }
-        public static void SetSceneLinks()
+        private static void SetSceneLinks()
         {
             foreach (var pair in ComplexSceneVariables)
             {
@@ -237,13 +250,14 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        public static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param = false)
+        public static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
                 SceneVar var = SceneVariables[varUniqueID];
                 if (var.type == SceneVarType.BOOL && !var.IsStatic && !var.IsLink)
                 {
+                    SaveFormerValues();
                     switch (op)
                     {
                         case BoolOperation.SET:
@@ -257,7 +271,7 @@ namespace Dhs5.SceneCreation
                             SceneVariables[varUniqueID].BoolValue = param;
                             break;
                     }
-                    ChangedVar(varUniqueID);
+                    ChangedVar(varUniqueID, sender);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.BOOL);
@@ -265,13 +279,14 @@ namespace Dhs5.SceneCreation
             }
             IncorrectID(varUniqueID);
         }
-        public static void ModifyIntVar(int varUniqueID, IntOperation op, int param)
+        public static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
                 SceneVar var = SceneVariables[varUniqueID];
                 if (var.type == SceneVarType.INT && !var.IsStatic && !var.IsLink && !var.IsRandom)
                 {
+                    SaveFormerValues();
                     switch (op)
                     {
                         case IntOperation.SET:
@@ -304,7 +319,7 @@ namespace Dhs5.SceneCreation
                             var.hasMax ? var.maxInt : Mathf.Infinity);
                     }
 
-                    ChangedVar(varUniqueID);
+                    ChangedVar(varUniqueID, sender);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.INT);
@@ -312,13 +327,14 @@ namespace Dhs5.SceneCreation
             }
             IncorrectID(varUniqueID);
         }
-        public static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param)
+        public static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
                 SceneVar var = SceneVariables[varUniqueID];
                 if (var.type == SceneVarType.FLOAT && !var.IsStatic && !var.IsLink && !var.IsRandom)
                 {
+                    SaveFormerValues();
                     switch (op)
                     {
                         case FloatOperation.SET:
@@ -351,7 +367,7 @@ namespace Dhs5.SceneCreation
                             var.hasMax ? var.maxFloat : Mathf.Infinity);
                     }
 
-                    ChangedVar(varUniqueID);
+                    ChangedVar(varUniqueID, sender);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.FLOAT);
@@ -359,13 +375,14 @@ namespace Dhs5.SceneCreation
             }
             IncorrectID(varUniqueID);
         }
-        public static void ModifyStringVar(int varUniqueID, StringOperation op, string param)
+        public static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
                 SceneVar var = SceneVariables[varUniqueID];
                 if (var.type == SceneVarType.STRING && !var.IsStatic && !var.IsLink)
                 {
+                    SaveFormerValues();
                     switch (op)
                     {
                         case StringOperation.SET:
@@ -382,7 +399,7 @@ namespace Dhs5.SceneCreation
                             SceneVariables[varUniqueID].StringValue = param;
                             break;
                     }
-                    ChangedVar(varUniqueID);
+                    ChangedVar(varUniqueID, sender);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.STRING);
@@ -390,14 +407,15 @@ namespace Dhs5.SceneCreation
             }
             IncorrectID(varUniqueID);
         }
-        public static void TriggerEventVar(int varUniqueID)
+        public static void TriggerEventVar(int varUniqueID, SceneObject sender)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
                 SceneVar var = SceneVariables[varUniqueID];
                 if (var.type == SceneVarType.EVENT)
                 {
-                    ChangedVar(varUniqueID);
+                    SaveFormerValues();
+                    ChangedVar(varUniqueID, sender);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.EVENT);
@@ -527,6 +545,23 @@ namespace Dhs5.SceneCreation
             foreach (var setupable in setupables)
             {
                 setupable.SetUp(sceneVariablesSO, type);
+            }
+        }
+        #endregion
+        
+        #region Belongs
+        public interface ISceneObjectBelongable
+        {
+            public void BelongTo(SceneObject _sceneObject);
+        }
+        
+        public static void BelongTo<T>(this List<T> belongables, SceneObject sceneObject) where T : ISceneObjectBelongable
+        {
+            if (belongables == null || belongables.Count < 1) return;
+
+            foreach (var belongable in belongables)
+            {
+                belongable.BelongTo(sceneObject);
             }
         }
         #endregion
@@ -777,24 +812,6 @@ namespace Dhs5.SceneCreation
             foreach (var action in sceneEvents)
             {
                 action.Init();
-            }
-        }
-        #endregion
-        
-        #region Trigger a list of SceneTimelineEvents (Extension Method)
-        /// <summary>
-        /// Trigger every SceneTimelineEvent in the list
-        /// (Trigger all if ID == null)
-        /// </summary>
-        /// <param name="sceneTEvents"></param>
-        /// <param name="timelineID">timelineID of the SceneTimelineEvents to trigger</param>
-        public static void Trigger(this List<SceneTimelineEvent> sceneTEvents, string timelineID, int step)
-        {
-            if (sceneTEvents == null || sceneTEvents.Count < 1) return;
-            
-            foreach (var sceneEvent in sceneTEvents)
-            {
-                sceneEvent.Trigger(timelineID, step);
             }
         }
         #endregion

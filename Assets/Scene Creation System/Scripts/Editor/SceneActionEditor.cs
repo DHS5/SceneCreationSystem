@@ -19,15 +19,17 @@ namespace Dhs5.SceneCreation
         //int sceneVarIndex2 = 0;
 
         GUIContent empty = new GUIContent("");
-        GUIStyle style = new GUIStyle(GUI.skin.label) 
-        { 
-            alignment = TextAnchor.MiddleCenter ,
-            fontStyle = FontStyle.Bold
-        };
+        GUIStyle style;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             string operationDescription = "";
+
+            style = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontStyle = FontStyle.Bold
+            };
 
             sceneVarIndex1 = 0;
             //sceneVarIndex2 = 0;

@@ -59,7 +59,7 @@ MonoBehaviour:
     hasMin: 1
     hasMax: 1
     minInt: 0
-    maxInt: 1
+    maxInt: 57
     minFloat: 0
     maxFloat: 0
     isStatic: 0

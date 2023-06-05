@@ -7,7 +7,7 @@ using System;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneEvent : SceneState.ISceneVarSetupable
+    public class SceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
         public string eventID;
         [Space(5)]
@@ -46,6 +46,11 @@ namespace Dhs5.SceneCreation
             sceneConditions.SetUp(_sceneVariablesSO);
             sceneActions.SetUp(_sceneVariablesSO);
             sceneParameteredEvents.SetUp(_sceneVariablesSO);
+        }
+        public void BelongTo(SceneObject _sceneObject)
+        {
+            sceneActions.BelongTo(_sceneObject);
+            sceneParameteredEvents.BelongTo(_sceneObject);
         }
 
         private void DebugSceneEvent()

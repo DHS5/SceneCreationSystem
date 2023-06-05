@@ -312,6 +312,19 @@ namespace Dhs5.SceneCreation
             return baseName + index;
         }
 #endif
+        public List<SceneVar> BalancedSceneVars(int balancingIndex)
+        {
+            List<SceneVar> vars;
+
+            if (sceneBalancingSheets == null || sceneBalancingSheets.Count == 0) vars = sceneVars;
+            else
+            {
+                if (balancingIndex <= 0 || balancingIndex > sceneBalancingSheets.Count) vars = sceneVars;
+                else vars = sceneBalancingSheets[balancingIndex - 1].SceneVars;
+            }
+
+            return sceneVarLinks != null ? vars.Concat(sceneVarLinks).ToList() : vars;
+        }
         #endregion
     }
 }

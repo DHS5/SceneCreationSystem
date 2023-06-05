@@ -57,7 +57,7 @@ MonoBehaviour:
     hasMin: 1
     hasMax: 1
     minInt: 0
-    maxInt: 1
+    maxInt: 8
     minFloat: 0
     maxFloat: 0
     isStatic: 0
@@ -303,7 +303,6 @@ MonoBehaviour:
         intValue: 3
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 1832
         propertyHeight: 0
       op: 2
@@ -319,7 +318,6 @@ MonoBehaviour:
         intValue: 3
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 1832
         propertyHeight: 0
       op: 0
@@ -361,7 +359,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 3267
         propertyHeight: 0
       op: 1
@@ -377,7 +374,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 3267
         propertyHeight: 0
       op: 0
@@ -419,7 +415,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 9762
         propertyHeight: 0
       op: 0
@@ -435,7 +430,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 9762
         propertyHeight: 0
       op: 1
@@ -451,7 +445,6 @@ MonoBehaviour:
         intValue: 2
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 9762
         propertyHeight: 0
       op: 0
@@ -493,7 +486,6 @@ MonoBehaviour:
         intValue: 39
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 6670
         propertyHeight: 0
       var2Type: 1
@@ -515,7 +507,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 6670
         propertyHeight: 0
       op: 0
@@ -531,7 +522,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 6670
         propertyHeight: 0
       op: 1
@@ -547,7 +537,6 @@ MonoBehaviour:
         intValue: 2
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 6670
         propertyHeight: 0
       op: 0
@@ -589,7 +578,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 3055
         propertyHeight: 0
       var2Type: 0
@@ -611,7 +599,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 3055
         propertyHeight: 0
       op: 0
@@ -627,7 +614,6 @@ MonoBehaviour:
         intValue: 0
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 3055
         propertyHeight: 0
       op: 1
@@ -643,7 +629,6 @@ MonoBehaviour:
         intValue: 2
         floatValue: 0
         stringValue: 
-        boolType: 0
         forbiddenUID: 3055
         propertyHeight: 0
       op: 0

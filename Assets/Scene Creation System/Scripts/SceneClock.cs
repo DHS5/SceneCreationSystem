@@ -25,11 +25,6 @@ namespace Dhs5.SceneCreation
 
         #endregion
 
-        private void Start()
-        {
-            StartTimeline("Timeline1");
-        }
-
         [Header("Timelines")]
         public List<SceneTimeline> sceneTimelines;
 
@@ -40,32 +35,25 @@ namespace Dhs5.SceneCreation
 
             sceneTimelines.SetUp(sceneVariablesSO);
         }
+        protected override void UpdateBelongings()
+        {
+            base.UpdateBelongings();
+
+            sceneTimelines.BelongTo(this);
+        }
         #endregion
 
         #region Listener functions
-        public void StartTimeline(TimelineEventParam param)
-        {
-            StartTimeline(param.GetParamTimelineID, param.GetParamTimelineStep);
-        }
         [Preserve]
         public void StartTimeline(string timelineID, int step)
         {
             sceneTimelines.Find(t => t.ID == timelineID)?.Start(step);
         }
         public void StartTimeline(string timelineID) { StartTimeline(timelineID, 0); }
-        public void StopTimeline(TimelineEventParam param)
-        {
-            StopTimeline(param.GetParamTimelineID);
-        }
         [Preserve]
         public void StopTimeline(string timelineID)
         {
             sceneTimelines.Find(t => t.ID == timelineID)?.Stop();
-        }
-        public void GoToStep(TimelineEventParam param)
-        {
-            sceneTimelines.Find(t => t.ID == param.GetParamTimelineID)?.
-                StartOrGoTo(param.GetParamTimelineStep, param.interrupt);
         }
         [Preserve]
         public void GoToStep(string timelineID, int step, bool interrupt)
@@ -73,46 +61,5 @@ namespace Dhs5.SceneCreation
             sceneTimelines.Find(t => t.ID == timelineID)?.StartOrGoTo(step, interrupt);
         }
         #endregion
-        
-        #region Debug
-        public void DebugTest(TimelineEventParam param)
-        {
-            Debug.LogError(param.SenderTimelineID + " in step " + param.SenderTimelineStep + " sent event : " + param.GetParamTimelineID + ", step : " + param.GetParamTimelineStep + ", time : " + Time.time);
-        }
-        #endregion
     }
-
-    #region Timeline Event Param
-    [Serializable]
-    public struct TimelineEventParam
-    {
-        public TimelineEventParam Send(string ID, int step)
-        {
-            SenderTimelineID = ID;
-            SenderTimelineStep = step;
-            return this;
-        }
-        
-        public string SenderTimelineID { get; private set; }
-        public int SenderTimelineStep { get; private set; }
-        
-        [Tooltip("Leave blank to call parent timeline")]
-        public string timelineID;
-        [Tooltip("Set to -1 to call own step number")]
-        public int timelineStep;
-        [Tooltip("Whether a GoTo will interrupt the current action or wait")]
-        public bool interrupt;
-
-        public string GetParamTimelineID
-        {
-            get => String.IsNullOrWhiteSpace(timelineID) ? SenderTimelineID : timelineID;
-        }
-
-        public int GetParamTimelineStep
-        {
-            get => timelineStep == -1 ? SenderTimelineStep : timelineStep;
-        }
-    }
-    
-    #endregion
 }

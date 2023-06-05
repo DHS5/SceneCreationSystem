@@ -9,8 +9,16 @@ namespace Dhs5.SceneCreation
     {
         protected virtual void Start()
         {
-            SceneState.SetSceneVars(sceneVariablesSO);
+            SetSceneVars();
         }
+
+        #region SceneVars & SceneState Setup
+        public static int BalancingIndex { get; set; } = 0;
+        protected void SetSceneVars()
+        {
+            SceneState.SetSceneVars(sceneVariablesSO, BalancingIndex);
+        }
+        #endregion
 
         #region SceneClock Actions
         [Preserve]

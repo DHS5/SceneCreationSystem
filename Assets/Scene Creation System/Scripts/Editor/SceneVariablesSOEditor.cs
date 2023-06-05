@@ -25,6 +25,7 @@ namespace Dhs5.SceneCreation
         public override void OnInspectorGUI()
         {
             //base.OnInspectorGUI();
+            serializedObject.Update();
             EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVars"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("complexSceneVars"));
 

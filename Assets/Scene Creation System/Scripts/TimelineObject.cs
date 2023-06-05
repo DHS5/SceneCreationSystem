@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace Dhs5.SceneCreation
 {    
     [Serializable]
-    public class TimelineObject : SceneState.ISceneVarSetupable
+    public class TimelineObject : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
         public string TimelineID { get; private set; }
         public int StepNumber { get; private set; }
@@ -18,7 +18,6 @@ namespace Dhs5.SceneCreation
         
         // Action
         public List<SceneEvent> sceneEvents;
-        public List<SceneTimelineEvent> sceneTimelineEvents;
 
         private IEnumerator startConditionCR;
         private bool executing;
@@ -27,12 +26,15 @@ namespace Dhs5.SceneCreation
         public void SetUp(SceneVariablesSO sceneVariablesSO)
         {
             sceneEvents.SetUp(sceneVariablesSO);
-            sceneTimelineEvents.SetUp(sceneVariablesSO);
             
             startCondition.SetUp(sceneVariablesSO);
             endLoopCondition.SetUp(sceneVariablesSO);
         }
-        
+        public void BelongTo(SceneObject _sceneObject)
+        {
+            sceneEvents.BelongTo(_sceneObject);
+        }
+
         public IEnumerator Process(SceneTimeline sceneTimeline, int step)
         {
             TimelineID = sceneTimeline.ID;
@@ -61,8 +63,6 @@ namespace Dhs5.SceneCreation
         private void Trigger()
         {
             sceneEvents.Trigger();
-            
-            sceneTimelineEvents.Trigger(TimelineID, StepNumber);
         }
 
         #region Utility

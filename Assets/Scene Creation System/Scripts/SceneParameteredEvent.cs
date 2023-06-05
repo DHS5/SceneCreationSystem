@@ -6,7 +6,7 @@ using System;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneParameteredEvent : SceneState.ISceneVarSetupable
+    public class SceneParameteredEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
 
@@ -17,6 +17,14 @@ namespace Dhs5.SceneCreation
             varTween2.SetUp(sceneVariablesSO, varType2, true);
             varTween3.SetUp(sceneVariablesSO, varType3, true);
             varTween4.SetUp(sceneVariablesSO, varType4, true);
+        }
+        public void BelongTo(SceneObject _sceneObject)
+        {
+            varTween0.BelongTo(_sceneObject);
+            varTween1.BelongTo(_sceneObject);
+            varTween2.BelongTo(_sceneObject);
+            varTween3.BelongTo(_sceneObject);
+            varTween4.BelongTo(_sceneObject);
         }
 
         public BaseEventAction action;

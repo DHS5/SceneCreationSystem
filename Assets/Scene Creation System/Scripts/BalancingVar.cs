@@ -27,7 +27,6 @@ namespace Dhs5.SceneCreation
         }
 
         public bool overrideVar;
-        //public SceneVar sceneVar;
 
         public int uniqueID = 0;
 

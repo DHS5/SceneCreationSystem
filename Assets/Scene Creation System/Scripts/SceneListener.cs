@@ -7,9 +7,10 @@ using System;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneListener : SceneState.ISceneVarSetupable
+    public class SceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
         public SceneVariablesSO sceneVariablesSO;
+        private SceneObject sceneObject;
 
         // SceneVar selection
         [SerializeField] private int varUniqueID;
@@ -24,7 +25,7 @@ namespace Dhs5.SceneCreation
 
         public List<SceneCondition> conditions;
         
-        public UnityEvent<SceneVar> events;
+        public UnityEvent<SceneEventParam> events;
 
         public bool debug = false;
         public float propertyHeight;
@@ -38,11 +39,11 @@ namespace Dhs5.SceneCreation
         {
             SceneEventManager.StopListening(varUniqueID, OnListenerEvent);
         }
-        private void OnListenerEvent(SceneVar var)
+        private void OnListenerEvent(SceneEventParam param)
         {
             if (VerifyConditions())
             {
-                events.Invoke(var);
+                events.Invoke(param);
                 if (debug)
                     Debug.LogError("Received event : " + CurrentSceneVar.ToString());
             }
@@ -55,6 +56,10 @@ namespace Dhs5.SceneCreation
             sceneVariablesSO = _sceneVariablesSO;
 
             conditions.SetUp(sceneVariablesSO);
+        }
+        public void BelongTo(SceneObject _sceneObject)
+        {
+            sceneObject = _sceneObject;
         }
 
         public bool VerifyConditions()

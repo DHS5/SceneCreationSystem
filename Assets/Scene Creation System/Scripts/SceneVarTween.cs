@@ -8,17 +8,11 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public class SceneVarTween : SceneState.ISceneVarDependant
     {
-        [Serializable]
-        public enum BoolType
-        {
-            VAR = 0,
-            CONDITION = 1,
-        }
-
         [SerializeField] private SceneVarType type;
         public SceneVarType Type => type;
 
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
+        private SceneObject sceneObject;
 
         [SerializeField] private int sceneVarUniqueID;
 
@@ -31,12 +25,11 @@ namespace Dhs5.SceneCreation
         [SerializeField] private float floatValue;
         [SerializeField] private string stringValue;
 
-        [SerializeField] private BoolType boolType;
-        //[SerializeField] private List<SceneCondition> sceneConditions;
-
         [SerializeField] private int forbiddenUID;
 
         [SerializeField] private float propertyHeight;
+
+        private bool IsStatic => canBeStatic && isStatic;
 
         private SceneVar SceneVar
         {
@@ -49,10 +42,13 @@ namespace Dhs5.SceneCreation
             sceneVariablesSO = _sceneVariablesSO;
             type = _type;
             if (type != SceneVarType.EVENT) canBeStatic = _canBeStatic;
-            //if (type == SceneVarType.BOOL) sceneConditions.SetUp(sceneVariablesSO);
+        }
+        public void BelongTo(SceneObject _sceneObject)
+        {
+            sceneObject = _sceneObject;
         }
 
-        private bool IsStatic => canBeStatic && isStatic;
+        #region Values
         public object Value
         {
             get
@@ -72,17 +68,11 @@ namespace Dhs5.SceneCreation
             get
             {
                 if (IsStatic) return boolValue;
-                //if (boolType == BoolType.CONDITION) return sceneConditions.VerifyConditions();
                 if (SceneVar.type != SceneVarType.BOOL) IncorrectType(SceneVarType.BOOL);
                 return SceneVar.BoolValue;
             }
             set
             {
-                if (boolType == BoolType.CONDITION)
-                {
-                    CantSetCondition();
-                    return;
-                }
                 if (SceneVar.type != SceneVarType.BOOL)
                 {
                     IncorrectType(SceneVarType.BOOL);
@@ -93,7 +83,7 @@ namespace Dhs5.SceneCreation
                     boolValue = value;
                     return;
                 }
-                SceneState.ModifyBoolVar(sceneVarUniqueID, BoolOperation.SET, value);
+                SceneState.ModifyBoolVar(sceneVarUniqueID, BoolOperation.SET, value, sceneObject);
             }
         }
         public int IntValue
@@ -117,7 +107,7 @@ namespace Dhs5.SceneCreation
                     intValue = value;
                     return;
                 }
-                SceneState.ModifyIntVar(sceneVarUniqueID, IntOperation.SET, value);
+                SceneState.ModifyIntVar(sceneVarUniqueID, IntOperation.SET, value, sceneObject);
             }
         }
         public float FloatValue
@@ -141,7 +131,7 @@ namespace Dhs5.SceneCreation
                     floatValue = value;
                     return;
                 }
-                SceneState.ModifyFloatVar(sceneVarUniqueID, FloatOperation.SET, value);
+                SceneState.ModifyFloatVar(sceneVarUniqueID, FloatOperation.SET, value, sceneObject);
             }
         }
         public string StringValue
@@ -164,7 +154,7 @@ namespace Dhs5.SceneCreation
                     stringValue = value;
                     return;
                 }
-                SceneState.ModifyStringVar(sceneVarUniqueID, StringOperation.SET, value);
+                SceneState.ModifyStringVar(sceneVarUniqueID, StringOperation.SET, value, sceneObject);
             }
         }
         public void Trigger()
@@ -174,8 +164,11 @@ namespace Dhs5.SceneCreation
                 IncorrectType(SceneVarType.EVENT);
                 return;
             }
-            SceneState.TriggerEventVar(sceneVarUniqueID);
+            SceneState.TriggerEventVar(sceneVarUniqueID, sceneObject);
         }
+        #endregion
+
+        #region Dependencies
 
         public List<int> Dependencies
         {
@@ -214,15 +207,11 @@ namespace Dhs5.SceneCreation
             }
             return false;
         }
-
+        #endregion
 
         private void IncorrectType(SceneVarType type)
         {
             Debug.LogError("This SceneVarTween is a " + SceneVar.type + " and not a " + type);
-        }
-        private void CantSetCondition()
-        {
-            Debug.LogError("This SceneVarTween is a SCENE CONDITION and can't be set");
         }
     }
 }

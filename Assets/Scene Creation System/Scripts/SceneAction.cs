@@ -6,15 +6,13 @@ using System;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneAction : SceneState.ISceneVarSetupable
+    public class SceneAction : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
         public SceneVariablesSO sceneVariablesSO;
+        private SceneObject sceneObject;
 
         [SerializeField] private int var1UniqueID;
-        [SerializeField] private int var2UniqueID;
-
         public SceneVar SceneVar1 { get => SceneState.GetSceneVar(var1UniqueID); }
-        //public SceneVar SceneVar2 { get => SceneState.GetSceneVar(var2UniqueID); }
 
         [SerializeField] private SceneVarTween SceneVar2;
         [SerializeField] private SceneVarType var2Type;
@@ -34,6 +32,10 @@ namespace Dhs5.SceneCreation
 
             SceneVar2.SetUp(sceneVariablesSO, var2Type, true);
         }
+        public void BelongTo(SceneObject _sceneObject)
+        {
+            sceneObject = _sceneObject;
+        }
         
         public void Trigger()
         {
@@ -46,19 +48,19 @@ namespace Dhs5.SceneCreation
             switch (SceneVar1.type)
             {
                 case SceneVarType.BOOL:
-                    SceneState.ModifyBoolVar(var1UniqueID, boolOP, SceneVar2.BoolValue);// SceneState.CastToBool(SceneVar2));
+                    SceneState.ModifyBoolVar(var1UniqueID, boolOP, SceneVar2.BoolValue, sceneObject);
                     break;
                 case SceneVarType.INT:
-                    SceneState.ModifyIntVar(var1UniqueID, intOP, SceneVar2.IntValue);// SceneState.CastToInt(SceneVar2));
+                    SceneState.ModifyIntVar(var1UniqueID, intOP, SceneVar2.IntValue, sceneObject);
                     break;
                 case SceneVarType.FLOAT:
-                    SceneState.ModifyFloatVar(var1UniqueID, floatOP, SceneVar2.FloatValue);// SceneState.CastToFloat(SceneVar2));
+                    SceneState.ModifyFloatVar(var1UniqueID, floatOP, SceneVar2.FloatValue, sceneObject);
                     break;
                 case SceneVarType.STRING:
-                    SceneState.ModifyStringVar(var1UniqueID, stringOP, SceneVar2.StringValue);// SceneState.CastToString(SceneVar2));
+                    SceneState.ModifyStringVar(var1UniqueID, stringOP, SceneVar2.StringValue, sceneObject);
                     break;
                 case SceneVarType.EVENT:
-                    SceneState.TriggerEventVar(var1UniqueID);
+                    SceneState.TriggerEventVar(var1UniqueID, sceneObject);
                     break;
 
                 default:
