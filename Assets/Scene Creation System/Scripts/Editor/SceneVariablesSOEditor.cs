@@ -31,11 +31,11 @@ namespace Dhs5.SceneCreation
 
             EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 1.5f);
 
-            if (GUILayout.Button("Create Balancing Sheet"))
-            {
-                sceneVariablesSO.CreateNewBalancingSheet();
-                CreateBalancingSheetList("sceneBalancingSheets", "Balancing Sheets");
-            }
+            //if (GUILayout.Button("Create Balancing Sheet"))
+            //{
+            //    sceneVariablesSO.CreateNewBalancingSheet();
+            //    CreateBalancingSheetList("sceneBalancingSheets", "Balancing Sheets");
+            //}
 
             list.DoLayoutList();
 
@@ -49,7 +49,7 @@ namespace Dhs5.SceneCreation
             serializedObject.Update();
             SerializedProperty textList = serializedObject.FindProperty(listPropertyName);
 
-            list = new ReorderableList(serializedObject, textList, true, true, false, false)
+            list = new ReorderableList(serializedObject, textList, true, true, true, false)
             {
                 drawHeaderCallback = rect =>
                 {
@@ -62,9 +62,14 @@ namespace Dhs5.SceneCreation
 
                     EditorGUI.indentLevel++;
                     EditorGUI.BeginDisabledGroup(true);
-                    EditorGUI.PropertyField(rect, element, new GUIContent("Balancing Sheet " + index), true);
+                    EditorGUI.PropertyField(rect, element, new GUIContent("Sheet " + (index + 1)), true);
                     EditorGUI.EndDisabledGroup();
                     EditorGUI.indentLevel--;
+                },
+
+                onAddCallback = rect =>
+                {
+                    sceneVariablesSO.CreateNewBalancingSheet();
                 },
 
                 elementHeight = EditorGUIUtility.singleLineHeight

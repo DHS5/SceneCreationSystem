@@ -250,6 +250,17 @@ namespace Dhs5.SceneCreation
             }
         }
 
+        public static void ActuBalancing(SceneVariablesSO sceneVariablesSO, int balancingIndex)
+        {
+            foreach (var var in new List<SceneVar>(sceneVariablesSO.BalancedSceneVars(balancingIndex)))
+            {
+                if (var.IsStatic || var.IsRandom)
+                {
+                    SceneVariables[var.uniqueID] = var;
+                }
+            }
+        }
+
         public static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
