@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -469,7 +469,7 @@ PrefabInstance:
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].obj
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1192182892}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneActions.Array.data[0].sceneVariablesSO
       value: 
@@ -481,7 +481,7 @@ PrefabInstance:
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].component
       value: 
-      objectReference: {fileID: 1192182892}
+      objectReference: {fileID: 1192182893}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneListeners.Array.data[0].events.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -500,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].propertyHeight
-      value: 53.100002
+      value: 57.600002
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneActions.Array.data[0].SceneVar2.sceneVarUniqueID
@@ -561,23 +561,23 @@ PrefabInstance:
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween0.sceneVariablesSO
       value: 
-      objectReference: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween1.sceneVariablesSO
       value: 
-      objectReference: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween2.sceneVariablesSO
       value: 
-      objectReference: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween3.sceneVariablesSO
       value: 
-      objectReference: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween4.sceneVariablesSO
       value: 
-      objectReference: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneListeners.Array.data[0].events.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Test, Assembly-CSharp
@@ -639,11 +639,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
---- !u!4 &1192182892 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6552741795067239266, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
+--- !u!1 &1192182892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6447064889421450952, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
   m_PrefabInstance: {fileID: 1192182891}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1192182893 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
+  m_PrefabInstance: {fileID: 1192182891}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192182892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec5b20e55ba52d46b3a4dccdb23d815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1198601241
 PrefabInstance:
   m_ObjectHideFlags: 0
