@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ab7d16c238e2140b0c6b3d4a448634, type: 3}
+  m_Name: BalancingSheet1
+  m_EditorClassIdentifier: 
+  sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+  balancingVars:
+  - overrideVar: 0
+    uniqueID: 2348
+    ID: Var Bool 1
+    type: 0
+    boolValue: 1
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 8456
+    ID: Var Bool 2
+    type: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 4877
+    ID: Var Int 1
+    type: 1
+    boolValue: 0
+    intValue: 5
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 6682
+    ID: Var Float 1
+    type: 2
+    boolValue: 0
+    intValue: 0
+    floatValue: 4.35
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 1031
+    ID: Var String 1
+    type: 3
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: Hello
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 9449
+    ID: Var String 2
+    type: 3
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: World
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 1
+    isRandom: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 5271
+    ID: Var Event 1
+    type: 4
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 8260
+    ID: Var Event 2
+    type: 4
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    propertyHeight: 18

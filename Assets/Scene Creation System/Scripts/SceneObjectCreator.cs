@@ -13,6 +13,7 @@ namespace Dhs5.SceneCreation
         {
             GameObject go = (GameObject)AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
             GameObject obj = PrefabUtility.InstantiatePrefab(go, Selection.activeTransform) as GameObject;
+            PrefabUtility.UnpackPrefabInstance(obj, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             Selection.activeGameObject = obj;
         }
 

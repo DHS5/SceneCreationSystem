@@ -758,7 +758,7 @@ namespace Dhs5.SceneCreation
         
         #region Trigger a list of SceneEvents (Extension Method)
         /// <summary>
-        /// Trigger every SceneEvent which eventID == ID in the list
+        /// Trigger every SceneEvent which eventID == ID in the list<br></br>
         /// (Trigger all if ID == null)
         /// </summary>
         /// <param name="sceneEvents"></param>

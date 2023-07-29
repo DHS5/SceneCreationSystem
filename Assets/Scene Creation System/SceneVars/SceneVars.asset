@@ -561,7 +561,7 @@ MonoBehaviour:
       isRandom: 0
       isLink: 1
       propertyHeight: 0
-    propertyHeight: 0
+    propertyHeight: 70.200005
   - uniqueID: 3055
     ID: Condition2
     type: 0
