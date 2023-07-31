@@ -179,7 +179,7 @@ MonoBehaviour:
     maxInt: 0
     minFloat: 0
     maxFloat: 0
-    isStatic: 1
+    isStatic: 0
     isRandom: 0
     isLink: 0
     propertyHeight: 0
@@ -588,6 +588,8 @@ MonoBehaviour:
       isRandom: 0
       isLink: 1
       propertyHeight: 0
-    propertyHeight: 187.20001
+    propertyHeight: 0
   sceneBalancingSheets:
   - {fileID: 11400000, guid: eb73dcf0b1035b4439276db635b25e7f, type: 2}
+  - {fileID: 11400000, guid: 66dd2eb36d7ada0489ae159f009c2f50, type: 2}
+  - {fileID: 11400000, guid: 06839f8904fa64b4c9180055c429420e, type: 2}

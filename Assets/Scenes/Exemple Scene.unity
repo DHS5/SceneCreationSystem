@@ -215,8 +215,88 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1219402603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1219402605}
+  - component: {fileID: 1219402604}
+  m_Layer: 0
+  m_Name: Example Scene Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1219402604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219402603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d0c1dd9013f1545af0f950197129ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+  sceneListeners:
+  - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+    varUniqueID: 2348
+    hasCondition: 0
+    conditions: []
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    debug: 0
+    propertyHeight: 145.40001
+  sceneEvents: []
+  spawnFrequency:
+    type: 2
+    sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+    sceneVarUniqueID: 4877
+    canBeStatic: 1
+    isStatic: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    forbiddenUID: 0
+    propertyHeight: 0
+  spawnQuantity:
+    type: 1
+    sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+    sceneVarUniqueID: 4877
+    canBeStatic: 0
+    isStatic: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    forbiddenUID: 0
+    propertyHeight: 0
+--- !u!4 &1219402605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219402603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1520984375
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,30 +389,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1498544697220049622
-GameObject:
+--- !u!114 &897517076784423756
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1676314174983372668}
-  - component: {fileID: 6824998376082156908}
-  m_Layer: 0
-  m_Name: SceneObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1676314174983372668
+  m_GameObject: {fileID: 5790715562785365983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff0bf4ffb9c65f46a646d81278e8c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneVariablesSO: {fileID: 0}
+  sceneListeners: []
+  sceneEvents: []
+  sceneTimelines: []
+--- !u!4 &1509976589678637557
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498544697220049622}
+  m_GameObject: {fileID: 5790715562785365983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -341,27 +420,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6824998376082156908
+--- !u!4 &2428821108297020391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293744588161869875}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4293744588161869875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2428821108297020391}
+  - component: {fileID: 7387320640639974492}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &5790715562785365983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1509976589678637557}
+  - component: {fileID: 897517076784423756}
+  m_Layer: 0
+  m_Name: SceneClock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &7387320640639974492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498544697220049622}
+  m_GameObject: {fileID: 4293744588161869875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ec5b20e55ba52d46b3a4dccdb23d815, type: 3}
+  m_Script: {fileID: 11500000, guid: bb1a5b660ba1b5d46bc849bd3268842c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
-  sceneListeners:
-  - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
-    varUniqueID: 2348
-    hasCondition: 1
-    conditions: []
-    events:
-      m_PersistentCalls:
-        m_Calls: []
-    debug: 0
-    propertyHeight: 214.40001
+  sceneVariablesSO: {fileID: 0}
+  sceneListeners: []
   sceneEvents: []

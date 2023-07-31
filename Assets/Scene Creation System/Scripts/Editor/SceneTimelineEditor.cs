@@ -30,14 +30,14 @@ namespace Dhs5.SceneCreation
             property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, property.isExpanded ? "" : idProperty.stringValue);
             if (property.isExpanded)
             {
-                Rect idPosition = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
+                Rect idPosition = new Rect(position.x + 15, position.y + propertyOffset, position.width - 15, EditorGUIUtility.singleLineHeight);
                 EditorGUI.PropertyField(idPosition, idProperty);
-                propertyOffset += EditorGUIUtility.singleLineHeight;
+                propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
 
                 Rect loopPosition = new Rect(position.x, position.y + propertyOffset, position.width,
                     EditorGUIUtility.singleLineHeight);
                 EditorGUI.PropertyField(loopPosition, loopProperty);
-                propertyOffset += EditorGUIUtility.singleLineHeight;
+                propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
 
                 if (loopProperty.boolValue)
                 {
@@ -62,7 +62,7 @@ namespace Dhs5.SceneCreation
             timelineObjectsProperty = property.FindPropertyRelative("timelineObjects");
 
             return property.isExpanded ? 
-                EditorGUIUtility.singleLineHeight * 2 + EditorGUI.GetPropertyHeight(timelineObjectsProperty)
+                EditorGUIUtility.singleLineHeight * 2.4f + EditorGUI.GetPropertyHeight(timelineObjectsProperty)
                     + (loopProperty.boolValue ? EditorGUI.GetPropertyHeight(conditionProperty) : 0)
                     : EditorGUIUtility.singleLineHeight * 1.3f;
         }
