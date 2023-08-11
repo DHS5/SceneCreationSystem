@@ -119,12 +119,16 @@ namespace Dhs5.SceneCreation
             complexSceneVars.SetUp(this);
             complexSceneVars.SetForbiddenUID(0);
 
+#if UNITY_EDITOR
             CleanBalancingSheets();
+#endif
         }
+#if UNITY_EDITOR
         public void OnEditorEnable()
         {
             CleanBalancingSheets();
         }
+#endif
 
         private void ActuSceneVarLinks()
         {

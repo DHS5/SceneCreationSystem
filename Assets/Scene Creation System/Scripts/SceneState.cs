@@ -769,7 +769,62 @@ namespace Dhs5.SceneCreation
             
             List<SceneEvent> events = new();
 
-            if (ID != null)
+            if (!string.IsNullOrEmpty(ID))
+            {
+                events = sceneEvents.FindAll(e => e.eventID == ID);
+            }
+            else
+            {
+                events = new(sceneEvents);
+            }
+
+            foreach (var sceneEvent in events)
+            {
+                sceneEvent.Trigger();
+            }
+        }
+        /// <summary>
+        /// Trigger every SceneEvent which eventID == ID in the list<br></br>
+        /// (Trigger all if ID == null)
+        /// </summary>
+        /// <typeparam name="T">SceneEvent type param</typeparam>
+        /// <param name="sceneEvents"></param>
+        /// <param name="value">Value to pass to SceneEvents (type T)</param>
+        /// <param name="ID">ID of the SceneEvents to trigger</param>
+        public static void Trigger<T>(this List<SceneEvent<T>> sceneEvents, T value, string ID = null)
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+            
+            List<SceneEvent<T>> events = new();
+
+            if (!string.IsNullOrEmpty(ID))
+            {
+                events = sceneEvents.FindAll(e => e.eventID == ID);
+            }
+            else
+            {
+                events = new(sceneEvents);
+            }
+
+            foreach (var sceneEvent in events)
+            {
+                sceneEvent.Trigger(value);
+            }
+        }
+        /// <summary>
+        /// Trigger every SceneEvent which eventID == ID in the list<br></br>
+        /// (Trigger all if ID == null)
+        /// </summary>
+        /// <typeparam name="T">SceneEvent type param</typeparam>
+        /// <param name="sceneEvents"></param>
+        /// <param name="ID">ID of the SceneEvents to trigger</param>
+        public static void Trigger<T>(this List<SceneEvent<T>> sceneEvents, string ID = null)
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+            
+            List<SceneEvent<T>> events = new();
+
+            if (!string.IsNullOrEmpty(ID))
             {
                 events = sceneEvents.FindAll(e => e.eventID == ID);
             }

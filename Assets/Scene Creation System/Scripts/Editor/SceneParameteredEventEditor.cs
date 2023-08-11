@@ -173,7 +173,7 @@ namespace Dhs5.SceneCreation
                     EditorGUI.EndProperty();
                     return;
                 }
-
+                
                 // Methods
                 List<MethodInfo> methodInfos = new();
                 List<string> methodNames = new();
@@ -208,7 +208,7 @@ namespace Dhs5.SceneCreation
                 tokenProperty.intValue = methodInfos[methodIndex].MetadataToken;
                 ParameterInfo[] parameters = methodInfos[methodIndex].GetParameters();
                 BaseEventAction.Argument[] parameterValues = new BaseEventAction.Argument[parameters.Length];
-
+                
                 // ---------------
                 SerializedProperty varTweenProperty;
                 for (int i = 0; i < parameters.Length; i++)
@@ -245,8 +245,20 @@ namespace Dhs5.SceneCreation
 
                 if (actionField != null && objField != null && !EditorApplication.isPlaying)
                 {
+                    Debug.Log("oui");
                     BaseEventAction baseEventAction = new(methodInfos[methodIndex].Name, target, parameterValues);
                     actionField.SetValue(objField.GetValue(property.serializedObject.targetObject), baseEventAction);
+                }
+                else if (objField == null && !EditorApplication.isPlaying)
+                {
+                    string path = property.propertyPath;
+                    string tryIndex1 = path.Substring(path.IndexOf('[') + 1, path.IndexOf(']') - path.IndexOf('[') - 1);
+                    int index1 = int.Parse(tryIndex1);
+                    string tryIndex2 = path.Substring(path.LastIndexOf('[') + 1, path.LastIndexOf(']') - path.LastIndexOf('[') - 1);
+                    int index2 = int.Parse(tryIndex2);
+                    SceneParameteredEvent paramedEvent = (property.serializedObject.targetObject.GetType().GetField("sceneEvents").GetValue(property.serializedObject.targetObject) as List<SceneEvent>)[index1].sceneParameteredEvents[index2];
+                    BaseEventAction baseEventAction = new(methodInfos[methodIndex].Name, target, parameterValues);
+                    paramedEvent.action = baseEventAction;
                 }
                 propertyOffset += EditorGUIUtility.singleLineHeight * 0.5f;
                 propertyHeight += EditorGUIUtility.singleLineHeight * 0.5f;

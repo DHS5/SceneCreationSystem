@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 namespace Dhs5.SceneCreation
 {
@@ -128,6 +129,8 @@ namespace Dhs5.SceneCreation
         [SerializeField] private string methodName;
         [SerializeReference] private UnityEngine.Object target;
         [SerializeField] private Argument[] arguments;
+        public int ArgumentsCount => arguments.Length;
+        public string MethodName => methodName;
 
         public BaseEventAction() { }
         public BaseEventAction(string methodName, UnityEngine.Object target, Argument[] arguments)
