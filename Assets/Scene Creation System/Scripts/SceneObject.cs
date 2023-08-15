@@ -13,10 +13,10 @@ namespace Dhs5.SceneCreation
         [SerializeField] protected List<SceneListener> sceneListeners;
 
         [Header("Actions")]
-        [SerializeField] protected List<SceneEvent> sceneEvents;
+        public List<SceneEvent> sceneEvents;
 
         #region Scene Events subscription
-        protected virtual void OnEnable()
+        private void OnEnable()
         {
             if (sceneListeners != null)
             {
@@ -25,8 +25,10 @@ namespace Dhs5.SceneCreation
                     listener.Register();
                 }
             }
+
+            OnEnable_S();
         }
-        protected virtual void OnDisable()
+        private void OnDisable()
         {
             if (sceneListeners != null)
             {
@@ -35,7 +37,12 @@ namespace Dhs5.SceneCreation
                     listener.Unregister();
                 }
             }
+
+            OnDisable_S();
         }
+
+        protected virtual void OnEnable_S() { }
+        protected virtual void OnDisable_S() { }
 
         private List<SceneListener> GetListenersByID(int varUniqueID)
         {
@@ -53,6 +60,8 @@ namespace Dhs5.SceneCreation
         private void OnValidate()
         {
             UpdateSceneVariables();
+
+            OnValidate_S();
         }
 
         protected virtual void UpdateSceneVariables()
@@ -65,6 +74,8 @@ namespace Dhs5.SceneCreation
             sceneListeners.BelongTo(this);
             sceneEvents.BelongTo(this);
         }
+
+        protected virtual void OnValidate_S() { }
 
         #endregion
 

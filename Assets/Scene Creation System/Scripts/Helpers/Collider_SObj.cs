@@ -8,6 +8,7 @@ namespace Dhs5.SceneCreation
     {
         #region Variables
         [Header("Collider")]
+        [SerializeField] new private Collider collider;
         [Tooltip("Mask deciding which layers to collide with")]
         public LayerMask layerMask;
 
@@ -94,6 +95,22 @@ namespace Dhs5.SceneCreation
         {
             if (TriggerValid(other))
                 onTriggerExit.Trigger(other);
+        }
+        #endregion
+
+        #region Collider Management
+        protected override void OnValidate_S()
+        {
+            base.OnValidate_S();
+
+            if (collider == null)
+            {
+                collider = GetComponent<Collider>();
+            }
+            if (collider)
+            {
+                collider.includeLayers = layerMask;
+            }
         }
         #endregion
     }

@@ -251,11 +251,12 @@ namespace Dhs5.SceneCreation
                 else if (objField == null && !EditorApplication.isPlaying)
                 {
                     string path = property.propertyPath;
+                    string fieldName = path.Substring(0, path.IndexOf('.'));
                     string tryIndex1 = path.Substring(path.IndexOf('[') + 1, path.IndexOf(']') - path.IndexOf('[') - 1);
                     int index1 = int.Parse(tryIndex1);
                     string tryIndex2 = path.Substring(path.LastIndexOf('[') + 1, path.LastIndexOf(']') - path.LastIndexOf('[') - 1);
                     int index2 = int.Parse(tryIndex2);
-                    SceneParameteredEvent paramedEvent = (property.serializedObject.targetObject.GetType().GetField("sceneEvents").GetValue(property.serializedObject.targetObject) as List<SceneEvent>)[index1].sceneParameteredEvents[index2];
+                    SceneParameteredEvent paramedEvent = (property.serializedObject.targetObject.GetType().GetField(fieldName).GetValue(property.serializedObject.targetObject) as List<SceneEvent>)[index1].sceneParameteredEvents[index2];
                     BaseEventAction baseEventAction = new(methodInfos[methodIndex].Name, target, parameterValues);
                     paramedEvent.action = baseEventAction;
                 }
