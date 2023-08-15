@@ -1,8 +1,6 @@
-using Dhs5.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Dhs5.SceneCreation
 {
@@ -10,7 +8,7 @@ namespace Dhs5.SceneCreation
     {
         #region Variables
         [Header("Collider")]
-        [Header("Collides with :")]
+        [Tooltip("Mask deciding which layers to collide with")]
         public LayerMask layerMask;
 
         [Header("Collision")]
@@ -54,37 +52,47 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Collision
+        protected virtual bool CollisionValid(Collision collision)
+        {
+            return ((1 << collision.gameObject.layer) & layerMask) != 0;
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
-            if (((1 << collision.gameObject.layer) & layerMask) != 0)
+            if (CollisionValid(collision))
                 onCollisionEnter.Trigger(collision);
         }
         private void OnCollisionStay(Collision collision)
         {
-            if (((1 << collision.gameObject.layer) & layerMask) != 0)
+            if (CollisionValid(collision))
                 onCollisionStay.Trigger(collision);
         }
         private void OnCollisionExit(Collision collision)
         {
-            if (((1 << collision.gameObject.layer) & layerMask) != 0)
+            if (CollisionValid(collision))
                 onCollisionExit.Trigger(collision);
         }
         #endregion
 
         #region Trigger
+        protected virtual bool TriggerValid(Collider collider)
+        {
+            return ((1 << collider.gameObject.layer) & layerMask) != 0;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (((1 << other.gameObject.layer) & layerMask) != 0)
+            if (TriggerValid(other))
                 onTriggerEnter.Trigger(other);
         }
         private void OnTriggerStay(Collider other)
         {
-            if (((1 << other.gameObject.layer) & layerMask) != 0)
+            if (TriggerValid(other))
                 onTriggerStay.Trigger(other);
         }
         private void OnTriggerExit(Collider other)
         {
-            if (((1 << other.gameObject.layer) & layerMask) != 0)
+            if (TriggerValid(other))
                 onTriggerExit.Trigger(other);
         }
         #endregion

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -681,6 +681,10 @@ MonoBehaviour:
   text1: {fileID: 1635921324}
   text2: {fileID: 808525834}
   text3: {fileID: 908836252}
+  baseClasses: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!4 &1156838774
 Transform:
   m_ObjectHideFlags: 0
@@ -730,7 +734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneListeners.Array.data[0].propertyHeight
-      value: 196.40001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneListeners.Array.data[0].sceneVariablesSO

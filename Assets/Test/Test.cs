@@ -11,6 +11,9 @@ public class Test : MonoBehaviour
     public TextMeshProUGUI text2;
     public TextMeshProUGUI text3;
 
+    //[SerializeReference, SubclassPicker] BaseClass baseClass;
+    [SerializeReference, SubclassPicker] List<BaseClass> baseClasses = new();
+
     private void Awake()
     {
         SceneManager.BalancingIndex = 1;

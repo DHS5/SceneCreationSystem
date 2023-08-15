@@ -245,7 +245,6 @@ namespace Dhs5.SceneCreation
 
                 if (actionField != null && objField != null && !EditorApplication.isPlaying)
                 {
-                    Debug.Log("oui");
                     BaseEventAction baseEventAction = new(methodInfos[methodIndex].Name, target, parameterValues);
                     actionField.SetValue(objField.GetValue(property.serializedObject.targetObject), baseEventAction);
                 }

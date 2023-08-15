@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Dhs5.SceneCreation
 {
     [DisallowMultipleComponent]
     public class SceneObject : MonoBehaviour
     {
-        public SceneVariablesSO sceneVariablesSO;
+        [SerializeField] protected SceneVariablesSO sceneVariablesSO;
 
         [Header("Listeners")]
-        public List<SceneListener> sceneListeners;
+        [SerializeField] protected List<SceneListener> sceneListeners;
 
         [Header("Actions")]
-        public List<SceneEvent> sceneEvents;
+        [SerializeField] protected List<SceneEvent> sceneEvents;
 
         #region Scene Events subscription
         protected virtual void OnEnable()
