@@ -11,6 +11,8 @@ public class Test : MonoBehaviour
     public TextMeshProUGUI text2;
     public TextMeshProUGUI text3;
 
+    public SceneEvent sceneEvent;
+
     //[SerializeReference, SubclassPicker] BaseClass baseClass;
     [SerializeReference, SubclassPicker] List<BaseClass> baseClasses = new();
 

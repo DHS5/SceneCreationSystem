@@ -681,6 +681,15 @@ MonoBehaviour:
   text1: {fileID: 1635921324}
   text2: {fileID: 808525834}
   text3: {fileID: 908836252}
+  sceneEvent:
+    eventID: 
+    sceneConditions: []
+    sceneActions: []
+    sceneParameteredEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    debug: 0
   baseClasses: []
   references:
     version: 2
@@ -2574,7 +2583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1c46514588c9b4fad8c50f0e082a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneVariablesSO: {fileID: 0}
+  sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
   sceneListeners: []
   sceneEvents: []
   collider: {fileID: 4477937185143235614}

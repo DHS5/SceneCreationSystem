@@ -91,6 +91,7 @@ namespace Dhs5.SceneCreation
         }
     }
 
+    #region Base Event Action
     [Serializable]
     public class BaseEventAction
     {
@@ -331,4 +332,5 @@ namespace Dhs5.SceneCreation
             action?.Invoke((T1)values[0], (T2)values[1], (T3)values[2], (T4)values[3], (T5)values[4]);
         }
     }
+    #endregion
 }
