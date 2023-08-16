@@ -22,6 +22,12 @@ namespace Dhs5.SceneCreation
         public int UID => Var.uniqueID;
         public SceneVarType Type => Var.type;
         public object Value => Var.Value;
+
+
+        public override string ToString()
+        {
+            return UID + " " + Type + " " + Value;
+        }
     }
 
     public static class SceneEventManager

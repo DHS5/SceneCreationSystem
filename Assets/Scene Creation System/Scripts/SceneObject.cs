@@ -1,3 +1,4 @@
+using GluonGui.Dialog;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,30 +14,18 @@ namespace Dhs5.SceneCreation
         [SerializeField] protected List<SceneListener> sceneListeners;
 
         [Header("Actions")]
-        public List<SceneEvent> sceneEvents;
+        [SerializeField] protected List<SceneEvent<SceneEventParam>> sceneEvents;
 
         #region Scene Events subscription
         private void OnEnable()
         {
-            if (sceneListeners != null)
-            {
-                foreach (SceneListener listener in sceneListeners)
-                {
-                    listener.Register();
-                }
-            }
+            sceneListeners.Register();
 
             OnEnable_S();
         }
         private void OnDisable()
         {
-            if (sceneListeners != null)
-            {
-                foreach (SceneListener listener in sceneListeners)
-                {
-                    listener.Unregister();
-                }
-            }
+            sceneListeners.Unregister();
 
             OnDisable_S();
         }
@@ -53,7 +42,7 @@ namespace Dhs5.SceneCreation
         #region Update Listeners, Actions & Tweens
         private void Awake()
         {
-            sceneEvents.Init();
+            Init();
             UpdateBelongings();
         }
 
@@ -64,6 +53,10 @@ namespace Dhs5.SceneCreation
             OnValidate_S();
         }
 
+        protected virtual void Init()
+        {
+            sceneEvents.Init();
+        }
         protected virtual void UpdateSceneVariables()
         {
             sceneListeners.SetUp(sceneVariablesSO);
@@ -81,7 +74,7 @@ namespace Dhs5.SceneCreation
 
         #region Trigger Action
 
-        protected List<SceneEvent> GetSceneEventsByID(string eventID)
+        protected List<SceneEvent<SceneEventParam>> GetSceneEventsByID(string eventID)
         {
             if (sceneEvents == null) return null;
             return sceneEvents.FindAll(a => a.eventID == eventID);
@@ -89,15 +82,167 @@ namespace Dhs5.SceneCreation
         public void TriggerSceneEvent(string eventID)
         {
             sceneEvents.Trigger(eventID);
+        
+            TriggerEventInProfiles(eventID);
         }
         public void TriggerRandom(string filter)
         {
-            sceneEvents.TriggerRandom(filter);
+            sceneEvents.TriggerRandom(default, filter);
         }
         public void TriggerRandomAndRemove(string filter)
         {
-            sceneEvents.TriggerRandom(filter, true);
+            sceneEvents.TriggerRandom(default, filter, true);
         }
+        public void TriggerSceneEvent(string eventID, SceneEventParam param = default)
+        {
+            sceneEvents.Trigger(param, eventID);
+
+            TriggerEventInProfiles(eventID);
+        }
+        public void TriggerSceneEventAndRemove(string eventID, SceneEventParam param = default)
+        {
+            // TODO
+        }
+        public void TriggerRandom(string filter, SceneEventParam param = default)
+        {
+            sceneEvents.TriggerRandom(param, filter);
+        }
+        public void TriggerRandomAndRemove(string filter, SceneEventParam param = default)
+        {
+            sceneEvents.TriggerRandom(param, filter, true);
+        }
+        #endregion
+
+        #region Profiles
+        protected List<SceneProfile> sceneProfiles = new();
+
+        #region List Handling
+        public void ApplyProfiles(List<SceneProfile> profiles)
+        {
+            ClearProfiles();
+
+            foreach (SceneProfile profile in profiles)
+            {
+                sceneProfiles.Add(profile);
+                profile.Attach(this);
+            }
+        }
+        public void AddProfile(SceneProfile profile)
+        {
+            if (sceneProfiles == null) sceneProfiles = new();
+            
+            sceneProfiles.Add(profile);
+        }
+        public void RemoveProfile(SceneProfile profile)
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
+
+            if (sceneProfiles.Contains(profile)) sceneProfiles.Remove(profile);
+        }
+        public bool RemoveProfileOfType<T>(bool all = false) where T : SceneProfile
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return false;
+
+            bool result = false;
+
+            foreach (SceneProfile profile in new List<SceneProfile>(sceneProfiles))
+            {
+                if (profile is T p)
+                {
+                    sceneProfiles.Remove(p);
+                    if (!all) return true;
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        public void ClearProfiles()
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0)
+            {
+                sceneProfiles = new();
+                return;
+            }
+
+            foreach (var profile in sceneProfiles)
+            {
+                profile.Detach();
+            }
+            sceneProfiles.Clear();
+        }
+        #endregion
+
+        #region Actions
+        public bool TriggerProfileOfType<T>(bool all = false) where T : SceneProfile
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return false;
+
+            bool result = false;
+
+            foreach (var profile in sceneProfiles)
+                if (profile is T p)
+                {
+                    p.TriggerProfile();
+                    if (!all) return true;
+                    result = true;
+                }
+            return result;
+        }
+        public bool TriggerProfile(SceneProfile profile)
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return false;
+
+            foreach (var p in sceneProfiles)
+                if (p == profile)
+                {
+                    p.TriggerProfile();
+                    return true;
+                }
+            return false;
+        }
+        public void TriggerAllProfiles()
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
+
+            foreach (var profile in sceneProfiles)
+                profile.TriggerProfile();
+        }
+        public void TriggerEventInProfiles(string eventID)
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
+
+            foreach (var profile in sceneProfiles)
+                profile.TriggerEventInProfile(eventID);
+        }
+        #endregion
+        
+        #region Random Actions
+        public bool TriggerRandomInProfileOfType<T>(string filter = null) where T : SceneProfile
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return false;
+
+            foreach (var profile in sceneProfiles)
+                if (profile is T p)
+                {
+                    return p.TriggerProfileRandom(filter);
+                }
+            return false;
+        }
+        public bool TriggerRandomInProfileOfTypeAndRemove<T>(string filter = null) where T : SceneProfile
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return false;
+
+            foreach (var profile in sceneProfiles)
+                if (profile is T p)
+                {
+                    return p.TriggerProfileRandom(filter, true);
+                }
+            return false;
+        }
+        
+        #endregion
         #endregion
     }
 }

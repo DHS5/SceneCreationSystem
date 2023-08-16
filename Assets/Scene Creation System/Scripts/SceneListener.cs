@@ -9,6 +9,14 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public class SceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
+        [Serializable]
+        public struct SceneEventTrigger
+        {
+            public string eventID;
+            public bool random;
+            public bool remove;
+        }
+
         public SceneVariablesSO sceneVariablesSO;
         private SceneObject sceneObject;
 
@@ -27,6 +35,8 @@ namespace Dhs5.SceneCreation
         
         public UnityEvent<SceneEventParam> events;
 
+        public List<SceneEventTrigger> triggers;
+
         public bool debug = false;
         public float propertyHeight;
 
@@ -44,6 +54,7 @@ namespace Dhs5.SceneCreation
             if (VerifyConditions())
             {
                 events.Invoke(param);
+                sceneObject.Trigger(triggers, param);
                 if (debug)
                     Debug.LogError("Received event : " + CurrentSceneVar.ToString());
             }

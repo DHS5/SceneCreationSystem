@@ -23,6 +23,14 @@ namespace Dhs5.SceneCreation
 
             // Update Belongings
         }
+        public virtual void Detach()
+        {
+            sceneObject = null;
+
+            UnregisterSceneEvents();
+
+            // Update Belongings
+        }
         #endregion
 
         #region Abstract Functions
@@ -32,31 +40,14 @@ namespace Dhs5.SceneCreation
         public abstract void RegisterSceneEventsLists();
         #endregion
 
-        #region Listener Functions
-        /// <summary>
-        /// Triggers the SceneEvents contains by <see cref="sceneObject"/>
-        /// </summary>
-        /// <param name="eventID"></param>
-        public void TriggerSObj(string eventID)
-        {
-            sceneObject.TriggerSceneEvent(eventID);
-        }
-        public void TriggerSObj_Random(string filter)
-        {
-            sceneObject.TriggerRandom(filter);
-        }
-        public void TriggerSObj_RandomAndRemove(string filter)
-        {
-            sceneObject.TriggerRandomAndRemove(filter);
-        }
-        #endregion
-
         #region Scene Events Handling
         private List<string> eventsID = new();
         private List<List<SceneEvent>> sceneEventsList = new(); // Problem : T
 
-        public bool ExistIn(string eventID)
+        protected bool ExistIn(string eventID)
         {
+            if (eventsID == null || eventsID.Count <= 0) return false;
+
             return eventsID.Contains(eventID);
         }
         protected void Register(List<SceneEvent> sceneEvents)
@@ -66,14 +57,37 @@ namespace Dhs5.SceneCreation
                 if (!string.IsNullOrWhiteSpace(s.eventID))
                     eventsID.Add(s.eventID);
         }
+        protected void UnregisterSceneEvents()
+        {
+            eventsID = new();
+            sceneEventsList = new();
+        }
 
         /// <summary>
         /// Triggers all the <see cref="List{T}"/> of <see cref="SceneEvent"/> of this profile
         /// </summary>
         public virtual void TriggerProfile()
         {
+            if (sceneEventsList == null || sceneEventsList.Count <= 0) return;
+
             foreach (var s in sceneEventsList)
                 s.Trigger();
+        }
+        public virtual void TriggerEventInProfile(string eventID)
+        {
+            if (ExistIn(eventID))
+            {
+                foreach (var l in sceneEventsList)
+                {
+                    l.Trigger(eventID);
+                }
+            }
+        }
+        public virtual bool TriggerProfileRandom(string filter = null, bool remove = false)
+        {
+            if (sceneEventsList == null || sceneEventsList.Count <= 0) return false;
+
+            return sceneEventsList[Random.Range(0, sceneEventsList.Count)].TriggerRandom(filter, remove);
         }
         #endregion
     }

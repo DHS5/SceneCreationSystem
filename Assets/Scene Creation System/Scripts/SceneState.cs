@@ -5,6 +5,7 @@ using System;
 using Random = UnityEngine.Random;
 using static UnityEngine.EventSystems.EventTrigger;
 using System.Text;
+using GluonGui.WorkspaceWindow.Views.WorkspaceExplorer.Explorer;
 
 namespace Dhs5.SceneCreation
 {
@@ -754,6 +755,43 @@ namespace Dhs5.SceneCreation
 
             return false;
         }
+        /// <summary>
+        /// Triggers a random SceneEvent in the list
+        /// </summary>
+        /// <param name="sceneEvents"></param>
+        /// <param name="filter">Trigger a random SceneEvent among ones which eventID contains filter</param>
+        /// <returns>Whether an event was triggered</returns>
+        public static bool TriggerRandom<T>(this List<SceneEvent<T>> sceneEvents, T value = default, string filter = null, bool removeAfterTrigger = false)
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return false;
+
+            List<SceneEvent<T>> events = new();
+
+            if (filter != null)
+            {
+                foreach (SceneEvent<T> sceneEvent in sceneEvents)
+                    if (sceneEvent.eventID.Contains(filter))
+                        events.Add(sceneEvent);
+            }
+            else
+            {
+                events = new(sceneEvents);
+            }
+
+            SceneEvent<T> ev;
+            for (;events.Count > 0;)
+            {
+                ev = events[UnityEngine.Random.Range(0, events.Count)];
+                if (ev.Trigger(value))
+                {
+                    if (removeAfterTrigger) sceneEvents.Remove(ev);
+                    return true;
+                }
+                events.Remove(ev);
+            }
+
+            return false;
+        }
         #endregion
         
         #region Trigger a list of SceneEvents (Extension Method)
@@ -777,6 +815,8 @@ namespace Dhs5.SceneCreation
             {
                 events = new(sceneEvents);
             }
+
+            if (events == null || events.Count < 1) return;
 
             foreach (var sceneEvent in events)
             {
@@ -806,6 +846,8 @@ namespace Dhs5.SceneCreation
                 events = new(sceneEvents);
             }
 
+            if (events == null || events.Count < 1) return;
+
             foreach (var sceneEvent in events)
             {
                 sceneEvent.Trigger(value);
@@ -832,6 +874,8 @@ namespace Dhs5.SceneCreation
             {
                 events = new(sceneEvents);
             }
+
+            if (events == null || events.Count < 1) return;
 
             foreach (var sceneEvent in events)
             {
@@ -878,6 +922,66 @@ namespace Dhs5.SceneCreation
             foreach (var action in sceneEvents)
             {
                 action.Init();
+            }
+        }
+        public static void Init<T>(this List<SceneEvent<T>> sceneEvents)
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+            
+            foreach (var action in sceneEvents)
+            {
+                action.Init();
+            }
+        }
+        #endregion
+
+        #region SceneListeners Registration
+        public static void Register(this List<SceneListener> sceneListeners)
+        {
+            if (sceneListeners == null || sceneListeners.Count <= 0) return;
+
+            foreach (SceneListener listener in sceneListeners)
+            {
+                listener.Register();
+            }
+        }
+        public static void Unregister(this List<SceneListener> sceneListeners)
+        {
+            if (sceneListeners == null || sceneListeners.Count <= 0) return;
+
+            foreach (SceneListener listener in sceneListeners)
+            {
+                listener.Unregister();
+            }
+        }
+        #endregion
+
+        #region SceneObject Trigger
+        public static void Trigger(this SceneObject sceneObject, SceneListener.SceneEventTrigger trigger, SceneEventParam param)
+        {
+            if (!trigger.random)
+            {
+                sceneObject.TriggerSceneEvent(trigger.eventID, param);
+            }
+            else
+            {
+                if (!trigger.remove)
+                {
+                    sceneObject.TriggerRandom(trigger.eventID, param);
+                }
+                else
+                {
+                    sceneObject.TriggerRandomAndRemove(trigger.eventID, param);
+                }
+            }
+        }
+        public static void Trigger(this SceneObject sceneObject, List<SceneListener.SceneEventTrigger> triggers, SceneEventParam param)
+        {
+            if (triggers == null || triggers.Count <= 0) return;
+
+            foreach (var trigger in triggers)
+            {
+                sceneObject.Trigger(trigger, param);
             }
         }
         #endregion

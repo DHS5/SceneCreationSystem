@@ -22,6 +22,8 @@ namespace Dhs5.SceneCreation
         float propertyOffset;
         float propertyHeight;
 
+        BindingFlags fieldBF = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy | BindingFlags.Instance;
+
         #region Functions
         private bool ValidParameters(ParameterInfo[] parameters)
         {
@@ -259,11 +261,11 @@ namespace Dhs5.SceneCreation
                     string tryIndex2 = path.Substring(path.LastIndexOf('[') + 1, path.LastIndexOf(']') - path.LastIndexOf('[') - 1);
                     int index2 = int.Parse(tryIndex2);
 
-                    object temp = property.serializedObject.targetObject.GetType().GetField(fieldName).GetValue(property.serializedObject.targetObject);
+                    object temp = property.serializedObject.targetObject.GetType().GetField(fieldName, fieldBF).GetValue(property.serializedObject.targetObject);
                     if (temp is IList list) temp = list[index1];
-                    else temp = property.serializedObject.targetObject.GetType().GetField(fieldName).GetValue(property.serializedObject.targetObject);
+                    //else temp = property.serializedObject.targetObject.GetType().GetField(fieldName).GetValue(property.serializedObject.targetObject);
 
-                    SceneParameteredEvent paramedEvent = (temp.GetType().GetField("sceneParameteredEvents").GetValue(temp) as List<SceneParameteredEvent>)[index2];
+                    SceneParameteredEvent paramedEvent = (temp.GetType().GetField("sceneParameteredEvents", fieldBF).GetValue(temp) as List<SceneParameteredEvent>)[index2];
                     //SceneParameteredEvent paramedEvent = (property.serializedObject.targetObject.GetType().GetField(fieldName).GetValue(property.serializedObject.targetObject) as List<SceneEvent>)[index1].sceneParameteredEvents[index2];
                     BaseEventAction baseEventAction = new(methodInfos[methodIndex].Name, target, parameterValues);
                     paramedEvent.action = baseEventAction;

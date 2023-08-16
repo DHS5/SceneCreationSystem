@@ -99,8 +99,17 @@ namespace Dhs5.SceneCreation
                 propertyHeight += EditorGUIUtility.singleLineHeight * 0.25f;
                 Rect eventPosition = new(position.x, position.y + propertyOffset, position.width, position.height);
                 EditorGUI.PropertyField(eventPosition, property.FindPropertyRelative("events"));
-                propertyHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("events"), true) - EditorGUIUtility.singleLineHeight * 0.5f;
-                propertyOffset += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("events"), true) - EditorGUIUtility.singleLineHeight * 0.75f;
+                propertyHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("events"), true);// - EditorGUIUtility.singleLineHeight * 0.5f;
+                propertyOffset += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("events"), true);// - EditorGUIUtility.singleLineHeight * 0.75f;
+
+                // Triggers property
+                propertyOffset += EditorGUIUtility.singleLineHeight * 0.25f;
+                propertyHeight += EditorGUIUtility.singleLineHeight * 0.25f;
+                Rect triggersPosition = new(position.x, position.y + propertyOffset, position.width, position.height);
+                EditorGUI.PropertyField(triggersPosition, property.FindPropertyRelative("triggers"));
+                propertyHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("triggers"), true) + EditorGUIUtility.singleLineHeight * 0.75f;
+                propertyOffset += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("triggers"), true) + EditorGUIUtility.singleLineHeight * 0.5f;
+
 
                 // Debug toggle
                 Rect debugTogglePosition = new(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
