@@ -92,6 +92,8 @@ namespace Dhs5.SceneCreation
                         break;
                 }
                 EditorGUI.PropertyField(popupPosition, property.FindPropertyRelative(typeStr + "Value"), new GUIContent(""));
+                canBeStaticP.boolValue = true;
+                isStaticP.boolValue = true;
 
                 EditorGUI.EndProperty();
                 return;
