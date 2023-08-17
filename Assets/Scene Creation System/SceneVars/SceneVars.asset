@@ -57,7 +57,7 @@ MonoBehaviour:
     hasMin: 1
     hasMax: 1
     minInt: 0
-    maxInt: 8
+    maxInt: 16
     minFloat: 0
     maxFloat: 0
     isStatic: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
       isRandom: 0
       isLink: 1
       propertyHeight: 0
-    propertyHeight: 70.200005
+    propertyHeight: 0
   - uniqueID: 3055
     ID: Condition2
     type: 0

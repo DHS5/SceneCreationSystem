@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Dhs5.SceneCreation
 {
-    public abstract class SceneProfile
+    [Serializable]
+    public abstract class SceneProfile : SceneState.ISceneVarSetupable
     {
         protected SceneVariablesSO sceneVariablesSO;
 
@@ -20,6 +23,9 @@ namespace Dhs5.SceneCreation
         public virtual void Attach(SceneObject _sceneObject)
         {
             sceneObject = _sceneObject;
+
+            RegisterSceneEventsLists();
+            InitSceneEventsLists();
 
             // Update Belongings
         }
@@ -41,8 +47,8 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Scene Events Handling
-        private List<string> eventsID = new();
-        private List<List<SceneEvent>> sceneEventsList = new(); // Problem : T
+        protected List<string> eventsID = new();
+        protected List<List<SceneEvent>> sceneEventsList = new(); // Problem : T
 
         protected bool ExistIn(string eventID)
         {
@@ -61,6 +67,15 @@ namespace Dhs5.SceneCreation
         {
             eventsID = new();
             sceneEventsList = new();
+        }
+        private void InitSceneEventsLists()
+        {
+            if (sceneEventsList == null || sceneEventsList.Count <= 0) return;
+
+            foreach (var s in sceneEventsList)
+            {
+                s.Init();
+            }
         }
 
         /// <summary>

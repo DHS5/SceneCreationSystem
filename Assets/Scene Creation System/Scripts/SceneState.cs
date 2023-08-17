@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 using static UnityEngine.EventSystems.EventTrigger;
 using System.Text;
 using GluonGui.WorkspaceWindow.Views.WorkspaceExplorer.Explorer;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace Dhs5.SceneCreation
 {
@@ -547,7 +548,7 @@ namespace Dhs5.SceneCreation
 
             foreach (var setupable in setupables)
             {
-                setupable.SetUp(sceneVariablesSO);
+                setupable?.SetUp(sceneVariablesSO);
             }
         }
         public static void SetUp<T>(this List<T> setupables, SceneVariablesSO sceneVariablesSO, SceneVarType type) where T : ISceneVarTypedSetupable
@@ -556,7 +557,7 @@ namespace Dhs5.SceneCreation
 
             foreach (var setupable in setupables)
             {
-                setupable.SetUp(sceneVariablesSO, type);
+                setupable?.SetUp(sceneVariablesSO, type);
             }
         }
         #endregion
@@ -882,8 +883,40 @@ namespace Dhs5.SceneCreation
                 sceneEvent.Trigger();
             }
         }
+        public static void TriggerAndRemove(this List<SceneEvent> sceneEvents, string ID, int triggerNumber)
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+
+            if (string.IsNullOrEmpty(ID)) return;
+
+            List<SceneEvent> events = new();
+            events = sceneEvents.FindAll(e => e.eventID == ID);
+
+            foreach (var sceneEvent in events)
+            {
+                sceneEvent.Trigger(triggerNumber);
+                if (sceneEvent.TriggerNumberLeft == 0)
+                    sceneEvents.Remove(sceneEvent);
+            }
+        }
+        public static void TriggerAndRemove<T>(this List<SceneEvent<T>> sceneEvents, T value, string ID, int triggerNumber)
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+
+            if (string.IsNullOrEmpty(ID)) return;
+
+            List<SceneEvent<T>> events = new();
+            events = sceneEvents.FindAll(e => e.eventID == ID);
+
+            foreach (var sceneEvent in events)
+            {
+                sceneEvent.Trigger(value, triggerNumber);
+                if (sceneEvent.TriggerNumberLeft == 0)
+                    sceneEvents.Remove(sceneEvent);
+            }
+        }
         #endregion
-        
+
         #region Trigger a list of SceneActions or SceneParameteredEvents (Extension Method)
         public static void Trigger(this List<SceneAction> sceneActions)
         {

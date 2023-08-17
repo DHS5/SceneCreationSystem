@@ -22,10 +22,18 @@ namespace Dhs5.SceneCreation
 
         public bool debug = false;
 
-        public bool Trigger()
+        public int TriggerNumberLeft { get; private set; } = -1;
+
+        public bool Trigger(int triggerNumber = -1)
         {
+            if (TriggerNumberLeft == -1 && triggerNumber != -1)
+            {
+                TriggerNumberLeft = triggerNumber;
+            }
+
             if (!sceneConditions.VerifyConditions()) return false;
 
+            TriggerNumberLeft--;
             sceneActions.Trigger();
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke();
@@ -75,10 +83,18 @@ namespace Dhs5.SceneCreation
 
         public bool debug = false;
 
-        public bool Trigger()
+        public int TriggerNumberLeft { get; private set; } = -1;
+
+        public bool Trigger(int triggerNumber = -1)
         {
+            if (TriggerNumberLeft == -1 && triggerNumber != -1)
+            {
+                TriggerNumberLeft = triggerNumber;
+            }
+
             if (!sceneConditions.VerifyConditions()) return false;
 
+            TriggerNumberLeft--;
             sceneActions.Trigger();
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke(default);
@@ -88,10 +104,16 @@ namespace Dhs5.SceneCreation
 
             return true;
         }
-        public bool Trigger(T param)
+        public bool Trigger(T param, int triggerNumber = -1)
         {
+            if (TriggerNumberLeft == -1 && triggerNumber != -1)
+            {
+                TriggerNumberLeft = triggerNumber;
+            }
+
             if (!sceneConditions.VerifyConditions()) return false;
 
+            TriggerNumberLeft--;
             sceneActions.Trigger();
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke(param);

@@ -4,35 +4,36 @@ using UnityEngine;
 
 namespace Dhs5.SceneCreation
 {
-    public class SceneListenerProfile : SceneProfile
+    public class SceneEventProfile : SceneProfile
     {
-        public List<SceneListener> sceneListeners;
+        public List<SceneEvent> sceneEvents;
 
         #region Overrides
         public override void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
             base.SetUp(_sceneVariablesSO);
 
-            sceneListeners.SetUp(sceneVariablesSO);
+            sceneEvents.SetUp(sceneVariablesSO);
         }
         public override void Attach(SceneObject _sceneObject)
         {
             base.Attach(_sceneObject);
 
-            sceneListeners.BelongTo(sceneObject);
-            sceneListeners.Register();
+            sceneEvents.BelongTo(sceneObject);
         }
         public override void Detach()
         {
             base.Detach();
 
-            sceneListeners.Unregister();
-            sceneListeners.BelongTo(null);
+            sceneEvents.BelongTo(null);
         }
         #endregion
 
         #region Scene Events
-        public override void RegisterSceneEventsLists() { }
+        public override void RegisterSceneEventsLists()
+        {
+            Register(sceneEvents);
+        }
         #endregion
     }
 }

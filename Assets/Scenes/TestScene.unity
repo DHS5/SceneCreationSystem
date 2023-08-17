@@ -225,25 +225,57 @@ MonoBehaviour:
   sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
   sceneListeners: []
   sceneEvents: []
-  profile:
-    rid: 5445051332987453441
+  templates:
+  - templateID: Listening SceneObject
+    prefab: {fileID: 6447064889421450952, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
+    parent: {fileID: 1156838774}
+    profiles:
+    - rid: 5445051353052217347
+    - rid: 5445051353052217348
   references:
     version: 2
     RefIds:
-    - rid: 5445051332987453441
+    - rid: 5445051353052217347
       type: {class: SceneListenerProfile, ns: Dhs5.SceneCreation, asm: SceneCreationSystem}
       data:
         sceneListeners:
         - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-          varUniqueID: 4629
+          varUniqueID: 9478
           hasCondition: 0
           conditions: []
           events:
             m_PersistentCalls:
               m_Calls: []
-          triggers: []
+          triggers:
+          - eventID: Event
+            random: 0
+            remove: 0
           debug: 0
-          propertyHeight: 190.40001
+          propertyHeight: 0
+    - rid: 5445051353052217348
+      type: {class: SceneEventProfile, ns: Dhs5.SceneCreation, asm: SceneCreationSystem}
+      data:
+        sceneEvents:
+        - eventID: Event
+          sceneConditions: []
+          sceneActions: []
+          sceneParameteredEvents: []
+          unityEvent:
+            m_PersistentCalls:
+              m_Calls:
+              - m_Target: {fileID: 1851812455}
+                m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+                m_MethodName: SetActive
+                m_Mode: 6
+                m_Arguments:
+                  m_ObjectArgument: {fileID: 0}
+                  m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                  m_IntArgument: 0
+                  m_FloatArgument: 0
+                  m_StringArgument: 
+                  m_BoolArgument: 0
+                m_CallState: 2
+          debug: 0
 --- !u!4 &503539152
 Transform:
   m_ObjectHideFlags: 0
@@ -1255,6 +1287,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5811698339757312643, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
   m_PrefabInstance: {fileID: 1198601241}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1216737778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6447064889421450952, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
+  m_PrefabInstance: {fileID: 1652975743}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1536318968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,7 +1376,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1652975745}
+      - m_Target: {fileID: 1567954834}
         m_TargetAssemblyTypeName: Dhs5.SceneCreation.SceneObject, SceneCreationSystem
         m_MethodName: TriggerSceneEvent
         m_Mode: 5
@@ -1348,7 +1385,19 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Oups
+          m_StringArgument: TriggerAndRemove
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 503539151}
+        m_TargetAssemblyTypeName: Dhs5.SceneCreation.SceneSpawner, SceneCreationSystem
+        m_MethodName: SpawnAndRemove
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Listening SceneObjec
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1536318971
@@ -1468,6 +1517,98 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    debug: 0
+  - eventID: TriggerAndRemove
+    sceneConditions: []
+    sceneActions: []
+    sceneParameteredEvents:
+    - sceneVariablesSO: {fileID: 0}
+      action:
+        methodName: TriggerSceneEventAndRemove
+        target: {fileID: 1652975745}
+        arguments:
+        - type: 3
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+        - type: 1
+          boolValue: 0
+          intValue: 5
+          floatValue: 0
+          stringValue: 
+      obj: {fileID: 1216737778}
+      component: {fileID: 1652975745}
+      metadataToken: 100663450
+      propertyHeight: 133.20001
+      varTween0:
+        type: 3
+        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        sceneVarUniqueID: 5895
+        canBeStatic: 1
+        isStatic: 1
+        boolValue: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: Oups
+        forbiddenUID: 0
+        propertyHeight: 0
+      varTween1:
+        type: 1
+        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        sceneVarUniqueID: 9478
+        canBeStatic: 1
+        isStatic: 1
+        boolValue: 0
+        intValue: 3
+        floatValue: 0
+        stringValue: 
+        forbiddenUID: 0
+        propertyHeight: 0
+      varTween2:
+        type: 0
+        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        sceneVarUniqueID: 0
+        canBeStatic: 1
+        isStatic: 0
+        boolValue: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        forbiddenUID: 0
+        propertyHeight: 0
+      varTween3:
+        type: 0
+        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        sceneVarUniqueID: 0
+        canBeStatic: 1
+        isStatic: 0
+        boolValue: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        forbiddenUID: 0
+        propertyHeight: 0
+      varTween4:
+        type: 0
+        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        sceneVarUniqueID: 0
+        canBeStatic: 1
+        isStatic: 0
+        boolValue: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        forbiddenUID: 0
+        propertyHeight: 0
+      varType0: 3
+      varType1: 1
+      varType2: 0
+      varType3: 0
+      varType4: 0
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
     debug: 0
 --- !u!1 &1591041803
 GameObject:
@@ -1949,7 +2090,7 @@ PrefabInstance:
       objectReference: {fileID: 1156838773}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].metadataToken
-      value: 100663306
+      value: 100663308
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[1].action.target
@@ -2574,7 +2715,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
   m_PrefabInstance: {fileID: 1652975743}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1216737778}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ec5b20e55ba52d46b3a4dccdb23d815, type: 3}

@@ -2,6 +2,7 @@ using GluonGui.Dialog;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Dhs5.SceneCreation
 {
@@ -85,6 +86,15 @@ namespace Dhs5.SceneCreation
         
             TriggerEventInProfiles(eventID);
         }
+        public void TriggerSceneEventAndRemove(string eventID)
+        {
+            sceneEvents.TriggerAndRemove(default, eventID, 1);
+        }
+        [Preserve]
+        public void TriggerSceneEventAndRemove(string eventID, int triggerNumber)
+        {
+            sceneEvents.TriggerAndRemove(default, eventID, triggerNumber);
+        }
         public void TriggerRandom(string filter)
         {
             sceneEvents.TriggerRandom(default, filter);
@@ -99,9 +109,15 @@ namespace Dhs5.SceneCreation
 
             TriggerEventInProfiles(eventID);
         }
-        public void TriggerSceneEventAndRemove(string eventID, SceneEventParam param = default)
+        /// <summary>
+        /// Trigger a <see cref="SceneEvent"/> <paramref name="triggerNumber"/> number of times then remove it from the list
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <param name="param"></param>
+        /// <param name="triggerNumber"></param>
+        public void TriggerSceneEventAndRemove(string eventID, SceneEventParam param = default, int triggerNumber = 1)
         {
-            // TODO
+            sceneEvents.TriggerAndRemove(param, eventID, triggerNumber);
         }
         public void TriggerRandom(string filter, SceneEventParam param = default)
         {
