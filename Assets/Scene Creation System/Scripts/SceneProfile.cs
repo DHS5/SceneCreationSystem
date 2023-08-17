@@ -98,6 +98,23 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+        public virtual void TriggerEventInProfileAndRemove(string eventID, int triggerNumber)
+        {
+            if (ExistIn(eventID))
+            {
+                foreach (var l in sceneEventsList)
+                {
+                    l.TriggerAndRemove(eventID, triggerNumber);
+                }
+            }
+        }
+        public virtual void TriggerAllEventsInProfileAndRemove(int triggerNumber)
+        {
+            foreach (var l in sceneEventsList)
+            {
+                l.TriggerAndRemoveAll(triggerNumber);
+            }
+        }
         public virtual bool TriggerProfileRandom(string filter = null, bool remove = false)
         {
             if (sceneEventsList == null || sceneEventsList.Count <= 0) return false;

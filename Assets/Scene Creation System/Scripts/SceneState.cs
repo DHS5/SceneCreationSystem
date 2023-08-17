@@ -883,6 +883,13 @@ namespace Dhs5.SceneCreation
                 sceneEvent.Trigger();
             }
         }
+        /// <summary>
+        /// Triggers one (or more) <see cref="SceneEvent"/> with the eventID <paramref name="ID"/><br></br>
+        /// and remove from list after triggering <paramref name="triggerNumber"/> times
+        /// </summary>
+        /// <param name="sceneEvents"></param>
+        /// <param name="ID"></param>
+        /// <param name="triggerNumber"></param>
         public static void TriggerAndRemove(this List<SceneEvent> sceneEvents, string ID, int triggerNumber)
         {
             if (sceneEvents == null || sceneEvents.Count < 1) return;
@@ -907,6 +914,38 @@ namespace Dhs5.SceneCreation
 
             List<SceneEvent<T>> events = new();
             events = sceneEvents.FindAll(e => e.eventID == ID);
+
+            foreach (var sceneEvent in events)
+            {
+                sceneEvent.Trigger(value, triggerNumber);
+                if (sceneEvent.TriggerNumberLeft == 0)
+                    sceneEvents.Remove(sceneEvent);
+            }
+        }
+        /// <summary>
+        /// Triggers one (or more) <see cref="SceneEvent"/> with the eventID <paramref name="ID"/><br></br>
+        /// and remove from list after triggering <paramref name="triggerNumber"/> times
+        /// </summary>
+        /// <param name="sceneEvents"></param>
+        /// <param name="triggerNumber"></param>
+        public static void TriggerAndRemoveAll(this List<SceneEvent> sceneEvents, int triggerNumber)
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+
+            List<SceneEvent> events = new(sceneEvents);
+
+            foreach (var sceneEvent in events)
+            {
+                sceneEvent.Trigger(triggerNumber);
+                if (sceneEvent.TriggerNumberLeft == 0)
+                    sceneEvents.Remove(sceneEvent);
+            }
+        }
+        public static void TriggerAndRemoveAll<T>(this List<SceneEvent<T>> sceneEvents, T value, int triggerNumber)
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+
+            List<SceneEvent<T>> events = new(sceneEvents);
 
             foreach (var sceneEvent in events)
             {

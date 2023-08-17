@@ -10,6 +10,7 @@ public class Test : MonoBehaviour
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
     public TextMeshProUGUI text3;
+    public SceneSpawner spawner;
 
     public SceneEvent sceneEvent;
 
@@ -36,5 +37,13 @@ public class Test : MonoBehaviour
     public void Test3()
     {
         text3.text = "yo did it";
+    }
+
+    public void ProfileTest()
+    {
+        SceneObject sceneObject = spawner.SpawnAndRemove("Listening SceneObject", null);
+        Debug.Log(sceneObject.TriggerProfileOfType<SceneEventProfile>());
+        SceneObject sceneObject2 = spawner.SpawnAndRemove("Listening SceneObject2", null);
+        Debug.Log(sceneObject2.TriggerProfileOfType<SceneEventProfile>());
     }
 }

@@ -33,11 +33,6 @@ namespace Dhs5.SceneCreation
 
         protected virtual void OnEnable_S() { }
         protected virtual void OnDisable_S() { }
-
-        private List<SceneListener> GetListenersByID(int varUniqueID)
-        {
-            return sceneListeners.FindAll(l => l.UID == varUniqueID);
-        }
         #endregion
 
         #region Update Listeners, Actions & Tweens
@@ -73,36 +68,36 @@ namespace Dhs5.SceneCreation
 
         #endregion
 
-        #region Trigger Action
+        #region Trigger Events
 
-        protected List<SceneEvent<SceneEventParam>> GetSceneEventsByID(string eventID)
-        {
-            if (sceneEvents == null) return null;
-            return sceneEvents.FindAll(a => a.eventID == eventID);
-        }
+        #region Exposed Functions
         public void TriggerSceneEvent(string eventID)
         {
-            sceneEvents.Trigger(eventID);
-        
-            TriggerEventInProfiles(eventID);
+            TriggerSceneEvent(eventID, default);
         }
         public void TriggerSceneEventAndRemove(string eventID)
         {
-            sceneEvents.TriggerAndRemove(default, eventID, 1);
+            TriggerSceneEventAndRemove(eventID, default, 1);
+        }
+        public void TriggerAllSceneEventAndRemove(int triggerNumber)
+        {
+            TriggerAllSceneEventAndRemove(default, triggerNumber);
         }
         [Preserve]
         public void TriggerSceneEventAndRemove(string eventID, int triggerNumber)
         {
-            sceneEvents.TriggerAndRemove(default, eventID, triggerNumber);
+            TriggerSceneEventAndRemove(eventID, default, triggerNumber);
         }
         public void TriggerRandom(string filter)
         {
-            sceneEvents.TriggerRandom(default, filter);
+            TriggerRandom(filter, default);
         }
         public void TriggerRandomAndRemove(string filter)
         {
-            sceneEvents.TriggerRandom(default, filter, true);
+            TriggerRandomAndRemove(filter, default);
         }
+        #endregion
+
         public void TriggerSceneEvent(string eventID, SceneEventParam param = default)
         {
             sceneEvents.Trigger(param, eventID);
@@ -118,6 +113,14 @@ namespace Dhs5.SceneCreation
         public void TriggerSceneEventAndRemove(string eventID, SceneEventParam param = default, int triggerNumber = 1)
         {
             sceneEvents.TriggerAndRemove(param, eventID, triggerNumber);
+
+            TriggerEventInProfilesAndRemove(eventID, triggerNumber);
+        }
+        public void TriggerAllSceneEventAndRemove(SceneEventParam param = default, int triggerNumber = 1)
+        {
+            sceneEvents.TriggerAndRemoveAll(param, triggerNumber);
+
+            TriggerAllEventsInProfilesAndRemove(triggerNumber);
         }
         public void TriggerRandom(string filter, SceneEventParam param = default)
         {
@@ -135,6 +138,8 @@ namespace Dhs5.SceneCreation
         #region List Handling
         public void ApplyProfiles(List<SceneProfile> profiles)
         {
+            if (profiles == null || profiles.Count <= 0) return;
+
             ClearProfiles();
 
             foreach (SceneProfile profile in profiles)
@@ -231,6 +236,25 @@ namespace Dhs5.SceneCreation
 
             foreach (var profile in sceneProfiles)
                 profile.TriggerEventInProfile(eventID);
+        }
+        [Preserve]
+        public void TriggerEventInProfilesAndRemove(string eventID, int triggerNumber)
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
+
+            foreach (var profile in sceneProfiles)
+                profile.TriggerEventInProfileAndRemove(eventID, triggerNumber);
+        }
+        public void TriggerAllEventsInProfilesAndRemove(int triggerNumber)
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
+
+            foreach (var profile in sceneProfiles)
+                profile.TriggerAllEventsInProfileAndRemove(triggerNumber);
+        }
+        public void TriggerEventInProfilesAndRemove(string eventID)
+        {
+            TriggerEventInProfilesAndRemove(eventID, 1);
         }
         #endregion
         

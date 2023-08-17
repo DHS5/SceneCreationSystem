@@ -23,17 +23,19 @@ namespace Dhs5.SceneCreation
         public bool debug = false;
 
         public int TriggerNumberLeft { get; private set; } = -1;
+        bool triggerCount = false;
 
         public bool Trigger(int triggerNumber = -1)
         {
-            if (TriggerNumberLeft == -1 && triggerNumber != -1)
+            if (!triggerCount && triggerNumber != -1)
             {
                 TriggerNumberLeft = triggerNumber;
+                triggerCount = true;
             }
 
             if (!sceneConditions.VerifyConditions()) return false;
 
-            TriggerNumberLeft--;
+            if (triggerCount) TriggerNumberLeft--;
             sceneActions.Trigger();
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke();
@@ -84,17 +86,20 @@ namespace Dhs5.SceneCreation
         public bool debug = false;
 
         public int TriggerNumberLeft { get; private set; } = -1;
+        bool triggerCount = false;
 
         public bool Trigger(int triggerNumber = -1)
         {
-            if (TriggerNumberLeft == -1 && triggerNumber != -1)
+            if (!triggerCount && triggerNumber != -1)
             {
                 TriggerNumberLeft = triggerNumber;
+                triggerCount = true;
             }
 
             if (!sceneConditions.VerifyConditions()) return false;
 
-            TriggerNumberLeft--;
+            if (triggerCount) TriggerNumberLeft--;
+
             sceneActions.Trigger();
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke(default);
@@ -106,14 +111,16 @@ namespace Dhs5.SceneCreation
         }
         public bool Trigger(T param, int triggerNumber = -1)
         {
-            if (TriggerNumberLeft == -1 && triggerNumber != -1)
+            if (!triggerCount && triggerNumber != -1)
             {
                 TriggerNumberLeft = triggerNumber;
+                triggerCount = true;
             }
 
             if (!sceneConditions.VerifyConditions()) return false;
 
-            TriggerNumberLeft--;
+            if (triggerCount) TriggerNumberLeft--;
+
             sceneActions.Trigger();
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke(param);
