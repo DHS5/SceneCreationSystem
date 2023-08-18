@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using System.Text;
+using UnityEditorInternal;
 
 namespace Dhs5.SceneCreation
 {
@@ -15,6 +17,11 @@ namespace Dhs5.SceneCreation
             public string eventID;
             public bool random;
             public bool remove;
+
+            public override string ToString()
+            {
+                return "Trigger : " + eventID + (random ? " randomly " : "") + (remove ? " and remove" : "");
+            }
         }
 
         public SceneVariablesSO sceneVariablesSO;
@@ -26,6 +33,10 @@ namespace Dhs5.SceneCreation
         public SceneVar CurrentSceneVar
         {
             get { return SceneState.GetSceneVar(varUniqueID); }
+        }
+        private SceneVar EditorSceneVar
+        {
+            get => sceneVariablesSO[varUniqueID];
         }
         
         // Condition
@@ -77,5 +88,90 @@ namespace Dhs5.SceneCreation
         {
             return !hasCondition || conditions.VerifyConditions();
         }
+
+        #region SceneLog
+        public string Log()
+        {
+            StringBuilder sb = new();
+
+            sb.Append("* Listen to : [");
+            sb.Append(varUniqueID);
+            sb.Append("] ");
+            sb.Append(EditorSceneVar?.ID);
+            sb.Append(" (");
+            sb.Append(EditorSceneVar.type);
+            sb.Append(")");
+            sb.Append("\n");
+
+            return sb.ToString();
+        }
+        public List<string> LogLines(bool detailed = false)
+        {
+            List<string> lines = new();
+            StringBuilder sb = new();
+
+            sb.Append(SceneLogger.ListenerColor);
+            sb.Append("|");
+            sb.Append(SceneLogger.ColorEnd);
+            sb.Append(" Listen to : ");
+            sb.Append(EditorSceneVar?.LogString());
+            Line();
+
+            if (detailed)
+            {
+                if (hasCondition && conditions != null && conditions.Count > 0)
+                {
+                    sb.Append("   * IF : ");
+                    Line();
+
+                    for (int i = 0; i < conditions.Count; i++)
+                    {
+                        sb.Append("          ");
+                        sb.Append(conditions[i].ToString());
+                        if (i < conditions.Count - 1)
+                        {
+                            Line();
+                            sb.Append("          ");
+                            sb.Append(conditions[i].logicOperator);
+                        }
+                        Line();
+                    }
+                }                
+
+                sb.Append("   * UNITY EVENT : ");
+                Line();
+
+                for (int i = 0; i < events.GetPersistentEventCount(); i++)
+                {
+                    sb.Append("      --> ");
+                    sb.Append(events.GetPersistentTarget(i).ToString());
+                    sb.Append(".");
+                    sb.Append(events.GetPersistentMethodName(i));
+                    Line();
+                }
+
+                sb.Append("   * TRIGGERS : ");
+                Line();
+
+                foreach (var trigger in triggers)
+                {
+                    sb.Append("      --> ");
+                    sb.Append(trigger.ToString());
+                    Line();
+                }
+            }
+
+            return lines;
+
+            #region Local
+            void Line()
+            {
+                sb.Append('\n');
+                lines.Add(sb.ToString());
+                sb.Clear();
+            }
+            #endregion
+        }
+        #endregion
     }
 }

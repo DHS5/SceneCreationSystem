@@ -7,30 +7,30 @@ namespace Dhs5.SceneCreation
 {
     public static class SceneLogger
     {
-        private const string alinea = "_-_";
-        private const string back = "\n";
-
         private static Stack<string> logStack = new();
 
-        public static string GetSceneLog(GameObject go)
+        private static bool detailed;
+        private static bool inFile;
+        public static string GetSceneLog(GameObject go, bool _detailed = false, bool _inFile = false)
         {
+            detailed = _detailed;
+            inFile = _inFile;
+
             StringBuilder sb = new StringBuilder();
+            logStack.Clear();
 
             GameObject[] roots = go.scene.GetRootGameObjects();
 
-            foreach (GameObject root in roots)
+            for (int i = roots.Length - 1; i >= 0; i--)
             {
-                Appends("ROOT:", root.name);
-                if (root.TryGetComponent(out SceneObject so))
-                {
-                    AppendSO(so);
-                }
-                AppendGO(root, 1); // Not good, need to be on childs
+                if (AppendGO(roots[i], 0, RootColor + "ROOT:"))
+                    Back();
             }
 
             return UnpackStack(sb);
         }
 
+        #region Helpers
         private static string UnpackStack(StringBuilder sb)
         {
             foreach (var s in logStack)
@@ -51,69 +51,119 @@ namespace Dhs5.SceneCreation
                 Append(str[i]);
             }
         }
-        private static void AppendSO(SceneObject so)
+        private static void AppendSO(SceneObject so, int rank)
         {
-            Appends("SO:", so.ToString());
+            if (so == null) return;
+
+            List<string> lines = so.LogLines(detailed);
+
+            if (lines == null || lines.Count == 0)
+            {
+                Debug.LogError("SceneObject lines null or empty");
+                return;
+            }
+            for (int i = lines.Count - 1; i >= 0; i--)
+            {
+                Append(lines[i]);
+                BlankAlinea(rank);
+            }
+
+            Appends(" is ", SceneObjectColor, "SO:", ColorEnd, "\n");
         }
 
-        private static void Alinea()
+        private static void Alinea(int number = 1)
         {
-            Append("_-_");
+            for (int i = 0; i < number; i++)
+                Append("_____");
         }
-        private static void Back()
+        private static void BlankAlinea(int number = 1)
         {
-            Append("\n");
+            for (int i = 0; i < number; i++)
+                Append("        ");
+        }
+        private static void Back(int number = 1)
+        {
+            for (int i = 0; i < number; i++)
+                Append("\n");
+        }
+        private static void Prefix(string prefix)
+        {
+            Append(ColorEnd);
+            Append(prefix);
         }
 
-        private static bool AppendGO(GameObject go, int rank)
+        private static bool AppendGO(GameObject go, int rank, string prefix = null, bool forceLog = false)
         {
             void Name()
             {
                 Append(go.name);
             }
-            void Alineas()
-            {
-                for (int i = 0; i < rank; i++)
-                {
-                    Alinea();
-                }
-            }
 
             bool result = go.TryGetComponent(out SceneObject so);
             bool childResult = false;
+            bool hasPrefix = prefix != null;
 
             int childCount = go.transform.childCount;
             if (childCount == 0)
             {
-                Back();
-                if (result) AppendSO(so);
-                Name();
-                Alineas();
+                if (result)
+                {
+                    Back();
+                    AppendSO(so, rank);
+                    Name();
+                    if (hasPrefix) Prefix(prefix);
+                    Alinea(rank);
+                }
                 return result;
             }
             else
             {
-                rank++;
-                for (int i = 0; i < childCount; i++)
+                for (int i = childCount - 1; i >= 0; i--)
                 {
-                    if (AppendGO(go.transform.GetChild(i).gameObject, rank))
+                    if (AppendGO(go.transform.GetChild(i).gameObject, rank + 1))
                     {
                         childResult = true;
                     }
                 }
             }
 
+            if (result || childResult || forceLog)
+            {
+                Back();
+            }
             if (result)
             {
-                AppendSO(so);
+                AppendSO(so, rank);
             }
-            if (result || childResult)
+            if (result || childResult || forceLog)
             {
                 Name();
-                Alineas();
+                if (hasPrefix) Prefix(prefix);
+                Alinea(rank);
                 return true;
             }
             return false;
         }
+        #endregion
+
+        #region Color Utility
+        private const string rootColor = "<color=#7E3600>";
+        private const string sceneObjectColor = "<color=#0000ff>";
+        private const string listenerColor = "<color=#00ff00>";
+        private const string eventColor = "<color=#ff0000>";
+        private const string colorEnd = "</color>";
+
+        public static string RootColor => Color(rootColor);
+        public static string SceneObjectColor => Color(sceneObjectColor);
+        public static string ListenerColor => Color(listenerColor);
+        public static string EventColor => Color(eventColor);
+        public static string ColorEnd => Color(colorEnd);
+
+        public static string Color(string color)
+        {
+            if (inFile) return null;
+            return color;
+        }
+        #endregion
     }
 }

@@ -35,6 +35,10 @@ namespace Dhs5.SceneCreation
         {
             get => SceneState.GetSceneVar(sceneVarUniqueID);
         }
+        private SceneVar EditorSceneVar
+        {
+            get => sceneVariablesSO[sceneVarUniqueID];
+        }
 
 
         public void SetUp(SceneVariablesSO _sceneVariablesSO, SceneVarType _type, bool _canBeStatic = false)
@@ -213,5 +217,12 @@ namespace Dhs5.SceneCreation
         {
             Debug.LogError("This SceneVarTween is a " + SceneVar.type + " and not a " + type);
         }
+
+        #region Log
+        public string LogString()
+        {
+            return IsStatic ? Value.ToString() : EditorSceneVar.LogString();
+        }
+        #endregion
     }
 }

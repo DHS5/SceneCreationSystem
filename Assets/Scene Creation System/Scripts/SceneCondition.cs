@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Text;
 
 namespace Dhs5.SceneCreation
 {
@@ -239,6 +240,47 @@ namespace Dhs5.SceneCreation
                 case StringComparison.NULL_EMPTY: return " is null or empty. ";
                 default: return "";
             }
+        }
+        private string GetCompDescription()
+        {
+            switch (EditorSceneVar1.type)
+            {
+                case SceneVarType.BOOL: return BoolCompDescription(boolComp);
+                case SceneVarType.FLOAT: return FloatCompDescription(floatComp);
+                case SceneVarType.INT: return IntCompDescription(intComp);
+                case SceneVarType.STRING: return StringCompDescription(stringComp);
+                default: return "";
+            }
+        }
+        #endregion
+
+        #region Log
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+            sb.Append(EditorSceneVar1.LogString());
+            sb.Append(" ");
+            sb.Append(GetCompDescription());
+            sb.Append(" ");
+            sb.Append(SceneVar2.LogString());
+
+            return sb.ToString();
+        }
+        public string LogString(bool last = false)
+        {
+            StringBuilder sb = new();
+            sb.Append(EditorSceneVar1.LogString());
+            sb.Append(" ");
+            sb.Append(GetCompDescription());
+            sb.Append(" ");
+            sb.Append(SceneVar2.LogString());
+            if (!last)
+            {
+                sb.Append(" ");
+                sb.Append(logicOperator);
+            }
+
+            return sb.ToString();
         }
         #endregion
     }

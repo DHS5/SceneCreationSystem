@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Text;
 
 namespace Dhs5.SceneCreation
 {
@@ -13,6 +14,7 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] private int var1UniqueID;
         public SceneVar SceneVar1 { get => SceneState.GetSceneVar(var1UniqueID); }
+        private SceneVar EditorSceneVar1 { get => sceneVariablesSO[var1UniqueID]; }
 
         [SerializeField] private SceneVarTween SceneVar2;
         [SerializeField] private SceneVarType var2Type;
@@ -114,7 +116,33 @@ namespace Dhs5.SceneCreation
                 default: return "";
             }
         }
+        private string GetOpDescription()
+        {
+            switch (EditorSceneVar1.type)
+            {
+                case SceneVarType.BOOL: return BoolOpDescription(boolOP);
+                case SceneVarType.INT: return IntOpDescription(intOP);
+                case SceneVarType.FLOAT: return FloatOpDescription(floatOP);
+                case SceneVarType.STRING: return StringOpDescription(stringOP);
+                case SceneVarType.EVENT: return "Trigger";
+                default: return null;
+            }
+        }
+        #endregion
 
+        #region Log
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+
+            sb.Append(EditorSceneVar1.LogString());
+            sb.Append(" ");
+            sb.Append(GetOpDescription());
+            sb.Append(" ");
+            sb.Append(SceneVar2.LogString());
+
+            return sb.ToString();
+        }
         #endregion
     }
 }

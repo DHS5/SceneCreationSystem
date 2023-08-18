@@ -245,6 +245,21 @@ namespace Dhs5.SceneCreation
                 return null;
             }
         }
+        public object EditorValue
+        {
+            get
+            {
+                switch (type)
+                {
+                    case SceneVarType.BOOL: return boolValue;
+                    case SceneVarType.INT: return intValue;
+                    case SceneVarType.FLOAT: return floatValue;
+                    case SceneVarType.STRING: return stringValue;
+                    case SceneVarType.EVENT: return null;
+                }
+                return null;
+            }
+        }
         public object LinkValue => SceneState.GetComplexSceneVarValue(uniqueID);
 
         public void GetStaticValues(out bool boolVal, out int intVal, out float floatVal, out string stringVal)
@@ -284,6 +299,10 @@ namespace Dhs5.SceneCreation
         {
             if (type == SceneVarType.EVENT) return ID + " (EVENT)";
             return ID + " (" + type.ToString() + ") = " + Value;
+        }
+        public string LogString()
+        {
+            return "[" + uniqueID + "] " + ID + " (" + type + ")" + (IsStatic ? " = " +  EditorValue : null);
         }
 
 

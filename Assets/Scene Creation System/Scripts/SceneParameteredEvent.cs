@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using System.Text;
 
 namespace Dhs5.SceneCreation
 {
@@ -89,6 +90,46 @@ namespace Dhs5.SceneCreation
             }
             Action.Invoke(GetObjectList(Action.ParameterListSize));
         }
+
+        #region Log
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+
+            sb.Append(obj.ToString());
+            sb.Append(":");
+            sb.Append(component.ToString());
+            sb.Append(".");
+            sb.Append(action.MethodName);
+            int size = action.ArgumentsCount;
+            if (size == 0) return sb.ToString();
+            sb.Append("(");
+            if (size > 0) sb.Append(varTween0.LogString());
+            if (size > 1)
+            {
+                sb.Append(", ");
+                sb.Append(varTween1.LogString());
+            }
+            if (size > 2)
+            {
+                sb.Append(", ");
+                sb.Append(varTween2.LogString());
+            }
+            if (size > 3)
+            {
+                sb.Append(", ");
+                sb.Append(varTween3.LogString());
+            }
+            if (size > 4)
+            {
+                sb.Append(", ");
+                sb.Append(varTween4.LogString());
+            }
+            sb.Append(")");
+
+            return sb.ToString();
+        }
+        #endregion
     }
 
     #region Base Event Action

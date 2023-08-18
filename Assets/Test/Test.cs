@@ -11,7 +11,7 @@ public class Test : MonoBehaviour
     public TextMeshProUGUI text2;
     public TextMeshProUGUI text3;
     public SceneSpawner spawner;
-
+    public Color color;
     public SceneEvent sceneEvent;
 
     //[SerializeReference, SubclassPicker] BaseClass baseClass;

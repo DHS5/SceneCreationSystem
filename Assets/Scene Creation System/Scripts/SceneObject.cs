@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
+using System.Text;
 
 namespace Dhs5.SceneCreation
 {
@@ -281,8 +282,107 @@ namespace Dhs5.SceneCreation
                 }
             return false;
         }
-        
+
         #endregion
+        #endregion
+
+        #region SceneLog
+        [ContextMenu("Display Log")]
+        private void DisplayLog()
+        {
+            Debug.Log(Log(true));
+        }
+
+        public string Log(bool detailed = false)
+        {
+            StringBuilder sb = new();
+
+            foreach (var l in LogLines(detailed))
+            {
+                sb.Append(l);
+            }
+
+            return sb.ToString();
+        }
+        public List<string> LogLines(bool detailed = false)
+        {
+            List<string> lines = new();
+            StringBuilder sb = new();
+
+            sb.Append(SceneLogger.SceneObjectColor);
+            sb.Append("--------------------------------------------------");
+            sb.Append(SceneLogger.ColorEnd);
+            Line();
+
+            sb.Append(SceneLogger.ListenerColor);
+            sb.Append("Listeners :");
+            sb.Append(SceneLogger.ColorEnd);
+            Line();
+
+            if (detailed)
+            {
+                sb.Append(SceneLogger.ListenerColor);
+                sb.Append("----------------------------------------");
+                sb.Append(SceneLogger.ColorEnd);
+                Line();
+            }
+
+            foreach (var listener in sceneListeners)
+            {
+                lines.AddRange(listener.LogLines(detailed));
+            }
+
+            if (detailed)
+            {
+                sb.Append(SceneLogger.ListenerColor);
+                sb.Append("----------------------------------------");
+                sb.Append(SceneLogger.ColorEnd);
+                Line();
+            }
+
+            sb.Append(SceneLogger.EventColor);
+            sb.Append("Events :");
+            sb.Append(SceneLogger.ColorEnd);
+            Line();
+
+            if (detailed)
+            {
+                sb.Append(SceneLogger.EventColor);
+                sb.Append("----------------------------------------");
+                sb.Append(SceneLogger.ColorEnd);
+                Line();
+            }
+
+            foreach (var events in sceneEvents)
+            {
+                lines.AddRange(events.LogLines(detailed));
+            }
+
+            if (detailed)
+            {
+                sb.Append(SceneLogger.EventColor);
+                sb.Append("----------------------------------------");
+                sb.Append(SceneLogger.ColorEnd);
+                Line();
+            }
+
+            sb.Append(SceneLogger.SceneObjectColor);
+            sb.Append("--------------------------------------------------");
+            sb.Append(SceneLogger.ColorEnd);
+            lines.Add(sb.ToString());
+            //Line();
+
+            return lines;
+
+            #region Local
+            void Line()
+            {
+                sb.Append('\n');
+                lines.Add(sb.ToString());
+                sb.Clear();
+            }
+            #endregion
+        }
         #endregion
     }
 }
