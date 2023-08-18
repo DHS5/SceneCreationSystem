@@ -297,8 +297,8 @@ namespace Dhs5.SceneCreation
         }
         public string RuntimeString()
         {
-            if (type == SceneVarType.EVENT) return ID + " (EVENT)";
-            return ID + " (" + type.ToString() + ") = " + Value;
+            if (type == SceneVarType.EVENT) return "[" + uniqueID + "] " + ID + " (EVENT)";
+            return "[" + uniqueID + "] " + ID + " (" + type.ToString() + ") = " + Value;
         }
         public string LogString()
         {

@@ -24,6 +24,8 @@ namespace Dhs5.SceneCreation
 
         public bool debug = false;
 
+        private SceneObject sceneObject;
+
         public int TriggerNumberLeft { get; private set; } = -1;
         bool triggerCount = false;
 
@@ -37,13 +39,16 @@ namespace Dhs5.SceneCreation
 
             if (!sceneConditions.VerifyConditions()) return false;
 
+            SceneContext context = new SceneContext(sceneObject.name);
+            context.Add("Trigger : " + eventID);
+
             if (triggerCount) TriggerNumberLeft--;
-            sceneActions.Trigger();
+            sceneActions.Trigger(context);
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke();
 
             if (debug)
-                DebugSceneEvent();
+                DebugSceneEvent(context);
 
             return true;
         }
@@ -61,13 +66,14 @@ namespace Dhs5.SceneCreation
         }
         public void BelongTo(SceneObject _sceneObject)
         {
+            sceneObject = _sceneObject;
             sceneActions.BelongTo(_sceneObject);
             sceneParameteredEvents.BelongTo(_sceneObject);
         }
 
-        private void DebugSceneEvent()
+        private void DebugSceneEvent(SceneContext context)
         {
-            Debug.LogError("Triggered Scene Event : " + eventID);
+            Debug.LogError(context.Get());
         }
 
         #region SceneLog
@@ -96,6 +102,8 @@ namespace Dhs5.SceneCreation
 
         public bool debug = false;
 
+        private SceneObject sceneObject;
+
         public int TriggerNumberLeft { get; private set; } = -1;
         bool triggerCount = false;
 
@@ -109,14 +117,17 @@ namespace Dhs5.SceneCreation
 
             if (!sceneConditions.VerifyConditions()) return false;
 
+            SceneContext context = new SceneContext(sceneObject.name);
+            context.Add("Trigger : " + eventID);
+
             if (triggerCount) TriggerNumberLeft--;
 
-            sceneActions.Trigger();
+            sceneActions.Trigger(context);
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke(default);
 
             if (debug)
-                DebugSceneEvent();
+                DebugSceneEvent(context);
 
             return true;
         }
@@ -130,14 +141,28 @@ namespace Dhs5.SceneCreation
 
             if (!sceneConditions.VerifyConditions()) return false;
 
+            // Context
+            SceneEventParam p = param as SceneEventParam;
+            SceneContext context;
+            if (p != null)
+            {
+                context = p.Context;
+                context.Add(sceneObject.name, " triggers : ", eventID);
+            }
+            else
+            {
+                context = new SceneContext(sceneObject.name);
+                context.Add("Trigger : " + eventID);
+            }
+
             if (triggerCount) TriggerNumberLeft--;
 
-            sceneActions.Trigger();
+            sceneActions.Trigger(context);
             sceneParameteredEvents.Trigger();
             unityEvent?.Invoke(param);
 
             if (debug)
-                DebugSceneEvent();
+                DebugSceneEvent(context);
 
             return true;
         }
@@ -155,13 +180,14 @@ namespace Dhs5.SceneCreation
         }
         public void BelongTo(SceneObject _sceneObject)
         {
+            sceneObject = _sceneObject;
             sceneActions.BelongTo(_sceneObject);
             sceneParameteredEvents.BelongTo(_sceneObject);
         }
 
-        private void DebugSceneEvent()
+        private void DebugSceneEvent(SceneContext context)
         {
-            Debug.LogError("Triggered Scene Event : " + eventID);
+            Debug.LogError(context.Get());
         }
 
         #region SceneLog

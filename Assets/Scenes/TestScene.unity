@@ -934,6 +934,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
+      propertyPath: sceneEvents.Array.data[0].debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].eventID
       value: Youp
       objectReference: {fileID: 0}
@@ -1480,16 +1484,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1156838773}
-        m_TargetAssemblyTypeName: Test, Assembly-CSharp
-        m_MethodName: ProfileTest
-        m_Mode: 1
+      - m_Target: {fileID: 1652975745}
+        m_TargetAssemblyTypeName: Dhs5.SceneCreation.SceneObject, SceneCreationSystem
+        m_MethodName: TriggerSceneEvent
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Oups
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1536318971
@@ -1578,71 +1582,8 @@ MonoBehaviour:
   sceneListeners:
   - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     varUniqueID: 9478
-    hasCondition: 1
-    conditions:
-    - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-      var1UniqueID: 4629
-      SceneVar2:
-        type: 0
-        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-        sceneVarUniqueID: 4629
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      var2Type: 0
-      boolComp: 0
-      intComp: 0
-      floatComp: 0
-      stringComp: 0
-      logicOperator: 0
-      forbiddenUID: 0
-    - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-      var1UniqueID: 4629
-      SceneVar2:
-        type: 0
-        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-        sceneVarUniqueID: 4629
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      var2Type: 0
-      boolComp: 0
-      intComp: 0
-      floatComp: 0
-      stringComp: 0
-      logicOperator: 1
-      forbiddenUID: 0
-    - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-      var1UniqueID: 4629
-      SceneVar2:
-        type: 0
-        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-        sceneVarUniqueID: 4629
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      var2Type: 0
-      boolComp: 0
-      intComp: 0
-      floatComp: 0
-      stringComp: 0
-      logicOperator: 4
-      forbiddenUID: 0
+    hasCondition: 0
+    conditions: []
     events:
       m_PersistentCalls:
         m_Calls: []
@@ -1651,7 +1592,7 @@ MonoBehaviour:
       random: 0
       remove: 0
     debug: 0
-    propertyHeight: 395.59998
+    propertyHeight: 0
   sceneEvents:
   - eventID: Test
     sceneConditions: []
@@ -1672,7 +1613,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    debug: 0
+    debug: 1
   - eventID: TriggerAndRemove
     sceneConditions: []
     sceneActions: []

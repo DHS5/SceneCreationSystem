@@ -99,25 +99,25 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        private static void ChangedVar(int varUniqueID, SceneObject sender)
+        private static void ChangedVar(int varUniqueID, SceneObject sender, SceneContext context)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
-                SceneEventManager.TriggerEvent(varUniqueID, new(SceneVariables[varUniqueID], FormerValues[varUniqueID], sender));
+                SceneEventManager.TriggerEvent(varUniqueID, new(SceneVariables[varUniqueID], FormerValues[varUniqueID], sender, context));
             }
             if (SceneVarLinks.ContainsKey(varUniqueID))
             {
                 foreach (var complexUID in SceneVarLinks[varUniqueID])
                 {
-                    ChangedComplexVar(complexUID, sender);
+                    ChangedComplexVar(complexUID, sender, context);
                 }
             }
         }
-        private static void ChangedComplexVar(int complexUID, SceneObject sender)
+        private static void ChangedComplexVar(int complexUID, SceneObject sender, SceneContext context)
         {
             if (ComplexSceneVariables.ContainsKey(complexUID))
             {
-                SceneEventManager.TriggerEvent(complexUID, new(SceneVariables[complexUID], FormerValues[complexUID], sender));
+                SceneEventManager.TriggerEvent(complexUID, new(SceneVariables[complexUID], FormerValues[complexUID], sender, context));
             }
         }
         #endregion
@@ -263,7 +263,7 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        public static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender)
+        public static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender, SceneContext context)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
@@ -284,7 +284,7 @@ namespace Dhs5.SceneCreation
                             SceneVariables[varUniqueID].BoolValue = param;
                             break;
                     }
-                    ChangedVar(varUniqueID, sender);
+                    ChangedVar(varUniqueID, sender, context);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.BOOL);
@@ -292,7 +292,7 @@ namespace Dhs5.SceneCreation
             }
             IncorrectID(varUniqueID);
         }
-        public static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender)
+        public static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender, SceneContext context)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
@@ -332,7 +332,7 @@ namespace Dhs5.SceneCreation
                             var.hasMax ? var.maxInt : Mathf.Infinity);
                     }
 
-                    ChangedVar(varUniqueID, sender);
+                    ChangedVar(varUniqueID, sender, context);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.INT);
@@ -340,7 +340,7 @@ namespace Dhs5.SceneCreation
             }
             IncorrectID(varUniqueID);
         }
-        public static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender)
+        public static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender, SceneContext context)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
@@ -380,7 +380,7 @@ namespace Dhs5.SceneCreation
                             var.hasMax ? var.maxFloat : Mathf.Infinity);
                     }
 
-                    ChangedVar(varUniqueID, sender);
+                    ChangedVar(varUniqueID, sender, context);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.FLOAT);
@@ -388,7 +388,7 @@ namespace Dhs5.SceneCreation
             }
             IncorrectID(varUniqueID);
         }
-        public static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender)
+        public static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender, SceneContext context)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
@@ -412,7 +412,7 @@ namespace Dhs5.SceneCreation
                             SceneVariables[varUniqueID].StringValue = param;
                             break;
                     }
-                    ChangedVar(varUniqueID, sender);
+                    ChangedVar(varUniqueID, sender, context);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.STRING);
@@ -420,7 +420,7 @@ namespace Dhs5.SceneCreation
             }
             IncorrectID(varUniqueID);
         }
-        public static void TriggerEventVar(int varUniqueID, SceneObject sender)
+        public static void TriggerEventVar(int varUniqueID, SceneObject sender, SceneContext context)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
@@ -428,7 +428,7 @@ namespace Dhs5.SceneCreation
                 if (var.type == SceneVarType.EVENT)
                 {
                     SaveFormerValues();
-                    ChangedVar(varUniqueID, sender);
+                    ChangedVar(varUniqueID, sender, context);
                     return;
                 }
                 IncorrectType(varUniqueID, SceneVarType.EVENT);
@@ -957,13 +957,13 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Trigger a list of SceneActions or SceneParameteredEvents (Extension Method)
-        public static void Trigger(this List<SceneAction> sceneActions)
+        public static void Trigger(this List<SceneAction> sceneActions, SceneContext context)
         {
             if (sceneActions == null || sceneActions.Count < 1) return;
             
             foreach (var action in sceneActions)
             {
-                action.Trigger();
+                action.Trigger(context);
             }
         }
         public static void Trigger(this List<SceneParameteredEvent> sceneEvents)

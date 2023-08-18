@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneVarTween : SceneState.ISceneVarDependant
+    public class SceneVarTween : SceneState.ISceneVarDependant, SceneState.ISceneObjectBelongable
     {
         [SerializeField] private SceneVarType type;
         public SceneVarType Type => type;
 
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
         private SceneObject sceneObject;
+        private SceneContext context;
 
         [SerializeField] private int sceneVarUniqueID;
 
@@ -50,6 +52,8 @@ namespace Dhs5.SceneCreation
         public void BelongTo(SceneObject _sceneObject)
         {
             sceneObject = _sceneObject;
+            context = new(sceneObject.name);
+            context.Add("Set var " + sceneVarUniqueID + " via SceneVarTween");
         }
 
         #region Values
@@ -87,7 +91,7 @@ namespace Dhs5.SceneCreation
                     boolValue = value;
                     return;
                 }
-                SceneState.ModifyBoolVar(sceneVarUniqueID, BoolOperation.SET, value, sceneObject);
+                SceneState.ModifyBoolVar(sceneVarUniqueID, BoolOperation.SET, value, sceneObject, context.Add("Set to " + value));
             }
         }
         public int IntValue
@@ -111,7 +115,7 @@ namespace Dhs5.SceneCreation
                     intValue = value;
                     return;
                 }
-                SceneState.ModifyIntVar(sceneVarUniqueID, IntOperation.SET, value, sceneObject);
+                SceneState.ModifyIntVar(sceneVarUniqueID, IntOperation.SET, value, sceneObject, context.Add("Set to " + value));
             }
         }
         public float FloatValue
@@ -135,7 +139,7 @@ namespace Dhs5.SceneCreation
                     floatValue = value;
                     return;
                 }
-                SceneState.ModifyFloatVar(sceneVarUniqueID, FloatOperation.SET, value, sceneObject);
+                SceneState.ModifyFloatVar(sceneVarUniqueID, FloatOperation.SET, value, sceneObject, context.Add("Set to " + value));
             }
         }
         public string StringValue
@@ -158,7 +162,7 @@ namespace Dhs5.SceneCreation
                     stringValue = value;
                     return;
                 }
-                SceneState.ModifyStringVar(sceneVarUniqueID, StringOperation.SET, value, sceneObject);
+                SceneState.ModifyStringVar(sceneVarUniqueID, StringOperation.SET, value, sceneObject, context.Add("Set to " + value));
             }
         }
         public void Trigger()
@@ -168,7 +172,7 @@ namespace Dhs5.SceneCreation
                 IncorrectType(SceneVarType.EVENT);
                 return;
             }
-            SceneState.TriggerEventVar(sceneVarUniqueID, sceneObject);
+            SceneState.TriggerEventVar(sceneVarUniqueID, sceneObject, context.Add("Trigger"));
         }
         #endregion
 

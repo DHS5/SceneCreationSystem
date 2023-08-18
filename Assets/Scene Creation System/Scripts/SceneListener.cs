@@ -60,14 +60,17 @@ namespace Dhs5.SceneCreation
         {
             SceneEventManager.StopListening(varUniqueID, OnListenerEvent);
         }
-        private void OnListenerEvent(SceneEventParam param)
+        private void OnListenerEvent(SceneEventParam _param)
         {
             if (VerifyConditions())
             {
+                SceneEventParam param = new(_param);
+                param.Context.UpRank();
+                param.Context.Add(sceneObject.name, " listener received ", param.ToString());
                 events.Invoke(param);
                 sceneObject.Trigger(triggers, param);
                 if (debug)
-                    Debug.LogError("Received event : " + CurrentSceneVar.ToString());
+                    DebugSceneListener(param.Context);
             }
         }
         #endregion
@@ -87,6 +90,12 @@ namespace Dhs5.SceneCreation
         public bool VerifyConditions()
         {
             return !hasCondition || conditions.VerifyConditions();
+        }
+
+
+        private void DebugSceneListener(SceneContext context)
+        {
+            Debug.LogError(context.Get());
         }
 
         #region SceneLog
