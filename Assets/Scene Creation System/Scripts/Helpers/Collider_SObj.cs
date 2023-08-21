@@ -11,6 +11,9 @@ namespace Dhs5.SceneCreation
         [SerializeField] new private Collider collider;
         [Tooltip("Mask deciding which layers to collide with")]
         public LayerMask layerMask;
+        [Space(10f)]
+        [Tooltip("Number of uses before deactivating the collider\n--> Set to -1 for infinite use\n--> Use Reload() to reset to the original number")]
+        [SerializeField] private int useNumber;
 
         [Header("Collision")]
         public List<SceneEvent<Collision>> onCollisionEnter;
@@ -50,6 +53,19 @@ namespace Dhs5.SceneCreation
             onTriggerStay.BelongTo(this);
             onTriggerExit.BelongTo(this);
         }
+        protected override void Init()
+        {
+            base.Init();
+
+            onCollisionEnter.Init();
+            onCollisionStay.Init();
+            onCollisionExit.Init();
+            onTriggerEnter.Init();
+            onTriggerStay.Init();
+            onTriggerExit.Init();
+
+            Reload();
+        }
         #endregion
 
         #region Collision
@@ -61,17 +77,26 @@ namespace Dhs5.SceneCreation
         private void OnCollisionEnter(Collision collision)
         {
             if (CollisionValid(collision))
+            {
                 onCollisionEnter.Trigger(collision);
+                Use();
+            }
         }
         private void OnCollisionStay(Collision collision)
         {
             if (CollisionValid(collision))
+            {
                 onCollisionStay.Trigger(collision);
+                Use();
+            }
         }
         private void OnCollisionExit(Collision collision)
         {
             if (CollisionValid(collision))
+            { 
                 onCollisionExit.Trigger(collision);
+                Use();
+            }
         }
         #endregion
 
@@ -84,24 +109,33 @@ namespace Dhs5.SceneCreation
         private void OnTriggerEnter(Collider other)
         {
             if (TriggerValid(other))
+            { 
                 onTriggerEnter.Trigger(other);
+                Use();
+            }
         }
         private void OnTriggerStay(Collider other)
         {
             if (TriggerValid(other))
+            { 
                 onTriggerStay.Trigger(other);
+                Use();
+            }
         }
         private void OnTriggerExit(Collider other)
         {
             if (TriggerValid(other))
+            { 
                 onTriggerExit.Trigger(other);
+                Use();
+            }
         }
         #endregion
 
         #region Collider Management
-        protected override void OnValidate_S()
+        protected override void OnValidate_Ext()
         {
-            base.OnValidate_S();
+            base.OnValidate_Ext();
 
             if (collider == null)
             {
@@ -111,6 +145,22 @@ namespace Dhs5.SceneCreation
             {
                 collider.includeLayers = layerMask;
             }
+        }
+        #endregion
+
+        #region Use Management
+        private int useLeft;
+
+        private void Reload()
+        {
+            useLeft = useNumber;
+            collider.enabled = useLeft != 0;
+        }
+        private void Use()
+        {
+            if (useLeft == -1) { return; }
+            useLeft--;
+            if (useLeft == 0) { collider.enabled = false; }
         }
         #endregion
     }

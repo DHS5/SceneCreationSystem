@@ -18,22 +18,22 @@ namespace Dhs5.SceneCreation
         [Header("Actions")]
         [SerializeField] protected List<SceneEvent<SceneEventParam>> sceneEvents;
 
-        #region Scene Events subscription
+        #region Scene Listeners registration
         private void OnEnable()
         {
             sceneListeners.Register();
 
-            OnEnable_S();
+            OnEnable_Ext();
         }
         private void OnDisable()
         {
             sceneListeners.Unregister();
 
-            OnDisable_S();
+            OnDisable_Ext();
         }
 
-        protected virtual void OnEnable_S() { }
-        protected virtual void OnDisable_S() { }
+        protected virtual void OnEnable_Ext() { }
+        protected virtual void OnDisable_Ext() { }
         #endregion
 
         #region Update Listeners, Actions & Tweens
@@ -41,18 +41,23 @@ namespace Dhs5.SceneCreation
         {
             Init();
             UpdateBelongings();
+
+            Awake_Ext();
         }
 
         private void OnValidate()
         {
             UpdateSceneVariables();
 
-            OnValidate_S();
+            OnValidate_Ext();
         }
-
         protected virtual void Init()
         {
+            sceneEventsList = new();
+
             sceneEvents.Init();
+
+            RegisterElements();
         }
         protected virtual void UpdateSceneVariables()
         {
@@ -65,8 +70,29 @@ namespace Dhs5.SceneCreation
             sceneEvents.BelongTo(this);
         }
 
-        protected virtual void OnValidate_S() { }
+        protected virtual void Awake_Ext() { }
+        protected virtual void OnValidate_Ext() { }
+        #endregion
 
+        #region Scene Events Registration
+        protected List<List<SceneEvent>> sceneEventsList;
+        protected List<SceneVarTween> tweenList;
+        /// <summary>
+        /// Function where all <see cref="SceneEvent"/> and <see cref="SceneVarTween"/> lists should be registered with : <see cref="Register"/>
+        /// </summary>
+        protected virtual void RegisterElements() { }
+
+        protected void Register(List<SceneEvent> events)
+        {
+            sceneEventsList.Add(events);
+            events.Init();
+            events.BelongTo(this);
+        }
+        protected void Register(SceneVarTween tween)
+        {
+            tweenList.Add(tween);
+            tween.BelongTo(this);
+        }
         #endregion
 
         #region Trigger Events

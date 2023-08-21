@@ -5,11 +5,263 @@ using UnityEngine.Events;
 using System;
 using System.Text;
 using UnityEditor.PackageManager;
+using System.Runtime.Remoting.Contexts;
 
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+    public abstract class BaseSceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+    {
+        public string eventID;
+        [Space(5)]
+
+        public List<SceneCondition> sceneConditions;
+
+        public List<SceneAction> sceneActions;
+
+        public List<SceneParameteredEvent> sceneParameteredEvents;
+
+        private SceneObject sceneObject;
+
+        #region Trigger Count
+        public int TriggerNumberLeft { get; private set; } = -1;
+        bool triggerCount = false;
+
+        protected void SetTriggerCount(int triggerNumber)
+        {
+            if (!triggerCount && triggerNumber != -1)
+            {
+                TriggerNumberLeft = triggerNumber;
+                triggerCount = true;
+            }
+        }
+        #endregion
+
+        public bool Trigger(int triggerNumber = -1)
+        {
+            SetTriggerCount(triggerNumber);
+
+            if (!sceneConditions.VerifyConditions()) return false;
+
+            SceneContext context = new SceneContext(sceneObject.name);
+            context.Add("Trigger : " + eventID);
+
+            if (triggerCount) TriggerNumberLeft--;
+            
+            CoreTrigger(context);
+
+            DebugSceneEvent(context);
+
+            return true;
+        }
+        protected bool Trigger<T>(T param = default, int triggerNumber = -1)
+        {
+            SetTriggerCount(triggerNumber);
+
+            if (!sceneConditions.VerifyConditions()) return false;
+
+            SceneContext context = new SceneContext(sceneObject.name);
+            context.Add("Trigger : " + eventID);
+
+            if (triggerCount) TriggerNumberLeft--;
+            
+            CoreTrigger(context, param);
+
+            DebugSceneEvent(context);
+
+            return true;
+        }
+
+        protected virtual void CoreTrigger(SceneContext context)
+        {
+            sceneActions.Trigger(context);
+            sceneParameteredEvents.Trigger();
+        }
+        protected virtual void CoreTrigger<T>(SceneContext context, T param)
+        {
+            sceneActions.Trigger(context);
+            sceneParameteredEvents.Trigger();
+        }
+
+        #region Set Ups
+        public void Init()
+        {
+            sceneParameteredEvents.Init();
+        }
+        public void SetUp(SceneVariablesSO _sceneVariablesSO)
+        {
+            sceneConditions.SetUp(_sceneVariablesSO);
+            sceneActions.SetUp(_sceneVariablesSO);
+            sceneParameteredEvents.SetUp(_sceneVariablesSO);
+        }
+        public void BelongTo(SceneObject _sceneObject)
+        {
+            sceneObject = _sceneObject;
+            sceneActions.BelongTo(_sceneObject);
+            sceneParameteredEvents.BelongTo(_sceneObject);
+        }
+        #endregion
+
+        #region Debug
+        protected virtual bool DebugCondition() { return true; }
+        protected void DebugSceneEvent(SceneContext context)
+        {
+            if (DebugCondition())
+                Debug.LogError(context.Get());
+        }
+        #endregion
+
+        #region SceneLog
+        public string Log()
+        {
+            StringBuilder sb = new();
+
+            sb.Append("* Event ID : ");
+            sb.Append(eventID);
+            sb.Append("\n");
+
+            return sb.ToString();
+        }
+        public List<string> LogLines(bool detailed = false)
+        {
+            List<string> lines = new();
+            StringBuilder sb = new();
+
+            sb.Append(SceneLogger.EventColor);
+            sb.Append("|");
+            sb.Append(SceneLogger.ColorEnd);
+            sb.Append(" Event ID : ");
+            sb.Append(eventID);
+            Line();
+
+            if (detailed)
+            {
+                if (sceneConditions != null && sceneConditions.Count > 0)
+                {
+                    sb.Append("   * IF : ");
+                    Line();
+
+                    for (int i = 0; i < sceneConditions.Count; i++)
+                    {
+                        sb.Append("          ");
+                        sb.Append(sceneConditions[i].ToString());
+                        if (i < sceneConditions.Count - 1)
+                        {
+                            Line();
+                            sb.Append("          ");
+                            sb.Append(sceneConditions[i].logicOperator);
+                        }
+                        Line();
+                    }
+                }
+
+                if (sceneActions != null && sceneActions.Count > 0)
+                {
+                    sb.Append("   * ACTION : ");
+                    Line();
+
+                    foreach (var a in sceneActions)
+                    {
+                        sb.Append("      --> ");
+                        sb.Append(a.ToString());
+                        Line();
+                    }
+                }
+
+                if (sceneParameteredEvents != null && sceneParameteredEvents.Count > 0)
+                {
+                    sb.Append("   * PARAMETERED EVENT : ");
+                    Line();
+
+                    foreach (var e in sceneParameteredEvents)
+                    {
+                        sb.Append("      --> ");
+                        sb.Append(e.ToString());
+                        Line();
+                    }
+                }
+
+                //int uEventCount = unityEvent.GetPersistentEventCount();
+                //if (uEventCount > 0)
+                //{
+                //    sb.Append("   * UNITY EVENT : ");
+                //    Line();
+                //
+                //    for (int i = 0; i < uEventCount; i++)
+                //    {
+                //        sb.Append("      --> ");
+                //        sb.Append(unityEvent.GetPersistentTarget(i).ToString());
+                //        sb.Append(".");
+                //        sb.Append(unityEvent.GetPersistentMethodName(i));
+                //        Line();
+                //    }
+                //}
+            }
+
+            return lines;
+
+            #region Local
+            void Line()
+            {
+                sb.Append('\n');
+                lines.Add(sb.ToString());
+                sb.Clear();
+            }
+            #endregion
+        }
+        #endregion
+    }
+
+    [Serializable]
+    public class SceneEvent : BaseSceneEvent
+    {
+        public UnityEvent unityEvent;
+
+        public bool debug = false;
+
+        protected override void CoreTrigger(SceneContext context)
+        {
+            base.CoreTrigger(context);
+
+            unityEvent?.Invoke();
+        }
+
+        protected override bool DebugCondition()
+        {
+            return debug;
+        }
+    }
+    [Serializable]
+    public class SceneEvent<T> : BaseSceneEvent
+    {
+        public UnityEvent<T> unityEvent;
+
+        public bool debug = false;
+
+        public bool Trigger(T param = default, int triggerNumber = -1)
+        {
+            return Trigger(param, triggerNumber);
+        }
+
+        protected override void CoreTrigger<U>(SceneContext context, U param)
+        {
+            base.CoreTrigger(context, param);
+
+            if (param is T paramT)
+            {
+                unityEvent?.Invoke(paramT);
+            }
+        }
+
+        protected override bool DebugCondition()
+        {
+            return debug;
+        }
+    }
+
+
+    [Serializable]
+    public class SceneEvent2 : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
         public string eventID;
         [Space(5)]
@@ -87,7 +339,7 @@ namespace Dhs5.SceneCreation
     }
 
     [Serializable]
-    public class SceneEvent<T> : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+    public class SceneEvent2<T> : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
         public string eventID;
         [Space(5)]
