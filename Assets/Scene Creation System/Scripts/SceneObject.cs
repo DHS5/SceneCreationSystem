@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
 using System.Text;
+using System.Linq;
 
 namespace Dhs5.SceneCreation
 {
@@ -75,16 +76,16 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Scene Events Registration
-        protected List<List<SceneEvent>> sceneEventsList;
+        protected List<List<BaseSceneEvent>> sceneEventsList;
         protected List<SceneVarTween> tweenList;
         /// <summary>
-        /// Function where all <see cref="SceneEvent"/> and <see cref="SceneVarTween"/> lists should be registered with : <see cref="Register"/>
+        /// Function where all <see cref="BaseSceneEvent"/> and <see cref="SceneVarTween"/> lists should be registered with : <see cref="Register"/>
         /// </summary>
         protected virtual void RegisterElements() { }
 
-        protected void Register(List<SceneEvent> events)
+        protected void Register<T>(List<T> events) where T : BaseSceneEvent
         {
-            sceneEventsList.Add(events);
+            sceneEventsList.Add(events as List<BaseSceneEvent>);
             events.Init();
             events.BelongTo(this);
         }

@@ -21,7 +21,10 @@ namespace Dhs5.SceneCreation
 
         public List<SceneParameteredEvent> sceneParameteredEvents;
 
-        private SceneObject sceneObject;
+        protected SceneObject sceneObject;
+        protected SceneContext context;
+
+        protected abstract UnityEventBase GetUnityEvent();
 
         #region Trigger Count
         public int TriggerNumberLeft { get; private set; } = -1;
@@ -37,51 +40,28 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
-        public bool Trigger(int triggerNumber = -1)
+        #region Trigger
+        public abstract bool Trigger(int triggerNumber = -1);
+        protected bool IsTriggerValid(int triggerNumber = -1)
         {
-            SetTriggerCount(triggerNumber);
-
             if (!sceneConditions.VerifyConditions()) return false;
 
-            SceneContext context = new SceneContext(sceneObject.name);
-            context.Add("Trigger : " + eventID);
-
-            if (triggerCount) TriggerNumberLeft--;
-            
-            CoreTrigger(context);
-
-            DebugSceneEvent(context);
-
-            return true;
-        }
-        protected bool Trigger<T>(T param = default, int triggerNumber = -1)
-        {
             SetTriggerCount(triggerNumber);
 
-            if (!sceneConditions.VerifyConditions()) return false;
-
-            SceneContext context = new SceneContext(sceneObject.name);
-            context.Add("Trigger : " + eventID);
-
             if (triggerCount) TriggerNumberLeft--;
-            
-            CoreTrigger(context, param);
 
-            DebugSceneEvent(context);
+            context = new SceneContext(sceneObject.name);
+            context.Add("Trigger : " + eventID);
 
             return true;
         }
 
-        protected virtual void CoreTrigger(SceneContext context)
+        protected void CoreTrigger()
         {
             sceneActions.Trigger(context);
             sceneParameteredEvents.Trigger();
         }
-        protected virtual void CoreTrigger<T>(SceneContext context, T param)
-        {
-            sceneActions.Trigger(context);
-            sceneParameteredEvents.Trigger();
-        }
+        #endregion
 
         #region Set Ups
         public void Init()
@@ -103,8 +83,8 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Debug
-        protected virtual bool DebugCondition() { return true; }
-        protected void DebugSceneEvent(SceneContext context)
+        protected abstract bool DebugCondition();
+        protected void DebugSceneEvent()
         {
             if (DebugCondition())
                 Debug.LogError(context.Get());
@@ -181,21 +161,22 @@ namespace Dhs5.SceneCreation
                     }
                 }
 
-                //int uEventCount = unityEvent.GetPersistentEventCount();
-                //if (uEventCount > 0)
-                //{
-                //    sb.Append("   * UNITY EVENT : ");
-                //    Line();
-                //
-                //    for (int i = 0; i < uEventCount; i++)
-                //    {
-                //        sb.Append("      --> ");
-                //        sb.Append(unityEvent.GetPersistentTarget(i).ToString());
-                //        sb.Append(".");
-                //        sb.Append(unityEvent.GetPersistentMethodName(i));
-                //        Line();
-                //    }
-                //}
+                UnityEventBase unityEvent = GetUnityEvent();
+                int uEventCount = unityEvent.GetPersistentEventCount();
+                if (uEventCount > 0)
+                {
+                    sb.Append("   * UNITY EVENT : ");
+                    Line();
+                
+                    for (int i = 0; i < uEventCount; i++)
+                    {
+                        sb.Append("      --> ");
+                        sb.Append(unityEvent.GetPersistentTarget(i).ToString());
+                        sb.Append(".");
+                        sb.Append(unityEvent.GetPersistentMethodName(i));
+                        Line();
+                    }
+                }
             }
 
             return lines;
@@ -219,11 +200,23 @@ namespace Dhs5.SceneCreation
 
         public bool debug = false;
 
-        protected override void CoreTrigger(SceneContext context)
+        public override bool Trigger(int triggerNumber = -1)
         {
-            base.CoreTrigger(context);
+            if (IsTriggerValid(triggerNumber))
+            {
+                CoreTrigger();
+                unityEvent?.Invoke();
 
-            unityEvent?.Invoke();
+                DebugSceneEvent();
+
+                return true;
+            }
+            return false;
+        }
+
+        protected override UnityEventBase GetUnityEvent()
+        {
+            return unityEvent;
         }
 
         protected override bool DebugCondition()
@@ -238,19 +231,44 @@ namespace Dhs5.SceneCreation
 
         public bool debug = false;
 
-        public bool Trigger(T param = default, int triggerNumber = -1)
+        public override bool Trigger(int triggerNumber = -1)
         {
-            return Trigger(param, triggerNumber);
+            if (IsTriggerValid(triggerNumber))
+            {
+                CoreTrigger();
+                unityEvent?.Invoke(default);
+
+                DebugSceneEvent();
+
+                return true;
+            }
+            return false;
         }
 
-        protected override void CoreTrigger<U>(SceneContext context, U param)
+        public bool Trigger(T param, int triggerNumber = -1)
         {
-            base.CoreTrigger(context, param);
-
-            if (param is T paramT)
+            if (IsTriggerValid(triggerNumber))
             {
-                unityEvent?.Invoke(paramT);
+                // Context
+                if (param is SceneEventParam p)
+                {
+                    context = p.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+
+                CoreTrigger();
+                unityEvent?.Invoke(param);
+
+                DebugSceneEvent();
+
+                return true;
             }
+            return false;
+        }
+
+        protected override UnityEventBase GetUnityEvent()
+        {
+            return unityEvent;
         }
 
         protected override bool DebugCondition()

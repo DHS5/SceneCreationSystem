@@ -28,6 +28,7 @@ namespace Dhs5.SceneCreation
         public List<SceneEvent<Collider>> onTriggerStay;
         [Space(15f)]
         public List<SceneEvent<Collider>> onTriggerExit;
+        public List<SceneEvent> blalba;
         #endregion
 
         #region SceneObject Extension
@@ -41,6 +42,17 @@ namespace Dhs5.SceneCreation
             onTriggerEnter.SetUp(sceneVariablesSO);
             onTriggerStay.SetUp(sceneVariablesSO);
             onTriggerExit.SetUp(sceneVariablesSO);
+        }
+        protected override void RegisterElements()
+        {
+            base.RegisterElements();
+
+            Register(onCollisionEnter);
+            Register(onCollisionStay);
+            Register(onCollisionExit);
+            Register(onTriggerEnter);
+            Register(onTriggerStay);
+            Register(onTriggerExit);
         }
         protected override void UpdateBelongings()
         {

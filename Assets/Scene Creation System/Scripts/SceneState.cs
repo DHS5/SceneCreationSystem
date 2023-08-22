@@ -987,7 +987,7 @@ namespace Dhs5.SceneCreation
                 action.Init();
             }
         }
-        public static void Init(this List<SceneEvent> sceneEvents)
+        public static void Init(this List<BaseSceneEvent> sceneEvents)
         {
             if (sceneEvents == null || sceneEvents.Count < 1) return;
             
@@ -996,7 +996,7 @@ namespace Dhs5.SceneCreation
                 action.Init();
             }
         }
-        public static void Init<T>(this List<SceneEvent<T>> sceneEvents)
+        public static void Init<T>(this List<T> sceneEvents) where T : BaseSceneEvent
         {
             if (sceneEvents == null || sceneEvents.Count < 1) return;
             
