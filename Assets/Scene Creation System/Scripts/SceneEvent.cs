@@ -10,7 +10,7 @@ using System.Runtime.Remoting.Contexts;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public abstract class BaseSceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+    public abstract class BaseSceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
     {
         public string eventID;
         [Space(5)]
@@ -102,12 +102,13 @@ namespace Dhs5.SceneCreation
 
             return sb.ToString();
         }
-        public List<string> LogLines(bool detailed = false)
+        public List<string> LogLines(bool detailed = false, string alinea = null)
         {
             List<string> lines = new();
             StringBuilder sb = new();
 
             sb.Append(SceneLogger.EventColor);
+            if (alinea != null) sb.Append(alinea);
             sb.Append("|");
             sb.Append(SceneLogger.ColorEnd);
             sb.Append(" Event ID : ");
@@ -187,6 +188,7 @@ namespace Dhs5.SceneCreation
                 sb.Append('\n');
                 lines.Add(sb.ToString());
                 sb.Clear();
+                if (alinea != null) sb.Append(alinea);
             }
             #endregion
         }

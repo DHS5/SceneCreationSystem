@@ -579,6 +579,22 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        #region Inits
+        public interface IInitializable
+        {
+            public void Init();
+        }
+        public static void Init<T>(this List<T> initializables) where T : IInitializable
+        {
+            if (initializables == null || initializables.Count < 1) return;
+
+            foreach (var initializable in initializables)
+            {
+                initializable.Init();
+            }
+        }
+        #endregion
+
         #region Dependencies
         public interface ISceneVarDependant
         {
@@ -973,36 +989,6 @@ namespace Dhs5.SceneCreation
             foreach (var action in sceneEvents)
             {
                 action.Trigger();
-            }
-        }
-        #endregion
-        
-        #region Init a list of SceneParameteredEvents (Extension Method)
-        public static void Init(this List<SceneParameteredEvent> sceneEvents)
-        {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-            
-            foreach (var action in sceneEvents)
-            {
-                action.Init();
-            }
-        }
-        public static void Init(this List<BaseSceneEvent> sceneEvents)
-        {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-            
-            foreach (var action in sceneEvents)
-            {
-                action.Init();
-            }
-        }
-        public static void Init<T>(this List<T> sceneEvents) where T : BaseSceneEvent
-        {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-            
-            foreach (var action in sceneEvents)
-            {
-                action.Init();
             }
         }
         #endregion

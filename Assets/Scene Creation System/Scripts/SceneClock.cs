@@ -29,6 +29,12 @@ namespace Dhs5.SceneCreation
         public List<SceneTimeline> sceneTimelines;
 
         #region Update SceneVariables
+        protected override void Init()
+        {
+            base.Init();
+
+            sceneTimelines.Init();
+        }
         protected override void UpdateSceneVariables()
         {
             base.UpdateSceneVariables();

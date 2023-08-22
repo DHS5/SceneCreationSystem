@@ -8,7 +8,7 @@ using System.Text;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneParameteredEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+    public class SceneParameteredEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
     {
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
 

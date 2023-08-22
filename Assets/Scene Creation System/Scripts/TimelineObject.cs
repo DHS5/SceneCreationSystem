@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace Dhs5.SceneCreation
 {    
     [Serializable]
-    public class TimelineObject : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+    public class TimelineObject : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
     {
         public string TimelineID { get; private set; }
         public int StepNumber { get; private set; }
@@ -23,6 +23,10 @@ namespace Dhs5.SceneCreation
         private bool executing;
         private bool canInterrupt;
 
+        public void Init()
+        {
+            sceneEvents.Init();
+        }
         public void SetUp(SceneVariablesSO sceneVariablesSO)
         {
             sceneEvents.SetUp(sceneVariablesSO);

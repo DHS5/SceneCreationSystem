@@ -880,7 +880,7 @@ MonoBehaviour:
   text2: {fileID: 808525834}
   text3: {fileID: 908836252}
   spawner: {fileID: 503539151}
-  color: {r: 0.49056602, g: 0.20945516, b: 0, a: 0}
+  color: {r: 1, g: 0.6749149, b: 0.1372549, a: 0}
   sceneEvent:
     eventID: 
     sceneConditions: []
@@ -1023,7 +1023,7 @@ PrefabInstance:
       objectReference: {fileID: 1156838773}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].metadataToken
-      value: 100663308
+      value: 100663309
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneConditions.Array.data[0].SceneVar2.canBeStatic
@@ -1031,7 +1031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].propertyHeight
-      value: 187.20001
+      value: 79.200005
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween0.type
@@ -1055,7 +1055,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].action.methodName
-      value: Test2
+      value: Test3
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween2.isStatic
@@ -1167,7 +1167,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].action.arguments.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].action.arguments.Array.data[0].type
@@ -1613,7 +1613,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    debug: 1
+    debug: 0
   - eventID: TriggerAndRemove
     sceneConditions: []
     sceneActions: []
@@ -2146,7 +2146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].propertyHeight
-      value: 187.20001
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween0.type
@@ -2943,7 +2943,7 @@ MonoBehaviour:
   onCollisionStay: []
   onCollisionExit: []
   onTriggerEnter:
-  - eventID: 
+  - eventID: Trigger Enter
     sceneConditions: []
     sceneActions: []
     sceneParameteredEvents:
@@ -2974,7 +2974,7 @@ MonoBehaviour:
           stringValue: 
       obj: {fileID: 1156838772}
       component: {fileID: 1156838773}
-      metadataToken: 100663311
+      metadataToken: 100663308
       propertyHeight: 27
       varTween0:
         type: 1

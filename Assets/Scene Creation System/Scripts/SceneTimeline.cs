@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneTimeline : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+    public class SceneTimeline : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
     {
         public string ID;
         public bool loop;
@@ -20,6 +20,10 @@ namespace Dhs5.SceneCreation
         private TimelineObject currentTimelineObject;
         private int currentStep;
         
+        public void Init()
+        {
+            timelineObjects.Init();
+        }
         public void SetUp(SceneVariablesSO sceneVariablesSO)
         {
             endLoopCondition.SetUp(sceneVariablesSO);

@@ -151,15 +151,25 @@ namespace Dhs5.SceneCreation
         private const string sceneObjectColor = "<color=#0000ff>";
         private const string listenerColor = "<color=#00ff00>";
         private const string eventColor = "<color=#ff0000>";
+        private const string extensionEventColor = "<color=#ff3b7d>";
+        private const string tweenColor = "<color=#ffad23>";
         private const string colorEnd = "</color>";
+
+        private const string bold = "<b>";
+        private const string boldEnd = "</b>";
 
         public static string RootColor => Color(rootColor);
         public static string SceneObjectColor => Color(sceneObjectColor);
         public static string ListenerColor => Color(listenerColor);
         public static string EventColor => Color(eventColor);
+        public static string ExtensionEventColor => Color(extensionEventColor);
+        public static string TweenColor => Color(tweenColor);
         public static string ColorEnd => Color(colorEnd);
 
-        public static string Color(string color)
+        public static string Bold => Color(bold);
+        public static string BoldEnd => Color(boldEnd);
+
+        private static string Color(string color)
         {
             if (inFile) return null;
             return color;

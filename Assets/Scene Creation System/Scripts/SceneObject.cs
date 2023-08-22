@@ -19,6 +19,67 @@ namespace Dhs5.SceneCreation
         [Header("Actions")]
         [SerializeField] protected List<SceneEvent<SceneEventParam>> sceneEvents;
 
+        #region Update Listeners, Actions & Tweens
+        private void Awake()
+        {
+            Init();
+            UpdateBelongings();
+
+            Awake_Ext();
+        }
+
+        private void OnValidate()
+        {
+            UpdateSceneVariables();
+
+            OnValidate_Ext();
+        }
+
+        // Virtuals
+
+        protected virtual void Init()
+        {
+            sceneEvents.Init();
+
+            RegisterElements();
+
+            if (SceneEventsDico != null && SceneEventsDico.Count > 0)
+            {
+                foreach (var pair in SceneEventsDico)
+                {
+                    pair.Value.Init();
+                }
+            }
+        }
+        protected virtual void UpdateBelongings()
+        {
+            sceneListeners.BelongTo(this);
+            sceneEvents.BelongTo(this);
+
+            if (SceneEventsDico != null && SceneEventsDico.Count > 0)
+            {
+                foreach (var pair in SceneEventsDico)
+                {
+                    pair.Value.BelongTo(this);
+                }
+            }
+            if (TweenDico != null && TweenDico.Count > 0)
+            {
+                foreach (var pair in TweenDico)
+                {
+                    pair.Value.BelongTo(this);
+                }
+            }
+        }
+        protected virtual void UpdateSceneVariables()
+        {
+            sceneListeners.SetUp(sceneVariablesSO);
+            sceneEvents.SetUp(sceneVariablesSO);
+        }
+        protected virtual void Awake_Ext() { }
+        protected virtual void OnValidate_Ext() { }
+        #endregion
+
         #region Scene Listeners registration
         private void OnEnable()
         {
@@ -37,62 +98,25 @@ namespace Dhs5.SceneCreation
         protected virtual void OnDisable_Ext() { }
         #endregion
 
-        #region Update Listeners, Actions & Tweens
-        private void Awake()
-        {
-            Init();
-            UpdateBelongings();
-
-            Awake_Ext();
-        }
-
-        private void OnValidate()
-        {
-            UpdateSceneVariables();
-
-            OnValidate_Ext();
-        }
-        protected virtual void Init()
-        {
-            sceneEventsList = new();
-
-            sceneEvents.Init();
-
-            RegisterElements();
-        }
-        protected virtual void UpdateSceneVariables()
-        {
-            sceneListeners.SetUp(sceneVariablesSO);
-            sceneEvents.SetUp(sceneVariablesSO);
-        }
-        protected virtual void UpdateBelongings()
-        {
-            sceneListeners.BelongTo(this);
-            sceneEvents.BelongTo(this);
-        }
-
-        protected virtual void Awake_Ext() { }
-        protected virtual void OnValidate_Ext() { }
-        #endregion
-
         #region Scene Events Registration
-        protected List<List<BaseSceneEvent>> sceneEventsList;
-        protected List<SceneVarTween> tweenList;
+        protected Dictionary<string, List<BaseSceneEvent>> SceneEventsDico { get; private set; }
+        protected Dictionary<string, SceneVarTween> TweenDico { get; private set; }
         /// <summary>
-        /// Function where all <see cref="BaseSceneEvent"/> and <see cref="SceneVarTween"/> lists should be registered with : <see cref="Register"/>
+        /// Function where all <see cref="BaseSceneEvent"/> and <see cref="SceneVarTween"/> lists should be registered with : <see cref="Register{T}(string, List{T})"/>
         /// </summary>
-        protected virtual void RegisterElements() { }
-
-        protected void Register<T>(List<T> events) where T : BaseSceneEvent
+        protected virtual void RegisterElements() 
         {
-            sceneEventsList.Add(events as List<BaseSceneEvent>);
-            events.Init();
-            events.BelongTo(this);
+            SceneEventsDico = new();
+            TweenDico = new();
         }
-        protected void Register(SceneVarTween tween)
+
+        protected void Register<T>(string name, List<T> events) where T : BaseSceneEvent
         {
-            tweenList.Add(tween);
-            tween.BelongTo(this);
+            SceneEventsDico[name] = events.Cast<BaseSceneEvent>().ToList();
+        }
+        protected void Register(string name, SceneVarTween tween)
+        {
+            TweenDico[name] = tween;
         }
         #endregion
 
@@ -388,6 +412,64 @@ namespace Dhs5.SceneCreation
             if (detailed)
             {
                 sb.Append(SceneLogger.EventColor);
+                sb.Append("----------------------------------------");
+                sb.Append(SceneLogger.ColorEnd);
+                Line();
+            }
+
+            RegisterElements();
+            if (SceneEventsDico != null && SceneEventsDico.Count > 0)
+            {
+                sb.Append(SceneLogger.ExtensionEventColor);
+                sb.Append("Extension Events :");
+                Line();
+                sb.Append("----------------------------------------");
+                sb.Append(SceneLogger.ColorEnd);
+                Line();
+
+                foreach (var pair in SceneEventsDico)
+                {
+                    sb.Append(SceneLogger.ExtensionEventColor);
+                    sb.Append("   * ");
+                    sb.Append(SceneLogger.ColorEnd);
+                    sb.Append(SceneLogger.Bold);
+                    sb.Append(pair.Key);
+                    sb.Append(SceneLogger.BoldEnd);
+                    Line();
+
+                    if (pair.Value == null || pair.Value.Count == 0) continue;
+
+                    foreach (var e in pair.Value)
+                        lines.AddRange(e.LogLines(detailed, "      "));
+                }
+                sb.Append(SceneLogger.ExtensionEventColor);
+                sb.Append("----------------------------------------");
+                sb.Append(SceneLogger.ColorEnd);
+                Line();
+            }
+            if (TweenDico != null && TweenDico.Count > 0)
+            {
+                sb.Append(SceneLogger.TweenColor);
+                sb.Append("SceneVarTweens :");
+                Line();
+                sb.Append("----------------------------------------");
+                sb.Append(SceneLogger.ColorEnd);
+                Line();
+
+                foreach (var pair in TweenDico)
+                {
+                    sb.Append(SceneLogger.TweenColor);
+                    sb.Append("   * ");
+                    sb.Append(SceneLogger.ColorEnd);
+                    sb.Append(SceneLogger.Bold);
+                    sb.Append(pair.Key);
+                    sb.Append(SceneLogger.BoldEnd);
+                    sb.Append(" : ");
+                    sb.Append(pair.Value.LogString());
+                    Line();
+                }
+
+                sb.Append(SceneLogger.TweenColor);
                 sb.Append("----------------------------------------");
                 sb.Append(SceneLogger.ColorEnd);
                 Line();
