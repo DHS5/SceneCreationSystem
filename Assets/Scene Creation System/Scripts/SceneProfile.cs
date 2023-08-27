@@ -7,13 +7,18 @@ using Random = UnityEngine.Random;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public abstract class SceneProfile : SceneState.ISceneVarSetupable
+    public abstract class SceneProfile : SceneState.ISceneVarSetupable, SceneState.IInitializable
     {
         protected SceneVariablesSO sceneVariablesSO;
 
         protected SceneObject sceneObject;
 
         #region Overridable Functions
+        public void Init()
+        {
+            RegisterSceneEventsLists();
+            InitSceneEventsLists();
+        }
         public virtual void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
             sceneVariablesSO = _sceneVariablesSO;
@@ -23,9 +28,6 @@ namespace Dhs5.SceneCreation
         public virtual void Attach(SceneObject _sceneObject)
         {
             sceneObject = _sceneObject;
-
-            RegisterSceneEventsLists();
-            InitSceneEventsLists();
 
             // Update Belongings
         }
@@ -46,7 +48,7 @@ namespace Dhs5.SceneCreation
         public abstract void RegisterSceneEventsLists();
         #endregion
 
-        #region Scene Events Handling
+        #region Scene Events Management
         protected List<string> eventsID = new();
         protected List<List<SceneEvent>> sceneEventsList = new(); // Problem : T
 
@@ -77,7 +79,9 @@ namespace Dhs5.SceneCreation
                 s.Init();
             }
         }
+        #endregion
 
+        #region Scene Events Triggering
         /// <summary>
         /// Triggers all the <see cref="List{T}"/> of <see cref="SceneEvent"/> of this profile
         /// </summary>

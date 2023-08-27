@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -250,14 +250,23 @@ MonoBehaviour:
   sceneListeners:
   - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
     varUniqueID: 2348
-    hasCondition: 0
+    hasCondition: 1
     conditions: []
     events:
       m_PersistentCalls:
         m_Calls: []
+    triggers: []
     debug: 0
-    propertyHeight: 145.40001
-  sceneEvents: []
+    propertyHeight: 259.4
+  sceneEvents:
+  - eventID: 
+    sceneConditions: []
+    sceneActions: []
+    sceneParameteredEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    debug: 0
   spawnFrequency:
     type: 2
     sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}

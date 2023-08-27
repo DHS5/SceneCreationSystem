@@ -40,7 +40,7 @@ namespace Dhs5.SceneCreation
         {
             if (templates == null || templates.Count <= 0) return null;
 
-            return templates.Find(t => t.ID == templateID)?.Spawn(parent);
+            return templates.Find(t => t.ID == templateID)?.Spawn(sceneVariablesSO, parent);
         }
         /// <summary>
         /// Spawn the <see cref="SpawnTemplate"/> <paramref name="templateID"/> if it exists and removes it from <see cref="templates"/><br></br>
@@ -58,11 +58,17 @@ namespace Dhs5.SceneCreation
             if (template == null) return null;
             templates.Remove(template);
 
-            return template.Spawn(parent);
+            return template.Spawn(sceneVariablesSO, parent);
         }
         #endregion
 
         #region Interfaces
+        protected override void Init()
+        {
+            base.Init();
+
+            templates.Init();
+        }
         protected override void UpdateSceneVariables()
         {
             base.UpdateSceneVariables();
@@ -78,7 +84,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         [Serializable]
-        public class SpawnTemplate : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+        public class SpawnTemplate : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
         {
             [Tooltip("ID of the template, must be unique in this list")]
             [SerializeField] private string templateID;
@@ -91,16 +97,20 @@ namespace Dhs5.SceneCreation
             public SceneSpawner Spawner { get; private set; }
 
             #region Behaviour
-            public SceneObject Spawn(Transform overrideParent)
+            public SceneObject Spawn(SceneVariablesSO sceneVariablesSO, Transform overrideParent)
             {
                 SceneObject sceneObject = Instantiate(prefab, overrideParent ?? parent).GetComponent<SceneObject>();
                 sceneObject.name = templateID;
-                sceneObject.ApplyProfiles(profiles);
+                sceneObject.ApplyProfiles(sceneVariablesSO, profiles);
                 return sceneObject;
             }
             #endregion
 
             #region Interfaces
+            public void Init()
+            {
+                profiles.Init();
+            }
             public void SetUp(SceneVariablesSO sceneVariablesSO)
             {
                 profiles.SetUp(sceneVariablesSO);

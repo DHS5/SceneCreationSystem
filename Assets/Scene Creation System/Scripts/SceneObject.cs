@@ -188,8 +188,10 @@ namespace Dhs5.SceneCreation
         protected List<SceneProfile> sceneProfiles = new();
 
         #region List Handling
-        public void ApplyProfiles(List<SceneProfile> profiles)
+        public void ApplyProfiles(SceneVariablesSO _sceneVariablesSO, List<SceneProfile> profiles)
         {
+            sceneVariablesSO = _sceneVariablesSO;
+
             if (profiles == null || profiles.Count <= 0) return;
 
             ClearProfiles();
@@ -244,6 +246,16 @@ namespace Dhs5.SceneCreation
                 profile.Detach();
             }
             sceneProfiles.Clear();
+        }
+        #endregion
+
+        #region Has Profile ?
+        public bool HasProfileOfType<T>() where T : SceneProfile
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return false;
+
+            if (sceneProfiles.Find(p => p is T) != null) return true;
+            return false;
         }
         #endregion
 
