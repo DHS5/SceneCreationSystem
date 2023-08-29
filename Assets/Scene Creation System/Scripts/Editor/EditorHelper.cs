@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace Dhs5.SceneCreation
 {
@@ -41,6 +43,42 @@ namespace Dhs5.SceneCreation
             }
         }
 
+        [MenuItem("SCS/Setup New Scene")]
+        public static void SetUpNewScene(MenuCommand menuCommand)
+        {
+            Scene activeScene = EditorSceneManager.GetActiveScene();
+            string sceneName = activeScene.name;
+            string newSceneVarsPath = activeScene.path.Substring(0, activeScene.path.LastIndexOf('/') + 1) + sceneName + "_SceneVars.asset";
+            SceneVariablesSO newSceneVars;
+            if (!File.Exists(newSceneVarsPath))
+            {
+                newSceneVars = ScriptableObject.CreateInstance<SceneVariablesSO>();
+                AssetDatabase.CreateAsset(newSceneVars, activeScene.path.Substring(0, activeScene.path.LastIndexOf('/') + 1) + sceneName + "_SceneVars.asset");
+            }
+            else
+            {
+                newSceneVars = AssetDatabase.LoadAssetAtPath<SceneVariablesSO>(newSceneVarsPath);
+            }
+
+            SceneManager manager = GameObject.FindObjectOfType<SceneManager>();
+            if (manager == null)
+            {
+                manager = SceneObjectCreator.CreateSceneManager(menuCommand);
+            }
+            manager.SetSceneVariablesSO(newSceneVars);
+
+            SceneClock clock = GameObject.FindObjectOfType<SceneClock>();
+            if (clock == null)
+            {
+                clock = SceneObjectCreator.CreateSceneClock(menuCommand);
+            }
+            else
+            {
+                clock.GetSceneVariablesSOInScene();
+            }
+
+            Selection.activeObject = newSceneVars;
+        }
 
         #region Log
         [MenuItem("SCS/Log/Display simple Scene Log", priority = 100)]

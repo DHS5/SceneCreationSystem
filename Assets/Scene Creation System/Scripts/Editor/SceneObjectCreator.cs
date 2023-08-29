@@ -10,40 +10,41 @@ namespace Dhs5.SceneCreation
         public const string legacyMenuPath = "GameObject/SceneObjects/Legacy/";
         public const string legacyPrefabPath = "Assets/Scene Creation System/Prefabs/";
 
-        protected static void CreateSceneObject(string path, MenuCommand menuCommand)
+        protected static SceneObject CreateSceneObject(string path, MenuCommand menuCommand)
         {
             GameObject go = (GameObject)AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
             GameObject obj = PrefabUtility.InstantiatePrefab(go, Selection.activeTransform) as GameObject;
             SceneObject sceneObject = obj.GetComponent<SceneObject>();
             if (sceneObject != null && sceneObject is not SceneManager) sceneObject.GetSceneVariablesSOInScene();
-            GameObjectUtility.SetParentAndAlign(obj, menuCommand.context as GameObject);
+            GameObjectUtility.SetParentAndAlign(obj, menuCommand?.context as GameObject);
             PrefabUtility.UnpackPrefabInstance(obj, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             Undo.RegisterCreatedObjectUndo(obj, "Create " + obj.name);
             Selection.activeGameObject = obj;
+            return sceneObject;
         }
 
         [MenuItem(legacyMenuPath + "SceneObject", priority = 10, secondaryPriority = 3)]
-        public static void CreateSimpleSceneObject(MenuCommand menuCommand)
+        public static SceneObject CreateSimpleSceneObject(MenuCommand menuCommand)
         {
-            CreateSceneObject(legacyPrefabPath + "SceneObject.prefab", menuCommand);
+            return CreateSceneObject(legacyPrefabPath + "SceneObject.prefab", menuCommand);
         }
         
         [MenuItem(legacyMenuPath + "SceneManager", priority = 10, secondaryPriority = 1)]
-        public static void CreateSceneManager(MenuCommand menuCommand)
+        public static SceneManager CreateSceneManager(MenuCommand menuCommand)
         {
-            CreateSceneObject(legacyPrefabPath + "SceneManager.prefab", menuCommand);
+            return CreateSceneObject(legacyPrefabPath + "SceneManager.prefab", menuCommand) as SceneManager;
         }
         
         [MenuItem(legacyMenuPath + "SceneClock", priority = 10, secondaryPriority = 2)]
-        public static void CreateSceneClock(MenuCommand menuCommand)
+        public static SceneClock CreateSceneClock(MenuCommand menuCommand)
         {
-            CreateSceneObject(legacyPrefabPath + "SceneClock.prefab", menuCommand);
+            return CreateSceneObject(legacyPrefabPath + "SceneClock.prefab", menuCommand) as SceneClock;
         }
         
         [MenuItem(legacyMenuPath + "Helpers/Collider SceneObject", priority = 10, secondaryPriority = 100)]
-        public static void CreateColliderSceneObject(MenuCommand menuCommand)
+        public static Collider_SObj CreateColliderSceneObject(MenuCommand menuCommand)
         {
-            CreateSceneObject(legacyPrefabPath + "Collider SceneObject.prefab", menuCommand);
+            return CreateSceneObject(legacyPrefabPath + "Collider SceneObject.prefab", menuCommand) as Collider_SObj;
         }
     }
 }
