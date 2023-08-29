@@ -70,12 +70,10 @@ namespace Dhs5.SceneCreation
             SceneClock clock = GameObject.FindObjectOfType<SceneClock>();
             if (clock == null)
             {
-                clock = SceneObjectCreator.CreateSceneClock(menuCommand);
+                SceneObjectCreator.CreateSceneClock(menuCommand);
             }
-            else
-            {
-                clock.GetSceneVariablesSOInScene();
-            }
+
+            SetAllSceneObjectSceneVariablesSO();
 
             Selection.activeObject = newSceneVars;
         }
