@@ -12,6 +12,7 @@ namespace Dhs5.SceneCreation
     public class SceneObject : MonoBehaviour
     {
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
+        public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
 
         [Header("Listeners")]
         [SerializeField] protected List<SceneListener> sceneListeners;
@@ -196,11 +197,8 @@ namespace Dhs5.SceneCreation
 
             ClearProfiles();
 
-            foreach (SceneProfile profile in profiles)
-            {
-                sceneProfiles.Add(profile);
-                profile.Attach(this);
-            }
+            sceneProfiles.AddRange(profiles);
+            profiles.Attach(this);
         }
         public void AddProfile(SceneProfile profile)
         {
@@ -241,21 +239,41 @@ namespace Dhs5.SceneCreation
                 return;
             }
 
-            foreach (var profile in sceneProfiles)
-            {
-                profile.Detach();
-            }
+            sceneProfiles.Detach();
             sceneProfiles.Clear();
         }
         #endregion
 
-        #region Has Profile ?
+        #region Get Profile
+        public T GetProfileOfType<T>() where T : SceneProfile
+        {
+            if (sceneProfiles == null || sceneProfiles.Count <= 0) return null;
+
+            return sceneProfiles.Find(p => p is T) as T;
+        }
         public bool HasProfileOfType<T>() where T : SceneProfile
         {
             if (sceneProfiles == null || sceneProfiles.Count <= 0) return false;
 
             if (sceneProfiles.Find(p => p is T) != null) return true;
             return false;
+        }
+        #endregion
+
+        #region Profile Override
+        public bool OverrideListeners(SceneProfile profile, List<SceneListener> listeners)
+        {
+            if (profile == null || !profile.CanOverrideListeners || listeners == null) return false;
+
+            sceneListeners.AddRange(listeners);
+            return true;
+        }
+        public bool OverrideEvents(SceneProfile profile, List<SceneEvent<SceneEventParam>> events)
+        {
+            if (profile == null || !profile.CanOverrideEvents || events == null) return false;
+
+            sceneEvents.AddRange(events);
+            return true;
         }
         #endregion
 
@@ -369,24 +387,19 @@ namespace Dhs5.SceneCreation
         }
         public List<string> LogLines(bool detailed = false)
         {
+            string passToLine = "Line()";
             List<string> lines = new();
             StringBuilder sb = new();
 
-            sb.Append(SceneLogger.SceneObjectColor);
-            sb.Append("--------------------------------------------------");
-            sb.Append(SceneLogger.ColorEnd);
+            AppendColor(SceneLogger.SceneObjectColor, "--------------------------------------------------");
             Line();
 
-            sb.Append(SceneLogger.ListenerColor);
-            sb.Append("Listeners :");
-            sb.Append(SceneLogger.ColorEnd);
+            AppendColor(SceneLogger.ListenerColor, "Listeners :");
             Line();
 
             if (detailed)
             {
-                sb.Append(SceneLogger.ListenerColor);
-                sb.Append("----------------------------------------");
-                sb.Append(SceneLogger.ColorEnd);
+                AppendColor(SceneLogger.ListenerColor, "----------------------------------------");
                 Line();
             }
 
@@ -397,22 +410,16 @@ namespace Dhs5.SceneCreation
 
             if (detailed)
             {
-                sb.Append(SceneLogger.ListenerColor);
-                sb.Append("----------------------------------------");
-                sb.Append(SceneLogger.ColorEnd);
+                AppendColor(SceneLogger.ListenerColor, "----------------------------------------");
                 Line();
             }
 
-            sb.Append(SceneLogger.EventColor);
-            sb.Append("Events :");
-            sb.Append(SceneLogger.ColorEnd);
+            AppendColor(SceneLogger.EventColor, "Events :");
             Line();
 
             if (detailed)
             {
-                sb.Append(SceneLogger.EventColor);
-                sb.Append("----------------------------------------");
-                sb.Append(SceneLogger.ColorEnd);
+                AppendColor(SceneLogger.EventColor, "----------------------------------------");
                 Line();
             }
 
@@ -423,30 +430,23 @@ namespace Dhs5.SceneCreation
 
             if (detailed)
             {
-                sb.Append(SceneLogger.EventColor);
-                sb.Append("----------------------------------------");
-                sb.Append(SceneLogger.ColorEnd);
+                AppendColor(SceneLogger.EventColor, "----------------------------------------");
                 Line();
             }
+
+
+            ChildLog(lines, sb, detailed);
 
             RegisterElements();
             if (SceneEventsDico != null && SceneEventsDico.Count > 0)
             {
-                sb.Append(SceneLogger.ExtensionEventColor);
-                sb.Append("Extension Events :");
-                Line();
-                sb.Append("----------------------------------------");
-                sb.Append(SceneLogger.ColorEnd);
+                AppendColor(SceneLogger.ExtensionEventColor, "Extension Events :", passToLine, "----------------------------------------");
                 Line();
 
                 foreach (var pair in SceneEventsDico)
                 {
-                    sb.Append(SceneLogger.ExtensionEventColor);
-                    sb.Append("   * ");
-                    sb.Append(SceneLogger.ColorEnd);
-                    sb.Append(SceneLogger.Bold);
-                    sb.Append(pair.Key);
-                    sb.Append(SceneLogger.BoldEnd);
+                    AppendColor(SceneLogger.ExtensionEventColor, "   * ");
+                    AppendBold(pair.Key);
                     Line();
 
                     if (pair.Value == null || pair.Value.Count == 0) continue;
@@ -454,42 +454,27 @@ namespace Dhs5.SceneCreation
                     foreach (var e in pair.Value)
                         lines.AddRange(e.LogLines(detailed, "      "));
                 }
-                sb.Append(SceneLogger.ExtensionEventColor);
-                sb.Append("----------------------------------------");
-                sb.Append(SceneLogger.ColorEnd);
+                AppendColor(SceneLogger.ExtensionEventColor, "----------------------------------------");
                 Line();
             }
             if (TweenDico != null && TweenDico.Count > 0)
             {
-                sb.Append(SceneLogger.TweenColor);
-                sb.Append("SceneVarTweens :");
-                Line();
-                sb.Append("----------------------------------------");
-                sb.Append(SceneLogger.ColorEnd);
+                AppendColor(SceneLogger.TweenColor, "SceneVarTweens :", passToLine, "----------------------------------------");
                 Line();
 
                 foreach (var pair in TweenDico)
                 {
-                    sb.Append(SceneLogger.TweenColor);
-                    sb.Append("   * ");
-                    sb.Append(SceneLogger.ColorEnd);
-                    sb.Append(SceneLogger.Bold);
-                    sb.Append(pair.Key);
-                    sb.Append(SceneLogger.BoldEnd);
+                    AppendColor(SceneLogger.TweenColor, "   * ");
+                    AppendBold(pair.Key);
                     sb.Append(" : ");
                     sb.Append(pair.Value.LogString());
                     Line();
                 }
 
-                sb.Append(SceneLogger.TweenColor);
-                sb.Append("----------------------------------------");
-                sb.Append(SceneLogger.ColorEnd);
-                Line();
+                AppendColor(SceneLogger.TweenColor, "----------------------------------------", passToLine);
             }
 
-            sb.Append(SceneLogger.SceneObjectColor);
-            sb.Append("--------------------------------------------------");
-            sb.Append(SceneLogger.ColorEnd);
+            AppendColor(SceneLogger.SceneObjectColor, "--------------------------------------------------");
             lines.Add(sb.ToString());
             //Line();
 
@@ -502,7 +487,49 @@ namespace Dhs5.SceneCreation
                 lines.Add(sb.ToString());
                 sb.Clear();
             }
+            void AppendColor(string color, params string[] strings)
+            {
+                sb.Append(color);
+                foreach (var s in strings)
+                {
+                    if (s == passToLine) Line();
+                    else sb.Append(s);
+                }
+                sb.Append(SceneLogger.ColorEnd);
+            }
+            void AppendBold(params string[] strings)
+            {
+                sb.Append(SceneLogger.Bold);
+                foreach (var s in strings)
+                {
+                    if (s == passToLine) Line();
+                    else sb.Append(s);
+                }
+                sb.Append(SceneLogger.BoldEnd);
+            }
             #endregion
+        }
+
+        protected virtual void ChildLog(List<string> lines, StringBuilder sb, bool detailed) { }
+        #endregion
+
+        #region Editor
+        /// <summary>
+        /// !!! EDITOR FUNCTION !!!
+        /// </summary>
+        [ContextMenu("Get SceneVariablesSO")]
+        public void GetSceneVariablesSOInScene()
+        {
+#if UNITY_EDITOR
+            if (Application.isPlaying || this is SceneManager) return;
+            SceneManager manager = FindObjectOfType<SceneManager>();
+            if (manager != null && manager != this)
+            {
+                sceneVariablesSO = manager.sceneVariablesSO;
+
+                UpdateSceneVariables();
+            }
+#endif
         }
         #endregion
     }

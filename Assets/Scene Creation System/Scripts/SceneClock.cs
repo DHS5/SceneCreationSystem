@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.Events;
+using System.Text;
 
 namespace Dhs5.SceneCreation
 {
@@ -65,6 +66,58 @@ namespace Dhs5.SceneCreation
         public void GoToStep(string timelineID, int step, bool interrupt)
         {
             sceneTimelines.Find(t => t.ID == timelineID)?.StartOrGoTo(step, interrupt);
+        }
+        #endregion
+
+        #region Log
+        protected override void ChildLog(List<string> lines, StringBuilder sb, bool detailed)
+        {
+            string passToLine = "Line()";
+
+            base.ChildLog(lines, sb, detailed);
+
+            AppendColor(SceneLogger.TimelineColor, "Timelines :");
+            Line();
+
+            if (sceneTimelines != null && sceneTimelines.Count > 0)
+            {
+                if (detailed)
+                {
+                    AppendColor(SceneLogger.TimelineColor, "----------------------------------------");
+                    Line();
+                }
+
+                foreach (var timeline in sceneTimelines)
+                {
+                    lines.AddRange(timeline.LogLines(detailed));
+                }
+
+                if (detailed)
+                {
+                    AppendColor(SceneLogger.TimelineColor, "----------------------------------------");
+                    Line();
+                }
+            }
+            
+
+            #region Local
+            void Line()
+            {
+                sb.Append('\n');
+                lines.Add(sb.ToString());
+                sb.Clear();
+            }
+            void AppendColor(string color, params string[] strings)
+            {
+                sb.Append(color);
+                foreach (var s in strings)
+                {
+                    if (s == passToLine) Line();
+                    else sb.Append(s);
+                }
+                sb.Append(SceneLogger.ColorEnd);
+            }
+            #endregion
         }
         #endregion
     }

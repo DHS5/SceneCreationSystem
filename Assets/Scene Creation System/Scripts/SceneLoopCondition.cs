@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Dhs5.SceneCreation
@@ -67,5 +68,68 @@ namespace Dhs5.SceneCreation
             currentIteration = 0;
             startTime = Time.time;
         }
+
+        #region Log
+        public List<string> LogLines(bool detailed, string alinea = null)
+        {
+            List<string> lines = new();
+            StringBuilder sb = new();
+
+            if (alinea != null) sb.Append(alinea);
+
+            switch (conditionType)
+            {
+                case LoopConditionType.SCENE:
+                    {
+                        sb.Append("~ LOOP until : ");
+                        if (!detailed) sb.Append("Condition");
+                        Line();
+                        if (detailed)
+                        {
+                            for (int i = 0; i < sceneConditions.Count; i++)
+                            {
+                                sb.Append("     ");
+                                sb.Append(sceneConditions[i].ToString());
+                                if (i < sceneConditions.Count - 1)
+                                {
+                                    Line();
+                                    sb.Append(sceneConditions[i].logicOperator);
+                                }
+                                Line();
+                            }
+                        }
+                        break;
+                    }
+                case LoopConditionType.TIMED:
+                    {
+                        sb.Append("~ LOOP for ");
+                        sb.Append(timeToWait.LogString());
+                        sb.Append(" seconds");
+                        Line();
+                        break;
+                    }
+                case LoopConditionType.ITERATION:
+                    {
+                        sb.Append("~ LOOP ");
+                        sb.Append(iterationNumber.LogString());
+                        sb.Append(" times");
+                        Line();
+                        break;
+                    }
+            }
+
+            return lines;
+
+            #region Local
+            void Line()
+            {
+                sb.Append('\n');
+                lines.Add(sb.ToString());
+                sb.Clear();
+                if (alinea != null) sb.Append(alinea);
+            }
+            #endregion
+        }
+        #endregion
     }
 }

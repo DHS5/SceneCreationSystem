@@ -153,6 +153,7 @@ namespace Dhs5.SceneCreation
         private const string eventColor = "<color=#ff0000>";
         private const string extensionEventColor = "<color=#ff3b7d>";
         private const string tweenColor = "<color=#ffad23>";
+        private const string timelineColor = "<color=#ad00ff>";
         private const string colorEnd = "</color>";
 
         private const string bold = "<b>";
@@ -164,6 +165,7 @@ namespace Dhs5.SceneCreation
         public static string EventColor => Color(eventColor);
         public static string ExtensionEventColor => Color(extensionEventColor);
         public static string TweenColor => Color(tweenColor);
+        public static string TimelineColor => Color(timelineColor);
         public static string ColorEnd => Color(colorEnd);
 
         public static string Bold => Color(bold);

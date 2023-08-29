@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -83,6 +84,43 @@ namespace Dhs5.SceneCreation
         public void StopCoroutine()
         {
             SceneClock.Instance.StopCoroutine(startConditionCR);
+        }
+        #endregion
+
+        #region Log
+        public List<string> LogLines(bool detailed, string alinea = null)
+        {
+            string passToLine = "Line()";
+
+            List<string> lines = new();
+            StringBuilder sb = new();
+
+            if (alinea != null) sb.Append(alinea);
+            lines.AddRange(startCondition.LogLines(detailed, alinea));
+            //Line();
+            sb.Append("~ THEN : ");
+            Line();
+            foreach (var events in sceneEvents)
+            {
+                lines.AddRange(events.LogLines(detailed, alinea + "     "));
+            }
+
+            if (loop)
+            {
+                lines.AddRange(endLoopCondition.LogLines(detailed, alinea));
+            }
+
+            return lines;
+
+            #region Local
+            void Line()
+            {
+                sb.Append('\n');
+                lines.Add(sb.ToString());
+                sb.Clear();
+                if (alinea != null) sb.Append(alinea);
+            }
+            #endregion
         }
         #endregion
     }

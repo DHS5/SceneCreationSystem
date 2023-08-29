@@ -1,6 +1,4 @@
 using UnityEngine;
-
-#if UNITY_EDITOR
 using UnityEditor;
 
 using MenuCommand = UnityEditor.MenuCommand;
@@ -16,6 +14,8 @@ namespace Dhs5.SceneCreation
         {
             GameObject go = (GameObject)AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
             GameObject obj = PrefabUtility.InstantiatePrefab(go, Selection.activeTransform) as GameObject;
+            SceneObject sceneObject = obj.GetComponent<SceneObject>();
+            if (sceneObject != null && sceneObject is not SceneManager) sceneObject.GetSceneVariablesSOInScene();
             GameObjectUtility.SetParentAndAlign(obj, menuCommand.context as GameObject);
             PrefabUtility.UnpackPrefabInstance(obj, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             Undo.RegisterCreatedObjectUndo(obj, "Create " + obj.name);
@@ -47,5 +47,3 @@ namespace Dhs5.SceneCreation
         }
     }
 }
-
-#endif

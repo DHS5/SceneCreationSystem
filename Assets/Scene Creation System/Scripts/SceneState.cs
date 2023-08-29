@@ -7,6 +7,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 using System.Text;
 using GluonGui.WorkspaceWindow.Views.WorkspaceExplorer.Explorer;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
+using System.Runtime.CompilerServices;
 
 namespace Dhs5.SceneCreation
 {
@@ -735,6 +736,37 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Random Scene Event triggering (Extension Method)
+        public static bool TriggerRandom<T>(this List<T> sceneEvents, string filter = null, bool removeAfterTrigger = false) where T : BaseSceneEvent
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return false;
+
+            List<T> events = new();
+
+            if (filter != null)
+            {
+                foreach (var sceneEvent in sceneEvents)
+                    if (sceneEvent.eventID.Contains(filter))
+                        events.Add(sceneEvent);
+            }
+            else
+            {
+                events = new(sceneEvents);
+            }
+
+            T ev;
+            for (; events.Count > 0;)
+            {
+                ev = events[UnityEngine.Random.Range(0, events.Count)];
+                if (ev.Trigger())
+                {
+                    if (removeAfterTrigger) sceneEvents.Remove(ev);
+                    return true;
+                }
+                events.Remove(ev);
+            }
+
+            return false;
+        }
         /// <summary>
         /// Triggers a random SceneEvent in the list
         /// </summary>
@@ -810,8 +842,30 @@ namespace Dhs5.SceneCreation
             return false;
         }
         #endregion
-        
+
         #region Trigger a list of SceneEvents (Extension Method)
+        public static void Trigger<T>(this List<T> sceneEvents, string ID = null) where T : BaseSceneEvent
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+
+            List<T> events = new();
+
+            if (!string.IsNullOrEmpty(ID))
+            {
+                events = sceneEvents.FindAll(e => e.eventID == ID);
+            }
+            else
+            {
+                events = new(sceneEvents);
+            }
+
+            if (events == null || events.Count < 1) return;
+
+            foreach (var sceneEvent in events)
+            {
+                sceneEvent.Trigger();
+            }
+        }
         /// <summary>
         /// Trigger every SceneEvent which eventID == ID in the list<br></br>
         /// (Trigger all if ID == null)
@@ -870,33 +924,20 @@ namespace Dhs5.SceneCreation
                 sceneEvent.Trigger(value);
             }
         }
-        /// <summary>
-        /// Trigger every SceneEvent which eventID == ID in the list<br></br>
-        /// (Trigger all if ID == null)
-        /// </summary>
-        /// <typeparam name="T">SceneEvent type param</typeparam>
-        /// <param name="sceneEvents"></param>
-        /// <param name="ID">ID of the SceneEvents to trigger</param>
-        public static void Trigger<T>(this List<SceneEvent<T>> sceneEvents, string ID = null)
+        public static void TriggerAndRemove<T>(this List<T> sceneEvents, string ID, int triggerNumber) where T : BaseSceneEvent
         {
             if (sceneEvents == null || sceneEvents.Count < 1) return;
-            
-            List<SceneEvent<T>> events = new();
 
-            if (!string.IsNullOrEmpty(ID))
-            {
-                events = sceneEvents.FindAll(e => e.eventID == ID);
-            }
-            else
-            {
-                events = new(sceneEvents);
-            }
+            if (string.IsNullOrEmpty(ID)) return;
 
-            if (events == null || events.Count < 1) return;
+            List<T> events = new();
+            events = sceneEvents.FindAll(e => e.eventID == ID);
 
             foreach (var sceneEvent in events)
             {
-                sceneEvent.Trigger();
+                sceneEvent.Trigger(triggerNumber);
+                if (sceneEvent.TriggerNumberLeft == 0)
+                    sceneEvents.Remove(sceneEvent);
             }
         }
         /// <summary>
@@ -934,6 +975,19 @@ namespace Dhs5.SceneCreation
             foreach (var sceneEvent in events)
             {
                 sceneEvent.Trigger(value, triggerNumber);
+                if (sceneEvent.TriggerNumberLeft == 0)
+                    sceneEvents.Remove(sceneEvent);
+            }
+        }
+        public static void TriggerAndRemoveAll<T>(this List<T> sceneEvents, int triggerNumber) where T : BaseSceneEvent
+        {
+            if (sceneEvents == null || sceneEvents.Count < 1) return;
+
+            List<T> events = new(sceneEvents);
+
+            foreach (var sceneEvent in events)
+            {
+                sceneEvent.Trigger(triggerNumber);
                 if (sceneEvent.TriggerNumberLeft == 0)
                     sceneEvents.Remove(sceneEvent);
             }
@@ -1040,6 +1094,27 @@ namespace Dhs5.SceneCreation
             foreach (var trigger in triggers)
             {
                 sceneObject.Trigger(trigger, param);
+            }
+        }
+        #endregion
+
+        #region Profiles Management
+        public static void Attach<T>(this List<T> list, SceneObject _sceneObject) where T : SceneProfile
+        {
+            if (list == null || list.Count <= 0) return;
+
+            foreach (var item in list)
+            {
+                item.Attach(_sceneObject);
+            }
+        }
+        public static void Detach<T>(this List<T> list) where T : SceneProfile
+        {
+            if (list == null || list.Count <= 0) return;
+
+            foreach (var item in list)
+            {
+                item.Detach();
             }
         }
         #endregion

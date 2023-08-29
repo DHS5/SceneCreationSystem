@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,50 +8,70 @@ using Random = UnityEngine.Random;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public abstract class SceneProfile : SceneState.ISceneVarSetupable, SceneState.IInitializable
+    public abstract class SceneProfile : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
     {
         protected SceneVariablesSO sceneVariablesSO;
 
         protected SceneObject sceneObject;
 
-        #region Overridable Functions
+        #region SceneObject Override Permissions
+        public abstract bool CanOverrideListeners { get; }
+        public abstract bool CanOverrideEvents { get; }
+        #endregion
+
+        #region Interfaces
         public void Init()
         {
             RegisterSceneEventsLists();
+            RegisterTweens();
+
             InitSceneEventsLists();
         }
         public virtual void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
             sceneVariablesSO = _sceneVariablesSO;
 
-            // Set Up Scene Events and Listeners
+            // Set Up Scene Events, Tweens and Listeners
         }
+        public virtual void BelongTo(SceneObject _sceneObject)
+        {
+            UpdateSceneEventsBelongings(_sceneObject);
+            UpdateTweensBelongings(_sceneObject);
+        }
+        #endregion
+
+        #region Overridable Functions
         public virtual void Attach(SceneObject _sceneObject)
         {
             sceneObject = _sceneObject;
 
-            // Update Belongings
+            BelongTo(_sceneObject);
         }
         public virtual void Detach()
         {
             sceneObject = null;
 
-            UnregisterSceneEvents();
+            BelongTo(null);
 
-            // Update Belongings
+            UnregisterSceneEvents();
+            UnregisterTweens();
         }
         #endregion
 
         #region Abstract Functions
         /// <summary>
-        /// Function where all the <see cref="List{T}"/> of <see cref="SceneEvent"/> should be registered with <see cref="Register(List{SceneEvent})"/>
+        /// Function where all the <see cref="List{T}"/> of <see cref="BaseSceneEvent"/> should be registered with <see cref="Register{T}(List{T})"/>
         /// </summary>
-        public abstract void RegisterSceneEventsLists();
+        protected abstract void RegisterSceneEventsLists();
+        /// <summary>
+        /// Function where all the <see cref="SceneVarTween"/> should be registered with <see cref="Register(SceneVarTween)"/>
+        /// </summary>
+        protected abstract void RegisterTweens();
         #endregion
 
         #region Scene Events Management
         protected List<string> eventsID = new();
-        protected List<List<SceneEvent>> sceneEventsList = new(); // Problem : T
+        protected List<List<BaseSceneEvent>> sceneEventsList = new();
 
         protected bool ExistIn(string eventID)
         {
@@ -58,18 +79,22 @@ namespace Dhs5.SceneCreation
 
             return eventsID.Contains(eventID);
         }
-        protected void Register(List<SceneEvent> sceneEvents)
+
+        #region Registration
+        protected void Register<T>(List<T> sceneEvents, bool registerEventIDs = true) where T : BaseSceneEvent
         {
-            sceneEventsList.Add(sceneEvents);
-            foreach (var s in sceneEvents)
-                if (!string.IsNullOrWhiteSpace(s.eventID))
-                    eventsID.Add(s.eventID);
+            sceneEventsList.Add(sceneEvents.Cast<BaseSceneEvent>().ToList());
+            if (registerEventIDs)
+                foreach (var s in sceneEvents)
+                    if (!string.IsNullOrWhiteSpace(s.eventID))
+                        eventsID.Add(s.eventID);
         }
         protected void UnregisterSceneEvents()
         {
-            eventsID = new();
-            sceneEventsList = new();
+            eventsID?.Clear();
+            sceneEventsList?.Clear();
         }
+        #endregion
         private void InitSceneEventsLists()
         {
             if (sceneEventsList == null || sceneEventsList.Count <= 0) return;
@@ -79,11 +104,20 @@ namespace Dhs5.SceneCreation
                 s.Init();
             }
         }
+        private void UpdateSceneEventsBelongings(SceneObject _sceneObject)
+        {
+            if (sceneEventsList == null || sceneEventsList.Count <= 0) return;
+
+            foreach (var s in sceneEventsList)
+            {
+                s.BelongTo(_sceneObject);
+            }
+        }
         #endregion
 
         #region Scene Events Triggering
         /// <summary>
-        /// Triggers all the <see cref="List{T}"/> of <see cref="SceneEvent"/> of this profile
+        /// Triggers all the <see cref="List{T}"/> of <see cref="BaseSceneEvent"/> of this profile
         /// </summary>
         public virtual void TriggerProfile()
         {
@@ -124,6 +158,28 @@ namespace Dhs5.SceneCreation
             if (sceneEventsList == null || sceneEventsList.Count <= 0) return false;
 
             return sceneEventsList[Random.Range(0, sceneEventsList.Count)].TriggerRandom(filter, remove);
+        }
+        #endregion
+
+        #region Tweens Management
+        protected List<SceneVarTween> tweensList = new();
+
+        protected void Register(SceneVarTween tween)
+        {
+            tweensList.Add(tween);
+        }
+        protected void UnregisterTweens()
+        {
+            tweensList?.Clear();
+        }
+        private void UpdateTweensBelongings(SceneObject _sceneObject)
+        {
+            if (tweensList == null || tweensList.Count <= 0) return;
+
+            foreach (var t in tweensList)
+            {
+                t.BelongTo(_sceneObject);
+            }
         }
         #endregion
     }

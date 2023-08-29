@@ -15,24 +15,34 @@ namespace Dhs5.SceneCreation
 
             sceneListeners.SetUp(sceneVariablesSO);
         }
+        public override void BelongTo(SceneObject _sceneObject)
+        {
+            base.BelongTo(_sceneObject);
+
+            sceneListeners.BelongTo(sceneObject);
+        }
         public override void Attach(SceneObject _sceneObject)
         {
             base.Attach(_sceneObject);
 
-            sceneListeners.BelongTo(sceneObject);
             sceneListeners.Register();
+
+            _sceneObject.OverrideListeners(this, sceneListeners);
         }
         public override void Detach()
         {
             base.Detach();
 
             sceneListeners.Unregister();
-            sceneListeners.BelongTo(null);
         }
+
+        public override bool CanOverrideListeners => true;
+        public override bool CanOverrideEvents => false;
         #endregion
 
         #region Scene Events
-        public override void RegisterSceneEventsLists() { }
+        protected override void RegisterSceneEventsLists() { }
+        protected override void RegisterTweens() { }
         #endregion
     }
 }

@@ -102,38 +102,5 @@ namespace Dhs5.SceneCreation
             SceneClock.Instance.GoToStep(timelineID, step, interrupt);
         }
         #endregion
-
-        #region SceneLog
-        [ContextMenu("Display Scene Log")]
-        public void DisplaySceneLog()
-        {
-            Debug.Log(SceneLogger.GetSceneLog(gameObject));
-        }
-        [ContextMenu("Display detailed Scene Log")]
-        public void DisplayDetailedSceneLog()
-        {
-            Debug.Log(SceneLogger.GetSceneLog(gameObject, true));
-        }
-#if UNITY_EDITOR
-        [ContextMenu("Print detailed Scene Log in file")]
-        public string GetDetailedSceneLogInFile()
-        {
-            string directoryPath = Application.persistentDataPath + "/SceneLog/";
-            string content = SceneLogger.GetSceneLog(gameObject, true, true);
-            DateTime now = DateTime.Now;
-            string date = now.Day + "." + now.Month + "." + now.Year + " " + now.Hour + "h" + string.Format("{00:00}", now.Minute);
-            string path = directoryPath + gameObject.scene.name + " " + date + ".txt";
-            Debug.Log("<color=#ff0000> Log path : " + "</color>" + path);
-
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
-            File.WriteAllText(path, content);
-            EditorUtility.RevealInFinder(path);
-            return path;
-        }
-#endif
-        #endregion
     }
 }

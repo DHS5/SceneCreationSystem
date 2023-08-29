@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Dhs5.SceneCreation
@@ -115,6 +116,61 @@ namespace Dhs5.SceneCreation
         private IEnumerator StartCoroutine(IEnumerator Coroutine)
         {
             yield return SceneClock.Instance.StartCoroutine(Coroutine);
+        }
+        #endregion
+
+        #region Log
+        public List<string> LogLines(bool detailed = false)
+        {
+            string passToLine = "Line()";
+            List<string> lines = new();
+            StringBuilder sb = new();
+
+            AppendColor(SceneLogger.TimelineColor, "| ");
+            sb.Append("Timeline ID : ");
+            sb.Append(ID);
+            Line();
+
+            if (detailed)
+            {
+
+                if (loop)
+                {
+                    lines.AddRange(endLoopCondition.LogLines(detailed));
+                }
+
+                for (int i = 0; i < timelineObjects.Count; i++)
+                {
+                    sb.Append("   ");
+                    AppendColor(SceneLogger.TimelineColor, "* ");
+                    sb.Append("Step ");
+                    sb.Append(i);
+                    sb.Append(":");
+                    Line();
+                    lines.AddRange(timelineObjects[i].LogLines(detailed, "      "));
+                }
+            }
+            
+            return lines;
+
+            #region Local
+            void Line()
+            {
+                sb.Append('\n');
+                lines.Add(sb.ToString());
+                sb.Clear();
+            }
+            void AppendColor(string color, params string[] strings)
+            {
+                sb.Append(color);
+                foreach (var s in strings)
+                {
+                    if (s == passToLine) Line();
+                    else sb.Append(s);
+                }
+                sb.Append(SceneLogger.ColorEnd);
+            }
+            #endregion
         }
         #endregion
     }
