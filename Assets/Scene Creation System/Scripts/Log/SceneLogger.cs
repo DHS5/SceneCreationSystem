@@ -26,6 +26,7 @@ namespace Dhs5.SceneCreation
                 if (AppendGO(roots[i], 0, RootColor + "ROOT:"))
                     Back();
             }
+            Append(detailed ? "Detailed Scene Log : \n" : "Simple Scene Log : \n");
 
             return UnpackStack(sb);
         }
