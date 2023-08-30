@@ -138,8 +138,11 @@ namespace Dhs5.SceneCreation
             sb.Append(EditorSceneVar1.LogString());
             sb.Append(" ");
             sb.Append(GetOpDescription());
-            sb.Append(" ");
-            sb.Append(SceneVar2.LogString());
+            if (EditorSceneVar1.type != SceneVarType.EVENT)
+            {
+                sb.Append(" ");
+                sb.Append(SceneVar2.LogString());
+            }
 
             return sb.ToString();
         }

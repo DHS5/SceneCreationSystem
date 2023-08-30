@@ -79,32 +79,41 @@ namespace Dhs5.SceneCreation
         }
 
         #region Log
-        [MenuItem("SCS/Log/Display simple Scene Log", priority = 100)]
-        public static void DisplaySimpleSceneLog()
+        private static void DisplaySceneLog(bool detailed, bool color)
         {
             SceneManager manager = GameObject.FindObjectOfType<SceneManager>();
             if (manager != null)
             {
-                Debug.Log(SceneLogger.GetSceneLog(manager.gameObject));
+                Debug.Log(SceneLogger.GetSceneLog(manager.gameObject, detailed, !color));
             }
             else
             {
                 Debug.LogError("Can't find the SceneManager of the current scene");
             }
         }
-        
-        [MenuItem("SCS/Log/Display detailed Scene Log", priority = 101)]
-        public static void DisplayDetailedSceneLog()
+
+        [MenuItem("SCS/Log/Console/Color/Simple Scene Log", priority = 100)]
+        public static void DisplayColorSimpleSceneLog()
         {
-            SceneManager manager = GameObject.FindObjectOfType<SceneManager>();
-            if (manager != null)
-            {
-                Debug.Log(SceneLogger.GetSceneLog(manager.gameObject, true));
-            }
-            else
-            {
-                Debug.LogError("Can't find the SceneManager of the current scene");
-            }
+            DisplaySceneLog(false, true);
+        }
+        
+        [MenuItem("SCS/Log/Console/Color/Detailed Scene Log", priority = 101)]
+        public static void DisplayColorDetailedSceneLog()
+        {
+            DisplaySceneLog(true, true);
+        }
+        
+        [MenuItem("SCS/Log/Console/No Color/Simple Scene Log", priority = 100)]
+        public static void DisplayNoColorSimpleSceneLog()
+        {
+            DisplaySceneLog(false, false);
+        }
+        
+        [MenuItem("SCS/Log/Console/No Color/Detailed Scene Log", priority = 101)]
+        public static void DisplayNoColorDetailedSceneLog()
+        {
+            DisplaySceneLog(true, false);
         }
         
         [MenuItem("SCS/Log/Print detailed Scene Log in file", priority = 102)]
