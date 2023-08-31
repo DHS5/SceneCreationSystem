@@ -13,9 +13,26 @@ namespace Dhs5.SceneCreation
 {
     public class SceneManager : SceneObject
     {
+        #region Singleton
+        public static SceneManager Instance { get; private set; }
+        protected override void Awake_Ext()
+        {
+            base.Awake_Ext();
+
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+        }
+        #endregion
+
         protected virtual void Start()
         {
             SetSceneVars();
+
+            SceneState.StartScene();
         }
 
         #region SceneVars & SceneState Setup

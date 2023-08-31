@@ -77,18 +77,23 @@ namespace Dhs5.SceneCreation
             sceneEvents.SetUp(sceneVariablesSO);
         }
         protected virtual void Awake_Ext() { }
+        public virtual void OnStartScene() { }
         protected virtual void OnValidate_Ext() { }
         #endregion
 
         #region Scene Listeners registration
         private void OnEnable()
         {
+            SceneState.Register(this);
+
             sceneListeners.Register();
 
             OnEnable_Ext();
         }
         private void OnDisable()
         {
+            SceneState.Unregister(this);
+
             sceneListeners.Unregister();
 
             OnDisable_Ext();

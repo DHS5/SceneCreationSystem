@@ -14,14 +14,16 @@ namespace Dhs5.SceneCreation
 
         public static SceneClock Instance;
 
-        private void Awake()
+        protected override void Awake_Ext()
         {
-            if (Instance == null)
+            base.Awake_Ext();
+
+            if (Instance != null)
             {
-                Instance = this;
+                Destroy(gameObject);
                 return;
             }
-            Destroy(gameObject);
+            Instance = this;
         }
 
         #endregion

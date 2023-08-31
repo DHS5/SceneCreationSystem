@@ -64,10 +64,37 @@ namespace Dhs5.SceneCreation
 
     public static class SceneState
     {
+        private static List<SceneObject> sceneObjects = new();
+
         private static Dictionary<int, SceneVar> SceneVariables = new();
         private static Dictionary<int, ComplexSceneVar> ComplexSceneVariables = new();
         private static Dictionary<int, List<int>> SceneVarLinks = new();
         private static Dictionary<int, object> FormerValues = new();
+
+        #region Scene Object Registration
+        public static void Register(SceneObject sceneObject)
+        {
+            if (sceneObjects.Contains(sceneObject)) return;
+
+            sceneObjects.Add(sceneObject);
+        }
+        public static void Unregister(SceneObject sceneObject)
+        {
+            if (!sceneObjects.Contains(sceneObject)) return;
+
+            sceneObjects.Remove(sceneObject);
+        }
+        public static void StartScene()
+        {
+            if (sceneObjects == null || sceneObjects.Count == 0) return;
+
+            foreach (SceneObject sceneObject in sceneObjects)
+            {
+                if (sceneObject != null && sceneObject.enabled)
+                    sceneObject.OnStartScene();
+            }
+        }
+        #endregion
 
         #region Private Utility functions
         private static void Clear()
