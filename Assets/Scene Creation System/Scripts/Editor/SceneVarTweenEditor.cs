@@ -190,7 +190,7 @@ namespace Dhs5.SceneCreation
 
                 // Label
                 Rect typePosition = new Rect(position.x + position.width * 0.73f, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.1f, EditorGUIUtility.singleLineHeight);
-                EditorGUI.LabelField(typePosition, sceneVarContainer[sceneVarUniqueIDP.intValue].type.ToString());
+                EditorGUI.LabelField(typePosition, type.ToString());
 
                 // Static toggle
                 Rect staticRect = new Rect(position.x + position.width * 0.84f, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.15f, EditorGUIUtility.singleLineHeight);
