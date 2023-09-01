@@ -49,7 +49,7 @@ namespace Dhs5.SceneCreation
                 {
                     currentTimelineObject = timelineQueue.Dequeue();
                     currentStep++;
-                    yield return StartCoroutine(currentTimelineObject.Process(this, currentStep));
+                    yield return StartCoroutine(currentTimelineObject.Process(ID, currentStep));
                 }
                 SetUpQueue();
             } while (loop && !endLoopCondition.CurrentConditionResult);

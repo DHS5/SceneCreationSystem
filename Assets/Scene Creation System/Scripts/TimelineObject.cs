@@ -40,9 +40,9 @@ namespace Dhs5.SceneCreation
             sceneEvents.BelongTo(_sceneObject);
         }
 
-        public IEnumerator Process(SceneTimeline sceneTimeline, int step)
+        public IEnumerator Process(string timelineID, int step)
         {
-            TimelineID = sceneTimeline.ID;
+            TimelineID = timelineID;
             StepNumber = step;
             
             // Reset the end loop condition
