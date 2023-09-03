@@ -90,6 +90,9 @@ namespace Dhs5.SceneCreation
                     case SceneVarType.STRING:
                         typeStr = "string";
                         break;
+                    default:
+                        EditorGUI.EndProperty();
+                        return;
                 }
                 EditorGUI.PropertyField(popupPosition, property.FindPropertyRelative(typeStr + "Value"), new GUIContent(""));
                 canBeStaticP.boolValue = true;
@@ -184,6 +187,9 @@ namespace Dhs5.SceneCreation
                         case SceneVarType.STRING:
                             typeStr = "string";
                             break;
+                        default:
+                            EditorGUI.EndProperty();
+                            return;
                     }
                     EditorGUI.PropertyField(popupPosition, property.FindPropertyRelative(typeStr + "Value"), new GUIContent(""));
                 }

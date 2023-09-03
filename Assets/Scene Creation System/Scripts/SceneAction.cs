@@ -77,6 +77,8 @@ namespace Dhs5.SceneCreation
             {
                 case BoolOperation.SET: return " = ";
                 case BoolOperation.INVERSE: return " Inverse.";
+                case BoolOperation.TO_TRUE: return " = True";
+                case BoolOperation.TO_FALSE: return " = False";
                 default: return "";
             }
         }

@@ -83,7 +83,7 @@ namespace Dhs5.SceneCreation
                 case SceneVarType.BOOL:
                     EditorGUI.PropertyField(opPosition, property.FindPropertyRelative("boolOP"), new GUIContent(""));
                     operationDescription = SceneAction.BoolOpDescription((BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex);
-                    if ((BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex == BoolOperation.INVERSE)
+                    if ((BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex != BoolOperation.SET)
                     {
                         EditorGUI.EndProperty();
                         return;
@@ -138,7 +138,7 @@ namespace Dhs5.SceneCreation
             SceneVarType type = (SceneVarType)property.FindPropertyRelative("var2Type").enumValueIndex;
             if (type == SceneVarType.EVENT) 
                 return EditorGUIUtility.singleLineHeight * 1.5f;
-            if (type == SceneVarType.BOOL && (BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex == BoolOperation.INVERSE) 
+            if (type == SceneVarType.BOOL && (BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex != BoolOperation.SET)
                 return EditorGUIUtility.singleLineHeight * 1.5f;
 
             return EditorGUIUtility.singleLineHeight * 3f;

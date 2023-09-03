@@ -22,7 +22,7 @@ namespace Dhs5.SceneCreation
             idProperty = property.FindPropertyRelative("ID");
             loopProperty = property.FindPropertyRelative("loop");
             conditionProperty = property.FindPropertyRelative("endLoopCondition");
-            timelineObjectsProperty = property.FindPropertyRelative("timelineObjects");
+            timelineObjectsProperty = property.FindPropertyRelative("steps");
 
             EditorGUI.BeginProperty(position, label, property);
 
@@ -59,7 +59,7 @@ namespace Dhs5.SceneCreation
             idProperty = property.FindPropertyRelative("ID");
             loopProperty = property.FindPropertyRelative("loop");
             conditionProperty = property.FindPropertyRelative("endLoopCondition");
-            timelineObjectsProperty = property.FindPropertyRelative("timelineObjects");
+            timelineObjectsProperty = property.FindPropertyRelative("steps");
 
             return property.isExpanded ? 
                 EditorGUIUtility.singleLineHeight * 2.4f + EditorGUI.GetPropertyHeight(timelineObjectsProperty)

@@ -12,6 +12,7 @@ namespace Dhs5.SceneCreation
         
         private SerializedProperty conditionTypeProperty;
         private SerializedProperty timeToWaitProperty;
+        private SerializedProperty eventVarProperty;
         private SerializedProperty sceneConditionsProperty;
         
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -20,6 +21,7 @@ namespace Dhs5.SceneCreation
             
             conditionTypeProperty = property.FindPropertyRelative("conditionType");
             timeToWaitProperty = property.FindPropertyRelative("timeToWait");
+            eventVarProperty = property.FindPropertyRelative("eventVar");
             sceneConditionsProperty = property.FindPropertyRelative("sceneConditions");
 
             EditorGUI.BeginProperty(position, label, property);
@@ -51,6 +53,10 @@ namespace Dhs5.SceneCreation
                     case SceneTimedCondition.TimedConditionType.WAIT_WHILE_SCENE_CONDITION:
                         EditorGUI.PropertyField(paramPosition, sceneConditionsProperty);
                         propertyOffset += EditorGUI.GetPropertyHeight(sceneConditionsProperty) + EditorGUIUtility.singleLineHeight * 0.15f;
+                        break;
+                    case SceneTimedCondition.TimedConditionType.WAIT_FOR_EVENT:
+                        EditorGUI.PropertyField(paramPosition, eventVarProperty);
+                        propertyOffset += EditorGUIUtility.singleLineHeight * 1.5f;
                         break;
                 }
                 

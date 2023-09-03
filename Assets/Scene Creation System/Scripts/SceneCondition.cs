@@ -95,6 +95,10 @@ namespace Dhs5.SceneCreation
                     return valueToCompare == valueToCompareTo;
                 case BoolComparison.DIFF:
                     return valueToCompare != valueToCompareTo;
+                case BoolComparison.IS_TRUE:
+                    return valueToCompare;
+                case BoolComparison.IS_FALSE:
+                    return !valueToCompare;
             }
             return true;
         }
@@ -200,6 +204,8 @@ namespace Dhs5.SceneCreation
             {
                 case BoolComparison.EQUAL: return " == ";
                 case BoolComparison.DIFF: return " != ";
+                case BoolComparison.IS_TRUE: return " == True";
+                case BoolComparison.IS_FALSE: return " == False";
                 default: return "";
             }
         }

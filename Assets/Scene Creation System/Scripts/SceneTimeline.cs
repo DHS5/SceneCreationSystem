@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Dhs5.SceneCreation
 {
@@ -12,9 +13,11 @@ namespace Dhs5.SceneCreation
         public string ID;
         public bool loop;
         public SceneLoopCondition endLoopCondition;
-        public List<TimelineObject> timelineObjects;
+        [FormerlySerializedAs("timelineObjects")]
+        public List<TimelineObject> steps;
         
         public bool IsActive { get; private set; }
+        public TimelineContext Context { get; private set; }
 
         private Coroutine coroutine;
         private Queue<TimelineObject> timelineQueue = new();
@@ -23,33 +26,46 @@ namespace Dhs5.SceneCreation
         
         public void Init()
         {
-            timelineObjects.Init();
+            steps.Init();
         }
         public void SetUp(SceneVariablesSO sceneVariablesSO)
         {
             endLoopCondition.SetUp(sceneVariablesSO);
-            timelineObjects.SetUp(sceneVariablesSO);
+            steps.SetUp(sceneVariablesSO);
         }
         public void BelongTo(SceneObject _sceneObject)
         {
-            timelineObjects.BelongTo(_sceneObject);
+            steps.BelongTo(_sceneObject);
         }
 
         private IEnumerator TimelineRoutine()
         {
+            bool start = true;
+
             IsActive = true;
 
             //Reset the end loop condition
             endLoopCondition.Reset();
 
+            currentTimelineObject = timelineQueue.Dequeue();
+            currentStep++;
+            Context = new(this, currentTimelineObject, currentStep);
+            yield return StartCoroutine(currentTimelineObject.Process(Context));
+
             do
             {
+                if (!start)
+                    Context.TimelineLoop();
+                else
+                    start = false;
+
                 //Debug.LogError(ID + " begin at step : " + currentStep + " at : " + Time.time);
                 for (;timelineQueue.Count > 0;)
                 {
                     currentTimelineObject = timelineQueue.Dequeue();
                     currentStep++;
-                    yield return StartCoroutine(currentTimelineObject.Process(ID, currentStep));
+                    Context = Context.CreateNext(currentTimelineObject, currentStep);
+                    yield return StartCoroutine(currentTimelineObject.Process(Context));
                 }
                 SetUpQueue();
             } while (loop && !endLoopCondition.CurrentConditionResult);
@@ -64,7 +80,8 @@ namespace Dhs5.SceneCreation
             if (IsActive) return;
             
             SetUpQueue(step);
-            coroutine = StartMainCR(TimelineRoutine());
+            if (timelineQueue.Count > 0)
+                coroutine = StartMainCR(TimelineRoutine());
         }
         public void Stop()
         {
@@ -98,9 +115,9 @@ namespace Dhs5.SceneCreation
             timelineQueue = new();
             currentStep = step - 1;
 
-            for (int i = step; i < timelineObjects.Count; i++)
+            for (int i = step; i < steps.Count; i++)
             {
-                timelineQueue.Enqueue(timelineObjects[i]);
+                timelineQueue.Enqueue(steps[i]);
             }
         }
         
@@ -139,7 +156,7 @@ namespace Dhs5.SceneCreation
                     lines.AddRange(endLoopCondition.LogLines(detailed));
                 }
 
-                for (int i = 0; i < timelineObjects.Count; i++)
+                for (int i = 0; i < steps.Count; i++)
                 {
                     sb.Append("   ");
                     AppendColor(SceneLogger.TimelineColor, "* ");
@@ -147,7 +164,7 @@ namespace Dhs5.SceneCreation
                     sb.Append(i);
                     sb.Append(":");
                     Line();
-                    lines.AddRange(timelineObjects[i].LogLines(detailed, "      "));
+                    lines.AddRange(steps[i].LogLines(detailed, "      "));
                 }
             }
             

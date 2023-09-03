@@ -15,23 +15,27 @@ namespace Dhs5.SceneCreation
             WAIT_FOR_TIME = 0,
             WAIT_UNTIL_SCENE_CONDITION = 1,
             WAIT_WHILE_SCENE_CONDITION = 2,
+            WAIT_FOR_EVENT = 3,
         }
 
         public TimedConditionType conditionType;
         
         public SceneVarTween timeToWait;
         public List<SceneCondition> sceneConditions;
+        public SceneVarTween eventVar;
         
         public void SetUp(SceneVariablesSO sceneVariablesSO)
         {
             sceneConditions.SetUp(sceneVariablesSO);
             timeToWait.SetUp(sceneVariablesSO, SceneVarType.FLOAT, true);
+            eventVar.SetUp(sceneVariablesSO, SceneVarType.EVENT);
         }
         
         public IEnumerator Condition()
         {
             startTime = Time.time;
             stop = false;
+            eventTriggered = false;
             switch (conditionType)
             {
                 case TimedConditionType.WAIT_FOR_TIME:
@@ -45,6 +49,10 @@ namespace Dhs5.SceneCreation
                 case TimedConditionType.WAIT_WHILE_SCENE_CONDITION:
                     //yield return new WaitWhile(sceneConditions.VerifyConditions);
                     yield return new WaitWhile(SceneConditionUnverified);
+                    break;
+                case TimedConditionType.WAIT_FOR_EVENT:
+                    StartListening();
+                    yield return new WaitUntil(EventTriggered);
                     break;
             }
 
@@ -75,6 +83,28 @@ namespace Dhs5.SceneCreation
             return !stop && sceneConditions.VerifyConditions();
         }
 
+        private bool eventTriggered;
+        private bool EventTriggered()
+        {
+            return stop || eventTriggered;
+        }
+
+        #region Event Listening
+        private void StartListening()
+        {
+            SceneEventManager.StartListening(eventVar.UID, OnListenerEvent);
+        }
+        private void StopListening()
+        {
+            SceneEventManager.StopListening(eventVar.UID, OnListenerEvent);
+        }
+        private void OnListenerEvent(SceneEventParam param)
+        {
+            eventTriggered = true;
+            StopListening();
+        }
+        #endregion
+
         #region Log
         public override string ToString()
         {
@@ -86,6 +116,8 @@ namespace Dhs5.SceneCreation
                     return "WAIT until " + sceneConditions;
                 case TimedConditionType.WAIT_WHILE_SCENE_CONDITION:
                     return "WAIT while " + sceneConditions;
+                case TimedConditionType.WAIT_FOR_EVENT:
+                    return "WAIT for " + eventVar.LogString() + " to be triggered";
                 default: return "Wait";
             }
         }
@@ -147,6 +179,14 @@ namespace Dhs5.SceneCreation
                                 Line();
                             }
                         }
+                        break;
+                    }
+                case TimedConditionType.WAIT_FOR_EVENT:
+                    {
+                        sb.Append("~ WAIT for ");
+                        sb.Append(eventVar.LogString());
+                        sb.Append(" to be triggered");
+                        Line();
                         break;
                     }
             }

@@ -17,6 +17,7 @@ namespace Dhs5.SceneCreation
         private SceneContext context;
 
         [SerializeField] private int sceneVarUniqueID;
+        public int UID => sceneVarUniqueID;
 
         // Static
         [SerializeField] private bool canBeStatic;
@@ -48,6 +49,7 @@ namespace Dhs5.SceneCreation
             sceneVariablesSO = _sceneVariablesSO;
             type = _type;
             if (type != SceneVarType.EVENT) canBeStatic = _canBeStatic;
+            else canBeStatic = false;
         }
         public void BelongTo(SceneObject _sceneObject)
         {

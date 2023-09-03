@@ -69,6 +69,18 @@ namespace Dhs5.SceneCreation
         {
             sceneTimelines.Find(t => t.ID == timelineID)?.StartOrGoTo(step, interrupt);
         }
+        public void GoToPreviousStep(TimelineContext context)
+        {
+            sceneTimelines.Find(t => t.ID == context.TimelineID)?.StartOrGoTo(context.CurrentStepNumber - 1, false);
+        }
+        public void GoToNextStep(TimelineContext context)
+        {
+            sceneTimelines.Find(t => t.ID == context.TimelineID)?.StartOrGoTo(context.CurrentStepNumber + 1, false);
+        }
+        public void DebugContext(TimelineContext context)
+        {
+            Debug.Log(context);
+        }
         #endregion
 
         #region Log
@@ -120,6 +132,138 @@ namespace Dhs5.SceneCreation
                 sb.Append(SceneLogger.ColorEnd);
             }
             #endregion
+        }
+        #endregion
+    }
+
+    public class TimelineContext
+    {
+        #region Constructor
+        public TimelineContext(SceneTimeline timeline, TimelineObject current, int stepNumber)
+        {
+            CurrentStep = current;
+            CurrentStepNumber = stepNumber;
+            IsCurrentStepLooping = current.loop;
+            CurrentStepLoopIteration = 0;
+            CurrentStepStartTime = Time.time;
+            CurrentStepTriggerTime = -1f;
+
+            PreviousStep = null;
+            TimelineID = timeline.ID;
+            IsTimelineLooping = timeline.loop;
+            TimelineLoopIteration = 1;
+            TimelineStartTime = Time.time;
+        }
+        public TimelineContext(TimelineContext previous, TimelineObject current, int stepNumber)
+        {
+            CurrentStep = current;
+            CurrentStepNumber = stepNumber;
+            IsCurrentStepLooping = current.loop;
+            CurrentStepLoopIteration = 0;
+            CurrentStepStartTime = Time.time;
+            CurrentStepTriggerTime = -1f;
+
+            PreviousStep = previous;
+            TimelineID = previous.TimelineID;
+            IsTimelineLooping = previous.IsTimelineLooping;
+            TimelineLoopIteration = previous.TimelineLoopIteration;
+            TimelineStartTime = previous.TimelineStartTime;
+        }
+        #endregion
+
+        #region Variables
+        // Steps
+        public TimelineContext PreviousStep { get; private set; }
+        public TimelineObject CurrentStep { get; private set; }
+        public TimelineContext NextStep { get; private set; }
+
+        // IDs
+        public string TimelineID { get; private set; }
+        public int CurrentStepNumber { get; private set; }
+
+        // Loop
+        public bool IsTimelineLooping { get; private set; }
+        public bool IsCurrentStepLooping { get; private set; }
+        // Loop -> Iteration
+        public int TimelineLoopIteration { get; private set; }
+        public int CurrentStepLoopIteration { get; private set; }
+
+        // Time
+        public float TimelineStartTime { get; private set; }
+        public float CurrentStepStartTime { get; private set; }
+        public float CurrentStepTriggerTime { get; private set; }
+
+
+
+        private bool lastOfTimelineIteration = false;
+        #endregion
+
+        #region Functions
+        public TimelineContext CreateNext(TimelineObject next, int stepNumber)
+        {
+            NextStep = new(this, next, stepNumber);
+            return NextStep;
+        }
+        public void TimelineLoop()
+        {
+            TimelineLoopIteration++;
+            lastOfTimelineIteration = true;
+        }
+        public void StepLoop()
+        {
+            CurrentStepLoopIteration++;
+        }
+        public void Trigger()
+        {
+            CurrentStepTriggerTime = Time.time;
+        }
+        #endregion
+
+        #region Log
+        private void Log(StringBuilder sb)
+        {
+            if (PreviousStep != null)
+            {
+                PreviousStep.Log(sb);
+            }
+            else
+            {
+                sb.Append("Timeline : ");
+                sb.AppendLine(TimelineID);
+            }
+
+            sb.Append("-> Step ");
+            sb.Append(CurrentStepNumber);
+            sb.AppendLine(" :");
+
+            sb.Append("Started at ");
+            sb.Append(CurrentStepStartTime);
+            sb.Append(" ; Triggered last at ");
+            sb.Append(CurrentStepTriggerTime);
+            sb.Append(" ; Iterated ");
+            sb.Append(CurrentStepLoopIteration);
+            sb.AppendLine(" time(s)");
+
+            if (lastOfTimelineIteration)
+            {
+                sb.Append("----- Timeline Iteration Number ");
+                sb.Append(TimelineLoopIteration);
+                sb.AppendLine(" -----");
+            }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            Log(sb);
+
+            sb.AppendLine();
+            sb.Append("Timeline iterated ");
+            sb.Append(TimelineLoopIteration);
+            sb.Append(" time(s)");
+
+            return sb.ToString();
         }
         #endregion
     }

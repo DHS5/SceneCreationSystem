@@ -200,6 +200,23 @@ MonoBehaviour:
     isRandom: 1
     isLink: 0
     propertyHeight: 0
+  - uniqueID: 3209
+    ID: Timeline
+    type: 4
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 0
   sceneVarLinks:
   - uniqueID: 1832
     ID: Total1

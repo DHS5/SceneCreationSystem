@@ -18,12 +18,12 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public enum BoolOperation
     {
-        SET, INVERSE
+        SET, INVERSE, TO_TRUE, TO_FALSE
     }
     [Serializable]
     public enum BoolComparison
     {
-        EQUAL, DIFF
+        EQUAL, DIFF, IS_TRUE, IS_FALSE
     }
     [Serializable]
     public enum IntOperation
@@ -304,7 +304,12 @@ namespace Dhs5.SceneCreation
                         case BoolOperation.INVERSE:
                             SceneVariables[varUniqueID].BoolValue = !SceneVariables[varUniqueID].BoolValue;
                             break;
-
+                        case BoolOperation.TO_TRUE:
+                            SceneVariables[varUniqueID].BoolValue = true;
+                            break;
+                        case BoolOperation.TO_FALSE:
+                            SceneVariables[varUniqueID].BoolValue = false;
+                            break;
                         default:
                             SceneVariables[varUniqueID].BoolValue = param;
                             break;

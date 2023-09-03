@@ -21,6 +21,7 @@ namespace Dhs5.SceneCreation
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             string conditionDescription = "";
+            bool hasSecondParameter = true;
 
             EditorGUI.BeginProperty(position, label, property);
 
@@ -75,7 +76,9 @@ namespace Dhs5.SceneCreation
             {
                 case SceneVarType.BOOL:
                     EditorGUI.PropertyField(compPosition, property.FindPropertyRelative("boolComp"), empty);
-                    conditionDescription = SceneCondition.BoolCompDescription((BoolComparison)property.FindPropertyRelative("boolComp").enumValueIndex);
+                    BoolComparison comparison = (BoolComparison)property.FindPropertyRelative("boolComp").enumValueIndex;
+                    hasSecondParameter = (comparison != BoolComparison.IS_TRUE && comparison != BoolComparison.IS_FALSE);
+                    conditionDescription = SceneCondition.BoolCompDescription(comparison);
                     break;
                 case SceneVarType.INT:
                     EditorGUI.PropertyField(compPosition, property.FindPropertyRelative("intComp"), empty);
@@ -94,8 +97,11 @@ namespace Dhs5.SceneCreation
                     return;
             }
 
-            Rect var2Position = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 1.25f, position.width * 0.75f, EditorGUIUtility.singleLineHeight);
-            EditorGUI.PropertyField(var2Position, property.FindPropertyRelative("SceneVar2"), empty);
+            if (hasSecondParameter)
+            {
+                Rect var2Position = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 1.25f, position.width * 0.75f, EditorGUIUtility.singleLineHeight);
+                EditorGUI.PropertyField(var2Position, property.FindPropertyRelative("SceneVar2"), empty);
+            }
 
             /*
             // SceneVar 2

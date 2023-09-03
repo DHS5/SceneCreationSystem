@@ -18,7 +18,7 @@ namespace Dhs5.SceneCreation
         public SceneLoopCondition endLoopCondition;
         
         // Action
-        public List<SceneEvent> sceneEvents;
+        public List<SceneEvent<TimelineContext>> sceneEvents;
 
         private IEnumerator startConditionCR;
         private bool executing;
@@ -40,10 +40,10 @@ namespace Dhs5.SceneCreation
             sceneEvents.BelongTo(_sceneObject);
         }
 
-        public IEnumerator Process(string timelineID, int step)
+        public IEnumerator Process(TimelineContext context)
         {
-            TimelineID = timelineID;
-            StepNumber = step;
+            TimelineID = context.TimelineID;
+            StepNumber = context.CurrentStepNumber;
             
             // Reset the end loop condition
             endLoopCondition.Reset();
@@ -51,6 +51,7 @@ namespace Dhs5.SceneCreation
             do
             {
                 executing = true;
+                context.StepLoop();
                 
                 // Wait for the condition to be verified
                 startConditionCR = startCondition.Condition();
@@ -59,15 +60,16 @@ namespace Dhs5.SceneCreation
                 if (executing || !canInterrupt)
                 {
                     // Trigger Events
-                    Trigger();
+                    context.Trigger();
+                    Trigger(context);
                 }
 
             } while (loop && !endLoopCondition.CurrentConditionResult && executing);
         }
 
-        private void Trigger()
+        private void Trigger(TimelineContext context)
         {
-            sceneEvents.Trigger();
+            sceneEvents.Trigger(context);
         }
 
         #region Utility
@@ -90,8 +92,6 @@ namespace Dhs5.SceneCreation
         #region Log
         public List<string> LogLines(bool detailed, string alinea = null)
         {
-            string passToLine = "Line()";
-
             List<string> lines = new();
             StringBuilder sb = new();
 

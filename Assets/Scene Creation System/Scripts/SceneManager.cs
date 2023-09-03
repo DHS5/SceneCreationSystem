@@ -28,12 +28,32 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        [Header("Manager")]
+        [SerializeField] protected List<SceneEvent> onSceneStart;
+
         protected virtual void Start()
         {
             SetSceneVars();
 
             SceneState.StartScene();
+
+            onSceneStart.Trigger();
         }
+
+        #region SceneObject Extension
+        protected override void UpdateSceneVariables()
+        {
+            base.UpdateSceneVariables();
+
+            onSceneStart.SetUp(sceneVariablesSO);
+        }
+        protected override void RegisterElements()
+        {
+            base.RegisterElements();
+
+            Register(nameof(onSceneStart), onSceneStart);
+        }
+        #endregion
 
         #region SceneVars & SceneState Setup
         /// <summary>
