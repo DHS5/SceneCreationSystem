@@ -81,11 +81,17 @@ namespace Dhs5.SceneCreation
                     conditionDescription = SceneCondition.BoolCompDescription(comparison);
                     break;
                 case SceneVarType.INT:
-                    EditorGUI.PropertyField(compPosition, property.FindPropertyRelative("intComp"), empty);
+                    SerializedProperty intComp = property.FindPropertyRelative("intComp");
+                    EditorGUI.PropertyField(compPosition, intComp, empty);
+                    IntComparison intComparison = (IntComparison)intComp.enumValueIndex;
+                    hasSecondParameter = (intComparison != IntComparison.IS_MIN && intComparison != IntComparison.IS_MAX);
                     conditionDescription = SceneCondition.IntCompDescription((IntComparison)property.FindPropertyRelative("intComp").enumValueIndex);
                     break;
                 case SceneVarType.FLOAT:
-                    EditorGUI.PropertyField(compPosition, property.FindPropertyRelative("floatComp"), empty);
+                    SerializedProperty floatComp = property.FindPropertyRelative("floatComp");
+                    EditorGUI.PropertyField(compPosition, floatComp, empty);
+                    FloatComparison floatComparison = (FloatComparison)floatComp.enumValueIndex;
+                    hasSecondParameter = (floatComparison != FloatComparison.IS_MIN && floatComparison != FloatComparison.IS_MAX);
                     conditionDescription = SceneCondition.FloatCompDescription((FloatComparison)property.FindPropertyRelative("floatComp").enumValueIndex);
                     break;
                 case SceneVarType.STRING:

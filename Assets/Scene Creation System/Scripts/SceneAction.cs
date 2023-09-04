@@ -92,6 +92,8 @@ namespace Dhs5.SceneCreation
                 case IntOperation.MULTIPLY: return " *= ";
                 case IntOperation.DIVIDE: return " /= ";
                 case IntOperation.POWER: return " = power ";
+                case IntOperation.TO_MIN: return " = min ";
+                case IntOperation.TO_MAX: return " = max ";
                 default: return "";
             }
         }
@@ -105,6 +107,8 @@ namespace Dhs5.SceneCreation
                 case FloatOperation.MULTIPLY: return " *= ";
                 case FloatOperation.DIVIDE: return " /= ";
                 case FloatOperation.POWER: return " = power ";
+                case FloatOperation.TO_MIN: return " = min ";
+                case FloatOperation.TO_MAX: return " = max ";
                 default: return "";
             }
         }

@@ -23,6 +23,7 @@ namespace Dhs5.SceneCreation
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            bool secondParam = true;
             string operationDescription = "";
 
             style = new GUIStyle(GUI.skin.label)
@@ -83,18 +84,20 @@ namespace Dhs5.SceneCreation
                 case SceneVarType.BOOL:
                     EditorGUI.PropertyField(opPosition, property.FindPropertyRelative("boolOP"), new GUIContent(""));
                     operationDescription = SceneAction.BoolOpDescription((BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex);
-                    if ((BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex != BoolOperation.SET)
-                    {
-                        EditorGUI.EndProperty();
-                        return;
-                    }
+                    secondParam = (BoolOperation)(property.FindPropertyRelative("boolOP").enumValueIndex) == BoolOperation.SET;
                     break;
                 case SceneVarType.INT:
-                    EditorGUI.PropertyField(opPosition, property.FindPropertyRelative("intOP"), new GUIContent(""));
+                    SerializedProperty intOpProperty = property.FindPropertyRelative("intOP");
+                    EditorGUI.PropertyField(opPosition, intOpProperty, new GUIContent(""));
+                    IntOperation intOp = (IntOperation)intOpProperty.enumValueIndex;
+                    secondParam = (intOp != IntOperation.TO_MIN && intOp != IntOperation.TO_MAX);
                     operationDescription = SceneAction.IntOpDescription((IntOperation)property.FindPropertyRelative("intOP").enumValueIndex);
                     break;
                 case SceneVarType.FLOAT:
-                    EditorGUI.PropertyField(opPosition, property.FindPropertyRelative("floatOP"), new GUIContent(""));
+                    SerializedProperty floatOpProperty = property.FindPropertyRelative("floatOP");
+                    EditorGUI.PropertyField(opPosition, floatOpProperty, new GUIContent(""));
+                    FloatOperation floatOp = (FloatOperation)floatOpProperty.enumValueIndex;
+                    secondParam = (floatOp != FloatOperation.TO_MIN && floatOp != FloatOperation.TO_MAX);
                     operationDescription = SceneAction.FloatOpDescription((FloatOperation)property.FindPropertyRelative("floatOP").enumValueIndex);
                     break;
                 case SceneVarType.STRING:
@@ -107,8 +110,11 @@ namespace Dhs5.SceneCreation
                     return;
             }
 
-            Rect var2Position = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 1.6f, position.width, EditorGUIUtility.singleLineHeight);
-            EditorGUI.PropertyField(var2Position, property.FindPropertyRelative("SceneVar2"), empty);
+            if (secondParam)
+            {
+                Rect var2Position = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 1.6f, position.width, EditorGUIUtility.singleLineHeight);
+                EditorGUI.PropertyField(var2Position, property.FindPropertyRelative("SceneVar2"), empty);
+            }
 
             // SceneVar 2
             //List<SceneVar> sceneVarList2 = sceneVarContainer.GetListByType(type);
@@ -140,6 +146,16 @@ namespace Dhs5.SceneCreation
                 return EditorGUIUtility.singleLineHeight * 1.5f;
             if (type == SceneVarType.BOOL && (BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex != BoolOperation.SET)
                 return EditorGUIUtility.singleLineHeight * 1.5f;
+            if (type == SceneVarType.INT)
+            {
+                IntOperation intOp = (IntOperation)property.FindPropertyRelative("intOP").enumValueIndex;
+                if (intOp == IntOperation.TO_MIN || intOp == IntOperation.TO_MAX) return EditorGUIUtility.singleLineHeight * 1.5f;
+            }
+            else if (type == SceneVarType.FLOAT)
+            {
+                FloatOperation floatOp = (FloatOperation)property.FindPropertyRelative("floatOP").enumValueIndex;
+                if (floatOp == FloatOperation.TO_MIN || floatOp == FloatOperation.TO_MAX) return EditorGUIUtility.singleLineHeight * 1.5f;
+            }
 
             return EditorGUIUtility.singleLineHeight * 3f;
         }

@@ -28,22 +28,22 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public enum IntOperation
     {
-        SET, ADD, SUBSTRACT, MULTIPLY, DIVIDE, POWER
+        SET, ADD, SUBSTRACT, MULTIPLY, DIVIDE, POWER, TO_MIN, TO_MAX
     }
     [Serializable]
     public enum IntComparison
     {
-        EQUAL, DIFF, SUP, INF, SUP_EQUAL, INF_EQUAL
+        EQUAL, DIFF, SUP, INF, SUP_EQUAL, INF_EQUAL, IS_MIN, IS_MAX
     }
     [Serializable]
     public enum FloatOperation
     {
-        SET, ADD, SUBSTRACT, MULTIPLY, DIVIDE, POWER
+        SET, ADD, SUBSTRACT, MULTIPLY, DIVIDE, POWER, TO_MIN, TO_MAX
     }
     [Serializable]
     public enum FloatComparison
     {
-        EQUAL, DIFF, SUP, INF, SUP_EQUAL, INF_EQUAL
+        EQUAL, DIFF, SUP, INF, SUP_EQUAL, INF_EQUAL, IS_MIN, IS_MAX
     }
     [Serializable]
     public enum StringOperation
@@ -333,31 +333,39 @@ namespace Dhs5.SceneCreation
                     switch (op)
                     {
                         case IntOperation.SET:
-                            SceneVariables[varUniqueID].IntValue = param;
+                            var.IntValue = param;
                             break;
                         case IntOperation.ADD:
-                            SceneVariables[varUniqueID].IntValue += param;
+                            var.IntValue += param;
                             break;
                         case IntOperation.SUBSTRACT:
-                            SceneVariables[varUniqueID].IntValue -= param;
+                            var.IntValue -= param;
                             break;
                         case IntOperation.MULTIPLY:
-                            SceneVariables[varUniqueID].IntValue *= param;
+                            var.IntValue *= param;
                             break;
                         case IntOperation.DIVIDE:
-                            SceneVariables[varUniqueID].IntValue /= param;
+                            var.IntValue /= param;
                             break;
                         case IntOperation.POWER:
-                            SceneVariables[varUniqueID].IntValue = (int)Mathf.Pow(SceneVariables[varUniqueID].IntValue, param);
+                            var.IntValue = (int)Mathf.Pow(var.IntValue, param);
+                            break;
+                        case IntOperation.TO_MIN:
+                            if (!var.hasMin) return;
+                            var.IntValue = var.minInt;
+                            break;
+                        case IntOperation.TO_MAX:
+                            if (!var.hasMax) return;
+                            var.IntValue = var.maxInt;
                             break;
                         
                         default:
-                            SceneVariables[varUniqueID].IntValue = param;
+                            var.IntValue = param;
                             break;
                     }
                     if (var.hasMin || var.hasMax)
                     {
-                        SceneVariables[varUniqueID].IntValue = (int)Mathf.Clamp(SceneVariables[varUniqueID].IntValue,
+                        var.IntValue = (int)Mathf.Clamp(var.IntValue,
                             var.hasMin ? var.minInt : -Mathf.Infinity,
                             var.hasMax ? var.maxInt : Mathf.Infinity);
                     }
@@ -381,31 +389,39 @@ namespace Dhs5.SceneCreation
                     switch (op)
                     {
                         case FloatOperation.SET:
-                            SceneVariables[varUniqueID].FloatValue = param;
+                            var.FloatValue = param;
                             break;
                         case FloatOperation.ADD:
-                            SceneVariables[varUniqueID].FloatValue += param;
+                            var.FloatValue += param;
                             break;
                         case FloatOperation.SUBSTRACT:
-                            SceneVariables[varUniqueID].FloatValue -= param;
+                            var.FloatValue -= param;
                             break;
                         case FloatOperation.MULTIPLY:
-                            SceneVariables[varUniqueID].FloatValue *= param;
+                            var.FloatValue *= param;
                             break;
                         case FloatOperation.DIVIDE:
-                            SceneVariables[varUniqueID].FloatValue /= param;
+                            var.FloatValue /= param;
                             break;
                         case FloatOperation.POWER:
-                            SceneVariables[varUniqueID].FloatValue = Mathf.Pow(SceneVariables[varUniqueID].FloatValue, param);
+                            var.FloatValue = Mathf.Pow(SceneVariables[varUniqueID].FloatValue, param);
                             break;
-                        
+                        case FloatOperation.TO_MIN:
+                            if (!var.hasMin) return;
+                            var.FloatValue = var.minFloat;
+                            break;
+                        case FloatOperation.TO_MAX:
+                            if (!var.hasMax) return;
+                            var.FloatValue = var.maxFloat;
+                            break;
+
                         default:
-                            SceneVariables[varUniqueID].FloatValue = param;
+                            var.FloatValue = param;
                             break;
                     }
                     if (var.hasMin || var.hasMax)
                     {
-                        SceneVariables[varUniqueID].FloatValue = (int)Mathf.Clamp(SceneVariables[varUniqueID].FloatValue,
+                        var.FloatValue = (int)Mathf.Clamp(var.FloatValue,
                             var.hasMin ? var.minFloat : -Mathf.Infinity,
                             var.hasMax ? var.maxFloat : Mathf.Infinity);
                     }

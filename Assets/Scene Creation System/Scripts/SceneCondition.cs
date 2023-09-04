@@ -45,10 +45,12 @@ namespace Dhs5.SceneCreation
                     //if (SceneVar2.Type != SceneVarType.BOOL) return VerifyBoolCondition(SceneVar1.boolValue, SceneState.CastToBool(SceneVar2));
                     return VerifyBoolCondition(SceneVar1.BoolValue, SceneVar2.BoolValue);
                 case SceneVarType.INT:
+                    if (intComp == IntComparison.IS_MIN || intComp == IntComparison.IS_MAX) return VerifyIntCondition(SceneVar1);
                     //if (SceneVar2.Type == SceneVarType.BOOL || SceneVar2.Type == SceneVarType.STRING) return VerifyIntCondition(SceneVar1.intValue, SceneState.CastToInt(SceneVar2));
                     if (SceneVar2.Type == SceneVarType.FLOAT) return VerifyIntCondition(SceneVar1.IntValue, SceneVar2.FloatValue);
                     return VerifyIntCondition(SceneVar1.IntValue, SceneVar2.IntValue);
                 case SceneVarType.FLOAT:
+                    if (floatComp == FloatComparison.IS_MIN || floatComp == FloatComparison.IS_MAX) return VerifyFloatCondition(SceneVar1);
                     //if (SceneVar2.Type == SceneVarType.BOOL || SceneVar2.Type == SceneVarType.STRING) return VerifyFloatCondition(SceneVar1.intValue, SceneState.CastToFloat(SceneVar2));
                     if (SceneVar2.Type == SceneVarType.INT) return VerifyFloatCondition(SceneVar1.FloatValue, SceneVar2.IntValue);
                     return VerifyFloatCondition(SceneVar1.FloatValue, SceneVar2.FloatValue);
@@ -119,7 +121,7 @@ namespace Dhs5.SceneCreation
                 case IntComparison.INF_EQUAL:
                     return valueToCompare <= valueToCompareTo;
             }
-            return true;
+            return false;
         }
         private bool VerifyIntCondition(int valueToCompare, float valueToCompareTo)
         {
@@ -138,7 +140,16 @@ namespace Dhs5.SceneCreation
                 case IntComparison.INF_EQUAL:
                     return valueToCompare <= valueToCompareTo;
             }
-            return true;
+            return false;
+        }
+        private bool VerifyIntCondition(SceneVar sceneVar)
+        {
+            switch (intComp)
+            {
+                case IntComparison.IS_MIN: return sceneVar.hasMin && sceneVar.IntValue == sceneVar.minInt;
+                case IntComparison.IS_MAX: return sceneVar.hasMax && sceneVar.IntValue == sceneVar.maxInt;
+            }
+            return false;
         }
         private bool VerifyFloatCondition(float valueToCompare, float valueToCompareTo)
         {
@@ -157,7 +168,7 @@ namespace Dhs5.SceneCreation
                 case FloatComparison.INF_EQUAL:
                     return valueToCompare <= valueToCompareTo;
             }
-            return true;
+            return false;
         }
         private bool VerifyFloatCondition(float valueToCompare, int valueToCompareTo)
         {
@@ -176,7 +187,16 @@ namespace Dhs5.SceneCreation
                 case FloatComparison.INF_EQUAL:
                     return valueToCompare <= valueToCompareTo;
             }
-            return true;
+            return false;
+        }
+        private bool VerifyFloatCondition(SceneVar sceneVar)
+        {
+            switch (floatComp)
+            {
+                case FloatComparison.IS_MIN: return sceneVar.hasMin && sceneVar.FloatValue == sceneVar.minFloat;
+                case FloatComparison.IS_MAX: return sceneVar.hasMax && sceneVar.FloatValue == sceneVar.maxFloat;
+            }
+            return false;
         }
         private bool VerifyStringCondition(string valueToCompare, string valueToCompareTo)
         {
@@ -219,6 +239,8 @@ namespace Dhs5.SceneCreation
                 case IntComparison.INF: return " < ";
                 case IntComparison.SUP_EQUAL: return " >= ";
                 case IntComparison.INF_EQUAL: return " <= ";
+                case IntComparison.IS_MIN: return " == min ";
+                case IntComparison.IS_MAX: return " == max ";
                 default: return "";
             }
         }
@@ -232,6 +254,8 @@ namespace Dhs5.SceneCreation
                 case FloatComparison.INF: return " < ";
                 case FloatComparison.SUP_EQUAL: return " >= ";
                 case FloatComparison.INF_EQUAL: return " <= ";
+                case FloatComparison.IS_MIN: return " == min ";
+                case FloatComparison.IS_MAX: return " == max ";
                 default: return "";
             }
         }
