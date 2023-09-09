@@ -82,27 +82,29 @@ namespace Dhs5.SceneCreation
             switch (type)
             {
                 case SceneVarType.BOOL:
-                    EditorGUI.PropertyField(opPosition, property.FindPropertyRelative("boolOP"), new GUIContent(""));
-                    operationDescription = SceneAction.BoolOpDescription((BoolOperation)property.FindPropertyRelative("boolOP").enumValueIndex);
-                    secondParam = (BoolOperation)(property.FindPropertyRelative("boolOP").enumValueIndex) == BoolOperation.SET;
+                    SerializedProperty boolOpProperty = property.FindPropertyRelative("boolOP");
+                    EditorGUI.PropertyField(opPosition, boolOpProperty, new GUIContent(""));
+                    BoolOperation boolOp = (BoolOperation)boolOpProperty.enumValueIndex;
+                    operationDescription = boolOp.Description();
+                    secondParam = boolOp.HasSecondParameter();
                     break;
                 case SceneVarType.INT:
                     SerializedProperty intOpProperty = property.FindPropertyRelative("intOP");
                     EditorGUI.PropertyField(opPosition, intOpProperty, new GUIContent(""));
                     IntOperation intOp = (IntOperation)intOpProperty.enumValueIndex;
-                    secondParam = (intOp != IntOperation.TO_MIN && intOp != IntOperation.TO_MAX);
-                    operationDescription = SceneAction.IntOpDescription((IntOperation)property.FindPropertyRelative("intOP").enumValueIndex);
+                    secondParam = intOp.HasSecondParameter();
+                    operationDescription = intOp.Description();
                     break;
                 case SceneVarType.FLOAT:
                     SerializedProperty floatOpProperty = property.FindPropertyRelative("floatOP");
                     EditorGUI.PropertyField(opPosition, floatOpProperty, new GUIContent(""));
                     FloatOperation floatOp = (FloatOperation)floatOpProperty.enumValueIndex;
-                    secondParam = (floatOp != FloatOperation.TO_MIN && floatOp != FloatOperation.TO_MAX);
-                    operationDescription = SceneAction.FloatOpDescription((FloatOperation)property.FindPropertyRelative("floatOP").enumValueIndex);
+                    secondParam = floatOp.HasSecondParameter();
+                    operationDescription = floatOp.Description();
                     break;
                 case SceneVarType.STRING:
                     EditorGUI.PropertyField(opPosition, property.FindPropertyRelative("stringOP"), new GUIContent(""));
-                    operationDescription = SceneAction.StringOpDescription((StringOperation)property.FindPropertyRelative("stringOP").enumValueIndex);
+                    operationDescription = ((StringOperation)property.FindPropertyRelative("stringOP").enumValueIndex).Description();
                     break;
                 case SceneVarType.EVENT:
                     EditorGUI.LabelField(opPosition, "Trigger");
@@ -149,12 +151,12 @@ namespace Dhs5.SceneCreation
             if (type == SceneVarType.INT)
             {
                 IntOperation intOp = (IntOperation)property.FindPropertyRelative("intOP").enumValueIndex;
-                if (intOp == IntOperation.TO_MIN || intOp == IntOperation.TO_MAX) return EditorGUIUtility.singleLineHeight * 1.5f;
+                if (intOp == IntOperation.TO_MIN || intOp == IntOperation.TO_MAX || intOp == IntOperation.TO_NULL || intOp == IntOperation.INCREMENT || intOp == IntOperation.DECREMENT) return EditorGUIUtility.singleLineHeight * 1.8f;
             }
             else if (type == SceneVarType.FLOAT)
             {
                 FloatOperation floatOp = (FloatOperation)property.FindPropertyRelative("floatOP").enumValueIndex;
-                if (floatOp == FloatOperation.TO_MIN || floatOp == FloatOperation.TO_MAX) return EditorGUIUtility.singleLineHeight * 1.5f;
+                if (floatOp == FloatOperation.TO_MIN || floatOp == FloatOperation.TO_MAX || floatOp == FloatOperation.TO_NULL || floatOp == FloatOperation.INCREMENT || floatOp == FloatOperation.DECREMENT) return EditorGUIUtility.singleLineHeight * 1.8f;
             }
 
             return EditorGUIUtility.singleLineHeight * 3f;

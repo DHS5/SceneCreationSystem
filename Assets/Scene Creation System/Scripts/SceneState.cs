@@ -5,6 +5,7 @@ using System;
 using Random = UnityEngine.Random;
 using static UnityEngine.EventSystems.EventTrigger;
 using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace Dhs5.SceneCreation
 {
@@ -28,22 +29,22 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public enum IntOperation
     {
-        SET, ADD, SUBSTRACT, MULTIPLY, DIVIDE, POWER, TO_MIN, TO_MAX
+        SET, ADD, SUBSTRACT, MULTIPLY, DIVIDE, POWER, TO_MIN, TO_MAX, TO_NULL, INCREMENT, DECREMENT
     }
     [Serializable]
     public enum IntComparison
     {
-        EQUAL, DIFF, SUP, INF, SUP_EQUAL, INF_EQUAL, IS_MIN, IS_MAX
+        EQUAL, DIFF, SUP, INF, SUP_EQUAL, INF_EQUAL, IS_MIN, IS_MAX, IS_NULL, IS_POSITIVE, IS_NEGATIVE
     }
     [Serializable]
     public enum FloatOperation
     {
-        SET, ADD, SUBSTRACT, MULTIPLY, DIVIDE, POWER, TO_MIN, TO_MAX
+        SET, ADD, SUBSTRACT, MULTIPLY, DIVIDE, POWER, TO_MIN, TO_MAX, TO_NULL, INCREMENT, DECREMENT
     }
     [Serializable]
     public enum FloatComparison
     {
-        EQUAL, DIFF, SUP, INF, SUP_EQUAL, INF_EQUAL, IS_MIN, IS_MAX
+        EQUAL, DIFF, SUP, INF, SUP_EQUAL, INF_EQUAL, IS_MIN, IS_MAX, IS_NULL, IS_POSITIVE, IS_NEGATIVE
     }
     [Serializable]
     public enum StringOperation
@@ -358,6 +359,15 @@ namespace Dhs5.SceneCreation
                             if (!var.hasMax) return;
                             var.IntValue = var.maxInt;
                             break;
+                        case IntOperation.TO_NULL:
+                            var.IntValue = 0;
+                            break;
+                        case IntOperation.INCREMENT:
+                            var.IntValue++;
+                            break;
+                        case IntOperation.DECREMENT:
+                            var.IntValue--;
+                            break;
                         
                         default:
                             var.IntValue = param;
@@ -413,6 +423,15 @@ namespace Dhs5.SceneCreation
                         case FloatOperation.TO_MAX:
                             if (!var.hasMax) return;
                             var.FloatValue = var.maxFloat;
+                            break;
+                        case FloatOperation.TO_NULL:
+                            var.FloatValue = 0;
+                            break;
+                        case FloatOperation.INCREMENT:
+                            var.FloatValue++;
+                            break;
+                        case FloatOperation.DECREMENT:
+                            var.FloatValue--;
                             break;
 
                         default:
@@ -1162,6 +1181,244 @@ namespace Dhs5.SceneCreation
                 item.Detach();
             }
         }
+        #endregion
+
+        #region Enum Second Parameter
+        #region Operations
+        public static bool HasSecondParameter(this BoolOperation boolOp)
+        {
+            return boolOp switch
+            {
+                BoolOperation.SET => true,
+                BoolOperation.INVERSE => false,
+                BoolOperation.TO_TRUE => false,
+                BoolOperation.TO_FALSE => false,
+                _ => false,
+            };
+        }
+        public static bool HasSecondParameter(this IntOperation intOp)
+        {
+            return intOp switch
+            {
+                IntOperation.SET => true,
+                IntOperation.ADD => true,
+                IntOperation.SUBSTRACT => true,
+                IntOperation.MULTIPLY => true,
+                IntOperation.DIVIDE => true,
+                IntOperation.POWER => true,
+                IntOperation.TO_MIN => false,
+                IntOperation.TO_MAX => false,
+                IntOperation.TO_NULL => false,
+                IntOperation.INCREMENT => false,
+                IntOperation.DECREMENT => false,
+                _ => false,
+            };
+        }
+        public static bool HasSecondParameter(this FloatOperation floatOp)
+        {
+            return floatOp switch
+            {
+                FloatOperation.SET => true,
+                FloatOperation.ADD => true,
+                FloatOperation.SUBSTRACT => true,
+                FloatOperation.MULTIPLY => true,
+                FloatOperation.DIVIDE => true,
+                FloatOperation.POWER => true,
+                FloatOperation.TO_MIN => false,
+                FloatOperation.TO_MAX => false,
+                FloatOperation.TO_NULL => false,
+                FloatOperation.INCREMENT => false,
+                FloatOperation.DECREMENT => false,
+                _ => false,
+            };
+        }
+        #endregion
+
+        #region Comparisons
+        public static bool HasSecondParameter(this BoolComparison boolComp)
+        {
+            return boolComp switch
+            { 
+                BoolComparison.EQUAL => true,
+                BoolComparison.DIFF => true,
+                BoolComparison.IS_TRUE => false,
+                BoolComparison.IS_FALSE => false,
+                _ => false,
+            };
+        }
+        public static bool HasSecondParameter(this IntComparison intComp)
+        {
+            return intComp switch
+            { 
+                IntComparison.EQUAL => true,
+                IntComparison.DIFF => true,
+                IntComparison.SUP => true,
+                IntComparison.INF => true,
+                IntComparison.SUP_EQUAL => true,
+                IntComparison.INF_EQUAL => true,
+                IntComparison.IS_MIN => false,
+                IntComparison.IS_MAX => false,
+                IntComparison.IS_NULL => false,
+                IntComparison.IS_POSITIVE => false,
+                IntComparison.IS_NEGATIVE => false,
+                _ => false,
+            };
+        }
+        public static bool HasSecondParameter(this FloatComparison floatComp)
+        {
+            return floatComp switch
+            { 
+                FloatComparison.EQUAL => true,
+                FloatComparison.DIFF => true,
+                FloatComparison.SUP => true,
+                FloatComparison.INF => true,
+                FloatComparison.SUP_EQUAL => true,
+                FloatComparison.INF_EQUAL => true,
+                FloatComparison.IS_MIN => false,
+                FloatComparison.IS_MAX => false,
+                FloatComparison.IS_NULL => false,
+                FloatComparison.IS_POSITIVE => false,
+                FloatComparison.IS_NEGATIVE => false,
+                _ => false,
+            };
+        }
+        public static bool HasSecondParameter(this StringComparison stringComp)
+        {
+            return stringComp switch
+            { 
+                StringComparison.EQUAL => true,
+                StringComparison.DIFF => true,
+                StringComparison.CONTAINS => true,
+                StringComparison.CONTAINED => true,
+                StringComparison.NULL_EMPTY => false,
+                _ => false,
+            };
+        }
+        #endregion
+        #endregion
+
+        #region Enum Description
+        #region Comparisons
+        public static string Description(this BoolComparison comp)
+        {
+            switch (comp)
+            {
+                case BoolComparison.EQUAL: return " == ";
+                case BoolComparison.DIFF: return " != ";
+                case BoolComparison.IS_TRUE: return " == True";
+                case BoolComparison.IS_FALSE: return " == False";
+                default: return "";
+            }
+        }
+        public static string Description(this IntComparison comp)
+        {
+            switch (comp)
+            {
+                case IntComparison.EQUAL: return " == ";
+                case IntComparison.DIFF: return " != ";
+                case IntComparison.SUP: return " > ";
+                case IntComparison.INF: return " < ";
+                case IntComparison.SUP_EQUAL: return " >= ";
+                case IntComparison.INF_EQUAL: return " <= ";
+                case IntComparison.IS_MIN: return " == min";
+                case IntComparison.IS_MAX: return " == max";
+                case IntComparison.IS_NULL: return " == 0";
+                case IntComparison.IS_POSITIVE: return " > 0";
+                case IntComparison.IS_NEGATIVE: return " < 0";
+                default: return "";
+            }
+        }
+        public static string Description(this FloatComparison comp)
+        {
+            switch (comp)
+            {
+                case FloatComparison.EQUAL: return " == ";
+                case FloatComparison.DIFF: return " != ";
+                case FloatComparison.SUP: return " > ";
+                case FloatComparison.INF: return " < ";
+                case FloatComparison.SUP_EQUAL: return " >= ";
+                case FloatComparison.INF_EQUAL: return " <= ";
+                case FloatComparison.IS_MIN: return " == min ";
+                case FloatComparison.IS_MAX: return " == max ";
+                case FloatComparison.IS_NULL: return " == 0";
+                case FloatComparison.IS_POSITIVE: return " > 0";
+                case FloatComparison.IS_NEGATIVE: return " < 0";
+                default: return "";
+            }
+        }
+        public static string Description(this StringComparison comp)
+        {
+            switch (comp)
+            {
+                case StringComparison.EQUAL: return " == ";
+                case StringComparison.DIFF: return " != ";
+                case StringComparison.CONTAINS: return " Contains : ";
+                case StringComparison.CONTAINED: return " Contained in : ";
+                case StringComparison.NULL_EMPTY: return " is null or empty. ";
+                default: return "";
+            }
+        }
+        #endregion
+
+        #region Operations
+        public static string Description(this BoolOperation op)
+        {
+            switch (op)
+            {
+                case BoolOperation.SET: return " = ";
+                case BoolOperation.INVERSE: return " Inverse.";
+                case BoolOperation.TO_TRUE: return " = True";
+                case BoolOperation.TO_FALSE: return " = False";
+                default: return "";
+            }
+        }
+        public static string Description(this IntOperation op)
+        {
+            switch (op)
+            {
+                case IntOperation.SET: return " = ";
+                case IntOperation.ADD: return " += ";
+                case IntOperation.SUBSTRACT: return " -= ";
+                case IntOperation.MULTIPLY: return " *= ";
+                case IntOperation.DIVIDE: return " /= ";
+                case IntOperation.POWER: return " = power ";
+                case IntOperation.TO_MIN: return " = min ";
+                case IntOperation.TO_MAX: return " = max ";
+                case IntOperation.TO_NULL: return " = 0 ";
+                case IntOperation.INCREMENT: return " ++";
+                case IntOperation.DECREMENT: return " --";
+                default: return "";
+            }
+        }
+        public static string Description(this FloatOperation op)
+        {
+            switch (op)
+            {
+                case FloatOperation.SET: return " = ";
+                case FloatOperation.ADD: return " += ";
+                case FloatOperation.SUBSTRACT: return " -= ";
+                case FloatOperation.MULTIPLY: return " *= ";
+                case FloatOperation.DIVIDE: return " /= ";
+                case FloatOperation.POWER: return " = power ";
+                case FloatOperation.TO_MIN: return " = min ";
+                case FloatOperation.TO_MAX: return " = max ";
+                case FloatOperation.TO_NULL: return " = 0 ";
+                case FloatOperation.INCREMENT: return " ++";
+                case FloatOperation.DECREMENT: return " --";
+                default: return "";
+            }
+        }
+        public static string Description(this StringOperation op)
+        {
+            switch (op)
+            {
+                case StringOperation.SET: return " = ";
+                case StringOperation.APPEND: return " .Append ";
+                case StringOperation.REMOVE: return " .Replace(param,'') ";
+                default: return "";
+            }
+        }
+        #endregion
         #endregion
         #endregion
     }

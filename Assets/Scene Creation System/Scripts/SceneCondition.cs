@@ -120,6 +120,12 @@ namespace Dhs5.SceneCreation
                     return valueToCompare < valueToCompareTo;
                 case IntComparison.INF_EQUAL:
                     return valueToCompare <= valueToCompareTo;
+                case IntComparison.IS_NULL:
+                    return valueToCompare == 0;
+                case IntComparison.IS_POSITIVE:
+                    return valueToCompare > 0;
+                case IntComparison.IS_NEGATIVE:
+                    return valueToCompare < 0;
             }
             return false;
         }
@@ -139,6 +145,12 @@ namespace Dhs5.SceneCreation
                     return valueToCompare < valueToCompareTo;
                 case IntComparison.INF_EQUAL:
                     return valueToCompare <= valueToCompareTo;
+                case IntComparison.IS_NULL:
+                    return valueToCompare == 0;
+                case IntComparison.IS_POSITIVE:
+                    return valueToCompare > 0;
+                case IntComparison.IS_NEGATIVE:
+                    return valueToCompare < 0;
             }
             return false;
         }
@@ -167,6 +179,12 @@ namespace Dhs5.SceneCreation
                     return valueToCompare < valueToCompareTo;
                 case FloatComparison.INF_EQUAL:
                     return valueToCompare <= valueToCompareTo;
+                case FloatComparison.IS_NULL:
+                    return valueToCompare == 0;
+                case FloatComparison.IS_POSITIVE:
+                    return valueToCompare > 0;
+                case FloatComparison.IS_NEGATIVE:
+                    return valueToCompare < 0;
             }
             return false;
         }
@@ -186,6 +204,12 @@ namespace Dhs5.SceneCreation
                     return valueToCompare < valueToCompareTo;
                 case FloatComparison.INF_EQUAL:
                     return valueToCompare <= valueToCompareTo;
+                case FloatComparison.IS_NULL:
+                    return valueToCompare == 0;
+                case FloatComparison.IS_POSITIVE:
+                    return valueToCompare > 0;
+                case FloatComparison.IS_NEGATIVE:
+                    return valueToCompare < 0;
             }
             return false;
         }
@@ -218,68 +242,27 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Operator Description
-        public static string BoolCompDescription(BoolComparison comp)
-        {
-            switch (comp)
-            {
-                case BoolComparison.EQUAL: return " == ";
-                case BoolComparison.DIFF: return " != ";
-                case BoolComparison.IS_TRUE: return " == True";
-                case BoolComparison.IS_FALSE: return " == False";
-                default: return "";
-            }
-        }
-        public static string IntCompDescription(IntComparison comp)
-        {
-            switch (comp)
-            {
-                case IntComparison.EQUAL: return " == ";
-                case IntComparison.DIFF: return " != ";
-                case IntComparison.SUP: return " > ";
-                case IntComparison.INF: return " < ";
-                case IntComparison.SUP_EQUAL: return " >= ";
-                case IntComparison.INF_EQUAL: return " <= ";
-                case IntComparison.IS_MIN: return " == min ";
-                case IntComparison.IS_MAX: return " == max ";
-                default: return "";
-            }
-        }
-        public static string FloatCompDescription(FloatComparison comp)
-        {
-            switch (comp)
-            {
-                case FloatComparison.EQUAL: return " == ";
-                case FloatComparison.DIFF: return " != ";
-                case FloatComparison.SUP: return " > ";
-                case FloatComparison.INF: return " < ";
-                case FloatComparison.SUP_EQUAL: return " >= ";
-                case FloatComparison.INF_EQUAL: return " <= ";
-                case FloatComparison.IS_MIN: return " == min ";
-                case FloatComparison.IS_MAX: return " == max ";
-                default: return "";
-            }
-        }
-        public static string StringCompDescription(StringComparison comp)
-        {
-            switch (comp)
-            {
-                case StringComparison.EQUAL: return " == ";
-                case StringComparison.DIFF: return " != ";
-                case StringComparison.CONTAINS: return " Contains : ";
-                case StringComparison.CONTAINED: return " Contained in : ";
-                case StringComparison.NULL_EMPTY: return " is null or empty. ";
-                default: return "";
-            }
-        }
+        
         private string GetCompDescription()
         {
             switch (EditorSceneVar1.type)
             {
-                case SceneVarType.BOOL: return BoolCompDescription(boolComp);
-                case SceneVarType.FLOAT: return FloatCompDescription(floatComp);
-                case SceneVarType.INT: return IntCompDescription(intComp);
-                case SceneVarType.STRING: return StringCompDescription(stringComp);
+                case SceneVarType.BOOL: return boolComp.Description();
+                case SceneVarType.FLOAT: return floatComp.Description();
+                case SceneVarType.INT: return intComp.Description();
+                case SceneVarType.STRING: return stringComp.Description();
                 default: return "";
+            }
+        }
+        private bool HasSecondParameter()
+        {
+            switch (EditorSceneVar1.type)
+            {
+                case SceneVarType.BOOL: return boolComp.HasSecondParameter();
+                case SceneVarType.FLOAT: return floatComp.HasSecondParameter();
+                case SceneVarType.INT: return intComp.HasSecondParameter();
+                case SceneVarType.STRING: return true;
+                default: return false;
             }
         }
         #endregion
@@ -291,8 +274,11 @@ namespace Dhs5.SceneCreation
             sb.Append(EditorSceneVar1.LogString());
             sb.Append(" ");
             sb.Append(GetCompDescription());
-            sb.Append(" ");
-            sb.Append(SceneVar2.LogString());
+            if (HasSecondParameter())
+            {
+                sb.Append(" ");
+                sb.Append(SceneVar2.LogString());
+            }
 
             return sb.ToString();
         }
@@ -302,8 +288,11 @@ namespace Dhs5.SceneCreation
             sb.Append(EditorSceneVar1.LogString());
             sb.Append(" ");
             sb.Append(GetCompDescription());
-            sb.Append(" ");
-            sb.Append(SceneVar2.LogString());
+            if (HasSecondParameter())
+            {
+                sb.Append(" ");
+                sb.Append(SceneVar2.LogString());
+            }
             if (!last)
             {
                 sb.Append(" ");

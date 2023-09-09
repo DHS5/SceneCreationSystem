@@ -10,7 +10,8 @@ namespace Dhs5.SceneCreation
         [Header("Spawner")]
         [SerializeField] private List<SpawnTemplate> templates;
 
-        #region Behaviour
+        #region Spawn Behaviour
+        #region Exposed Versions
         /// <summary>
         /// Spawn the <see cref="SpawnTemplate"/> <paramref name="templateID"/> if it exists
         /// </summary>
@@ -27,6 +28,7 @@ namespace Dhs5.SceneCreation
         {
             SpawnAndRemove(templateID, null);
         }
+        #endregion
 
         /// <summary>
         /// Spawn the <see cref="SpawnTemplate"/> <paramref name="templateID"/> if it exists <br></br>
@@ -58,6 +60,38 @@ namespace Dhs5.SceneCreation
             templates.Remove(template);
 
             return template.Spawn(sceneVariablesSO, parent);
+        }
+        #endregion
+
+        #region Post Spawn Behaviour
+        /// <summary>
+        /// Apply the profiles of the <see cref="SpawnTemplate"/> <paramref name="templateID"/> on <paramref name="preSpawnedObject"/> if the template exists
+        /// </summary>
+        /// <param name="preSpawnedObject">SceneObject's GameObject that just got instantiated</param>
+        /// <param name="templateID">ID of the template to post spawn</param>
+        /// <returns>The post spawned <see cref="SceneObject"/></returns>
+        public SceneObject PostSpawn(GameObject preSpawnedObject, string templateID)
+        {
+            if (templates == null || templates.Count <= 0) return null;
+
+            return templates.Find(t => t.ID == templateID)?.PostSpawn(sceneVariablesSO, preSpawnedObject);
+        }
+        /// <summary>
+        /// Apply the profiles of the <see cref="SpawnTemplate"/> <paramref name="templateID"/> on <paramref name="preSpawnedObject"/> and remove the template if it exists
+        /// </summary>
+        /// <param name="preSpawnedObject">SceneObject's GameObject that just got instantiated</param>
+        /// <param name="templateID">ID of the template to post spawn</param>
+        /// <returns>The post spawned <see cref="SceneObject"/></returns>
+        public SceneObject PostSpawnAndRemove(GameObject preSpawnedObject, string templateID)
+        {
+            if (templates == null || templates.Count <= 0) return null;
+
+            SpawnTemplate template = templates.Find(t => t.ID == templateID);
+
+            if (template == null) return null;
+            templates.Remove(template);
+
+            return template.PostSpawn(sceneVariablesSO, preSpawnedObject);
         }
         #endregion
 
@@ -99,6 +133,13 @@ namespace Dhs5.SceneCreation
             public SceneObject Spawn(SceneVariablesSO sceneVariablesSO, Transform overrideParent)
             {
                 SceneObject sceneObject = Instantiate(prefab, overrideParent ?? parent).GetComponent<SceneObject>();
+                sceneObject.name = templateID;
+                sceneObject.ApplyProfiles(sceneVariablesSO, profiles);
+                return sceneObject;
+            }
+            public SceneObject PostSpawn(SceneVariablesSO sceneVariablesSO, GameObject preSpawnedObject)
+            {
+                SceneObject sceneObject = preSpawnedObject.GetComponent<SceneObject>();
                 sceneObject.name = templateID;
                 sceneObject.ApplyProfiles(sceneVariablesSO, profiles);
                 return sceneObject;

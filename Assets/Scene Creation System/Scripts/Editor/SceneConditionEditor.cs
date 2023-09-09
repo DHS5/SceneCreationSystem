@@ -77,26 +77,28 @@ namespace Dhs5.SceneCreation
                 case SceneVarType.BOOL:
                     EditorGUI.PropertyField(compPosition, property.FindPropertyRelative("boolComp"), empty);
                     BoolComparison comparison = (BoolComparison)property.FindPropertyRelative("boolComp").enumValueIndex;
-                    hasSecondParameter = (comparison != BoolComparison.IS_TRUE && comparison != BoolComparison.IS_FALSE);
-                    conditionDescription = SceneCondition.BoolCompDescription(comparison);
+                    hasSecondParameter = comparison.HasSecondParameter();
+                    conditionDescription = comparison.Description();
                     break;
                 case SceneVarType.INT:
                     SerializedProperty intComp = property.FindPropertyRelative("intComp");
                     EditorGUI.PropertyField(compPosition, intComp, empty);
                     IntComparison intComparison = (IntComparison)intComp.enumValueIndex;
-                    hasSecondParameter = (intComparison != IntComparison.IS_MIN && intComparison != IntComparison.IS_MAX);
-                    conditionDescription = SceneCondition.IntCompDescription((IntComparison)property.FindPropertyRelative("intComp").enumValueIndex);
+                    hasSecondParameter = intComparison.HasSecondParameter();
+                    conditionDescription = intComparison.Description();
                     break;
                 case SceneVarType.FLOAT:
                     SerializedProperty floatComp = property.FindPropertyRelative("floatComp");
                     EditorGUI.PropertyField(compPosition, floatComp, empty);
                     FloatComparison floatComparison = (FloatComparison)floatComp.enumValueIndex;
-                    hasSecondParameter = (floatComparison != FloatComparison.IS_MIN && floatComparison != FloatComparison.IS_MAX);
-                    conditionDescription = SceneCondition.FloatCompDescription((FloatComparison)property.FindPropertyRelative("floatComp").enumValueIndex);
+                    hasSecondParameter = floatComparison.HasSecondParameter();
+                    conditionDescription = floatComparison.Description();
                     break;
                 case SceneVarType.STRING:
                     EditorGUI.PropertyField(compPosition, property.FindPropertyRelative("stringComp"), empty);
-                    conditionDescription = SceneCondition.StringCompDescription((StringComparison)property.FindPropertyRelative("stringComp").enumValueIndex);
+                    StringComparison stringComparison = (StringComparison)property.FindPropertyRelative("stringComp").enumValueIndex;
+                    hasSecondParameter = stringComparison.HasSecondParameter();
+                    conditionDescription = stringComparison.Description();
                     break;
                 default:
                     EditorGUI.EndProperty();

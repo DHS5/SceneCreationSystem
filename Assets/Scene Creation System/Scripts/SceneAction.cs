@@ -50,16 +50,16 @@ namespace Dhs5.SceneCreation
             switch (SceneVar1.type)
             {
                 case SceneVarType.BOOL:
-                    SceneState.ModifyBoolVar(var1UniqueID, boolOP, SceneVar2.BoolValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), BoolOpDescription(boolOP), SceneVar2.BoolValue.ToString()));
+                    SceneState.ModifyBoolVar(var1UniqueID, boolOP, SceneVar2.BoolValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), boolOP.Description(), SceneVar2.BoolValue.ToString()));
                     break;
                 case SceneVarType.INT:
-                    SceneState.ModifyIntVar(var1UniqueID, intOP, SceneVar2.IntValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), IntOpDescription(intOP), SceneVar2.IntValue.ToString()));
+                    SceneState.ModifyIntVar(var1UniqueID, intOP, SceneVar2.IntValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), intOP.Description(), SceneVar2.IntValue.ToString()));
                     break;
                 case SceneVarType.FLOAT:
-                    SceneState.ModifyFloatVar(var1UniqueID, floatOP, SceneVar2.FloatValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), FloatOpDescription(floatOP), SceneVar2.FloatValue.ToString()));
+                    SceneState.ModifyFloatVar(var1UniqueID, floatOP, SceneVar2.FloatValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), floatOP.Description(), SceneVar2.FloatValue.ToString()));
                     break;
                 case SceneVarType.STRING:
-                    SceneState.ModifyStringVar(var1UniqueID, stringOP, SceneVar2.StringValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), StringOpDescription(stringOP), SceneVar2.StringValue));
+                    SceneState.ModifyStringVar(var1UniqueID, stringOP, SceneVar2.StringValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), stringOP.Description(), SceneVar2.StringValue));
                     break;
                 case SceneVarType.EVENT:
                     SceneState.TriggerEventVar(var1UniqueID, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), " Trigger"));
@@ -71,67 +71,29 @@ namespace Dhs5.SceneCreation
         }
 
         #region Operation Description
-        public static string BoolOpDescription(BoolOperation op)
-        {
-            switch (op)
-            {
-                case BoolOperation.SET: return " = ";
-                case BoolOperation.INVERSE: return " Inverse.";
-                case BoolOperation.TO_TRUE: return " = True";
-                case BoolOperation.TO_FALSE: return " = False";
-                default: return "";
-            }
-        }
-        public static string IntOpDescription(IntOperation op)
-        {
-            switch (op)
-            {
-                case IntOperation.SET: return " = ";
-                case IntOperation.ADD: return " += ";
-                case IntOperation.SUBSTRACT: return " -= ";
-                case IntOperation.MULTIPLY: return " *= ";
-                case IntOperation.DIVIDE: return " /= ";
-                case IntOperation.POWER: return " = power ";
-                case IntOperation.TO_MIN: return " = min ";
-                case IntOperation.TO_MAX: return " = max ";
-                default: return "";
-            }
-        }
-        public static string FloatOpDescription(FloatOperation op)
-        {
-            switch (op)
-            {
-                case FloatOperation.SET: return " = ";
-                case FloatOperation.ADD: return " += ";
-                case FloatOperation.SUBSTRACT: return " -= ";
-                case FloatOperation.MULTIPLY: return " *= ";
-                case FloatOperation.DIVIDE: return " /= ";
-                case FloatOperation.POWER: return " = power ";
-                case FloatOperation.TO_MIN: return " = min ";
-                case FloatOperation.TO_MAX: return " = max ";
-                default: return "";
-            }
-        }
-        public static string StringOpDescription(StringOperation op)
-        {
-            switch (op)
-            {
-                case StringOperation.SET: return " = ";
-                case StringOperation.APPEND: return " .Append ";
-                case StringOperation.REMOVE: return " .Replace(param,'') ";
-                default: return "";
-            }
-        }
+        
         private string GetOpDescription()
         {
             switch (EditorSceneVar1.type)
             {
-                case SceneVarType.BOOL: return BoolOpDescription(boolOP);
-                case SceneVarType.INT: return IntOpDescription(intOP);
-                case SceneVarType.FLOAT: return FloatOpDescription(floatOP);
-                case SceneVarType.STRING: return StringOpDescription(stringOP);
+                case SceneVarType.BOOL: return boolOP.Description();
+                case SceneVarType.INT: return intOP.Description();
+                case SceneVarType.FLOAT: return floatOP.Description();
+                case SceneVarType.STRING: return stringOP.Description();
                 case SceneVarType.EVENT: return "Trigger";
                 default: return null;
+            }
+        }
+        private bool HasSecondParameter()
+        {
+            switch (EditorSceneVar1.type)
+            {
+                case SceneVarType.BOOL: return boolOP.HasSecondParameter();
+                case SceneVarType.INT: return intOP.HasSecondParameter();
+                case SceneVarType.FLOAT: return floatOP.HasSecondParameter();
+                case SceneVarType.STRING: return true;
+                case SceneVarType.EVENT: return false;
+                default: return false;
             }
         }
         #endregion
@@ -144,7 +106,7 @@ namespace Dhs5.SceneCreation
             sb.Append(EditorSceneVar1.LogString());
             sb.Append(" ");
             sb.Append(GetOpDescription());
-            if (EditorSceneVar1.type != SceneVarType.EVENT)
+            if (HasSecondParameter())
             {
                 sb.Append(" ");
                 sb.Append(SceneVar2.LogString());
