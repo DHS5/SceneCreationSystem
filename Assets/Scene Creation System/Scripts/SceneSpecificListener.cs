@@ -9,21 +9,8 @@ using UnityEditorInternal;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneRegisterable
+    public class SceneSpecificListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneRegisterable
     {
-        [Serializable]
-        public struct SceneEventTrigger
-        {
-            public string eventID;
-            public bool random;
-            public bool remove;
-
-            public override string ToString()
-            {
-                return "Trigger : " + eventID + (random ? " randomly " : "") + (remove ? " and remove" : "");
-            }
-        }
-
         public SceneVariablesSO sceneVariablesSO;
         private SceneObject sceneObject;
 
@@ -43,10 +30,8 @@ namespace Dhs5.SceneCreation
         public bool hasCondition;
 
         public List<SceneCondition> conditions;
-        
-        public UnityEvent<SceneEventParam> events;
 
-        public List<SceneEventTrigger> triggers;
+        private Action<SceneEventParam> events;
 
         public bool debug = false;
         public float propertyHeight;
@@ -68,14 +53,16 @@ namespace Dhs5.SceneCreation
                 param.Context.UpRank();
                 param.Context.Add(sceneObject.name, " listener received ", param.ToString());
                 events.Invoke(param);
-                sceneObject.Trigger(triggers, param);
                 if (debug)
                     DebugSceneListener(param.Context);
             }
         }
         #endregion
 
-
+        public void SetEvents(Action<SceneEventParam> _events)
+        {
+            events = _events;
+        }
         public void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
             sceneVariablesSO = _sceneVariablesSO;
@@ -145,28 +132,6 @@ namespace Dhs5.SceneCreation
                         }
                         Line();
                     }
-                }                
-
-                sb.Append("   * UNITY EVENT : ");
-                Line();
-
-                for (int i = 0; i < events.GetPersistentEventCount(); i++)
-                {
-                    sb.Append("      --> ");
-                    sb.Append(events.GetPersistentTarget(i).ToString());
-                    sb.Append(".");
-                    sb.Append(events.GetPersistentMethodName(i));
-                    Line();
-                }
-
-                sb.Append("   * TRIGGERS : ");
-                Line();
-
-                foreach (var trigger in triggers)
-                {
-                    sb.Append("      --> ");
-                    sb.Append(trigger.ToString());
-                    Line();
                 }
             }
 

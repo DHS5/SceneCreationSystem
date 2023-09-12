@@ -2528,6 +2528,13 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     debug: 0
+  listeners:
+  - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    varUniqueID: 9478
+    hasCondition: 0
+    conditions: []
+    debug: 0
+    propertyHeight: 60.3
 --- !u!1 &1591041803
 GameObject:
   m_ObjectHideFlags: 0

@@ -1112,6 +1112,29 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneListeners Registration
+        public interface ISceneRegisterable
+        {
+            public void Register();
+            public void Unregister();
+        }
+        public static void Register<T>(this List<T> registerables) where T : ISceneRegisterable
+        {
+            if (registerables == null || registerables.Count <= 0) return;
+
+            foreach (var registerable in registerables)
+            {
+                registerable.Register();
+            }
+        }
+        public static void Unregister<T>(this List<T> registerables) where T : ISceneRegisterable
+        {
+            if (registerables == null || registerables.Count <= 0) return;
+
+            foreach (var registerable in registerables)
+            {
+                registerable.Unregister();
+            }
+        }
         public static void Register(this List<SceneListener> sceneListeners)
         {
             if (sceneListeners == null || sceneListeners.Count <= 0) return;
@@ -1128,6 +1151,18 @@ namespace Dhs5.SceneCreation
             foreach (SceneListener listener in sceneListeners)
             {
                 listener.Unregister();
+            }
+        }
+        #endregion
+
+        #region SceneSpecificListeners Set Events
+        public static void SetEvents(this List<SceneSpecificListener> listeners, Action<SceneEventParam> _events)
+        {
+            if (listeners == null || listeners.Count <= 0) return;
+
+            foreach (var listener in listeners)
+            {
+                listener.SetEvents(_events);
             }
         }
         #endregion
