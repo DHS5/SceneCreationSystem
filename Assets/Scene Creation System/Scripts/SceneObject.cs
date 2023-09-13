@@ -109,7 +109,7 @@ namespace Dhs5.SceneCreation
         /// <summary>
         /// Function where all <see cref="BaseSceneEvent"/> and <see cref="SceneVarTween"/> lists should be registered with : <see cref="Register{T}(string, List{T})"/>
         /// </summary>
-        protected virtual void RegisterElements() 
+        protected virtual void RegisterElements()
         {
             SceneEventsDico = new();
             TweenDico = new();
