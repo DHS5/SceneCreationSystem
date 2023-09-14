@@ -8,7 +8,7 @@ using System.Linq;
 namespace Dhs5.SceneCreation
 {
     [DisallowMultipleComponent]
-    public class SceneObject : MonoBehaviour
+    public class SceneObject : MonoBehaviour, SceneState.ISceneVarDependant
     {
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
@@ -22,6 +22,7 @@ namespace Dhs5.SceneCreation
         #region Update Listeners, Actions & Tweens
         private void Awake()
         {
+            LinkSceneScriptables();
             Init();
             UpdateBelongings();
 
@@ -86,6 +87,8 @@ namespace Dhs5.SceneCreation
         {
             SceneState.Register(this);
 
+            sceneScriptables.OnSceneObjectEnable();
+
             sceneListeners.Register();
 
             OnEnable_Ext();
@@ -93,6 +96,8 @@ namespace Dhs5.SceneCreation
         private void OnDisable()
         {
             SceneState.Unregister(this);
+
+            sceneScriptables.OnSceneObjectDisable();
 
             sceneListeners.Unregister();
 
@@ -122,6 +127,30 @@ namespace Dhs5.SceneCreation
         protected void Register(string name, SceneVarTween tween)
         {
             TweenDico[name] = tween;
+        }
+        #endregion
+
+        #region Scriptable Link
+        private List<SceneScriptableObject> sceneScriptables = new();
+
+        protected virtual void LinkSceneScriptables() { }
+
+        protected void Link<T>(T sso) where T : SceneScriptableObject
+        {
+            sso.Link(this);
+            sceneScriptables.Add(sso);
+        }
+        protected void Link<T>(List<T> ssos) where T : SceneScriptableObject
+        {
+            if (ssos.IsValid()) 
+                foreach (var sso in ssos)
+                    Link(sso);
+        }
+        protected void Link<T>(params List<T>[] ssos) where T : SceneScriptableObject
+        {
+            if (ssos.IsValid())
+                foreach (var sso in ssos)
+                    Link(sso);
         }
         #endregion
 
@@ -522,6 +551,44 @@ namespace Dhs5.SceneCreation
         }
 
         protected virtual void ChildLog(List<string> lines, StringBuilder sb, bool detailed) { }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies 
+        { 
+            get
+            {
+                List<int> dependencies = new List<int>();
+
+                dependencies.AddRange(sceneListeners.Dependencies());
+                dependencies.AddRange(sceneEvents.Dependencies());
+
+                RegisterElements();
+                if (SceneEventsDico.IsValid())
+                {
+                    foreach (var pair in SceneEventsDico)
+                    {
+                        if (pair.Value.IsValid())
+                            dependencies.AddRange(pair.Value.Dependencies());
+                    }
+                }
+                if (TweenDico.IsValid())
+                {
+                    foreach (var pair in TweenDico)
+                    {
+                        dependencies.AddRange(pair.Value.Dependencies);
+                    }
+                }
+
+                dependencies.AddRange(ChildDependencies());
+
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
+
+        protected virtual List<int> ChildDependencies() { return new(); }
         #endregion
 
         #region Editor

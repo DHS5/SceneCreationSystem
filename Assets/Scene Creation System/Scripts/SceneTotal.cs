@@ -47,9 +47,9 @@ namespace Dhs5.SceneCreation
                 return varTween.Dependencies;
             }
         }
-        public bool CanDependOn(int UID)
+        public bool DependOn(int UID)
         {
-            return varTween.CanDependOn(UID);
+            return varTween.DependOn(UID);
         }
         public void SetForbiddenUID(int UID)
         {

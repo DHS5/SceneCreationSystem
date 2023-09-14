@@ -140,6 +140,7 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        #region In File
         [MenuItem("SCS/Log/Print detailed Scene Log in file", priority = 102)]
         public static void PrintDetailedSceneLogInFile()
         {
@@ -165,6 +166,11 @@ namespace Dhs5.SceneCreation
                 Debug.LogError("Can't find the SceneManager of the current scene");
             }
         }
+        #endregion
+        #endregion
+
+        #region References
+
         #endregion
     }
 }

@@ -602,6 +602,10 @@ namespace Dhs5.SceneCreation
         {
             return list != null && list.Count > 0;
         }
+        public static bool IsValid<T>(this T[] array)
+        {
+            return array != null && array.Length > 0;
+        }
         public static bool IsValid<T>(this Stack<T> stack)
         {
             return stack != null && stack.Count > 0;
@@ -683,38 +687,37 @@ namespace Dhs5.SceneCreation
         public interface ISceneVarDependant
         {
             public List<int> Dependencies { get; }
-            public bool CanDependOn(int UID);
+            public bool DependOn(int UID);
             public void SetForbiddenUID(int UID);
         }
         public static List<int> Dependencies<T>(this List<T> list) where T : ISceneVarDependant
         {
-            if (list == null || list.Count < 1)
+            if (!list.IsValid())
             {
                 return new();
             }
             List<int> dependencies = new();
-            List<int> temp;
             foreach (var dependant in list)
             {
-                temp = dependant.Dependencies;
-                if (temp != null && temp.Count > 0)
+                if (dependant.Dependencies.IsValid())
                 {
-                    foreach (var dep in temp)
+                    foreach (var dep in dependant.Dependencies)
                     {
-                        dependencies.Add(dep);
+                        if (!dependencies.Contains(dep))
+                            dependencies.Add(dep);
                     }
                 }
             }
             return dependencies;
         }
-        public static bool CanDependOn<T>(this List<T> list, int UID) where T : ISceneVarDependant
+        public static bool DependOn<T>(this List<T> list, int UID) where T : ISceneVarDependant
         {
             foreach (var dependant in list)
             {
-                if (!dependant.CanDependOn(UID))
-                    return false;
+                if (!dependant.DependOn(UID))
+                    return true;
             }
-            return true;
+            return false;
         }
         public static void SetForbiddenUID<T>(this List<T> list, int UID) where T : ISceneVarDependant
         {
@@ -1233,6 +1236,33 @@ namespace Dhs5.SceneCreation
             foreach (var item in list)
             {
                 item.Detach();
+            }
+        }
+        #endregion
+
+        #region SceneScriptableObjects management
+        public static void SetUp<T>(this List<T> scriptables, SceneVariablesSO sceneVariablesSO, SceneObject sceneObject) where T : SceneScriptableObject
+        {
+            if (scriptables.IsValid())
+            {
+                foreach (var item in scriptables)
+                    item.SetUp(sceneVariablesSO, sceneObject);
+            }
+        }
+        public static void OnSceneObjectEnable<T>(this List<T> scriptables) where T : SceneScriptableObject
+        {
+            if (scriptables.IsValid())
+            {
+                foreach (var item in scriptables)
+                    item.OnSceneObjectEnable();
+            }
+        }
+        public static void OnSceneObjectDisable<T>(this List<T> scriptables) where T : SceneScriptableObject
+        {
+            if (scriptables.IsValid())
+            {
+                foreach (var item in scriptables)
+                    item.OnSceneObjectDisable();
             }
         }
         #endregion

@@ -250,7 +250,7 @@ namespace Dhs5.SceneCreation
             List<SceneVar> sceneVars = new();
             foreach (SceneVar v in list)
             {
-                if (!v.IsLink || complexSceneVars.Find(x => x.uniqueID == v.uniqueID).CanDependOn(UID))
+                if (!v.IsLink || !complexSceneVars.Find(x => x.uniqueID == v.uniqueID).DependOn(UID))
                 {
                     sceneVars.Add(v);
                 }

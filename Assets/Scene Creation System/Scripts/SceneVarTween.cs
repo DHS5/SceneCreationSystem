@@ -20,6 +20,8 @@ namespace Dhs5.SceneCreation
         public int UID => sceneVarUniqueID;
 
         // Static
+        [SerializeField] private bool anyVar;
+
         [SerializeField] private bool canBeStatic;
         [SerializeField] private bool isStatic;
 
@@ -44,8 +46,9 @@ namespace Dhs5.SceneCreation
         }
 
 
-        public void SetUp(SceneVariablesSO _sceneVariablesSO, SceneVarType _type, bool _canBeStatic = false)
+        public void SetUp(SceneVariablesSO _sceneVariablesSO, SceneVarType _type, bool _canBeStatic = false, bool _anyVar = false)
         {
+            anyVar = _anyVar;
             sceneVariablesSO = _sceneVariablesSO;
             type = _type;
             if (type != SceneVarType.EVENT) canBeStatic = _canBeStatic;
@@ -193,15 +196,15 @@ namespace Dhs5.SceneCreation
                 return new() { sceneVarUniqueID };
             }
         }
-        public bool CanDependOn(int UID)
+        public bool DependOn(int UID)
         {
-            if (sceneVariablesSO[sceneVarUniqueID] == null || (canBeStatic && isStatic)) return true;
-            if (sceneVarUniqueID == UID) return false;
+            if (sceneVariablesSO[sceneVarUniqueID] == null || (canBeStatic && isStatic)) return false;
+            if (sceneVarUniqueID == UID) return true;
             if (sceneVariablesSO[sceneVarUniqueID].IsLink)
             {
-                return sceneVariablesSO.complexSceneVars.Find(x => x.uniqueID == sceneVarUniqueID).CanDependOn(UID);
+                return sceneVariablesSO.complexSceneVars.Find(x => x.uniqueID == sceneVarUniqueID).DependOn(UID);
             }
-            return true;
+            return false;
         }
         public void SetForbiddenUID(int UID)
         {

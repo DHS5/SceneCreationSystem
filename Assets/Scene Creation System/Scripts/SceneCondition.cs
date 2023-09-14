@@ -74,11 +74,11 @@ namespace Dhs5.SceneCreation
                 return dependencies;
             }
         }
-        public bool CanDependOn(int UID)
+        public bool DependOn(int UID)
         {
-            if (var1UniqueID == UID) return false;
+            if (var1UniqueID == UID) return true;
 
-            return SceneVar2.CanDependOn(UID);
+            return SceneVar2.DependOn(UID);
         }
         [SerializeField] private int forbiddenUID;
         public void SetForbiddenUID(int UID)

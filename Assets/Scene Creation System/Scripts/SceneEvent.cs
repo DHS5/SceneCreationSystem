@@ -10,7 +10,7 @@ using System.Runtime.Remoting.Contexts;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public abstract class BaseSceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
+    public abstract class BaseSceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant
     {
         public string eventID;
         [Space(5)]
@@ -192,6 +192,24 @@ namespace Dhs5.SceneCreation
             }
             #endregion
         }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies 
+        { 
+            get
+            {
+                List<int> dependencies = new List<int>();
+
+                dependencies.AddRange(sceneConditions.Dependencies());
+                dependencies.AddRange(sceneActions.Dependencies());
+                dependencies.AddRange(sceneParameteredEvents.Dependencies());
+
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 

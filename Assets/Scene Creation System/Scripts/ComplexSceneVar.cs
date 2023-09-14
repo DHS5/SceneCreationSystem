@@ -108,15 +108,15 @@ namespace Dhs5.SceneCreation
                 return dependencies;
             }
         }
-        public bool CanDependOn(int UID)
+        public bool DependOn(int UID)
         {
-            if (UID == uniqueID) return false;
+            if (UID == uniqueID) return true;
             return type switch
             {
-                ComplexSceneVarType.CONDITION => conditions.CanDependOn(UID),
-                ComplexSceneVarType.TOTAL_INT => intTotals.CanDependOn(UID),
-                ComplexSceneVarType.TOTAL_FLOAT => floatTotals.CanDependOn(UID),
-                ComplexSceneVarType.SENTENCE => sentences.CanDependOn(UID),
+                ComplexSceneVarType.CONDITION => conditions.DependOn(UID),
+                ComplexSceneVarType.TOTAL_INT => intTotals.DependOn(UID),
+                ComplexSceneVarType.TOTAL_FLOAT => floatTotals.DependOn(UID),
+                ComplexSceneVarType.SENTENCE => sentences.DependOn(UID),
                 _ => new(),
             };
         }

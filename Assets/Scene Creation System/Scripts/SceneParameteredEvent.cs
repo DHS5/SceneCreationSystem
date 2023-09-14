@@ -8,7 +8,7 @@ using System.Text;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneParameteredEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
+    public class SceneParameteredEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant
     {
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
 
@@ -129,6 +129,27 @@ namespace Dhs5.SceneCreation
 
             return sb.ToString();
         }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies
+        {
+            get
+            {
+                List<int> dependencies = new List<int>();
+
+                int size = action.ArgumentsCount;
+                if (size > 0) dependencies.AddRange(varTween0.Dependencies);
+                if (size > 1) dependencies.AddRange(varTween1.Dependencies);
+                if (size > 2) dependencies.AddRange(varTween2.Dependencies);
+                if (size > 3) dependencies.AddRange(varTween3.Dependencies);
+                if (size > 4) dependencies.AddRange(varTween4.Dependencies);
+
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 

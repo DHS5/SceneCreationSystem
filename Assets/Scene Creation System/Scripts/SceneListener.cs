@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using System.Text;
-using UnityEditorInternal;
 
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneRegisterable
+    public class SceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneRegisterable, SceneState.ISceneVarDependant
     {
         [Serializable]
         public struct SceneEventTrigger
@@ -181,6 +180,12 @@ namespace Dhs5.SceneCreation
             }
             #endregion
         }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies { get => new List<int>() { UID }; }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 }

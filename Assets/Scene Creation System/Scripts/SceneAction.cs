@@ -7,7 +7,7 @@ using System.Text;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneAction : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
+    public class SceneAction : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneVarDependant
     {
         public SceneVariablesSO sceneVariablesSO;
         private SceneObject sceneObject;
@@ -114,6 +114,20 @@ namespace Dhs5.SceneCreation
 
             return sb.ToString();
         }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies 
+        {
+            get
+            {
+                List<int> dependencies = new() { var1UniqueID };
+                dependencies.AddRange(SceneVar2.Dependencies);
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 }
