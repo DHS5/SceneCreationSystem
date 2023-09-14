@@ -10,10 +10,12 @@ namespace Dhs5.SceneCreation
         private static Stack<string> logStack = new();
 
         private static bool detailed;
+        private static bool showEmpty;
         private static bool inFile;
-        public static string GetSceneLog(GameObject go, bool _detailed = false, bool _inFile = false)
+        public static string GetSceneLog(GameObject go, bool _detailed = false, bool _showEmpty = false, bool _inFile = false)
         {
             detailed = _detailed;
+            showEmpty = _showEmpty;
             inFile = _inFile;
 
             StringBuilder sb = new StringBuilder();
@@ -54,9 +56,9 @@ namespace Dhs5.SceneCreation
         }
         private static void AppendSO(SceneObject so, int rank)
         {
-            if (so == null) return;
+            if (so == null || (!showEmpty && so.IsEmpty())) return;
 
-            List<string> lines = so.LogLines(detailed);
+            List<string> lines = so.LogLines(detailed, showEmpty);
 
             if (lines == null || lines.Count == 0)
             {

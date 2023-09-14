@@ -389,7 +389,7 @@ namespace Dhs5.SceneCreation
 
             return sb.ToString();
         }
-        public List<string> LogLines(bool detailed = false)
+        public List<string> LogLines(bool detailed = false, bool showEmpty = false)
         {
             string passToLine = "Line()";
             List<string> lines = new();
@@ -398,62 +398,69 @@ namespace Dhs5.SceneCreation
             AppendColor(SceneLogger.SceneObjectColor, "--------------------------------------------------");
             Line();
 
-            AppendColor(SceneLogger.ListenerColor, "Listeners :");
-            Line();
-
-            if (detailed)
+            if (showEmpty || sceneListeners.IsValid())
             {
-                AppendColor(SceneLogger.ListenerColor, "----------------------------------------");
+                AppendColor(SceneLogger.ListenerColor, "Listeners :");
                 Line();
+
+                if (detailed)
+                {
+                    AppendColor(SceneLogger.ListenerColor, "----------------------------------------");
+                    Line();
+                }
+
+                foreach (var listener in sceneListeners)
+                {
+                    lines.AddRange(listener.LogLines(detailed));
+                }
+
+                if (detailed)
+                {
+                    AppendColor(SceneLogger.ListenerColor, "----------------------------------------");
+                    Line();
+                }
             }
 
-            foreach (var listener in sceneListeners)
+            if (showEmpty || sceneEvents.IsValid())
             {
-                lines.AddRange(listener.LogLines(detailed));
-            }
-
-            if (detailed)
-            {
-                AppendColor(SceneLogger.ListenerColor, "----------------------------------------");
+                AppendColor(SceneLogger.EventColor, "Events :");
                 Line();
-            }
 
-            AppendColor(SceneLogger.EventColor, "Events :");
-            Line();
+                if (detailed)
+                {
+                    AppendColor(SceneLogger.EventColor, "----------------------------------------");
+                    Line();
+                }
 
-            if (detailed)
-            {
-                AppendColor(SceneLogger.EventColor, "----------------------------------------");
-                Line();
-            }
+                foreach (var events in sceneEvents)
+                {
+                    lines.AddRange(events.LogLines(detailed));
+                }
 
-            foreach (var events in sceneEvents)
-            {
-                lines.AddRange(events.LogLines(detailed));
-            }
-
-            if (detailed)
-            {
-                AppendColor(SceneLogger.EventColor, "----------------------------------------");
-                Line();
+                if (detailed)
+                {
+                    AppendColor(SceneLogger.EventColor, "----------------------------------------");
+                    Line();
+                }
             }
 
 
             ChildLog(lines, sb, detailed);
 
             RegisterElements();
-            if (SceneEventsDico != null && SceneEventsDico.Count > 0)
+            if (showEmpty || SceneEventsDico.IsValid())
             {
                 AppendColor(SceneLogger.ExtensionEventColor, "Extension Events :", passToLine, "----------------------------------------");
                 Line();
 
                 foreach (var pair in SceneEventsDico)
                 {
+                    if (!showEmpty && !pair.Value.IsValid()) continue;
                     AppendColor(SceneLogger.ExtensionEventColor, "   * ");
                     AppendBold(pair.Key);
                     Line();
 
-                    if (pair.Value == null || pair.Value.Count == 0) continue;
+                    if (!pair.Value.IsValid()) continue;
 
                     foreach (var e in pair.Value)
                         lines.AddRange(e.LogLines(detailed, "      "));
@@ -461,7 +468,7 @@ namespace Dhs5.SceneCreation
                 AppendColor(SceneLogger.ExtensionEventColor, "----------------------------------------");
                 Line();
             }
-            if (TweenDico != null && TweenDico.Count > 0)
+            if (showEmpty || TweenDico.IsValid())
             {
                 AppendColor(SceneLogger.TweenColor, "SceneVarTweens :", passToLine, "----------------------------------------");
                 Line();
@@ -535,6 +542,21 @@ namespace Dhs5.SceneCreation
             }
 #endif
         }
+        #endregion
+
+        #region Utility
+        public bool IsEmpty()
+        {
+            if (sceneListeners.IsValid()) return false;
+            if (sceneEvents.IsValid()) return false;
+            RegisterElements();
+            if (SceneEventsDico.IsValid()) return false;
+            if (TweenDico.IsValid()) return false;
+            if (!ChildIsEmpty()) return false;
+
+            return true;
+        }
+        protected virtual bool ChildIsEmpty() { return true; }
         #endregion
     }
 }

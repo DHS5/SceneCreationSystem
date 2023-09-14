@@ -597,6 +597,25 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Extension Methods
+        #region Utility
+        public static bool IsValid<T>(this List<T> list)
+        {
+            return list != null && list.Count > 0;
+        }
+        public static bool IsValid<T>(this Stack<T> stack)
+        {
+            return stack != null && stack.Count > 0;
+        }
+        public static bool IsValid<T>(this Queue<T> queue)
+        {
+            return queue != null && queue.Count > 0;
+        }
+        public static bool IsValid<T, U>(this Dictionary<T, U> dico)
+        {
+            return dico != null && dico.Count > 0;
+        }
+        #endregion
+
         #region Set Ups
         public interface ISceneVarSetupable
         {

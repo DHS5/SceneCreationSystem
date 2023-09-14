@@ -79,12 +79,12 @@ namespace Dhs5.SceneCreation
         }
 
         #region Log
-        private static void DisplaySceneLog(bool detailed, bool color)
+        private static void DisplaySceneLog(bool detailed, bool showEmpty, bool color)
         {
             SceneManager manager = GameObject.FindObjectOfType<SceneManager>();
             if (manager != null)
             {
-                Debug.Log(SceneLogger.GetSceneLog(manager.gameObject, detailed, !color));
+                Debug.Log(SceneLogger.GetSceneLog(manager.gameObject, detailed, showEmpty, !color));
             }
             else
             {
@@ -92,30 +92,54 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        [MenuItem("SCS/Log/Console/Color/Simple Scene Log", priority = 100)]
+        #region Console Color
+        [MenuItem("SCS/Log/Console/Color/SceneLog : Simple", priority = 100)]
         public static void DisplayColorSimpleSceneLog()
         {
-            DisplaySceneLog(false, true);
+            DisplaySceneLog(false, false, true);
+        }
+        [MenuItem("SCS/Log/Console/Color/SceneLog : Simple with empty", priority = 101)]
+        public static void DisplayColorSimpleWEmptySceneLog()
+        {
+            DisplaySceneLog(false, true, true);
         }
         
-        [MenuItem("SCS/Log/Console/Color/Detailed Scene Log", priority = 101)]
+        [MenuItem("SCS/Log/Console/Color/SceneLog : Detailed no empty", priority = 102)]
         public static void DisplayColorDetailedSceneLog()
         {
-            DisplaySceneLog(true, true);
+            DisplaySceneLog(true, false, true);
         }
-        
-        [MenuItem("SCS/Log/Console/No Color/Simple Scene Log", priority = 100)]
+        [MenuItem("SCS/Log/Console/Color/SceneLog : Detailed with empty", priority = 103)]
+        public static void DisplayColorDetailedWEmptySceneLog()
+        {
+            DisplaySceneLog(true, true, true);
+        }
+        #endregion
+
+        #region Console No color
+        [MenuItem("SCS/Log/Console/No Color/SceneLog : Simple", priority = 100)]
         public static void DisplayNoColorSimpleSceneLog()
         {
-            DisplaySceneLog(false, false);
+            DisplaySceneLog(false, false, false);
+        }
+        [MenuItem("SCS/Log/Console/No Color/SceneLog : Simple with empty", priority = 101)]
+        public static void DisplayNoColorSimpleWEmptySceneLog()
+        {
+            DisplaySceneLog(false, true, false);
         }
         
-        [MenuItem("SCS/Log/Console/No Color/Detailed Scene Log", priority = 101)]
+        [MenuItem("SCS/Log/Console/No Color/SceneLog : Detailed no empty", priority = 102)]
         public static void DisplayNoColorDetailedSceneLog()
         {
-            DisplaySceneLog(true, false);
+            DisplaySceneLog(true, false, false);
         }
-        
+        [MenuItem("SCS/Log/Console/No Color/SceneLog : Detailed with empty", priority = 103)]
+        public static void DisplayNoColorDetailedWEmptySceneLog()
+        {
+            DisplaySceneLog(true, true, false);
+        }
+        #endregion
+
         [MenuItem("SCS/Log/Print detailed Scene Log in file", priority = 102)]
         public static void PrintDetailedSceneLogInFile()
         {

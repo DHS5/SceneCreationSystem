@@ -12,7 +12,7 @@ namespace Dhs5.SceneCreation
     {
         #region Singleton
 
-        public static SceneClock Instance;
+        public static SceneClock Instance { get; private set; }
 
         protected override void Awake_Ext()
         {
@@ -132,6 +132,13 @@ namespace Dhs5.SceneCreation
                 sb.Append(SceneLogger.ColorEnd);
             }
             #endregion
+        }
+        #endregion
+
+        #region Utility
+        protected override bool ChildIsEmpty()
+        {
+            return !sceneTimelines.IsValid();
         }
         #endregion
     }
