@@ -271,6 +271,7 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        #region Log
         private string GetRange()
         {
             switch (type)
@@ -304,8 +305,9 @@ namespace Dhs5.SceneCreation
         {
             return "[" + uniqueID + "] " + ID + " (" + type + ")" + (IsStatic ? " = " +  EditorValue : null);
         }
+        #endregion
 
-
+        #region Debug
         private void CantSetLinkVar()
         {
             Debug.LogError("This SceneVar is a link to a ComplexSceneVar, you can't set its value");
@@ -314,5 +316,13 @@ namespace Dhs5.SceneCreation
         {
             Debug.LogError("This SceneVar is a random " + type + ", you can't set its value");
         }
+        #endregion
+
+        #region Editor
+#if UNITY_EDITOR
+        [SerializeField] private bool showDependencies;
+        [SerializeField] private List<string> sceneObjects;
+#endif
+        #endregion
     }
 }

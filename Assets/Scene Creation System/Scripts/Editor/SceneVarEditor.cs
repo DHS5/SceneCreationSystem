@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 
 namespace Dhs5.SceneCreation
 {
@@ -22,6 +23,9 @@ namespace Dhs5.SceneCreation
         private SerializedProperty maxIntProperty;
         private SerializedProperty minfloatProperty;
         private SerializedProperty maxfloatProperty;
+
+        private SerializedProperty showDependenciesProperty;
+        private SerializedProperty soProperty;
 
         private float propertyOffset;
         private float propertyHeight;
@@ -91,8 +95,9 @@ namespace Dhs5.SceneCreation
                 SceneVarType type = (SceneVarType)typeProperty.enumValueIndex;
                 if (type == SceneVarType.EVENT)
                 {
-                    property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
-                    EditorGUI.EndProperty();
+                    //property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
+                    //EditorGUI.EndProperty();
+                    EndProperty();
                     return;
                 }
 
@@ -192,9 +197,92 @@ namespace Dhs5.SceneCreation
                 propertyHeight += EditorGUIUtility.singleLineHeight * 0.2f;
             }
 
-            property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
+            //property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
+            //
+            //EditorGUI.EndProperty();
+            EndProperty();
 
-            EditorGUI.EndProperty();
+
+            void EndProperty()
+            {
+                if (property.isExpanded)
+                {
+                    showDependenciesProperty = property.FindPropertyRelative("showDependencies");
+                    soProperty = property.FindPropertyRelative("sceneObjects");
+                    Rect depFoldoutRect = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
+                    propertyOffset += EditorGUIUtility.singleLineHeight;
+                    propertyHeight += EditorGUIUtility.singleLineHeight;
+
+                    EditorGUI.indentLevel++;
+                    showDependenciesProperty.boolValue = EditorGUI.Foldout(depFoldoutRect, showDependenciesProperty.boolValue, "Show dependencies");
+                    if (showDependenciesProperty.boolValue)
+                    {
+                        Rect buttonRect = new Rect(position.x + position.width * 0.05f, position.y + propertyOffset, position.width * 0.9f, EditorGUIUtility.singleLineHeight);
+                        propertyOffset += EditorGUIUtility.singleLineHeight;
+                        propertyHeight += EditorGUIUtility.singleLineHeight;
+                        Rect listRect = new Rect(position.x + position.width * 0.05f, position.y + propertyOffset, position.width * 0.9f, EditorGUIUtility.singleLineHeight);
+
+                        if (GUI.Button(buttonRect, "Get dependencies"))
+                        {
+                            if (SceneDependency.IsValidInCurrentScene(container))
+                            {
+                                List<SceneObject> sceneObjects = SceneDependency.GetDependencies(container, uniqueIDProperty.intValue);
+
+                                soProperty.ClearArray();
+
+                                for (int i = 0; i < sceneObjects.Count; i++)
+                                {
+                                    soProperty.InsertArrayElementAtIndex(i);
+                                    soProperty.GetArrayElementAtIndex(i).stringValue = sceneObjects[i].name;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("Can't get dependencies of " + container.name + " in the current scene");
+                                EditorGUI.LabelField(listRect, "Wrong scene");
+                                propertyHeight += EditorGUIUtility.singleLineHeight;
+                            }
+                        }
+
+                        ReorderableList list;
+
+                        if (soProperty.arraySize > 0)
+                        {
+                            list = new ReorderableList(property.serializedObject, soProperty, false, true, false, false)
+                            {
+                                drawHeaderCallback = rect =>
+                                {
+                                    EditorGUI.LabelField(rect, "Dependencies");
+                                },
+
+                                drawElementCallback = (rect, index, active, focused) =>
+                                {
+                                    var element = soProperty.GetArrayElementAtIndex(index);
+                                    
+                                    EditorGUI.indentLevel++;
+                                    EditorGUI.LabelField(rect, new GUIContent("Dependency " + index + " : " + element.stringValue));
+                                    EditorGUI.indentLevel--;
+                                },
+
+                                elementHeightCallback = index =>
+                                {
+                                    var element = soProperty.GetArrayElementAtIndex(index);
+
+                                    return EditorGUI.GetPropertyHeight(element);
+                                }
+                            };
+
+                            propertyHeight += list.GetHeight() - 15;
+
+                            list.DoList(listRect);
+                        }
+                    }
+                    EditorGUI.indentLevel--;
+                }
+
+                property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
+                EditorGUI.EndProperty();
+            }
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

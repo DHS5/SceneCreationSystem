@@ -12,7 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05233141e2000a9438e58b4671382bff, type: 3}
   m_Name: New SceneVars
   m_EditorClassIdentifier: 
-  sceneVars: []
+  sceneVars:
+  - uniqueID: 3809
+    ID: re
+    type: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 109.8
+    showDependencies: 1
+    sceneObjects: []
   sceneVarLinks: []
   complexSceneVars: []
   sceneBalancingSheets: []

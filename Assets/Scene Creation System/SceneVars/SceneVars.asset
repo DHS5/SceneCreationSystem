@@ -30,6 +30,9 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects:
+    - SceneClock
   - uniqueID: 5895
     ID: Blabla
     type: 3
@@ -47,6 +50,9 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects:
+    - SceneObject1
   - uniqueID: 9478
     ID: TestInt1
     type: 1
@@ -64,6 +70,13 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects:
+    - SceneManager
+    - SceneObject2
+    - SceneClock
+    - Test SObj
+    - SceneObject1
   - uniqueID: 720
     ID: TestFloat1
     type: 2
@@ -81,6 +94,9 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects:
+    - SceneObject1
   - uniqueID: 2612
     ID: TestStatic
     type: 2
@@ -98,6 +114,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 3693
     ID: TestEvent
     type: 4
@@ -115,6 +133,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 1175
     ID: A
     type: 1
@@ -132,6 +152,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 9424
     ID: B
     type: 1
@@ -149,6 +171,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 1075
     ID: C
     type: 1
@@ -166,6 +190,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 9928
     ID: D
     type: 1
@@ -183,6 +209,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 8758
     ID: Rrrrraandom
     type: 1
@@ -200,6 +228,8 @@ MonoBehaviour:
     isRandom: 1
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 3209
     ID: Timeline
     type: 4
@@ -217,6 +247,10 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects:
+    - SceneClock
+    - SceneObject1
   sceneVarLinks:
   - uniqueID: 1832
     ID: Total1
@@ -235,6 +269,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 1
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 3267
     ID: Total2
     type: 1
@@ -252,6 +288,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 1
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 9762
     ID: Total3
     type: 1
@@ -269,6 +307,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 1
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 6670
     ID: Condition1
     type: 0
@@ -286,6 +326,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 1
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   - uniqueID: 3055
     ID: Condition2
     type: 0
@@ -303,6 +345,8 @@ MonoBehaviour:
     isRandom: 0
     isLink: 1
     propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
   complexSceneVars:
   - uniqueID: 1832
     ID: Total1
@@ -361,6 +405,8 @@ MonoBehaviour:
       isRandom: 0
       isLink: 1
       propertyHeight: 0
+      showDependencies: 0
+      sceneObjects: []
     propertyHeight: 0
   - uniqueID: 3267
     ID: Total2
@@ -419,6 +465,8 @@ MonoBehaviour:
       isRandom: 0
       isLink: 1
       propertyHeight: 0
+      showDependencies: 0
+      sceneObjects: []
     propertyHeight: 0
   - uniqueID: 9762
     ID: Total3
@@ -493,6 +541,8 @@ MonoBehaviour:
       isRandom: 0
       isLink: 1
       propertyHeight: 0
+      showDependencies: 0
+      sceneObjects: []
     propertyHeight: 0
   - uniqueID: 6670
     ID: Condition1
@@ -589,6 +639,8 @@ MonoBehaviour:
       isRandom: 0
       isLink: 1
       propertyHeight: 0
+      showDependencies: 0
+      sceneObjects: []
     propertyHeight: 0
   - uniqueID: 3055
     ID: Condition2
@@ -685,6 +737,8 @@ MonoBehaviour:
       isRandom: 0
       isLink: 1
       propertyHeight: 0
+      showDependencies: 0
+      sceneObjects: []
     propertyHeight: 0
   sceneBalancingSheets:
   - {fileID: 11400000, guid: 06ea4c52638575e43989dd5ce794b452, type: 2}

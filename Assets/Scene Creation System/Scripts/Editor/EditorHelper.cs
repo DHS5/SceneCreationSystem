@@ -11,6 +11,20 @@ namespace Dhs5.SceneCreation
 {
     public static class EditorHelper
     {
+        public static SceneManager GetCurrentSceneManager()
+        {
+            return GameObject.FindObjectOfType<SceneManager>();
+        }
+        public static SceneVariablesSO GetCurrentSceneVariablesSO()
+        {
+            SceneManager manager = GetCurrentSceneManager();
+            if (manager != null)
+            {
+                return manager.SceneVariablesSO;
+            }
+            return null;
+        }
+
         [MenuItem("SCS/Get SceneVariablesSO of current scene")]
         public static void GetActiveSceneVariablesSO()
         {

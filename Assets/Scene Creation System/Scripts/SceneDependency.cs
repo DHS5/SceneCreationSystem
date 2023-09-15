@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 
 namespace Dhs5.SceneCreation
 {
@@ -34,6 +35,15 @@ namespace Dhs5.SceneCreation
             }
 
             return sceneObjects;
+        }
+        public static bool IsValidInCurrentScene(SceneVariablesSO sceneVariablesSO)
+        {
+            SceneManager manager = GameObject.FindObjectOfType<SceneManager>();
+            if (manager != null)
+            {
+                return manager.SceneVariablesSO == sceneVariablesSO;
+            }
+            return false;
         }
     }
 }
