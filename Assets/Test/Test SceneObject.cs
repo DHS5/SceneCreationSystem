@@ -6,7 +6,8 @@ using Dhs5.SceneCreation;
 public class TestSceneObject : SceneObject
 {
     public List<SceneSpecificListener> listeners;
-    public SceneDependency dependency;
+    [Space(15f)]
+    public List<SceneDependency> dependencies;
 
     public void Test(SceneEventParam param)
     {
@@ -24,7 +25,7 @@ public class TestSceneObject : SceneObject
         base.UpdateSceneVariables();
 
         listeners.SetUp(sceneVariablesSO);
-        dependency.SetUp(sceneVariablesSO);
+        dependencies.SetUp(sceneVariablesSO);
     }
     protected override void Init()
     {

@@ -2536,6 +2536,7 @@ MonoBehaviour:
     conditions: []
     debug: 0
     propertyHeight: 60.3
+  dependencies: []
 --- !u!1 &1591041803
 GameObject:
   m_ObjectHideFlags: 0
@@ -3929,6 +3930,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
         sceneVarUniqueID: 9478
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -3941,6 +3943,7 @@ MonoBehaviour:
         type: 2
         sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
         sceneVarUniqueID: 9478
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -3953,6 +3956,7 @@ MonoBehaviour:
         type: 3
         sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
         sceneVarUniqueID: 5895
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -3965,6 +3969,7 @@ MonoBehaviour:
         type: 0
         sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
         sceneVarUniqueID: 4629
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -3977,6 +3982,7 @@ MonoBehaviour:
         type: 0
         sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
         sceneVarUniqueID: 0
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0

@@ -314,6 +314,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 3267
+        anyVar: 0
         canBeStatic: 1
         isStatic: 1
         boolValue: 0
@@ -329,6 +330,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 3267
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -370,6 +372,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 1175
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -385,6 +388,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9928
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -426,6 +430,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 1075
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -441,6 +446,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9928
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -456,6 +462,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9928
+        anyVar: 0
         canBeStatic: 1
         isStatic: 1
         boolValue: 0
@@ -497,6 +504,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9478
+        anyVar: 0
         canBeStatic: 1
         isStatic: 1
         boolValue: 0
@@ -518,6 +526,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 1075
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -533,6 +542,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9928
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -548,6 +558,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9928
+        anyVar: 0
         canBeStatic: 1
         isStatic: 1
         boolValue: 0
@@ -589,6 +600,7 @@ MonoBehaviour:
         type: 0
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 6670
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -610,6 +622,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 1075
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -625,6 +638,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9928
+        anyVar: 0
         canBeStatic: 1
         isStatic: 0
         boolValue: 0
@@ -640,6 +654,7 @@ MonoBehaviour:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9928
+        anyVar: 0
         canBeStatic: 1
         isStatic: 1
         boolValue: 0

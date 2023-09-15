@@ -57,12 +57,17 @@ namespace Dhs5.SceneCreation
             }
 
             SceneVarType type = (SceneVarType)property.FindPropertyRelative("type").enumValueIndex;
-            List<SceneVar> sceneVarList = sceneVarContainer.GetListByType(type, type == SceneVarType.INT);
+            List<SceneVar> sceneVarList = property.FindPropertyRelative("anyVar").boolValue ?
+                 sceneVarContainer.SceneVars : 
+                 sceneVarContainer.GetListByType(type, type == SceneVarType.INT);
             // Clean list of dependency cycles
-            int forbiddenUID = property.FindPropertyRelative("forbiddenUID").intValue;
-            if (forbiddenUID != -1)
+            if (!property.FindPropertyRelative("anyVar").boolValue)
             {
-                sceneVarList = sceneVarContainer.CleanListOfCycleDependencies(sceneVarList, forbiddenUID);
+                int forbiddenUID = property.FindPropertyRelative("forbiddenUID").intValue;
+                if (forbiddenUID != -1)
+                {
+                    sceneVarList = sceneVarContainer.CleanListOfCycleDependencies(sceneVarList, forbiddenUID);
+                }
             }
 
             // Test if list empty

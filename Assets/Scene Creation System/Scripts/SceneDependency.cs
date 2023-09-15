@@ -8,11 +8,32 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public class SceneDependency : SceneState.ISceneVarSetupable
     {
-        [SerializeField] private SceneVarTween sceneVar;
+        [SerializeField] private SceneVariablesSO sceneVariablesSO;
 
-        public void SetUp(SceneVariablesSO sceneVariablesSO)
+        [SerializeField] private SceneVarTween sceneVar;
+        [SerializeField] private List<SceneObject> sceneObjects;
+
+        [SerializeField] private float propertyHeight;
+
+        public void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
-            sceneVar.SetUp(sceneVariablesSO, SceneVarType.BOOL, false, true);
+            sceneVariablesSO = _sceneVariablesSO;
+            sceneVar.SetUp(_sceneVariablesSO, SceneVarType.INT, false, true);
+        }
+
+        public static List<SceneObject> GetDependencies(SceneVariablesSO sceneVariablesSO, int UID)
+        {
+            List<SceneObject> sceneObjects = new();
+
+            foreach (var so in GameObject.FindObjectsOfType<SceneObject>())
+            {
+                if (so.SceneVariablesSO == sceneVariablesSO && so.DependOn(UID))
+                {
+                    sceneObjects.Add(so);
+                }
+            }
+
+            return sceneObjects;
         }
     }
 }
