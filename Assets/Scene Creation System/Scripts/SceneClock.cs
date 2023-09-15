@@ -141,6 +141,13 @@ namespace Dhs5.SceneCreation
             return !sceneTimelines.IsValid();
         }
         #endregion
+
+        #region Dependencies
+        protected override List<int> ChildDependencies()
+        {
+            return sceneTimelines.Dependencies();
+        }
+        #endregion
     }
 
     public class TimelineContext

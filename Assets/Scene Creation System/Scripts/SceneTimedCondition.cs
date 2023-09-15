@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneTimedCondition
+    public class SceneTimedCondition : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependant
     {
         [Serializable]
         public enum TimedConditionType
@@ -203,6 +203,35 @@ namespace Dhs5.SceneCreation
             }
             #endregion
         }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies
+        {
+            get
+            {
+                List<int> dependencies = new();
+                switch (conditionType)
+                {
+                    case TimedConditionType.WAIT_FOR_TIME:
+                        dependencies.AddRange(timeToWait.Dependencies);
+                        break;
+                    case TimedConditionType.WAIT_UNTIL_SCENE_CONDITION:
+                        dependencies.AddRange(sceneConditions.Dependencies());
+                        break;
+                    case TimedConditionType.WAIT_WHILE_SCENE_CONDITION:
+                        dependencies.AddRange(sceneConditions.Dependencies());
+                        break;
+                    case TimedConditionType.WAIT_FOR_EVENT:
+                        dependencies.AddRange(eventVar.Dependencies);
+                        break;
+                }
+
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 }

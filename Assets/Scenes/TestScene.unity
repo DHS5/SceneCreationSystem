@@ -188,9 +188,45 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.data[0].intOP
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.data[0].var2Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.data[0].var1UniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.data[0].SceneVar2.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.data[0].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
       propertyPath: onSceneStart.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.data[0].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.data[0].SceneVar2.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+      propertyPath: onSceneStart.Array.data[0].sceneActions.Array.data[0].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
       propertyPath: onSceneStart.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
@@ -1404,7 +1440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].endLoopCondition.iterationNumber.isStatic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].sceneEvents.Array.size
@@ -2536,7 +2572,29 @@ MonoBehaviour:
     conditions: []
     debug: 0
     propertyHeight: 60.3
-  dependencies: []
+  dependencies:
+  - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+      sceneVarUniqueID: 9478
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects:
+    - {fileID: 43936166}
+    - {fileID: 1192182893}
+    - {fileID: 1198601243}
+    - {fileID: 1567954834}
+    - {fileID: 1652975745}
+    - {fileID: 3840911906533732566}
+    propertyHeight: 207.5
 --- !u!1 &1591041803
 GameObject:
   m_ObjectHideFlags: 0
@@ -3892,114 +3950,7 @@ MonoBehaviour:
   onCollisionEnter: []
   onCollisionStay: []
   onCollisionExit: []
-  onTriggerEnter:
-  - eventID: Trigger Enter
-    sceneConditions: []
-    sceneActions: []
-    sceneParameteredEvents:
-    - sceneVariablesSO: {fileID: 0}
-      action:
-        methodName: Test2
-        target: {fileID: 1156838773}
-        arguments:
-        - type: 1
-          boolValue: 0
-          intValue: 5
-          floatValue: 0
-          stringValue: 
-        - type: 2
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-        - type: 3
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-        - type: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-      obj: {fileID: 1156838772}
-      component: {fileID: 1156838773}
-      metadataToken: 100663308
-      propertyHeight: 27
-      varTween0:
-        type: 1
-        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-        sceneVarUniqueID: 9478
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      varTween1:
-        type: 2
-        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-        sceneVarUniqueID: 9478
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      varTween2:
-        type: 3
-        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-        sceneVarUniqueID: 5895
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      varTween3:
-        type: 0
-        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-        sceneVarUniqueID: 4629
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      varTween4:
-        type: 0
-        sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-        sceneVarUniqueID: 0
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      varType0: 1
-      varType1: 2
-      varType2: 3
-      varType3: 0
-      varType4: 0
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    debug: 0
+  onTriggerEnter: []
   onTriggerStay: []
   onTriggerExit: []
 --- !u!65 &4477937185143235614

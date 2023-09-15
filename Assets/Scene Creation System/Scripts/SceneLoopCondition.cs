@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using static Dhs5.SceneCreation.SceneTimedCondition;
 
 namespace Dhs5.SceneCreation
 {
@@ -130,6 +131,32 @@ namespace Dhs5.SceneCreation
             }
             #endregion
         }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies
+        {
+            get
+            {
+                List<int> dependencies = new();
+                switch (conditionType)
+                {
+                    case LoopConditionType.ITERATION:
+                        dependencies.AddRange(iterationNumber.Dependencies);
+                        break;
+                    case LoopConditionType.SCENE:
+                        dependencies.AddRange(sceneConditions.Dependencies());
+                        break;
+                    case LoopConditionType.TIMED:
+                        dependencies.AddRange(timeToWait.Dependencies);
+                        break;
+                }
+
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 }

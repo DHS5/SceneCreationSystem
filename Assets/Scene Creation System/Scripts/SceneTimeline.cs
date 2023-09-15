@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneTimeline : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
+    public class SceneTimeline : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant
     {
         public string ID;
         public bool loop;
@@ -189,6 +189,23 @@ namespace Dhs5.SceneCreation
             }
             #endregion
         }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies
+        {
+            get
+            {
+                List<int> dependencies = new();
+
+                dependencies.AddRange(steps.Dependencies());
+                dependencies.AddRange(endLoopCondition.Dependencies);
+
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 }

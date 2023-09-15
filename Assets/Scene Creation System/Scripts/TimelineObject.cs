@@ -8,7 +8,7 @@ using UnityEngine.Events;
 namespace Dhs5.SceneCreation
 {    
     [Serializable]
-    public class TimelineObject : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
+    public class TimelineObject : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant
     {
         public string TimelineID { get; private set; }
         public int StepNumber { get; private set; }
@@ -122,6 +122,24 @@ namespace Dhs5.SceneCreation
             }
             #endregion
         }
+        #endregion
+
+        #region Dependencies
+        public List<int> Dependencies
+        {
+            get
+            {
+                List<int> dependencies = new();
+
+                dependencies.AddRange(startCondition.Dependencies);
+                dependencies.AddRange(sceneEvents.Dependencies());
+                dependencies.AddRange(endLoopCondition.Dependencies);
+
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 }

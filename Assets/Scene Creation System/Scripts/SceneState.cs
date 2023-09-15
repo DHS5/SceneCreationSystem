@@ -618,6 +618,15 @@ namespace Dhs5.SceneCreation
         {
             return dico != null && dico.Count > 0;
         }
+        public static bool IsReallyValid<T, U>(this Dictionary<T, List<U>> dico)
+        {
+            if (dico == null || dico.Count <= 0) return false;
+            foreach (var pair in dico)
+            {
+                if (pair.Value.IsValid()) return true;
+            }
+            return false;
+        }
         #endregion
 
         #region Set Ups

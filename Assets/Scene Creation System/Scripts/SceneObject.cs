@@ -477,7 +477,7 @@ namespace Dhs5.SceneCreation
             ChildLog(lines, sb, detailed);
 
             RegisterElements();
-            if (showEmpty || SceneEventsDico.IsValid())
+            if (showEmpty || SceneEventsDico.IsReallyValid())
             {
                 AppendColor(SceneLogger.ExtensionEventColor, "Extension Events :", passToLine, "----------------------------------------");
                 Line();
@@ -564,7 +564,7 @@ namespace Dhs5.SceneCreation
                 dependencies.AddRange(sceneEvents.Dependencies());
 
                 RegisterElements();
-                if (SceneEventsDico.IsValid())
+                if (SceneEventsDico.IsReallyValid())
                 {
                     foreach (var pair in SceneEventsDico)
                     {
@@ -617,7 +617,7 @@ namespace Dhs5.SceneCreation
             if (sceneListeners.IsValid()) return false;
             if (sceneEvents.IsValid()) return false;
             RegisterElements();
-            if (SceneEventsDico.IsValid()) return false;
+            if (SceneEventsDico.IsReallyValid()) return false;
             if (TweenDico.IsValid()) return false;
             if (!ChildIsEmpty()) return false;
 

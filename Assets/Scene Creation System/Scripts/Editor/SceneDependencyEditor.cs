@@ -61,8 +61,11 @@ namespace Dhs5.SceneCreation
             // List
             Rect listRect = new Rect(position.x + position.width * 0.05f, position.y + propertyOffset, position.width * 0.9f, EditorGUIUtility.singleLineHeight);
 
-            Rect colorRect = new Rect(position.x, position.y, position.width, propertyHeight);
-            EditorGUI.DrawRect(colorRect, Color.grey);
+            if (property.isExpanded)
+            {
+                Rect colorRect = new Rect(position.x, position.y, position.width, propertyHeight);
+                EditorGUI.DrawRect(colorRect, Color.grey);
+            }
 
             EditorGUI.indentLevel++;
             property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, "");
