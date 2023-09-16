@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Dhs5.SceneCreation
 {
@@ -12,8 +13,10 @@ namespace Dhs5.SceneCreation
         #region Base
         private void Awake()
         {
+            RegisterSceneElements();
+
             Init();
-            UpdateBelongings();
+            SetBelongings();
 
             Awake_Ext();
         }
@@ -22,7 +25,7 @@ namespace Dhs5.SceneCreation
         {
             //SceneState.Register(this);
 
-            RegisterElements();
+            StartSubscription();
 
             OnEnable_Ext();
         }
@@ -30,7 +33,7 @@ namespace Dhs5.SceneCreation
         {
             //SceneState.Unregister(this);
 
-            UnregisterElements();
+            EndSubscription();
 
             OnDisable_Ext();
         }
@@ -43,32 +46,72 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        #region Automatisation
+        /// <summary>
+        /// Called on <see cref="Awake"/>.<br></br><br></br>
+        /// If overriden :<br></br>
+        /// ALWAYS call <see cref="Init"/><br></br>
+        /// Init UNREGISTERED <see cref="SceneState.IInitializable"/>s elements HERE.
+        /// </summary>
+        protected virtual void Init()
+        {
+            InitEvents();
+        }
+        /// <summary>
+        /// Called on <see cref="Awake"/>.<br></br><br></br>
+        /// If overriden :<br></br>
+        /// ALWAYS call <see cref="SetBelongings"/><br></br>
+        /// Set the belongings of UNREGISTERED <see cref="SceneState.ISceneObjectBelongable"/>s elements to this object HERE.
+        /// </summary>
+        protected virtual void SetBelongings()
+        {
+            SetEventsBelongings();
+            SetListenersBelongings();
+            SetTweensBelongings();
+        }
+        /// <summary>
+        /// Called on <see cref="OnEnable"/>.<br></br><br></br>
+        /// If overriden :<br></br>
+        /// ALWAYS call <see cref="StartSubscription"/><br></br>
+        /// Start subscription of UNREGISTERED <see cref="SceneState.ISceneSubscribable"/>s elements HERE.
+        /// </summary>
+        protected virtual void StartSubscription()
+        {
+            StartListenersSubscription();
+        }
+        /// <summary>
+        /// Called on <see cref="OnDisable"/>.<br></br><br></br>
+        /// If overriden :<br></br>
+        /// ALWAYS call <see cref="EndSubscription"/><br></br>
+        /// End subscription of UNREGISTERED <see cref="SceneState.ISceneSubscribable"/>s elements HERE.
+        /// </summary>
+        protected virtual void EndSubscription()
+        {
+            EndListenersSubscription();
+        }
+        #endregion
+
         #region Abstracts
-        /// <summary>
-        /// Called on <see cref="Awake"/>.<br></br>
-        /// Init <see cref="SceneState.IInitializable"/>s elements HERE.
-        /// </summary>
-        protected abstract void Init();
-        /// <summary>
-        /// Called on <see cref="Awake"/>.<br></br>
-        /// Update the belongings of <see cref="SceneState.ISceneObjectBelongable"/>s elements to this object HERE.
-        /// </summary>
-        protected abstract void UpdateBelongings();
         /// <summary>
         /// Called on <see cref="OnValidate"/>.<br></br>
         /// Update the <see cref="Dhs5.SceneCreation.SceneVariablesSO"/> of <see cref="SceneState.ISceneVarSetupable"/> and <see cref="SceneState.ISceneVarTypedSetupable"/> elements HERE.
         /// </summary>
         protected abstract void UpdateSceneVariables();
         /// <summary>
-        /// Called on <see cref="OnEnable"/>.<br></br>
-        /// Register <see cref="SceneState.ISceneRegisterable"/>s elements HERE.
+        /// Called on <see cref="Awake"/>.<br></br>
+        /// Register in this function :<list type="bullet">
+        /// <item>
+        /// <see cref="BaseSceneEvent"/> lists with <see cref="RegisterEvent{T}(string, List{T})"/>
+        /// </item>
+        /// <item>
+        /// <see cref="BaseSceneListener"/> lists with <see cref="RegisterListener{T}(string, List{T})"/>
+        /// </item>
+        /// <item>
+        /// <see cref="SceneVarTween"/>s with <see cref="RegisterTween(string, SceneVarTween)"/>
+        /// </item>
+        /// </list>
         /// </summary>
-        protected abstract void RegisterElements();
-        /// <summary>
-        /// Called on <see cref="OnDisable"/>.<br></br>
-        /// Unregister <see cref="SceneState.ISceneRegisterable"/>s elements HERE.
-        /// </summary>
-        protected abstract void UnregisterElements();
+        protected abstract void RegisterSceneElements();
         #endregion
 
         #region Extensions
@@ -90,6 +133,91 @@ namespace Dhs5.SceneCreation
         protected virtual void OnDisable_Ext() { }
         #endregion
 
+        #region Registration
+        protected Dictionary<string, List<BaseSceneEvent>> SceneEventsDico { get; private set; } = new();
+        protected Dictionary<string, List<BaseSceneListener>> SceneListenersDico { get; private set; } = new();
+        protected Dictionary<string, SceneVarTween> TweensDico { get; private set; } = new();
+
+        protected void RegisterEvent<T>(string name, List<T> list) where T : BaseSceneEvent
+        {
+            SceneEventsDico[name] = list.Cast<BaseSceneEvent>().ToList();
+        }
+        protected void RegisterListener<T>(string name, List<T> list) where T : BaseSceneListener
+        {
+            SceneListenersDico[name] = list.Cast<BaseSceneListener>().ToList();
+        }
+        protected void RegisterTween(string name, SceneVarTween tween)
+        {
+            TweensDico[name] = tween;
+        }
+
+        #region Utility
+        private void InitEvents()
+        {
+            if (SceneEventsDico.IsValid())
+            {
+                foreach (var pair in SceneEventsDico)
+                {
+                    pair.Value.Init();
+                }
+            }
+        }
+        private void SetEventsBelongings()
+        {
+            if (SceneEventsDico.IsValid())
+            {
+                foreach (var pair in SceneEventsDico)
+                {
+                    Belong(pair.Value);
+                }
+            }
+        }
+
+        private void SetListenersBelongings()
+        {
+            if (SceneListenersDico.IsValid())
+            {
+                foreach (var pair in SceneListenersDico)
+                {
+                    Belong(pair.Value);
+                }
+            }
+        }
+        private void StartListenersSubscription()
+        {
+            if (SceneListenersDico.IsValid())
+            {
+                foreach (var pair in SceneListenersDico)
+                {
+                    pair.Value.Subscribe();
+                }
+            }
+        }
+        private void EndListenersSubscription()
+        {
+            if (SceneListenersDico.IsValid())
+            {
+                foreach (var pair in SceneListenersDico)
+                {
+                    pair.Value.Unsubscribe();
+                }
+            }
+        }
+
+        private void SetTweensBelongings()
+        {
+            if (TweensDico.IsValid())
+            {
+                foreach (var pair in TweensDico)
+                {
+                    Belong(pair.Value);
+                }
+            }
+        }
+        #endregion
+
+        #endregion
+
         #region SceneObject's specifics
         /// <summary>
         /// Called on <see cref="SceneManager.Start"/> once the <see cref="SceneState"/> has been set up.
@@ -100,15 +228,15 @@ namespace Dhs5.SceneCreation
         #region Utility
 
         #region Setup
-        protected void Setup(SceneState.ISceneVarSetupable var)
+        protected void Setup<T>(T var) where T : SceneState.ISceneVarSetupable
         {
             var.SetUp(sceneVariablesSO);
         }
-        protected void Setup(List<SceneState.ISceneVarSetupable> vars)
+        protected void Setup<T>(List<T> vars) where T : SceneState.ISceneVarSetupable
         {
             vars.SetUp(sceneVariablesSO);
         }
-        protected void Setup(params List<SceneState.ISceneVarSetupable>[] vars)
+        protected void Setup<T>(params List<T>[] vars) where T : SceneState.ISceneVarSetupable
         {
             foreach (var var in vars)
                 var.SetUp(sceneVariablesSO);
@@ -116,15 +244,15 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Belong
-        protected void Belong(SceneState.ISceneObjectBelongable var)
+        protected void Belong<T>(T var) where T : SceneState.ISceneObjectBelongable
         {
             //var.BelongTo(this);
         }
-        protected void Belong(List<SceneState.ISceneObjectBelongable> vars)
+        protected void Belong<T>(List<T> vars) where T : SceneState.ISceneObjectBelongable
         {
             //vars.BelongTo(this);
         }
-        protected void Belong(params List<SceneState.ISceneObjectBelongable>[] vars)
+        protected void Belong<T>(params List<T>[] vars) where T : SceneState.ISceneObjectBelongable
         {
             //foreach (var var in vars)
             //    var.BelongTo(this);

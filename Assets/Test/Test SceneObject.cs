@@ -46,14 +46,14 @@ public class TestSceneObject : SceneObject
     {
         base.OnEnable_Ext();
 
-        listeners.Register();
+        listeners.Subscribe();
     }
 
     protected override void OnDisable_Ext()
     {
         base.OnDisable_Ext();
 
-        listeners.Unregister();
+        listeners.Unsubscribe();
     }
 
     protected override void ChildLog(List<string> lines, StringBuilder sb, bool detailed)

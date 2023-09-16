@@ -25,7 +25,7 @@ namespace Dhs5.SceneCreation
         {
             base.Attach(_sceneObject);
 
-            sceneListeners.Register();
+            sceneListeners.Subscribe();
 
             _sceneObject.OverrideListeners(this, sceneListeners);
         }
@@ -33,7 +33,7 @@ namespace Dhs5.SceneCreation
         {
             base.Detach();
 
-            sceneListeners.Unregister();
+            sceneListeners.Unsubscribe();
         }
 
         public override bool CanOverrideListeners => true;

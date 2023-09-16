@@ -8,7 +8,7 @@ using System.Text;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public abstract class BaseSceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneRegisterable, SceneState.ISceneVarDependant
+    public abstract class BaseSceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneSubscribable, SceneState.ISceneVarDependant
     {
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
@@ -36,11 +36,11 @@ namespace Dhs5.SceneCreation
         [SerializeField] protected float propertyHeight;
 
         #region Event Subscription
-        public void Register()
+        public void Subscribe()
         {
             SceneEventManager.StartListening(varUniqueID, OnListenerEvent);
         }
-        public void Unregister()
+        public void Unsubscribe()
         {
             SceneEventManager.StopListening(varUniqueID, OnListenerEvent);
         }

@@ -89,7 +89,7 @@ namespace Dhs5.SceneCreation
 
             sceneScriptables.OnSceneObjectEnable();
 
-            sceneListeners.Register();
+            sceneListeners.Subscribe();
 
             OnEnable_Ext();
         }
@@ -99,7 +99,7 @@ namespace Dhs5.SceneCreation
 
             sceneScriptables.OnSceneObjectDisable();
 
-            sceneListeners.Unregister();
+            sceneListeners.Unsubscribe();
 
             OnDisable_Ext();
         }

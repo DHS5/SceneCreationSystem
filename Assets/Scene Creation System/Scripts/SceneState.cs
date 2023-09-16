@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 using static UnityEngine.EventSystems.EventTrigger;
 using System.Text;
 using System.Runtime.CompilerServices;
+using static Dhs5.SceneCreation.SceneState;
 
 namespace Dhs5.SceneCreation
 {
@@ -1143,45 +1144,27 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneListeners Registration
-        public interface ISceneRegisterable
+        public interface ISceneSubscribable
         {
-            public void Register();
-            public void Unregister();
+            public void Subscribe();
+            public void Unsubscribe();
         }
-        public static void Register<T>(this List<T> registerables) where T : ISceneRegisterable
+        public static void Subscribe<T>(this List<T> subscribables) where T : ISceneSubscribable
         {
-            if (registerables == null || registerables.Count <= 0) return;
+            if (subscribables == null || subscribables.Count <= 0) return;
 
-            foreach (var registerable in registerables)
+            foreach (var subscribable in subscribables)
             {
-                registerable.Register();
+                subscribable.Subscribe();
             }
         }
-        public static void Unregister<T>(this List<T> registerables) where T : ISceneRegisterable
+        public static void Unsubscribe<T>(this List<T> subscribables) where T : ISceneSubscribable
         {
-            if (registerables == null || registerables.Count <= 0) return;
+            if (subscribables == null || subscribables.Count <= 0) return;
 
-            foreach (var registerable in registerables)
+            foreach (var subscribable in subscribables)
             {
-                registerable.Unregister();
-            }
-        }
-        public static void Register(this List<SceneListener> sceneListeners)
-        {
-            if (sceneListeners == null || sceneListeners.Count <= 0) return;
-
-            foreach (SceneListener listener in sceneListeners)
-            {
-                listener.Register();
-            }
-        }
-        public static void Unregister(this List<SceneListener> sceneListeners)
-        {
-            if (sceneListeners == null || sceneListeners.Count <= 0) return;
-
-            foreach (SceneListener listener in sceneListeners)
-            {
-                listener.Unregister();
+                subscribable.Unsubscribe();
             }
         }
         #endregion
