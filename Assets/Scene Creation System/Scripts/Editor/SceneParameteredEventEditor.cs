@@ -105,6 +105,11 @@ namespace Dhs5.SceneCreation
 
             EditorGUI.BeginProperty(position, label, property);
 
+            if (property.isExpanded)
+            {
+                Rect backgroundRect1 = new Rect(position.x - 10, position.y, position.width + 11, property.FindPropertyRelative("propertyHeight").floatValue);
+                EditorGUI.DrawRect(backgroundRect1, new Color(0.22f, 0.22f, 0.22f));
+            }
             // FOLDOUT
             Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
             property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, property.isExpanded ? empty : label, EditorStyles.foldoutHeader);
@@ -113,10 +118,6 @@ namespace Dhs5.SceneCreation
 
             if (property.isExpanded)
             {
-                //Rect inspectorBackgroundRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 1.25f, position.width + 5, property.FindPropertyRelative("propertyHeight").floatValue - EditorGUIUtility.singleLineHeight * 1.5f);
-                //EditorGUI.DrawRect(inspectorBackgroundRect, new Color(0.3f, 0.3f, 0.3f));
-
-                //EditorGUI.indentLevel++;
                 Rect objRect = new Rect(position.x + 20, position.y + propertyOffset, (position.width - 20) * 0.3f, EditorGUIUtility.singleLineHeight);
                 Rect compRect = new Rect(position.x + 20 + (position.width - 20) * 0.31f, position.y + propertyOffset, (position.width - 20) * 0.69f, EditorGUIUtility.singleLineHeight);
                 propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
@@ -215,8 +216,6 @@ namespace Dhs5.SceneCreation
                 //_______________________________________
 
                 methodIndex = EditorGUI.Popup(methodsRect, methodIndex, methodNames.ToArray());
-                //propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
-                //propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
 
                 tokenProperty.intValue = methodInfos[methodIndex].MetadataToken;
                 ParameterInfo[] parameters = methodInfos[methodIndex].GetParameters();
@@ -279,9 +278,6 @@ namespace Dhs5.SceneCreation
                     BaseEventAction baseEventAction = new(methodInfos[methodIndex].Name, target, parameterValues);
                     paramedEvent.action = baseEventAction;
                 }
-                propertyOffset += EditorGUIUtility.singleLineHeight * 0.5f;
-                propertyHeight += EditorGUIUtility.singleLineHeight * 0.5f;
-                //EditorGUI.indentLevel--;
             }
 
             EditorGUI.EndProperty();
