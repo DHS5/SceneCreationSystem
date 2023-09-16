@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Dhs5.SceneCreation;
+using System.Text;
 
 public class TestSceneObject : SceneObject
 {
@@ -25,13 +26,20 @@ public class TestSceneObject : SceneObject
         base.UpdateSceneVariables();
 
         listeners.SetUp(sceneVariablesSO);
+        listeners.SetEvents(Loog);
         dependencies.SetUp(sceneVariablesSO);
     }
+
+    private void Loog(SceneEventParam param)
+    {
+        Debug.LogWarning(param);
+    }
+
     protected override void Init()
     {
         base.Init();
 
-        listeners.SetEvents((param) => { Debug.LogWarning(param); });
+        listeners.SetEvents(Loog);
     }
 
     protected override void OnEnable_Ext()
@@ -46,5 +54,15 @@ public class TestSceneObject : SceneObject
         base.OnDisable_Ext();
 
         listeners.Unregister();
+    }
+
+    protected override void ChildLog(List<string> lines, StringBuilder sb, bool detailed)
+    {
+        base.ChildLog(lines, sb, detailed);
+
+        foreach (var listener in listeners)
+        {
+            lines.AddRange(listener.LogLines(detailed));
+        }
     }
 }

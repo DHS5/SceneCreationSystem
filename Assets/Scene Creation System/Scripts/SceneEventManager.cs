@@ -50,6 +50,11 @@ namespace Dhs5.SceneCreation
             return this;
         }
         public void UpRank() { rank++; }
+        public void UpRank(params string[] contexts) 
+        { 
+            rank++;
+            Add(contexts);
+        }
 
         public string Get()
         {

@@ -330,6 +330,8 @@ MonoBehaviour:
           varUniqueID: 9478
           hasCondition: 0
           conditions: []
+          debug: 0
+          propertyHeight: 0
           events:
             m_PersistentCalls:
               m_Calls: []
@@ -337,8 +339,6 @@ MonoBehaviour:
           - eventID: Event
             random: 0
             remove: 0
-          debug: 0
-          propertyHeight: 0
     - rid: 5445051353052217348
       type: {class: SceneEventProfile, ns: Dhs5.SceneCreation, asm: SceneCreationSystem}
       data:
@@ -2515,6 +2515,8 @@ MonoBehaviour:
     varUniqueID: 9478
     hasCondition: 0
     conditions: []
+    debug: 0
+    propertyHeight: 0
     events:
       m_PersistentCalls:
         m_Calls: []
@@ -2522,8 +2524,6 @@ MonoBehaviour:
     - eventID: Test
       random: 0
       remove: 0
-    debug: 0
-    propertyHeight: 0
   sceneEvents:
   - eventID: Test
     sceneConditions: []
@@ -2571,7 +2571,7 @@ MonoBehaviour:
     hasCondition: 0
     conditions: []
     debug: 0
-    propertyHeight: 60.3
+    propertyHeight: 0
   dependencies:
   - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     sceneVar:
