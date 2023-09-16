@@ -22,6 +22,10 @@ namespace Dhs5.SceneCreation
         float propertyOffset;
         float propertyHeight;
 
+        GUIContent empty = new("");
+        string[] noCompList = new string[1] { "No component" };
+        string[] noFuncList = new string[1] { "No function" };
+
         BindingFlags fieldBF = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy | BindingFlags.Instance;
 
         #region Functions
@@ -103,22 +107,25 @@ namespace Dhs5.SceneCreation
 
             // FOLDOUT
             Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-            property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, label, EditorStyles.foldoutHeader);
-            propertyOffset += EditorGUIUtility.singleLineHeight * 1.5f;
-            propertyHeight += EditorGUIUtility.singleLineHeight * 1.5f;
+            property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, property.isExpanded ? empty : label, EditorStyles.foldoutHeader);
+            propertyOffset += EditorGUIUtility.singleLineHeight * 0.25f;
+            propertyHeight += EditorGUIUtility.singleLineHeight * 0.25f;
 
             if (property.isExpanded)
             {
-                Rect inspectorBackgroundRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 1.25f, position.width + 5, property.FindPropertyRelative("propertyHeight").floatValue - EditorGUIUtility.singleLineHeight * 1.5f);
-                EditorGUI.DrawRect(inspectorBackgroundRect, new Color(0.3f, 0.3f, 0.3f));
+                //Rect inspectorBackgroundRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 1.25f, position.width + 5, property.FindPropertyRelative("propertyHeight").floatValue - EditorGUIUtility.singleLineHeight * 1.5f);
+                //EditorGUI.DrawRect(inspectorBackgroundRect, new Color(0.3f, 0.3f, 0.3f));
 
-                EditorGUI.indentLevel++;
-                Rect objRect = new Rect(position.x, position.y + propertyOffset, position.width * 0.49f, EditorGUIUtility.singleLineHeight);
-                Rect compRect = new Rect(position.x + position.width * 0.51f, position.y + propertyOffset, position.width * 0.49f, EditorGUIUtility.singleLineHeight);
-                EditorGUI.PropertyField(objRect, objProperty, new GUIContent(""));
+                //EditorGUI.indentLevel++;
+                Rect objRect = new Rect(position.x + 20, position.y + propertyOffset, (position.width - 20) * 0.3f, EditorGUIUtility.singleLineHeight);
+                Rect compRect = new Rect(position.x + 20 + (position.width - 20) * 0.31f, position.y + propertyOffset, (position.width - 20) * 0.69f, EditorGUIUtility.singleLineHeight);
+                propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
+                propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
+                Rect methodsRect = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
                 propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
                 propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
 
+                EditorGUI.PropertyField(objRect, objProperty, new GUIContent(""));
                 // Object
                 UnityEngine.Object obj = objProperty.objectReferenceValue;
                 UnityEngine.Object target = null;
@@ -127,6 +134,8 @@ namespace Dhs5.SceneCreation
 
                 if (obj == null)
                 {
+                    EditorGUI.Popup(compRect, 0, noCompList);
+                    EditorGUI.Popup(methodsRect, 0, noFuncList);
                     EditorGUI.EndProperty();
                     propertyHeight += EditorGUIUtility.singleLineHeight * 0.25f;
                     property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
@@ -173,6 +182,8 @@ namespace Dhs5.SceneCreation
                 }
                 else
                 {
+                    EditorGUI.Popup(compRect, 0, noCompList);
+                    EditorGUI.Popup(methodsRect, 0, noFuncList);
                     property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
                     EditorGUI.EndProperty();
                     return;
@@ -193,8 +204,7 @@ namespace Dhs5.SceneCreation
                 }
                 if (methodInfos.Count == 0)
                 {
-                    propertyOffset += EditorGUIUtility.singleLineHeight * 0.5f;
-                    propertyHeight += EditorGUIUtility.singleLineHeight * 0.5f;
+                    EditorGUI.Popup(methodsRect, 0, noFuncList);
                     property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
                     EditorGUI.EndProperty();
                     return;
@@ -204,10 +214,9 @@ namespace Dhs5.SceneCreation
                 if (methodIndex == -1) methodIndex = 0;
                 //_______________________________________
 
-                Rect methodsRect = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
                 methodIndex = EditorGUI.Popup(methodsRect, methodIndex, methodNames.ToArray());
-                propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
-                propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
+                //propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
+                //propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
 
                 tokenProperty.intValue = methodInfos[methodIndex].MetadataToken;
                 ParameterInfo[] parameters = methodInfos[methodIndex].GetParameters();
@@ -272,7 +281,7 @@ namespace Dhs5.SceneCreation
                 }
                 propertyOffset += EditorGUIUtility.singleLineHeight * 0.5f;
                 propertyHeight += EditorGUIUtility.singleLineHeight * 0.5f;
-                EditorGUI.indentLevel--;
+                //EditorGUI.indentLevel--;
             }
 
             EditorGUI.EndProperty();
@@ -282,7 +291,7 @@ namespace Dhs5.SceneCreation
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return property.FindPropertyRelative("propertyHeight").floatValue;
+            return property.isExpanded ? property.FindPropertyRelative("propertyHeight").floatValue : EditorGUIUtility.singleLineHeight;
         }
     }
 }
