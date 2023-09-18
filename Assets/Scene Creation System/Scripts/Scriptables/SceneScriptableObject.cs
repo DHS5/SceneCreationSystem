@@ -12,8 +12,17 @@ namespace Dhs5.SceneCreation
         [SerializeField, HideInInspector] protected SceneObject sceneObject;
 
         #region Link
+        public bool Linked { get; private set; } = false;
         public void Link(SceneObject _sceneObject)
         {
+            if (Linked)
+            {
+                Debug.LogError("Tried to link " + name + " with " + _sceneObject.name + " while it is already linked with " + sceneObject.name);
+                return;
+            }
+            
+            Linked = true;
+
             sceneObject = _sceneObject;
 
             Init();
