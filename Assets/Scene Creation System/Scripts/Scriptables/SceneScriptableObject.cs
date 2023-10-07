@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Dhs5.SceneCreation
 {
-    public abstract class SceneScriptableObject : ScriptableObject
+    public abstract class SceneScriptableObject : ScriptableObject, SceneState.ISceneVarSetupable
     {
         [SerializeField, HideInInspector] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
@@ -31,9 +31,8 @@ namespace Dhs5.SceneCreation
             Awake_Ext();
         }
 
-        public void SetUp(SceneVariablesSO _sceneVariablesSO, SceneObject _sceneObject)
+        public void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
-            sceneObject = _sceneObject;
             sceneVariablesSO = _sceneVariablesSO;
             UpdateSceneVariables();
         }

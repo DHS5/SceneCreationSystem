@@ -18,7 +18,7 @@ namespace Dhs5.SceneCreation
             Init();
             SetBelongings();
 
-            Awake_Ext();
+            OnSceneObjectAwake();
         }
 
         private void OnEnable()
@@ -26,23 +26,25 @@ namespace Dhs5.SceneCreation
             //SceneState.Register(this);
 
             StartSubscription();
+            EnableScriptables();
 
-            OnEnable_Ext();
+            OnSceneObjectEnable();
         }
         private void OnDisable()
         {
             //SceneState.Unregister(this);
 
             EndSubscription();
+            DisableScriptables();
 
-            OnDisable_Ext();
+            OnSceneObjectDisable();
         }
 
         private void OnValidate()
         {
             UpdateSceneVariables();
 
-            OnValidate_Ext();
+            OnSceneObjectValidate();
         }
         #endregion
 
@@ -55,6 +57,7 @@ namespace Dhs5.SceneCreation
         /// </summary>
         protected virtual void Init()
         {
+            LinkScriptables();
             InitEvents();
         }
         /// <summary>
@@ -89,17 +92,46 @@ namespace Dhs5.SceneCreation
         {
             EndListenersSubscription();
         }
+        /// <summary>
+        /// Called on <see cref="OnEnable"/>.<br></br><br></br>
+        /// If overriden :<br></br>
+        /// ALWAYS call <see cref="EnableScriptables"/><br></br>
+        /// Enable only UNREGISTERED <see cref="SceneScriptableObject"/>s HERE.
+        /// </summary>
+        protected virtual void EnableScriptables()
+        {
+            EnableScriptablesList();
+        }
+        /// <summary>
+        /// Called on <see cref="OnDisable"/>.<br></br><br></br>
+        /// If overriden :<br></br>
+        /// ALWAYS call <see cref="DisableScriptables"/><br></br>
+        /// Disable only UNREGISTERED <see cref="SceneScriptableObject"/>s HERE.
+        /// </summary>
+        protected virtual void DisableScriptables()
+        {
+            DisableScriptablesList();
+        }
         #endregion
 
         #region Abstracts
         /// <summary>
         /// Called on <see cref="OnValidate"/>.<br></br>
-        /// Update the <see cref="Dhs5.SceneCreation.SceneVariablesSO"/> of <see cref="SceneState.ISceneVarSetupable"/> and <see cref="SceneState.ISceneVarTypedSetupable"/> elements HERE.
+        /// Update in this function the <see cref="Dhs5.SceneCreation.SceneVariablesSO"/> of :
+        /// <list type="bullet">
+        /// <item>
+        /// <see cref="SceneState.ISceneVarSetupable"/> elements
+        /// </item>
+        /// <item>
+        /// <see cref="SceneState.ISceneVarTypedSetupable"/> elements
+        /// </item>
+        /// </list>
         /// </summary>
         protected abstract void UpdateSceneVariables();
         /// <summary>
         /// Called on <see cref="Awake"/>.<br></br>
-        /// Register in this function :<list type="bullet">
+        /// Register in this function :
+        /// <list type="bullet">
         /// <item>
         /// <see cref="BaseSceneEvent"/> lists with <see cref="RegisterEvent{T}(string, List{T})"/>
         /// </item>
@@ -108,6 +140,9 @@ namespace Dhs5.SceneCreation
         /// </item>
         /// <item>
         /// <see cref="SceneVarTween"/>s with <see cref="RegisterTween(string, SceneVarTween)"/>
+        /// </item>
+        /// <item>
+        /// <see cref="SceneScriptableObject"/>s with <see cref="RegisterScriptable{T}(T)"/>
         /// </item>
         /// </list>
         /// </summary>
@@ -118,40 +153,85 @@ namespace Dhs5.SceneCreation
         /// <summary>
         /// <see cref="Awake"/> extension.
         /// </summary>
-        protected virtual void Awake_Ext() { }
+        protected virtual void OnSceneObjectAwake() { }
         /// <summary>
         /// <see cref="OnValidate"/> extension.
         /// </summary>
-        protected virtual void OnValidate_Ext() { }
+        protected virtual void OnSceneObjectValidate() { }
         /// <summary>
         /// <see cref="OnEnable"/> extension.
         /// </summary>
-        protected virtual void OnEnable_Ext() { }
+        protected virtual void OnSceneObjectEnable() { }
         /// <summary>
         /// <see cref="OnDisable"/> extension.
         /// </summary>
-        protected virtual void OnDisable_Ext() { }
+        protected virtual void OnSceneObjectDisable() { }
         #endregion
 
         #region Registration
         protected Dictionary<string, List<BaseSceneEvent>> SceneEventsDico { get; private set; } = new();
         protected Dictionary<string, List<BaseSceneListener>> SceneListenersDico { get; private set; } = new();
         protected Dictionary<string, SceneVarTween> TweensDico { get; private set; } = new();
+        protected List<SceneScriptableObject> SceneScriptablesList { get; private set; } = new();
 
+        #region Events
         protected void RegisterEvent<T>(string name, List<T> list) where T : BaseSceneEvent
         {
             SceneEventsDico[name] = list.Cast<BaseSceneEvent>().ToList();
         }
+        protected void RegisterEvents<T>(params (string name, List<T> list)[] vars) where T : BaseSceneEvent
+        {
+            foreach (var v in vars)
+                RegisterEvent(v.name, v.list);
+        }
+        #endregion
+
+        #region Listeners
         protected void RegisterListener<T>(string name, List<T> list) where T : BaseSceneListener
         {
             SceneListenersDico[name] = list.Cast<BaseSceneListener>().ToList();
         }
+        protected void RegisterListeners<T>(params (string name, List<T> list)[] vars) where T : BaseSceneListener
+        {
+            foreach (var v in vars)
+                RegisterListener(v.name, v.list);
+        }
+        #endregion
+
+        #region Tweens
         protected void RegisterTween(string name, SceneVarTween tween)
         {
             TweensDico[name] = tween;
         }
+        protected void RegisterTweens(params (string name, SceneVarTween tween)[] vars)
+        {
+            foreach (var v in vars)
+                RegisterTween(v.name, v.tween);
+        }
+        #endregion
+
+        #region Scriptables
+        protected void RegisterScriptable<T>(T scriptable) where T : SceneScriptableObject
+        {
+            if (SceneScriptablesList.Contains(scriptable)) return;
+
+            SceneScriptablesList.Add(scriptable);
+        }
+        protected void RegisterScriptables<T>(List<T> scriptables) where T : SceneScriptableObject
+        {
+            foreach (var scriptable in scriptables)
+                RegisterScriptable(scriptable);
+        }
+        protected void RegisterScriptables<T>(params T[] scriptables) where T : SceneScriptableObject
+        {
+            foreach (var scriptable in scriptables)
+                RegisterScriptable(scriptable);
+        }
+        #endregion
 
         #region Utility
+
+        #region Events
         private void InitEvents()
         {
             if (SceneEventsDico.IsValid())
@@ -172,7 +252,9 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+        #endregion
 
+        #region Listeners
         private void SetListenersBelongings()
         {
             if (SceneListenersDico.IsValid())
@@ -203,7 +285,9 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+        #endregion
 
+        #region Tweens
         private void SetTweensBelongings()
         {
             if (TweensDico.IsValid())
@@ -214,6 +298,32 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+        #endregion
+
+        #region Scriptables
+        private void LinkScriptables()
+        {
+            if (SceneScriptablesList.IsValid())
+            {
+                Link(SceneScriptablesList);
+            }
+        }
+        private void EnableScriptablesList()
+        {
+            if (SceneScriptablesList.IsValid())
+            {
+                SceneScriptablesList.OnSceneObjectEnable();
+            }
+        }
+        private void DisableScriptablesList()
+        {
+            if (SceneScriptablesList.IsValid())
+            {
+                SceneScriptablesList.OnSceneObjectDisable();
+            }
+        }
+        #endregion
+
         #endregion
 
         #endregion
@@ -254,8 +364,24 @@ namespace Dhs5.SceneCreation
         }
         protected void Belong<T>(params List<T>[] vars) where T : SceneState.ISceneObjectBelongable
         {
-            //foreach (var var in vars)
-            //    var.BelongTo(this);
+            foreach (var var in vars)
+                Belong(var);
+        }
+        #endregion
+
+        #region Link
+        protected void Link<T>(T scriptable) where T : SceneScriptableObject
+        {
+            //scriptable.Link(this);
+        }
+        protected void Link<T>(List<T> scriptables) where T : SceneScriptableObject
+        {
+            //scriptables.Link(this);
+        }
+        protected void Link<T>(params List<T>[] vars) where T : SceneScriptableObject
+        {
+            foreach (var scriptables in vars)
+                Link(scriptables);
         }
         #endregion
 

@@ -1233,12 +1233,12 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneScriptableObjects management
-        public static void SetUp<T>(this List<T> scriptables, SceneVariablesSO sceneVariablesSO, SceneObject sceneObject) where T : SceneScriptableObject
+        public static void Link<T>(this List<T> scriptables, SceneObject sceneObject) where T : SceneScriptableObject
         {
             if (scriptables.IsValid())
             {
                 foreach (var item in scriptables)
-                    item.SetUp(sceneVariablesSO, sceneObject);
+                    item.Link(sceneObject);
             }
         }
         public static void OnSceneObjectEnable<T>(this List<T> scriptables) where T : SceneScriptableObject
