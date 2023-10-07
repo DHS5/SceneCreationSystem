@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Scripting;
 
 namespace Dhs5.SceneCreation
 {
@@ -329,10 +330,26 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneObject's specifics
+        public abstract bool DoStartScene { get; }
         /// <summary>
-        /// Called on <see cref="SceneManager.Start"/> once the <see cref="SceneState"/> has been set up.
+        /// Called on <see cref="SceneManager.StartScene"/> once the <see cref="SceneState"/> has been set up.
         /// </summary>
+        /// <remarks>Must set <see cref="DoStartScene"/> to TRUE to be called.</remarks>
         public virtual void OnStartScene() { }
+
+        public abstract bool DoChangeScene { get; }
+        /// <summary>
+        /// Called on <see cref="SceneManager.ChangeScene"/> when the Scene is going to change.
+        /// </summary>
+        /// <remarks>Must set <see cref="DoChangeScene"/> to TRUE to be called.</remarks>
+        public virtual void OnChangeScene() { }
+
+        public abstract bool DoGameOver { get; }
+        /// <summary>
+        /// Called on <see cref="SceneManager.GameOver"/> when the game is over.
+        /// </summary>
+        /// <remarks>Must set <see cref="DoGameOver"/> to TRUE to be called.</remarks>
+        public virtual void OnGameOver() { }
         #endregion
 
         #region Utility
@@ -385,6 +402,55 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        #endregion
+
+
+
+        #region SceneClock Actions
+
+        /// <summary>
+        /// Starts the timeline named <paramref name="timelineID"/> from first step (step 0)
+        /// </summary>
+        /// <param name="timelineID">ID of the timeline to start</param>
+        [Preserve]
+        public void Clock_StartTimeline(string timelineID)
+        {
+            SceneClock.Instance.StartTimeline(timelineID);
+        }
+        /// <summary>
+        /// Starts the timeline named <paramref name="timelineID"/> from step <paramref name="step"/>
+        /// </summary>
+        /// <param name="timelineID">ID of the timeline to start</param>
+        /// <param name="step">Index of the step in the <b>TimelineObject</b> list of the <b>SceneTimeline</b></param>
+        [Preserve]
+        public void Clock_StartTimeline(string timelineID, int step)
+        {
+            SceneClock.Instance.StartTimeline(timelineID, step);
+        }
+
+        /// <summary>
+        /// Stops the timeline named <paramref name="timelineID"/>
+        /// </summary>
+        /// <param name="timelineID">ID of the timeline to stop</param>
+        [Preserve]
+        public void Clock_StopTimeline(string timelineID)
+        {
+            SceneClock.Instance.StopTimeline(timelineID);
+        }
+
+        /// <summary>
+        /// Makes the timeline <paramref name="timelineID"/> go to step <paramref name="step"/>.<br/>
+        /// If <paramref name="interrupt"/> is <b>true</b>, immediatly go to new step.<br/>
+        /// Else, wait for the current step to finish its execution.
+        /// </summary>
+        /// <param name="timelineID">ID of the timeline to change step</param>
+        /// <param name="step">Index of the step in the <b>TimelineObject</b> list of the <b>SceneTimeline</b></param>
+        /// <param name="interrupt">Whether to interrupt the execution of the current step</param>
+        [Preserve]
+        public void Clock_TimelineGoToStep(string timelineID, int step, bool interrupt)
+        {
+            SceneClock.Instance.GoToStep(timelineID, step, interrupt);
+        }
         #endregion
     }
 }

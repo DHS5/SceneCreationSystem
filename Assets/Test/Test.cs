@@ -19,7 +19,7 @@ public class Test : MonoBehaviour
 
     private void Awake()
     {
-        SceneManager.BalancingIndex = 1;
+        //SceneManager.BalancingIndex = 1;
     }
 
     public void Test1(SceneEventParam param)

@@ -88,12 +88,32 @@ namespace Dhs5.SceneCreation
         }
         public static void StartScene()
         {
-            if (sceneObjects == null || sceneObjects.Count == 0) return;
+            if (sceneObjects.IsValid()) return;
 
             foreach (SceneObject sceneObject in sceneObjects)
             {
-                if (sceneObject != null && sceneObject.enabled)
+                if (sceneObject != null && sceneObject.enabled && sceneObject.DoStartScene)
                     sceneObject.OnStartScene();
+            }
+        }
+        public static void ChangeScene()
+        {
+            if (sceneObjects.IsValid()) return;
+
+            foreach (SceneObject sceneObject in sceneObjects)
+            {
+                if (sceneObject != null && sceneObject.enabled && sceneObject.DoChangeScene)
+                    sceneObject.OnChangeScene();
+            }
+        }
+        public static void GameOver()
+        {
+            if (sceneObjects.IsValid()) return;
+
+            foreach (SceneObject sceneObject in sceneObjects)
+            {
+                if (sceneObject != null && sceneObject.enabled && sceneObject.DoGameOver)
+                    sceneObject.OnGameOver();
             }
         }
         #endregion

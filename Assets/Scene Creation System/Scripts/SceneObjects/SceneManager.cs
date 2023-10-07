@@ -29,15 +29,33 @@ namespace Dhs5.SceneCreation
         #endregion
 
         [Header("Manager")]
+        [Tooltip("Events called when the Scene starts,\n just before every SceneObject.OnStartScene()")]
         [SerializeField] protected List<SceneEvent> onSceneStart;
+        [Tooltip("Events called when the Scene is going to change,\n just before every SceneObject.OnChangeScene()")]
+        [SerializeField] protected List<SceneEvent> onSceneChange;
+        [Tooltip("Events called on GameOver,\n just before every SceneObject.OnGameOver()")]
+        [SerializeField] protected List<SceneEvent> onGameOver;
+
+        /// <summary>
+        /// Event called when the Scene starts for non-<see cref="SceneObject"/> elements to subscribe
+        /// </summary>
+        public static event Action SceneStartEvent;
+        /// <summary>
+        /// Event called when the Scene is going to change for non-<see cref="SceneObject"/> elements to subscribe
+        /// </summary>
+        public static event Action SceneChangeEvent;
+        /// <summary>
+        /// Event called on GameOver for non-<see cref="SceneObject"/> elements to subscribe
+        /// </summary>
+        public static event Action GameOverEvent;
 
         protected virtual void Start()
         {
+            SetBalancingIndex();
+
             SetSceneVars();
 
-            SceneState.StartScene();
-
-            onSceneStart.Trigger();
+            StartScene();
         }
 
         #region SceneObject Extension
@@ -46,97 +64,85 @@ namespace Dhs5.SceneCreation
             base.UpdateSceneVariables();
 
             onSceneStart.SetUp(sceneVariablesSO);
+            onSceneChange.SetUp(sceneVariablesSO);
         }
         protected override void RegisterElements()
         {
             base.RegisterElements();
 
             Register(nameof(onSceneStart), onSceneStart);
+            Register(nameof(onSceneChange), onSceneChange);
         }
         #endregion
 
-        #region SceneVars & SceneState Setup
-        /// <summary>
-        /// Index of the balancing sheet to use for this scene.<br/>
-        /// <b>0 is the base SceneVariablesSO, 1 is the first BalancingSheet of the list</b>
-        /// </summary>
-        public static int BalancingIndex { get; set; } = 0;
 
+        #region Scene Main Events
+        protected virtual void StartScene()
+        {
+            onSceneStart.Trigger();
+            SceneState.StartScene();
+
+            SceneStartEvent?.Invoke();
+        }
+        public virtual void ChangeScene()
+        {
+            onSceneChange.Trigger();
+            SceneState.ChangeScene();
+
+            SceneChangeEvent?.Invoke();
+        }
+        public virtual void GameOver()
+        {
+            onGameOver.Trigger();
+            SceneState.GameOver();
+
+            GameOverEvent?.Invoke();
+        }
+        #endregion
+
+        #region Scenes Management
+
+        #endregion
+
+        #region SceneVars Setup
         /// <summary>
-        /// Set the SceneState's SceneVars at the beginning of the Scene
+        /// Set the <see cref="SceneState"/>'s SceneVars at the beginning of the Scene
         /// </summary>
         protected void SetSceneVars()
         {
             SceneState.SetSceneVars(sceneVariablesSO, BalancingIndex);
         }
+        #endregion
+
+        #region Balancing Setup
         /// <summary>
-        /// Change balancing during a Scene <b>ARLEADY SETUP</b><br/>
-        /// and update <b>ONLY the STATIC and RANDOM vars</b><br/>
-        /// without triggering any <i>ChangedVar event</i>
+        /// Index of the balancing sheet to use for this scene.<br/>
+        /// <b>0 is the base SceneVariablesSO, 1 is the first BalancingSheet of the list</b>
         /// </summary>
-        /// <remarks>Never use before <see cref="SetSceneVars"/></remarks>
-        public void ChangeBalancing()
-        {
-            SceneState.ActuBalancing(sceneVariablesSO, BalancingIndex);
-        }
+        public static int BalancingIndex { get; protected set; } = 0;
+
         /// <summary>
-        /// Change balancing during a Scene <b>ARLEADY SETUP</b><br/>
+        /// Function called in <see cref="Start"/> just before <see cref="SetSceneVars"/>.<br></br>
+        /// By default : <c>BalancingIndex = 0;</c><br></br>
+        /// Override this function to change the <see cref="BalancingIndex"/>.
+        /// </summary>
+        protected virtual void SetBalancingIndex()
+        {
+            BalancingIndex = 0;
+        }
+
+        /// <summary>
+        /// Update the balancing during a Scene <b>ARLEADY SETUP</b><br/>
         /// and update <b>ONLY the STATIC and RANDOM vars</b><br/>
-        /// without triggering any <i>ChangedVar event</i>
+        /// without triggering any <i>ChangedVar event</i>.<br></br>
+        /// Only the balancing of this scene will be changed.
         /// </summary>
         /// <remarks>Never use before <see cref="SetSceneVars"/></remarks>
         /// <param name="balancingIndex">Index of the balancing sheet to apply</param>
-        public void ChangeBalancing(int balancingIndex)
+        public void UpdateBalancing(int balancingIndex)
         {
             BalancingIndex = balancingIndex;
             SceneState.ActuBalancing(sceneVariablesSO, BalancingIndex);
-        }
-        #endregion
-
-        #region SceneClock Actions
-
-        /// <summary>
-        /// Starts the timeline named <paramref name="timelineID"/> from first step (step 0)
-        /// </summary>
-        /// <param name="timelineID">ID of the timeline to start</param>
-        [Preserve]
-        public void StartTimeline(string timelineID)
-        {
-            SceneClock.Instance.StartTimeline(timelineID);
-        }
-        /// <summary>
-        /// Starts the timeline named <paramref name="timelineID"/> from step <paramref name="step"/>
-        /// </summary>
-        /// <param name="timelineID">ID of the timeline to start</param>
-        /// <param name="step">Index of the step in the <b>TimelineObject</b> list of the <b>SceneTimeline</b></param>
-        [Preserve]
-        public void StartTimeline(string timelineID, int step)
-        {
-            SceneClock.Instance.StartTimeline(timelineID, step);
-        }
-
-        /// <summary>
-        /// Stops the timeline named <paramref name="timelineID"/>
-        /// </summary>
-        /// <param name="timelineID">ID of the timeline to stop</param>
-        [Preserve]
-        public void StopTimeline(string timelineID)
-        {
-            SceneClock.Instance.StopTimeline(timelineID);
-        }
-
-        /// <summary>
-        /// Makes the timeline <paramref name="timelineID"/> go to step <paramref name="step"/>.<br/>
-        /// If <paramref name="interrupt"/> is <b>true</b>, immediatly go to new step.<br/>
-        /// Else, wait for the current step to finish its execution.
-        /// </summary>
-        /// <param name="timelineID">ID of the timeline to change step</param>
-        /// <param name="step">Index of the step in the <b>TimelineObject</b> list of the <b>SceneTimeline</b></param>
-        /// <param name="interrupt">Whether to interrupt the execution of the current step</param>
-        [Preserve]
-        public void TimelineGoToStep(string timelineID, int step, bool interrupt)
-        {
-            SceneClock.Instance.GoToStep(timelineID, step, interrupt);
         }
         #endregion
 

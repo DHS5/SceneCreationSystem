@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using System.Text;
 using System.Linq;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace Dhs5.SceneCreation
 {
@@ -79,6 +80,11 @@ namespace Dhs5.SceneCreation
         }
         protected virtual void Awake_Ext() { }
         public virtual void OnStartScene() { }
+        public virtual void OnChangeScene() { }
+        public virtual void OnGameOver() { }
+        public virtual bool DoStartScene => false;
+        public virtual bool DoChangeScene => false;
+        public virtual bool DoGameOver => false;
         protected virtual void OnValidate_Ext() { }
         #endregion
 
