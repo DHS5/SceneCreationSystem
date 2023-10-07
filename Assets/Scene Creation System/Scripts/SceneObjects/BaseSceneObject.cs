@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Scripting;
+using System.Text;
 
 namespace Dhs5.SceneCreation
 {
@@ -182,8 +183,9 @@ namespace Dhs5.SceneCreation
         }
         protected void RegisterEvents<T>(params (string name, List<T> list)[] vars) where T : BaseSceneEvent
         {
-            foreach (var v in vars)
-                RegisterEvent(v.name, v.list);
+            if (vars.IsValid())
+                foreach (var v in vars)
+                    RegisterEvent(v.name, v.list);
         }
         #endregion
 
@@ -194,8 +196,9 @@ namespace Dhs5.SceneCreation
         }
         protected void RegisterListeners<T>(params (string name, List<T> list)[] vars) where T : BaseSceneListener
         {
-            foreach (var v in vars)
-                RegisterListener(v.name, v.list);
+            if (vars.IsValid())
+                foreach (var v in vars)
+                    RegisterListener(v.name, v.list);
         }
         #endregion
 
@@ -206,8 +209,9 @@ namespace Dhs5.SceneCreation
         }
         protected void RegisterTweens(params (string name, SceneVarTween tween)[] vars)
         {
-            foreach (var v in vars)
-                RegisterTween(v.name, v.tween);
+            if (vars.IsValid())
+                foreach (var v in vars)
+                    RegisterTween(v.name, v.tween);
         }
         #endregion
 
@@ -220,13 +224,15 @@ namespace Dhs5.SceneCreation
         }
         protected void RegisterScriptables<T>(List<T> scriptables) where T : SceneScriptableObject
         {
-            foreach (var scriptable in scriptables)
-                RegisterScriptable(scriptable);
+            if (scriptables.IsValid())
+                foreach (var scriptable in scriptables)
+                    RegisterScriptable(scriptable);
         }
         protected void RegisterScriptables<T>(params T[] scriptables) where T : SceneScriptableObject
         {
-            foreach (var scriptable in scriptables)
-                RegisterScriptable(scriptable);
+            if (scriptables.IsValid())
+                foreach (var scriptable in scriptables)
+                    RegisterScriptable(scriptable);
         }
         #endregion
 
@@ -352,6 +358,186 @@ namespace Dhs5.SceneCreation
         public virtual void OnGameOver() { }
         #endregion
 
+        #region Profiles
+        protected List<SceneProfile> SceneProfiles { get; private set; } = new();
+        public int ProfileCount => SceneProfiles.Count;
+
+        #region List Handling
+        public void ApplyProfiles(SceneVariablesSO _sceneVariablesSO, List<SceneProfile> profiles)
+        {
+            sceneVariablesSO = _sceneVariablesSO;
+
+            if (!profiles.IsValid()) return;
+
+            ClearProfiles();
+
+            SceneProfiles.AddRange(profiles);
+
+            //profiles.Attach(this);
+        }
+        public void AddProfile(SceneProfile profile)
+        {
+            SceneProfiles ??= new();
+
+            SceneProfiles.Add(profile);
+        }
+        public bool RemoveProfile(SceneProfile profile)
+        {
+            if (!SceneProfiles.IsValid()) return false;
+
+            if (SceneProfiles.Contains(profile))
+            {
+                profile.Detach();
+                return SceneProfiles.Remove(profile);
+            }
+            return false;
+        }
+        public bool RemoveProfileOfType<T>(bool all = false) where T : SceneProfile
+        {
+            if (!SceneProfiles.IsValid()) return false;
+
+            bool result = false;
+
+            foreach (var profile in SceneProfiles.Copy())
+            {
+                if (profile is T p)
+                {
+                    p.Detach();
+                    SceneProfiles.Remove(p);
+                    if (!all) return true;
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        public void ClearProfiles()
+        {
+            if (!SceneProfiles.IsValid())
+            {
+                SceneProfiles = new();
+                return;
+            }
+
+            SceneProfiles.Detach();
+            SceneProfiles.Clear();
+        }
+        #endregion
+
+        #region Get Profile
+        public SceneProfile GetProfileAtIndex(int index)
+        {
+            if (!SceneProfiles.IsValid() || !SceneProfiles.IsIndexValid(index)) return null;
+
+            return SceneProfiles[index];
+        }
+        public T GetProfileOfType<T>() where T : SceneProfile
+        {
+            if (!SceneProfiles.IsValid()) return null;
+
+            return SceneProfiles.Find(p => p is T) as T;
+        }
+        public bool HasProfileOfType<T>() where T : SceneProfile
+        {
+            if (!SceneProfiles.IsValid()) return false;
+
+            if (SceneProfiles.Find(p => p is T) != null) return true;
+            return false;
+        }
+        #endregion
+
+        #region Actions
+        public bool TriggerProfileOfType<T>(bool all = false) where T : SceneProfile
+        {
+            if (!SceneProfiles.IsValid()) return false;
+
+            bool result = false;
+
+            foreach (var profile in SceneProfiles)
+                if (profile is T p)
+                {
+                    p.TriggerProfile();
+                    if (!all) return true;
+                    result = true;
+                }
+            return result;
+        }
+        public bool TriggerProfile(SceneProfile profile)
+        {
+            if (!SceneProfiles.IsValid()) return false;
+
+            foreach (var p in SceneProfiles)
+                if (p == profile)
+                {
+                    p.TriggerProfile();
+                    return true;
+                }
+            return false;
+        }
+        public void TriggerAllProfiles()
+        {
+            if (!SceneProfiles.IsValid()) return;
+
+            foreach (var profile in SceneProfiles)
+                profile.TriggerProfile();
+        }
+        public void TriggerEventInProfiles(string eventID)
+        {
+            if (!SceneProfiles.IsValid()) return;
+
+            foreach (var profile in SceneProfiles)
+                profile.TriggerEventInProfile(eventID);
+        }
+        [Preserve]
+        public void TriggerEventInProfilesAndRemove(string eventID, int triggerNumber)
+        {
+            if (!SceneProfiles.IsValid()) return;
+
+            foreach (var profile in SceneProfiles)
+                profile.TriggerEventInProfileAndRemove(eventID, triggerNumber);
+        }
+        public void TriggerAllEventsInProfilesAndRemove(int triggerNumber)
+        {
+            if (!SceneProfiles.IsValid()) return;
+
+            foreach (var profile in SceneProfiles)
+                profile.TriggerAllEventsInProfileAndRemove(triggerNumber);
+        }
+        public void TriggerEventInProfilesAndRemove(string eventID)
+        {
+            TriggerEventInProfilesAndRemove(eventID, 1);
+        }
+        #endregion
+
+        #region Random Actions
+        public bool TriggerRandomInProfileOfType<T>(string filter = null) where T : SceneProfile
+        {
+            if (!SceneProfiles.IsValid()) return false;
+
+            foreach (var profile in SceneProfiles)
+                if (profile is T p)
+                {
+                    return p.TriggerProfileRandom(filter);
+                }
+            return false;
+        }
+        public bool TriggerRandomInProfileOfTypeAndRemove<T>(string filter = null) where T : SceneProfile
+        {
+            if (!SceneProfiles.IsValid()) return false;
+
+            foreach (var profile in SceneProfiles)
+                if (profile is T p)
+                {
+                    return p.TriggerProfileRandom(filter, true);
+                }
+            return false;
+        }
+
+        #endregion
+
+        #endregion
+
         #region Utility
 
         #region Setup
@@ -361,12 +547,14 @@ namespace Dhs5.SceneCreation
         }
         protected void Setup<T>(List<T> vars) where T : SceneState.ISceneVarSetupable
         {
-            vars.SetUp(sceneVariablesSO);
+            if (vars.IsValid())
+                vars.SetUp(sceneVariablesSO);
         }
         protected void Setup<T>(params List<T>[] vars) where T : SceneState.ISceneVarSetupable
         {
-            foreach (var var in vars)
-                var.SetUp(sceneVariablesSO);
+            if (vars.IsValid())
+                foreach (var var in vars)
+                    var.SetUp(sceneVariablesSO);
         }
         #endregion
 
@@ -377,12 +565,14 @@ namespace Dhs5.SceneCreation
         }
         protected void Belong<T>(List<T> vars) where T : SceneState.ISceneObjectBelongable
         {
-            //vars.BelongTo(this);
+            //if (vars.IsValid())
+            //  vars.BelongTo(this);
         }
         protected void Belong<T>(params List<T>[] vars) where T : SceneState.ISceneObjectBelongable
         {
-            foreach (var var in vars)
-                Belong(var);
+            if (vars.IsValid())
+                foreach (var var in vars)
+                    Belong(var);
         }
         #endregion
 
@@ -393,12 +583,14 @@ namespace Dhs5.SceneCreation
         }
         protected void Link<T>(List<T> scriptables) where T : SceneScriptableObject
         {
-            //scriptables.Link(this);
+            //if (scriptables.IsValid())
+            //    scriptables.Link(this);
         }
         protected void Link<T>(params List<T>[] vars) where T : SceneScriptableObject
         {
-            foreach (var scriptables in vars)
-                Link(scriptables);
+            if (vars.IsValid())
+                foreach (var scriptables in vars)
+                    Link(scriptables);
         }
         #endregion
 

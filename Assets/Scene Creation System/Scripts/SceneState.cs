@@ -648,6 +648,16 @@ namespace Dhs5.SceneCreation
             }
             return false;
         }
+
+        public static bool IsIndexValid<T>(this List<T> list, int index)
+        {
+            return index >= 0 && index < list.Count;
+        }
+
+        public static List<T> Copy<T>(this List<T> list)
+        {
+            return new(list);
+        }
         #endregion
 
         #region Set Ups
