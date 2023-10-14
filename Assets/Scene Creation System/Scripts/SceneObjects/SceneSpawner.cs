@@ -124,6 +124,7 @@ namespace Dhs5.SceneCreation
             [SerializeField] private GameObject prefab;
             [Tooltip("Instantiation parent of the SceneObject, can be overrided in code")]
             [SerializeField] private Transform parent;
+            [Tooltip("Avoid adding several profile of the same type as only the first will be used")]
             [SerializeReference, SubclassPicker] private List<SceneProfile> profiles;
 
             public string ID => templateID;

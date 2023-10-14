@@ -970,86 +970,77 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Trigger a list of SceneEvents (Extension Method)
-        public static void Trigger<T>(this List<T> sceneEvents, string ID = null) where T : BaseSceneEvent
+        /// <summary>
+        /// Triggers every <see cref="BaseSceneEvent"/> in <paramref name="sceneEvents"/>
+        /// </summary>
+        /// <typeparam name="T"><see cref="BaseSceneEvent"/></typeparam>
+        /// <param name="sceneEvents">List of <see cref="BaseSceneEvent"/>s to trigger</param>
+        public static void Trigger<T>(this List<T> sceneEvents) where T : BaseSceneEvent
         {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
+            if (!sceneEvents.IsValid()) return;
 
-            List<T> events = new();
-
-            if (!string.IsNullOrEmpty(ID))
+            foreach (var sceneEvent in sceneEvents)
             {
-                events = sceneEvents.FindAll(e => e.eventID == ID);
-            }
-            else
-            {
-                events = new(sceneEvents);
-            }
-
-            if (events == null || events.Count < 1) return;
-
-            foreach (var sceneEvent in events)
-            {
-                sceneEvent.Trigger();
+                sceneEvent?.Trigger();
             }
         }
         /// <summary>
-        /// Trigger every SceneEvent which eventID == ID in the list<br></br>
-        /// (Trigger all if ID == null)
+        /// Triggers every <see cref="BaseSceneEvent"/> with <see cref="BaseSceneEvent.eventID"/> = <paramref name="ID"/> in <paramref name="sceneEvents"/>
         /// </summary>
-        /// <param name="sceneEvents"></param>
-        /// <param name="ID">ID of the SceneEvents to trigger</param>
-        public static void Trigger(this List<SceneEvent> sceneEvents, string ID = null)
+        /// <typeparam name="T"><see cref="BaseSceneEvent"/></typeparam>
+        /// <param name="sceneEvents">List of <see cref="BaseSceneEvent"/>s to trigger</param>
+        /// <param name="ID">ID of the <see cref="BaseSceneEvent"/>s to trigger</param>
+        public static void TriggerWithID<T>(this List<T> sceneEvents, string ID) where T : BaseSceneEvent
         {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-            
-            List<SceneEvent> events = new();
+            if (!sceneEvents.IsValid()) return;
 
-            if (!string.IsNullOrEmpty(ID))
-            {
-                events = sceneEvents.FindAll(e => e.eventID == ID);
-            }
-            else
-            {
-                events = new(sceneEvents);
-            }
+            ID ??= "";
+            List<T> events = sceneEvents.FindAll(e => e.eventID == ID);
 
-            if (events == null || events.Count < 1) return;
+            if (!events.IsValid()) return;
 
             foreach (var sceneEvent in events)
             {
-                sceneEvent.Trigger();
+                sceneEvent?.Trigger();
             }
         }
         /// <summary>
-        /// Trigger every SceneEvent which eventID == ID in the list<br></br>
-        /// (Trigger all if ID == null)
+        /// Triggers every <see cref="SceneEvent{T}"/> in <paramref name="sceneEvents"/>
         /// </summary>
-        /// <typeparam name="T">SceneEvent type param</typeparam>
-        /// <param name="sceneEvents"></param>
-        /// <param name="value">Value to pass to SceneEvents (type T)</param>
-        /// <param name="ID">ID of the SceneEvents to trigger</param>
-        public static void Trigger<T>(this List<SceneEvent<T>> sceneEvents, T value, string ID = null)
+        /// <typeparam name="T"><see cref="SceneEvent{T}"/></typeparam>
+        /// <param name="sceneEvents">List of <see cref="SceneEvent{T}"/>s to trigger</param>
+        /// <param name="value">Value of the trigger paramater</param>
+        public static void Trigger<T>(this List<SceneEvent<T>> sceneEvents, T value)
         {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-            
-            List<SceneEvent<T>> events = new();
+            if (!sceneEvents.IsValid()) return;
 
-            if (!string.IsNullOrEmpty(ID))
+            foreach (var sceneEvent in sceneEvents)
             {
-                events = sceneEvents.FindAll(e => e.eventID == ID);
+                sceneEvent?.Trigger(value);
             }
-            else
-            {
-                events = new(sceneEvents);
-            }
+        }
+        /// <summary>
+        /// Triggers every <see cref="SceneEvent{T}"/> with <see cref="BaseSceneEvent.eventID"/> = <paramref name="ID"/> in <paramref name="sceneEvents"/>
+        /// </summary>
+        /// <typeparam name="T"><see cref="SceneEvent{T}"/></typeparam>
+        /// <param name="sceneEvents">List of <see cref="SceneEvent{T}"/>s to trigger</param>
+        /// <param name="value">Value of the trigger paramater</param>
+        /// <param name="ID">ID of the <see cref="SceneEvent{T}"/>s to trigger</param>
+        public static void TriggerWithID<T>(this List<SceneEvent<T>> sceneEvents, T value, string ID)
+        {
+            if (!sceneEvents.IsValid()) return;
 
-            if (events == null || events.Count < 1) return;
+            ID ??= "";
+            List<SceneEvent<T>> events = sceneEvents.FindAll(e => e.eventID == ID);
+
+            if (!events.IsValid()) return;
 
             foreach (var sceneEvent in events)
             {
-                sceneEvent.Trigger(value);
+                sceneEvent?.Trigger(value);
             }
         }
+        
         public static void TriggerAndRemove<T>(this List<T> sceneEvents, string ID, int triggerNumber) where T : BaseSceneEvent
         {
             if (sceneEvents == null || sceneEvents.Count < 1) return;
@@ -1107,7 +1098,7 @@ namespace Dhs5.SceneCreation
         }
         public static void TriggerAndRemoveAll<T>(this List<T> sceneEvents, int triggerNumber) where T : BaseSceneEvent
         {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
+            if (!sceneEvents.IsValid()) return;
 
             List<T> events = new(sceneEvents);
 
@@ -1216,7 +1207,7 @@ namespace Dhs5.SceneCreation
         {
             if (!trigger.random)
             {
-                sceneObject.TriggerSceneEvent(trigger.eventID, param);
+                sceneObject.TriggerSceneEventsWithID(trigger.eventID, param);
             }
             else
             {

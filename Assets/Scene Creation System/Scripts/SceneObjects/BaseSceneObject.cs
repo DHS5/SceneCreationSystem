@@ -363,6 +363,11 @@ namespace Dhs5.SceneCreation
         public int ProfileCount => SceneProfiles.Count;
 
         #region List Handling
+        /// <summary>
+        /// Apply a list of <see cref="SceneProfile"/>s to this <see cref="BaseSceneObject"/> after clearing its profiles.
+        /// </summary>
+        /// <param name="_sceneVariablesSO"></param>
+        /// <param name="profiles"></param>
         public void ApplyProfiles(SceneVariablesSO _sceneVariablesSO, List<SceneProfile> profiles)
         {
             sceneVariablesSO = _sceneVariablesSO;
@@ -371,15 +376,16 @@ namespace Dhs5.SceneCreation
 
             ClearProfiles();
 
-            SceneProfiles.AddRange(profiles);
-
-            //profiles.Attach(this);
+            foreach (var profile in profiles)
+                AddProfile(profile);
         }
         public void AddProfile(SceneProfile profile)
         {
-            SceneProfiles ??= new();
+            if (profile == null) return;
 
             SceneProfiles.Add(profile);
+
+            //profile.Attach(this);
         }
         public bool RemoveProfile(SceneProfile profile)
         {
@@ -392,7 +398,7 @@ namespace Dhs5.SceneCreation
             }
             return false;
         }
-        public bool RemoveProfileOfType<T>(bool all = false) where T : SceneProfile
+        public bool RemoveProfileOfType<T>() where T : SceneProfile
         {
             if (!SceneProfiles.IsValid()) return false;
 
@@ -404,7 +410,6 @@ namespace Dhs5.SceneCreation
                 {
                     p.Detach();
                     SceneProfiles.Remove(p);
-                    if (!all) return true;
                     result = true;
                 }
             }
@@ -445,91 +450,75 @@ namespace Dhs5.SceneCreation
             if (SceneProfiles.Find(p => p is T) != null) return true;
             return false;
         }
+        public bool HasProfile(SceneProfile profile)
+        {
+            if (!SceneProfiles.IsValid()) return false;
+
+            return SceneProfiles.Contains(profile);
+        }
         #endregion
 
         #region Actions
-        public bool TriggerProfileOfType<T>(bool all = false) where T : SceneProfile
+        // ----- CODE ONLY -----
+        public bool TriggerProfileOfType<T>() where T : SceneProfile
         {
             if (!SceneProfiles.IsValid()) return false;
 
-            bool result = false;
-
-            foreach (var profile in SceneProfiles)
-                if (profile is T p)
-                {
-                    p.TriggerProfile();
-                    if (!all) return true;
-                    result = true;
-                }
-            return result;
+            T profile = GetProfileOfType<T>();
+            if (profile != null)
+            {
+                profile.Trigger();
+                return true;
+            }
+            return false;
         }
         public bool TriggerProfile(SceneProfile profile)
         {
-            if (!SceneProfiles.IsValid()) return false;
+            if (!SceneProfiles.IsValid() || !HasProfile(profile)) return false;
 
-            foreach (var p in SceneProfiles)
-                if (p == profile)
-                {
-                    p.TriggerProfile();
-                    return true;
-                }
-            return false;
+            profile.Trigger();
+            return true;
         }
-        public void TriggerAllProfiles()
+        // ----- EDITOR -----
+        public void Profiles_TriggerAll()
         {
             if (!SceneProfiles.IsValid()) return;
 
             foreach (var profile in SceneProfiles)
-                profile.TriggerProfile();
+                profile.Trigger();
         }
-        public void TriggerEventInProfiles(string eventID)
+        public void Profiles_TriggerWithID(string eventID)
         {
             if (!SceneProfiles.IsValid()) return;
 
             foreach (var profile in SceneProfiles)
-                profile.TriggerEventInProfile(eventID);
+                profile.TriggerWithID(eventID);
         }
+        public void Profiles_TriggerAndRemoveAll(int triggerNumber)
+        {
+            if (!SceneProfiles.IsValid()) return;
+
+            foreach (var profile in SceneProfiles)
+                profile.TriggerAndRemoveAll(triggerNumber);
+        }
+        // ----- COMPLEXE -----
         [Preserve]
-        public void TriggerEventInProfilesAndRemove(string eventID, int triggerNumber)
+        public void Profiles_TriggerAndRemoveWithID(string eventID, int triggerNumber)
         {
             if (!SceneProfiles.IsValid()) return;
 
             foreach (var profile in SceneProfiles)
-                profile.TriggerEventInProfileAndRemove(eventID, triggerNumber);
+                profile.TriggerAndRemoveWithID(eventID, triggerNumber);
         }
-        public void TriggerAllEventsInProfilesAndRemove(int triggerNumber)
-        {
-            if (!SceneProfiles.IsValid()) return;
-
-            foreach (var profile in SceneProfiles)
-                profile.TriggerAllEventsInProfileAndRemove(triggerNumber);
-        }
-        public void TriggerEventInProfilesAndRemove(string eventID)
-        {
-            TriggerEventInProfilesAndRemove(eventID, 1);
-        }
-        #endregion
-
-        #region Random Actions
-        public bool TriggerRandomInProfileOfType<T>(string filter = null) where T : SceneProfile
+        // ----- RANDOM -----
+        public bool TriggerRandomInProfileOfType<T>(bool remove = false, string filter = null) where T : SceneProfile
         {
             if (!SceneProfiles.IsValid()) return false;
 
             foreach (var profile in SceneProfiles)
                 if (profile is T p)
                 {
-                    return p.TriggerProfileRandom(filter);
-                }
-            return false;
-        }
-        public bool TriggerRandomInProfileOfTypeAndRemove<T>(string filter = null) where T : SceneProfile
-        {
-            if (!SceneProfiles.IsValid()) return false;
-
-            foreach (var profile in SceneProfiles)
-                if (profile is T p)
-                {
-                    return p.TriggerProfileRandom(filter, true);
+                    return p.TriggerRandom(filter, remove);
                 }
             return false;
         }

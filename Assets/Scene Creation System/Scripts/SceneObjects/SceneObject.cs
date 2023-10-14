@@ -163,9 +163,13 @@ namespace Dhs5.SceneCreation
         #region Trigger Events
 
         #region Exposed Functions
-        public void TriggerSceneEvent(string eventID)
+        public void TriggerSceneEvents()
         {
-            TriggerSceneEvent(eventID, default);
+            TriggerSceneEvents(default);
+        }
+        public void TriggerSceneEventsWithID(string eventID)
+        {
+            TriggerSceneEventsWithID(eventID, default);
         }
         public void TriggerSceneEventAndRemove(string eventID)
         {
@@ -190,11 +194,17 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
-        public void TriggerSceneEvent(string eventID, SceneEventParam param = default)
+        public void TriggerSceneEvents(SceneEventParam param)
         {
-            sceneEvents.Trigger(param, eventID);
+            sceneEvents.Trigger(param);
 
-            TriggerEventInProfiles(eventID);
+            TriggerAllProfiles();
+        }
+        public void TriggerSceneEventsWithID(string eventID, SceneEventParam param)
+        {
+            sceneEvents.TriggerWithID(param, eventID);
+
+            TriggerProfilesWithID(eventID);
         }
         /// <summary>
         /// Trigger a <see cref="SceneEvent"/> <paramref name="triggerNumber"/> number of times then remove it from the list
@@ -326,7 +336,7 @@ namespace Dhs5.SceneCreation
             foreach (var profile in sceneProfiles)
                 if (profile is T p)
                 {
-                    p.TriggerProfile();
+                    p.Trigger();
                     if (!all) return true;
                     result = true;
                 }
@@ -339,7 +349,7 @@ namespace Dhs5.SceneCreation
             foreach (var p in sceneProfiles)
                 if (p == profile)
                 {
-                    p.TriggerProfile();
+                    p.Trigger();
                     return true;
                 }
             return false;
@@ -349,14 +359,14 @@ namespace Dhs5.SceneCreation
             if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
 
             foreach (var profile in sceneProfiles)
-                profile.TriggerProfile();
+                profile.Trigger();
         }
-        public void TriggerEventInProfiles(string eventID)
+        public void TriggerProfilesWithID(string eventID)
         {
             if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
 
             foreach (var profile in sceneProfiles)
-                profile.TriggerEventInProfile(eventID);
+                profile.TriggerWithID(eventID);
         }
         [Preserve]
         public void TriggerEventInProfilesAndRemove(string eventID, int triggerNumber)
@@ -364,14 +374,14 @@ namespace Dhs5.SceneCreation
             if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
 
             foreach (var profile in sceneProfiles)
-                profile.TriggerEventInProfileAndRemove(eventID, triggerNumber);
+                profile.TriggerAndRemoveWithID(eventID, triggerNumber);
         }
         public void TriggerAllEventsInProfilesAndRemove(int triggerNumber)
         {
             if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
 
             foreach (var profile in sceneProfiles)
-                profile.TriggerAllEventsInProfileAndRemove(triggerNumber);
+                profile.TriggerAndRemoveAll(triggerNumber);
         }
         public void TriggerEventInProfilesAndRemove(string eventID)
         {
@@ -387,7 +397,7 @@ namespace Dhs5.SceneCreation
             foreach (var profile in sceneProfiles)
                 if (profile is T p)
                 {
-                    return p.TriggerProfileRandom(filter);
+                    return p.TriggerRandom(filter);
                 }
             return false;
         }
@@ -398,7 +408,7 @@ namespace Dhs5.SceneCreation
             foreach (var profile in sceneProfiles)
                 if (profile is T p)
                 {
-                    return p.TriggerProfileRandom(filter, true);
+                    return p.TriggerRandom(filter, true);
                 }
             return false;
         }

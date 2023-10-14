@@ -70,14 +70,14 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Scene Events Management
-        protected List<string> eventsID = new();
+        public List<string> EventsIDs { get; private set; } = new();
         protected List<List<BaseSceneEvent>> sceneEventsList = new();
 
-        protected bool ExistIn(string eventID)
+        protected bool HasEvent(string eventID)
         {
-            if (eventsID == null || eventsID.Count <= 0) return false;
+            if (!EventsIDs.IsValid()) return false;
 
-            return eventsID.Contains(eventID);
+            return EventsIDs.Contains(eventID);
         }
 
         #region Registration
@@ -87,11 +87,11 @@ namespace Dhs5.SceneCreation
             if (registerEventIDs)
                 foreach (var s in sceneEvents)
                     if (!string.IsNullOrWhiteSpace(s.eventID))
-                        eventsID.Add(s.eventID);
+                        EventsIDs.Add(s.eventID);
         }
         protected void UnregisterSceneEvents()
         {
-            eventsID?.Clear();
+            EventsIDs?.Clear();
             sceneEventsList?.Clear();
         }
         #endregion
@@ -119,26 +119,34 @@ namespace Dhs5.SceneCreation
         /// <summary>
         /// Triggers all the <see cref="List{T}"/> of <see cref="BaseSceneEvent"/> of this profile
         /// </summary>
-        public virtual void TriggerProfile()
+        public virtual void Trigger(params object[] vars)
         {
-            if (sceneEventsList == null || sceneEventsList.Count <= 0) return;
+            if (!sceneEventsList.IsValid()) return;
 
-            foreach (var s in sceneEventsList)
-                s.Trigger();
+            foreach (var l in sceneEventsList)
+                l.Trigger();
         }
-        public virtual void TriggerEventInProfile(string eventID)
+        public virtual void TriggerWithID(string eventID, params object[] vars)
         {
-            if (ExistIn(eventID))
+            if (HasEvent(eventID))
             {
                 foreach (var l in sceneEventsList)
                 {
-                    l.Trigger(eventID);
+                    l.TriggerWithID(eventID);
                 }
             }
         }
-        public virtual void TriggerEventInProfileAndRemove(string eventID, int triggerNumber)
+        // ----- REMOVE -----
+        public virtual void TriggerAndRemoveAll(int triggerNumber)
         {
-            if (ExistIn(eventID))
+            foreach (var l in sceneEventsList)
+            {
+                l.TriggerAndRemoveAll(triggerNumber);
+            }
+        }
+        public virtual void TriggerAndRemoveWithID(string eventID, int triggerNumber)
+        {
+            if (HasEvent(eventID))
             {
                 foreach (var l in sceneEventsList)
                 {
@@ -146,16 +154,10 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
-        public virtual void TriggerAllEventsInProfileAndRemove(int triggerNumber)
+        // ----- RANDOM -----
+        public virtual bool TriggerRandom(string filter = null, bool remove = false)
         {
-            foreach (var l in sceneEventsList)
-            {
-                l.TriggerAndRemoveAll(triggerNumber);
-            }
-        }
-        public virtual bool TriggerProfileRandom(string filter = null, bool remove = false)
-        {
-            if (sceneEventsList == null || sceneEventsList.Count <= 0) return false;
+            if (!sceneEventsList.IsValid()) return false;
 
             return sceneEventsList[Random.Range(0, sceneEventsList.Count)].TriggerRandom(filter, remove);
         }
