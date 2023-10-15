@@ -380,7 +380,7 @@ namespace Dhs5.SceneCreation
 
             return sb.ToString();
         }
-        public List<string> LogLines(bool detailed = false, bool showEmpty = false)
+        public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null)
         {
             string passToLine = "Line()";
             List<string> lines = new();
@@ -454,7 +454,7 @@ namespace Dhs5.SceneCreation
                     if (!pair.Value.IsValid()) continue;
 
                     foreach (var e in pair.Value)
-                        lines.AddRange(e.LogLines(detailed, "      "));
+                        lines.AddRange(e.LogLines(detailed, showEmpty, "      "));
                 }
                 AppendColor(SceneLogger.ExtensionEventColor, "----------------------------------------");
                 Line();
@@ -512,7 +512,7 @@ namespace Dhs5.SceneCreation
             #endregion
         }
 
-        public virtual void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty) { }
+        public virtual void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null) { }
         #endregion
 
         #region Dependencies
@@ -581,11 +581,11 @@ namespace Dhs5.SceneCreation
             RegisterElements();
             if (SceneEventsDico.IsReallyValid()) return false;
             if (TweenDico.IsValid()) return false;
-            if (!ChildIsEmpty()) return false;
+            if (!IsChildEmpty()) return false;
 
             return true;
         }
-        protected virtual bool ChildIsEmpty() { return true; }
+        public virtual bool IsChildEmpty() { return true; }
         #endregion
     }
 }

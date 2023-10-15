@@ -84,33 +84,33 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Log
-        public override void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty)
+        public override void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null)
         {
             string passToLine = "Line()";
 
             base.ChildLog(lines, sb, detailed, showEmpty);
+
+            // Clear String Builder
+            sb.Clear();
+
+            // First Alinea
+            if (alinea != null) sb.Append(alinea);
 
             AppendColor(SceneLogger.TimelineColor, "Timelines :");
             Line();
 
             if (sceneTimelines != null && sceneTimelines.Count > 0)
             {
-                if (detailed)
-                {
-                    AppendColor(SceneLogger.TimelineColor, "----------------------------------------");
-                    Line();
-                }
+                AppendColor(SceneLogger.TimelineColor, "----------------------------------------");
+                Line();
 
                 foreach (var timeline in sceneTimelines)
                 {
-                    lines.AddRange(timeline.LogLines(detailed));
+                    lines.AddRange(timeline.LogLines(detailed, showEmpty, alinea));
                 }
 
-                if (detailed)
-                {
-                    AppendColor(SceneLogger.TimelineColor, "----------------------------------------");
-                    Line();
-                }
+                AppendColor(SceneLogger.TimelineColor, "----------------------------------------");
+                Line();
             }
             
 
@@ -133,10 +133,8 @@ namespace Dhs5.SceneCreation
             }
             #endregion
         }
-        #endregion
 
-        #region Utility
-        protected override bool ChildIsEmpty()
+        public override bool IsChildEmpty()
         {
             return !sceneTimelines.IsValid();
         }

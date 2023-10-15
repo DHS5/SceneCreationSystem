@@ -10,7 +10,7 @@ using System.Runtime.Remoting.Contexts;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public abstract class BaseSceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant
+    public abstract class BaseSceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant, SceneState.ISceneLogable
     {
         #region Detail
         [Serializable]
@@ -114,17 +114,15 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneLog
-        public string Log()
+        public override string ToString()
         {
-            StringBuilder sb = new();
-
-            sb.Append("* Event ID : ");
-            sb.Append(eventID);
-            sb.Append("\n");
-
-            return sb.ToString();
+            return "Scene Event : " + eventID;
         }
-        public List<string> LogLines(bool detailed = false, string alinea = null)
+        public string Log(bool detailed = false, bool showEmpty = false)
+        {
+            return ((SceneState.ISceneLogableWithChild)this).Log(detailed, showEmpty);
+        }
+        public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null)
         {
             List<string> lines = new();
             StringBuilder sb = new();
@@ -213,6 +211,16 @@ namespace Dhs5.SceneCreation
                 if (alinea != null) sb.Append(alinea);
             }
             #endregion
+        }
+
+        /// <returns>Whether the <see cref="BaseSceneEvent"/> has actions</returns>
+        public bool IsEmpty()
+        {
+            if (sceneActions.IsValid()) return false;
+            if (sceneParameteredEvents.IsValid()) return false;
+            if (GetUnityEvent().GetPersistentEventCount() > 0) return false;
+
+            return true;
         }
         #endregion
 

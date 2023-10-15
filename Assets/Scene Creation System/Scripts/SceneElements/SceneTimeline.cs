@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneTimeline : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant
+    public class SceneTimeline : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant, SceneState.ISceneLogable
     {
         public string ID;
         public bool loop;
@@ -137,7 +137,11 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Log
-        public List<string> LogLines(bool detailed = false)
+        public string Log(bool detailed = false, bool showEmpty = false)
+        {
+            return ((SceneState.ISceneLogableWithChild)this).Log(detailed, showEmpty);
+        }
+        public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null)
         {
             string passToLine = "Line()";
             List<string> lines = new();
@@ -164,7 +168,7 @@ namespace Dhs5.SceneCreation
                     sb.Append(i);
                     sb.Append(":");
                     Line();
-                    lines.AddRange(steps[i].LogLines(detailed, "      "));
+                    lines.AddRange(steps[i].LogLines(detailed, showEmpty, "      "));
                 }
             }
             
@@ -188,6 +192,11 @@ namespace Dhs5.SceneCreation
                 sb.Append(SceneLogger.ColorEnd);
             }
             #endregion
+        }
+
+        public bool IsEmpty()
+        {
+            return steps.IsEmpty();
         }
         #endregion
 

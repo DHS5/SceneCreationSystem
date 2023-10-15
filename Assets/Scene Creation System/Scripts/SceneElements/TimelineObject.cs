@@ -8,7 +8,7 @@ using UnityEngine.Events;
 namespace Dhs5.SceneCreation
 {    
     [Serializable]
-    public class TimelineObject : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant
+    public class TimelineObject : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant, SceneState.ISceneLogable
     {
         public string TimelineID { get; private set; }
         public int StepNumber { get; private set; }
@@ -90,7 +90,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Log
-        public List<string> LogLines(bool detailed, string alinea = null)
+        public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null)
         {
             List<string> lines = new();
             StringBuilder sb = new();
@@ -102,7 +102,7 @@ namespace Dhs5.SceneCreation
             Line();
             foreach (var events in sceneEvents)
             {
-                lines.AddRange(events.LogLines(detailed, alinea + "     "));
+                lines.AddRange(events.LogLines(detailed, showEmpty, alinea + "     "));
             }
 
             if (loop)
@@ -121,6 +121,11 @@ namespace Dhs5.SceneCreation
                 if (alinea != null) sb.Append(alinea);
             }
             #endregion
+        }
+
+        public bool IsEmpty()
+        {
+            return sceneEvents.IsEmpty();
         }
         #endregion
 

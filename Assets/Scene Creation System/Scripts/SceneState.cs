@@ -799,11 +799,27 @@ namespace Dhs5.SceneCreation
 
                 return sb.ToString();
             }
-            public List<string> LogLines(bool detailed = false, bool showEmpty = false);
+            public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null);
+
+            /// <returns>Whether the <see cref="ISceneLogable"/> is empty</returns>
+            public bool IsEmpty();
         }
         public interface ISceneLogableWithChild : ISceneLogable
         {
-            public void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty);
+            public void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null);
+            public bool IsChildEmpty();
+        }
+
+        public static bool IsEmpty<T>(this List<T> list) where T : ISceneLogable
+        {
+            if (!list.IsValid()) return true;
+
+            foreach (var l in list)
+            {
+                if (!l.IsEmpty()) return false;
+            }
+
+            return true;
         }
 
         #endregion
@@ -1239,6 +1255,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneSpecificListeners Set Events
+        /// <inheritdoc cref="SceneSpecificListener.SetEvents(Action{SceneEventParam})"/>
         public static void SetEvents(this List<SceneSpecificListener> listeners, Action<SceneEventParam> _events)
         {
             if (listeners == null || listeners.Count <= 0) return;

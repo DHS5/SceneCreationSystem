@@ -4,10 +4,12 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Scripting;
 using System.Text;
+using System.Runtime.CompilerServices;
+using UnityEditor.PackageManager;
 
 namespace Dhs5.SceneCreation
 {
-    public abstract class BaseSceneObject : MonoBehaviour
+    public abstract class BaseSceneObject : MonoBehaviour, SceneState.ISceneLogableWithChild
     {
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
@@ -544,6 +546,177 @@ namespace Dhs5.SceneCreation
 
         #endregion
 
+        #endregion
+
+        #region SceneLog
+        [ContextMenu("Display Log")]
+        private void DisplayLog()
+        {
+            Debug.Log(Log(true, true));
+        }
+
+        public string Log(bool detailed = false, bool showEmpty = false)
+        {
+            return ((SceneState.ISceneLogableWithChild)this).Log(detailed, showEmpty);
+        }
+        
+        public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null)
+        {
+            string passToLine = "Line()";
+            List<string> lines = new();
+            StringBuilder sb = new();
+
+            // First Alinea
+            if (alinea != null) sb.Append(alinea);
+
+            // Register elements
+            RegisterSceneElements();
+
+            // Scene Object compartiment
+            AppendColor(SceneLogger.SceneObjectColor, "--------------------------------------------------");
+            Line();
+
+            // LISTENERS
+            if (showEmpty || SceneListenersDico.IsReallyValid())
+            {
+                AppendColor(SceneLogger.ListenerColor, "Listeners :", passToLine, "----------------------------------------");
+                Line();
+
+                foreach (var pair in SceneListenersDico)
+                {
+                    AppendColor(SceneLogger.ListenerColor, pair.Key, " :");
+                    Line();
+
+                    if (!pair.Value.IsValid()) continue;
+
+                    foreach (var listener in pair.Value)
+                    {
+                        if (showEmpty || !listener.IsEmpty())
+                            lines.AddRange(listener.LogLines(detailed, showEmpty, alinea + "   "));
+                    }
+                }
+
+                AppendColor(SceneLogger.ListenerColor, "----------------------------------------");
+                Line();
+            }
+
+            // EVENTS
+            if (showEmpty || SceneEventsDico.IsReallyValid())
+            {
+                AppendColor(SceneLogger.EventColor, "Events :", passToLine, "----------------------------------------");
+                Line();
+
+                foreach (var pair in SceneEventsDico)
+                {
+                    AppendColor(SceneLogger.EventColor, pair.Key, " :");
+                    Line();
+
+                    if (!pair.Value.IsValid()) continue;
+
+                    foreach (var events in pair.Value)
+                    {
+                        if (showEmpty || !events.IsEmpty())
+                            lines.AddRange(events.LogLines(detailed, showEmpty, alinea + "   "));
+                    }
+                }
+
+                AppendColor(SceneLogger.EventColor, "----------------------------------------");
+                Line();
+            }
+
+            // CHILD LOG
+            ChildLog(lines, sb, detailed, showEmpty);
+            sb.Clear();
+
+            // TWEENS
+            if (showEmpty || TweensDico.IsValid())
+            {
+                AppendColor(SceneLogger.TweenColor, "Tweens :", passToLine, "----------------------------------------");
+                Line();
+
+                foreach (var pair in TweensDico)
+                {
+                    AppendColor(SceneLogger.TweenColor, "   * ");
+                    AppendBold(pair.Key);
+                    sb.Append(" : ");
+                    sb.Append(pair.Value.LogString());
+                    Line();
+                }
+
+                AppendColor(SceneLogger.TweenColor, "----------------------------------------");
+                Line();
+            }
+
+            // SCRIPTABLES
+            if (showEmpty || SceneScriptablesList.IsValid())
+            {
+                AppendColor(SceneLogger.TweenColor, "Scriptables :", passToLine, "----------------------------------------");
+                Line();
+
+                foreach (var scriptable in SceneScriptablesList)
+                {
+                    AppendColor(SceneLogger.TweenColor, "   * ");
+                    AppendBold(scriptable.name);
+                    sb.Append(" :");
+                    Line();
+
+                    //lines.AddRange(scriptable.LogLines(detailed, showEmpty, alinea + "   "));
+                }
+
+                AppendColor(SceneLogger.TweenColor, "----------------------------------------");
+                Line();
+            }
+
+            AppendColor(SceneLogger.SceneObjectColor, "--------------------------------------------------");
+            lines.Add(sb.ToString());
+
+            return lines;
+
+            #region Local
+            void Line()
+            {
+                sb.Append('\n');
+                lines.Add(sb.ToString());
+                sb.Clear();
+                if (alinea != null) sb.Append(alinea);
+            }
+            void AppendColor(string color, params string[] strings)
+            {
+                sb.Append(color);
+                foreach (var s in strings)
+                {
+                    if (s == passToLine) Line();
+                    else sb.Append(s);
+                }
+                sb.Append(SceneLogger.ColorEnd);
+            }
+            void AppendBold(params string[] strings)
+            {
+                sb.Append(SceneLogger.Bold);
+                foreach (var s in strings)
+                {
+                    if (s == passToLine) Line();
+                    else sb.Append(s);
+                }
+                sb.Append(SceneLogger.BoldEnd);
+            }
+            #endregion
+        }
+        public bool IsEmpty()
+        {
+            RegisterSceneElements();
+
+            if (SceneListenersDico.IsReallyValid()) return false;
+            if (SceneEventsDico.IsReallyValid()) return false;
+            if (!IsChildEmpty()) return false;
+            if (TweensDico.IsValid()) return false;
+            if (SceneScriptablesList.IsValid()) return false;
+
+            return true;
+        }
+
+        public abstract void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null);
+        public abstract bool IsChildEmpty();
         #endregion
 
         #region Utility

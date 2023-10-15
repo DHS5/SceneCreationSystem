@@ -8,7 +8,7 @@ using System.Text;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public abstract class BaseSceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneSubscribable, SceneState.ISceneVarDependant
+    public abstract class BaseSceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneSubscribable, SceneState.ISceneVarDependant, SceneState.ISceneLogableWithChild
     {
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
@@ -102,12 +102,13 @@ namespace Dhs5.SceneCreation
 
             return sb.ToString();
         }
-        public List<string> LogLines(bool detailed = false)
+        public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null)
         {
-            if (IsEmpty()) return new();
-
             List<string> lines = new();
             StringBuilder sb = new();
+
+            // First Alinea
+            if (alinea != null) sb.Append(alinea);
 
             sb.Append(SceneLogger.ListenerColor);
             sb.Append("|");
@@ -137,7 +138,7 @@ namespace Dhs5.SceneCreation
                     }
                 }
 
-                lines.AddRange(ChildLog(detailed));
+                ChildLog(lines, sb, detailed, showEmpty, alinea);
             }
 
             return lines;
@@ -148,15 +149,19 @@ namespace Dhs5.SceneCreation
                 sb.Append('\n');
                 lines.Add(sb.ToString());
                 sb.Clear();
+                if (alinea != null) sb.Append(alinea);
             }
             #endregion
         }
-        protected virtual bool IsEmpty()
-        {
-            return false;
-        }
 
-        protected abstract List<string> ChildLog(bool detailed = false);
+        /// <returns>Whether the <see cref="BaseSceneListener"/> has actions</returns>
+        public bool IsEmpty()
+        {
+            return IsChildEmpty();
+        }
+        public abstract void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null);
+        public abstract bool IsChildEmpty();
+
         #endregion
 
         #region Dependencies
@@ -207,12 +212,13 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneLog
-        protected override List<string> ChildLog(bool detailed = false)
+        public override void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null)
         {
-            if (!detailed) return new();
+            // Clear String Builder
+            sb.Clear();
 
-            List<string> lines = new();
-            StringBuilder sb = new();
+            // First Alinea
+            if (alinea != null) sb.Append(alinea);
 
             if (events.GetPersistentEventCount() > 0)
             {
@@ -242,18 +248,17 @@ namespace Dhs5.SceneCreation
                 }
             }
 
-            return lines;
-
             #region Local
             void Line()
             {
                 sb.Append('\n');
                 lines.Add(sb.ToString());
                 sb.Clear();
+                if (alinea != null) sb.Append(alinea);
             }
             #endregion
         }
-        protected override bool IsEmpty()
+        public override bool IsChildEmpty()
         {
             return events.GetPersistentEventCount() <= 0 && triggers.Count <= 0;
         }
@@ -270,6 +275,11 @@ namespace Dhs5.SceneCreation
         {
             events.Invoke(_param);
         }
+        /// <summary>
+        /// Sets the event to invoke by the <see cref="SceneSpecificListener"/>
+        /// </summary>
+        /// <remarks>Call this function in <see cref="BaseSceneObject.UpdateSceneVariables"/> to make the event appear in the Scene Log</remarks>
+        /// <param name="_events">Event to invoke</param>
         public void SetEvents(Action<SceneEventParam> _events)
         {
             events = _events;
@@ -277,16 +287,17 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneLog
-        protected override List<string> ChildLog(bool detailed = false)
+        public override void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null)
         {
-            if (!detailed) return new();
+            // Clear String Builder
+            sb.Clear();
 
-            List<string> lines = new();
-            StringBuilder sb = new();
+            // First Alinea
+            if (alinea != null) sb.Append(alinea);
 
             if (events != null)
             {
-                sb.Append("   * EVENT : ");
+                sb.Append("   * EVENT :");
                 Line();
                 sb.Append("      --> ");
                 sb.Append(events.Target.ToString());
@@ -294,8 +305,12 @@ namespace Dhs5.SceneCreation
                 sb.Append(events.Method.Name);
                 Line();
             }
-
-            return lines;
+            else if (!Application.isPlaying)
+            {
+                sb.Append("   * EVENT : attached at runtime");
+                lines.Add(sb.ToString());
+                return;
+            }
 
             #region Local
             void Line()
@@ -305,6 +320,11 @@ namespace Dhs5.SceneCreation
                 sb.Clear();
             }
             #endregion
+        }
+
+        public override bool IsChildEmpty()
+        {
+            return false;
         }
         #endregion
     }

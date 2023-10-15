@@ -56,7 +56,7 @@ public class TestSceneObject : SceneObject
         listeners.Unsubscribe();
     }
 
-    public override void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty)
+    public override void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null)
     {
         base.ChildLog(lines, sb, detailed, showEmpty);
 
