@@ -67,6 +67,9 @@ namespace Dhs5.SceneCreation
     public static class SceneState
     {
         private static List<SceneObject> sceneObjects = new();
+        private static List<SceneObject> onStartScene_SOs = new();
+        private static List<SceneObject> onChangeScene_SOs = new();
+        private static List<SceneObject> onGameOver_SOs = new();
 
         private static Dictionary<int, SceneVar> SceneVariables = new();
         private static Dictionary<int, ComplexSceneVar> ComplexSceneVariables = new();
@@ -79,40 +82,54 @@ namespace Dhs5.SceneCreation
             if (sceneObjects.Contains(sceneObject)) return;
 
             sceneObjects.Add(sceneObject);
+
+            if (sceneObject.DoStartScene)
+                onStartScene_SOs.Add(sceneObject);
+            if (sceneObject.DoChangeScene)
+                onChangeScene_SOs.Add(sceneObject);
+            if (sceneObject.DoGameOver)
+                onGameOver_SOs.Add(sceneObject);
         }
         public static void Unregister(SceneObject sceneObject)
         {
             if (!sceneObjects.Contains(sceneObject)) return;
 
             sceneObjects.Remove(sceneObject);
+
+            if (sceneObject.DoStartScene)
+                onStartScene_SOs.Remove(sceneObject);
+            if (sceneObject.DoChangeScene)
+                onChangeScene_SOs.Remove(sceneObject);
+            if (sceneObject.DoGameOver)
+                onGameOver_SOs.Remove(sceneObject);
         }
         public static void StartScene()
         {
-            if (sceneObjects.IsValid()) return;
+            if (onStartScene_SOs.IsValid()) return;
 
-            foreach (SceneObject sceneObject in sceneObjects)
+            foreach (SceneObject sceneObject in onStartScene_SOs)
             {
-                if (sceneObject != null && sceneObject.enabled && sceneObject.DoStartScene)
+                if (sceneObject != null && sceneObject.enabled)
                     sceneObject.OnStartScene();
             }
         }
         public static void ChangeScene()
         {
-            if (sceneObjects.IsValid()) return;
+            if (onChangeScene_SOs.IsValid()) return;
 
-            foreach (SceneObject sceneObject in sceneObjects)
+            foreach (SceneObject sceneObject in onChangeScene_SOs)
             {
-                if (sceneObject != null && sceneObject.enabled && sceneObject.DoChangeScene)
+                if (sceneObject != null && sceneObject.enabled)
                     sceneObject.OnChangeScene();
             }
         }
         public static void GameOver()
         {
-            if (sceneObjects.IsValid()) return;
+            if (onGameOver_SOs.IsValid()) return;
 
-            foreach (SceneObject sceneObject in sceneObjects)
+            foreach (SceneObject sceneObject in onGameOver_SOs)
             {
-                if (sceneObject != null && sceneObject.enabled && sceneObject.DoGameOver)
+                if (sceneObject != null && sceneObject.enabled)
                     sceneObject.OnGameOver();
             }
         }
@@ -768,6 +785,29 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        #region Log
+        public interface ISceneLogable
+        {
+            public string Log(bool detailed = false, bool showEmpty = false)
+            {
+                StringBuilder sb = new();
+
+                foreach (var l in LogLines(detailed, showEmpty))
+                {
+                    sb.Append(l);
+                }
+
+                return sb.ToString();
+            }
+            public List<string> LogLines(bool detailed = false, bool showEmpty = false);
+        }
+        public interface ISceneLogableWithChild : ISceneLogable
+        {
+            public void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty);
+        }
+
+        #endregion
+
         #region Scene Condition list verification (Extension Method)
         public static bool VerifyConditions(this List<SceneCondition> conditions)
         {
@@ -982,6 +1022,10 @@ namespace Dhs5.SceneCreation
             foreach (var sceneEvent in sceneEvents)
             {
                 sceneEvent?.Trigger();
+                if (sceneEvent == null || sceneEvent.ReachedTriggerLimit)
+                {
+                    sceneEvents.Remove(sceneEvent);
+                }
             }
         }
         /// <summary>
@@ -1002,6 +1046,10 @@ namespace Dhs5.SceneCreation
             foreach (var sceneEvent in events)
             {
                 sceneEvent?.Trigger();
+                if (sceneEvent == null || sceneEvent.ReachedTriggerLimit)
+                {
+                    sceneEvents.Remove(sceneEvent);
+                }
             }
         }
         /// <summary>
@@ -1017,6 +1065,10 @@ namespace Dhs5.SceneCreation
             foreach (var sceneEvent in sceneEvents)
             {
                 sceneEvent?.Trigger(value);
+                if (sceneEvent == null || sceneEvent.ReachedTriggerLimit)
+                {
+                    sceneEvents.Remove(sceneEvent);
+                }
             }
         }
         /// <summary>
@@ -1038,109 +1090,105 @@ namespace Dhs5.SceneCreation
             foreach (var sceneEvent in events)
             {
                 sceneEvent?.Trigger(value);
-            }
-        }
-        
-        public static void TriggerAndRemove<T>(this List<T> sceneEvents, string ID, int triggerNumber) where T : BaseSceneEvent
-        {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-
-            if (string.IsNullOrEmpty(ID)) return;
-
-            List<T> events = new();
-            events = sceneEvents.FindAll(e => e.eventID == ID);
-
-            foreach (var sceneEvent in events)
-            {
-                sceneEvent.Trigger(triggerNumber);
-                if (sceneEvent.TriggerNumberLeft == 0)
+                if (sceneEvent == null || sceneEvent.ReachedTriggerLimit)
+                {
                     sceneEvents.Remove(sceneEvent);
+                }
             }
         }
+
         /// <summary>
-        /// Triggers one (or more) <see cref="SceneEvent"/> with the eventID <paramref name="ID"/><br></br>
-        /// and remove from list after triggering <paramref name="triggerNumber"/> times
+        /// Triggers and remove every <see cref="BaseSceneEvent"/> in <paramref name="sceneEvents"/>
         /// </summary>
-        /// <param name="sceneEvents"></param>
-        /// <param name="ID"></param>
-        /// <param name="triggerNumber"></param>
-        public static void TriggerAndRemove(this List<SceneEvent> sceneEvents, string ID, int triggerNumber)
-        {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-
-            if (string.IsNullOrEmpty(ID)) return;
-
-            List<SceneEvent> events = new();
-            events = sceneEvents.FindAll(e => e.eventID == ID);
-
-            foreach (var sceneEvent in events)
-            {
-                sceneEvent.Trigger(triggerNumber);
-                if (sceneEvent.TriggerNumberLeft == 0)
-                    sceneEvents.Remove(sceneEvent);
-            }
-        }
-        public static void TriggerAndRemove<T>(this List<SceneEvent<T>> sceneEvents, T value, string ID, int triggerNumber)
-        {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-
-            if (string.IsNullOrEmpty(ID)) return;
-
-            List<SceneEvent<T>> events = new();
-            events = sceneEvents.FindAll(e => e.eventID == ID);
-
-            foreach (var sceneEvent in events)
-            {
-                sceneEvent.Trigger(value, triggerNumber);
-                if (sceneEvent.TriggerNumberLeft == 0)
-                    sceneEvents.Remove(sceneEvent);
-            }
-        }
-        public static void TriggerAndRemoveAll<T>(this List<T> sceneEvents, int triggerNumber) where T : BaseSceneEvent
+        /// <typeparam name="T"><see cref="BaseSceneEvent"/></typeparam>
+        /// <param name="sceneEvents">List of <see cref="BaseSceneEvent"/>s to trigger</param>
+        /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
+        public static void TriggerAndRemove<T>(this List<T> sceneEvents, bool onlyIfTriggered) where T : BaseSceneEvent
         {
             if (!sceneEvents.IsValid()) return;
 
-            List<T> events = new(sceneEvents);
+            foreach (var sceneEvent in sceneEvents.Copy())
+            {
+                if (sceneEvent == null || (sceneEvent.Trigger() && onlyIfTriggered))
+                {
+                    sceneEvents.Remove(sceneEvent);
+                }
+            }
+
+            if (!onlyIfTriggered) sceneEvents.Clear();
+        }
+        /// <summary>
+        /// Triggers and remove every <see cref="BaseSceneEvent"/> with <see cref="BaseSceneEvent.eventID"/> = <paramref name="ID"/> in <paramref name="sceneEvents"/>
+        /// </summary>
+        /// <typeparam name="T"><see cref="BaseSceneEvent"/></typeparam>
+        /// <param name="sceneEvents">List of <see cref="BaseSceneEvent"/>s to trigger</param>
+        /// <param name="ID">ID of the <see cref="BaseSceneEvent"/>s to trigger</param>
+        /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
+        public static void TriggerAndRemoveWithID<T>(this List<T> sceneEvents, string ID, bool onlyIfTriggered) where T : BaseSceneEvent
+        {
+            if (!sceneEvents.IsValid()) return;
+
+            ID ??= "";
+            List<T> events = sceneEvents.FindAll(e => e.eventID == ID);
+
+            if (!events.IsValid()) return;
 
             foreach (var sceneEvent in events)
             {
-                sceneEvent.Trigger(triggerNumber);
-                if (sceneEvent.TriggerNumberLeft == 0)
+                if (sceneEvent == null || sceneEvent.Trigger() || !onlyIfTriggered)
+                {
                     sceneEvents.Remove(sceneEvent);
+                }
             }
         }
         /// <summary>
-        /// Triggers one (or more) <see cref="SceneEvent"/> with the eventID <paramref name="ID"/><br></br>
-        /// and remove from list after triggering <paramref name="triggerNumber"/> times
+        /// Triggers and remove every <see cref="SceneEvent{T}"/> in <paramref name="sceneEvents"/>
         /// </summary>
-        /// <param name="sceneEvents"></param>
-        /// <param name="triggerNumber"></param>
-        public static void TriggerAndRemoveAll(this List<SceneEvent> sceneEvents, int triggerNumber)
+        /// <typeparam name="T"><see cref="SceneEvent{T}"/></typeparam>
+        /// <param name="sceneEvents">List of <see cref="SceneEvent{T}"/>s to trigger</param>
+        /// <param name="value">Value of the trigger paramater</param>
+        /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
+        public static void TriggerAndRemove<T>(this List<SceneEvent<T>> sceneEvents, T value, bool onlyIfTriggered)
         {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
+            if (!sceneEvents.IsValid()) return;
 
-            List<SceneEvent> events = new(sceneEvents);
+            foreach (var sceneEvent in sceneEvents)
+            {
+                if (sceneEvent == null || (sceneEvent.Trigger(value) && onlyIfTriggered))
+                {
+                    sceneEvents.Remove(sceneEvent);
+                }
+            }
+
+            if (!onlyIfTriggered) sceneEvents.Clear();
+        }
+        /// <summary>
+        /// Triggers and remove every <see cref="SceneEvent{T}"/> with <see cref="BaseSceneEvent.eventID"/> = <paramref name="ID"/> in <paramref name="sceneEvents"/>
+        /// </summary>
+        /// <typeparam name="T"><see cref="SceneEvent{T}"/></typeparam>
+        /// <param name="sceneEvents">List of <see cref="SceneEvent{T}"/>s to trigger</param>
+        /// <param name="value">Value of the trigger paramater</param>
+        /// <param name="ID">ID of the <see cref="SceneEvent{T}"/>s to trigger</param>
+        /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
+        public static void TriggerAndRemoveWithID<T>(this List<SceneEvent<T>> sceneEvents, T value, string ID, bool onlyIfTriggered)
+        {
+            if (!sceneEvents.IsValid()) return;
+
+            ID ??= "";
+            List<SceneEvent<T>> events = sceneEvents.FindAll(e => e.eventID == ID);
+
+            if (!events.IsValid()) return;
 
             foreach (var sceneEvent in events)
             {
-                sceneEvent.Trigger(triggerNumber);
-                if (sceneEvent.TriggerNumberLeft == 0)
+                if (sceneEvent == null || sceneEvent.Trigger(value) || !onlyIfTriggered)
+                {
                     sceneEvents.Remove(sceneEvent);
+                }
             }
         }
-        public static void TriggerAndRemoveAll<T>(this List<SceneEvent<T>> sceneEvents, T value, int triggerNumber)
-        {
-            if (sceneEvents == null || sceneEvents.Count < 1) return;
-
-            List<SceneEvent<T>> events = new(sceneEvents);
-
-            foreach (var sceneEvent in events)
-            {
-                sceneEvent.Trigger(value, triggerNumber);
-                if (sceneEvent.TriggerNumberLeft == 0)
-                    sceneEvents.Remove(sceneEvent);
-            }
-        }
+        
+        
         #endregion
 
         #region Trigger a list of SceneActions or SceneParameteredEvents (Extension Method)

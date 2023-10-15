@@ -12,6 +12,29 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public abstract class BaseSceneEvent : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant
     {
+        #region Detail
+        [Serializable]
+        public class Details
+        {
+            [SerializeField] private bool debug = false;
+            [SerializeField] private bool limitedTrigger = false;
+            [SerializeField] private int maxTriggerCount = 1;
+
+            private int triggerCount = 0;
+
+
+            public bool Debug => debug;
+
+            public int TriggerCount => triggerCount;
+            public bool ReachedTriggerLimit => limitedTrigger && triggerCount >= maxTriggerCount;
+
+            public void Trigger()
+            {
+                triggerCount++;
+            }
+        }
+        #endregion
+
         public string eventID;
         [Space(5)]
 
@@ -21,34 +44,29 @@ namespace Dhs5.SceneCreation
 
         public List<SceneParameteredEvent> sceneParameteredEvents;
 
+        [SerializeField] protected Details details;
+
         protected SceneObject sceneObject;
         protected SceneContext context;
 
         protected abstract UnityEventBase GetUnityEvent();
 
         #region Trigger Count
-        public int TriggerNumberLeft { get; private set; } = -1;
-        bool triggerCount = false;
-
-        protected void SetTriggerCount(int triggerNumber)
-        {
-            if (!triggerCount && triggerNumber != -1)
-            {
-                TriggerNumberLeft = triggerNumber;
-                triggerCount = true;
-            }
-        }
+        /// <summary>
+        /// How many times this event has been triggered
+        /// </summary>
+        public int TriggerCount => details.TriggerCount;
+        /// <summary>
+        /// Whether this event reached his trigger limit
+        /// </summary>
+        public bool ReachedTriggerLimit => details.ReachedTriggerLimit;
         #endregion
 
         #region Trigger
-        public abstract bool Trigger(int triggerNumber = -1);
-        protected bool IsTriggerValid(int triggerNumber = -1)
+        public abstract bool Trigger();
+        protected bool IsTriggerValid()
         {
             if (!sceneConditions.VerifyConditions()) return false;
-
-            SetTriggerCount(triggerNumber);
-
-            if (triggerCount) TriggerNumberLeft--;
 
             context = new SceneContext(sceneObject.name);
             context.Add("Trigger : " + eventID);
@@ -60,6 +78,7 @@ namespace Dhs5.SceneCreation
         {
             sceneActions.Trigger(context);
             sceneParameteredEvents.Trigger();
+            details.Trigger();
         }
         #endregion
 
@@ -83,7 +102,10 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Debug
-        protected abstract bool DebugCondition();
+        protected virtual bool DebugCondition()
+        {
+            return details.Debug;
+        }
         protected void DebugSceneEvent()
         {
             if (DebugCondition())
@@ -218,11 +240,9 @@ namespace Dhs5.SceneCreation
     {
         public UnityEvent unityEvent;
 
-        public bool debug = false;
-
-        public override bool Trigger(int triggerNumber = -1)
+        public override bool Trigger()
         {
-            if (IsTriggerValid(triggerNumber))
+            if (IsTriggerValid())
             {
                 CoreTrigger();
                 unityEvent?.Invoke();
@@ -238,22 +258,15 @@ namespace Dhs5.SceneCreation
         {
             return unityEvent;
         }
-
-        protected override bool DebugCondition()
-        {
-            return debug;
-        }
     }
     [Serializable]
     public class SceneEvent<T> : BaseSceneEvent
     {
         public UnityEvent<T> unityEvent;
 
-        public bool debug = false;
-
-        public override bool Trigger(int triggerNumber = -1)
+        public override bool Trigger()
         {
-            if (IsTriggerValid(triggerNumber))
+            if (IsTriggerValid())
             {
                 CoreTrigger();
                 unityEvent?.Invoke(default);
@@ -265,9 +278,9 @@ namespace Dhs5.SceneCreation
             return false;
         }
 
-        public bool Trigger(T param, int triggerNumber = -1)
+        public bool Trigger(T param)
         {
-            if (IsTriggerValid(triggerNumber))
+            if (IsTriggerValid())
             {
                 // Context
                 if (param is SceneEventParam p)
@@ -289,11 +302,6 @@ namespace Dhs5.SceneCreation
         protected override UnityEventBase GetUnityEvent()
         {
             return unityEvent;
-        }
-
-        protected override bool DebugCondition()
-        {
-            return debug;
         }
     }
 

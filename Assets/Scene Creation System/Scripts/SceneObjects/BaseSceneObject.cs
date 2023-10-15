@@ -479,6 +479,15 @@ namespace Dhs5.SceneCreation
             profile.Trigger();
             return true;
         }
+        public bool TriggerProfileAtIndex(int index)
+        {
+            SceneProfile profile = GetProfileAtIndex(index);
+
+            if (profile == null) return false;
+
+            profile.Trigger();
+            return true;
+        }
         // ----- EDITOR -----
         public void Profiles_TriggerAll()
         {
@@ -494,21 +503,31 @@ namespace Dhs5.SceneCreation
             foreach (var profile in SceneProfiles)
                 profile.TriggerWithID(eventID);
         }
-        public void Profiles_TriggerAndRemoveAll(int triggerNumber)
+        /// <summary>
+        /// For every <see cref="SceneProfile"/> in <see cref="SceneProfiles"/> :<br></br>
+        /// ""<inheritdoc cref="SceneProfile.TriggerAndRemove(bool)"/> ""
+        /// </summary>
+        /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
+        public void Profiles_TriggerAndRemoveAll(bool onlyIfTriggered)
         {
             if (!SceneProfiles.IsValid()) return;
 
             foreach (var profile in SceneProfiles)
-                profile.TriggerAndRemoveAll(triggerNumber);
+                profile.TriggerAndRemove(onlyIfTriggered);
         }
         // ----- COMPLEXE -----
-        [Preserve]
-        public void Profiles_TriggerAndRemoveWithID(string eventID, int triggerNumber)
+        /// <summary>
+        /// For every <see cref="SceneProfile"/> in <see cref="SceneProfiles"/> :<br></br>
+        /// ""<inheritdoc cref="SceneProfile.TriggerAndRemoveWithID(string, bool)"/> ""
+        /// </summary>
+        /// <param name="eventID">ID of the <see cref="BaseSceneEvent"/>s to trigger</param>
+        /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
+        [Preserve] public void Profiles_TriggerAndRemoveWithID(string eventID, bool onlyIfTriggered)
         {
             if (!SceneProfiles.IsValid()) return;
 
             foreach (var profile in SceneProfiles)
-                profile.TriggerAndRemoveWithID(eventID, triggerNumber);
+                profile.TriggerAndRemoveWithID(eventID, onlyIfTriggered);
         }
         // ----- RANDOM -----
         public bool TriggerRandomInProfileOfType<T>(bool remove = false, string filter = null) where T : SceneProfile

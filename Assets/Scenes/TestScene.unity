@@ -347,6 +347,10 @@ MonoBehaviour:
           sceneConditions: []
           sceneActions: []
           sceneParameteredEvents: []
+          details:
+            debug: 0
+            limitedTrigger: 0
+            maxTriggerCount: 1
           unityEvent:
             m_PersistentCalls:
               m_Calls:
@@ -362,7 +366,6 @@ MonoBehaviour:
                   m_StringArgument: 
                   m_BoolArgument: 0
                 m_CallState: 2
-          debug: 1
 --- !u!4 &503539152
 Transform:
   m_ObjectHideFlags: 0
@@ -970,10 +973,13 @@ MonoBehaviour:
     sceneConditions: []
     sceneActions: []
     sceneParameteredEvents: []
+    details:
+      debug: 0
+      limitedTrigger: 0
+      maxTriggerCount: 1
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
-    debug: 0
   baseClasses: []
   references:
     version: 2
@@ -2529,6 +2535,10 @@ MonoBehaviour:
     sceneConditions: []
     sceneActions: []
     sceneParameteredEvents: []
+    details:
+      debug: 0
+      limitedTrigger: 0
+      maxTriggerCount: 1
     unityEvent:
       m_PersistentCalls:
         m_Calls:
@@ -2544,11 +2554,14 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    debug: 0
   - eventID: TriggerAndRemove
     sceneConditions: []
     sceneActions: []
     sceneParameteredEvents: []
+    details:
+      debug: 0
+      limitedTrigger: 0
+      maxTriggerCount: 1
     unityEvent:
       m_PersistentCalls:
         m_Calls:
@@ -2564,7 +2577,6 @@ MonoBehaviour:
             m_StringArgument: Oups
             m_BoolArgument: 0
           m_CallState: 2
-    debug: 0
   listeners:
   - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     varUniqueID: 9478
@@ -2898,6 +2910,10 @@ PrefabInstance:
       value: Oups
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
+      propertyPath: sceneEvents.Array.data[0].details.debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneListeners.Array.data[0].varUniqueID
       value: 4629
       objectReference: {fileID: 0}
@@ -3099,7 +3115,7 @@ PrefabInstance:
       objectReference: {fileID: 1156838773}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].metadataToken
-      value: 100663308
+      value: 100663315
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[1].action.target
@@ -3131,7 +3147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].propertyHeight
-      value: 187.20001
+      value: 155.7
       objectReference: {fileID: 0}
     - target: {fileID: 1370280596734855538, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
       propertyPath: sceneEvents.Array.data[0].sceneParameteredEvents.Array.data[0].varTween0.type

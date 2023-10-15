@@ -84,11 +84,11 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Log
-        protected override void ChildLog(List<string> lines, StringBuilder sb, bool detailed)
+        public override void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty)
         {
             string passToLine = "Line()";
 
-            base.ChildLog(lines, sb, detailed);
+            base.ChildLog(lines, sb, detailed, showEmpty);
 
             AppendColor(SceneLogger.TimelineColor, "Timelines :");
             Line();

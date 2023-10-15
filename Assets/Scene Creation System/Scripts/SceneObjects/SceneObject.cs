@@ -9,7 +9,7 @@ using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 namespace Dhs5.SceneCreation
 {
     [DisallowMultipleComponent]
-    public class SceneObject : MonoBehaviour, SceneState.ISceneVarDependant
+    public class SceneObject : MonoBehaviour, SceneState.ISceneVarDependant, SceneState.ISceneLogableWithChild
     {
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
@@ -171,19 +171,6 @@ namespace Dhs5.SceneCreation
         {
             TriggerSceneEventsWithID(eventID, default);
         }
-        public void TriggerSceneEventAndRemove(string eventID)
-        {
-            TriggerSceneEventAndRemove(eventID, default, 1);
-        }
-        public void TriggerAllSceneEventAndRemove(int triggerNumber)
-        {
-            TriggerAllSceneEventAndRemove(default, triggerNumber);
-        }
-        [Preserve]
-        public void TriggerSceneEventAndRemove(string eventID, int triggerNumber)
-        {
-            TriggerSceneEventAndRemove(eventID, default, triggerNumber);
-        }
         public void TriggerRandom(string filter)
         {
             TriggerRandom(filter, default);
@@ -197,38 +184,16 @@ namespace Dhs5.SceneCreation
         public void TriggerSceneEvents(SceneEventParam param)
         {
             sceneEvents.Trigger(param);
-
-            TriggerAllProfiles();
         }
         public void TriggerSceneEventsWithID(string eventID, SceneEventParam param)
         {
             sceneEvents.TriggerWithID(param, eventID);
-
-            TriggerProfilesWithID(eventID);
         }
-        /// <summary>
-        /// Trigger a <see cref="SceneEvent"/> <paramref name="triggerNumber"/> number of times then remove it from the list
-        /// </summary>
-        /// <param name="eventID"></param>
-        /// <param name="param"></param>
-        /// <param name="triggerNumber"></param>
-        public void TriggerSceneEventAndRemove(string eventID, SceneEventParam param = default, int triggerNumber = 1)
-        {
-            sceneEvents.TriggerAndRemove(param, eventID, triggerNumber);
-
-            TriggerEventInProfilesAndRemove(eventID, triggerNumber);
-        }
-        public void TriggerAllSceneEventAndRemove(SceneEventParam param = default, int triggerNumber = 1)
-        {
-            sceneEvents.TriggerAndRemoveAll(param, triggerNumber);
-
-            TriggerAllEventsInProfilesAndRemove(triggerNumber);
-        }
-        public void TriggerRandom(string filter, SceneEventParam param = default)
+        public void TriggerRandom(string filter, SceneEventParam param)
         {
             sceneEvents.TriggerRandom(param, filter);
         }
-        public void TriggerRandomAndRemove(string filter, SceneEventParam param = default)
+        public void TriggerRandomAndRemove(string filter, SceneEventParam param)
         {
             sceneEvents.TriggerRandom(param, filter, true);
         }
@@ -368,25 +333,6 @@ namespace Dhs5.SceneCreation
             foreach (var profile in sceneProfiles)
                 profile.TriggerWithID(eventID);
         }
-        [Preserve]
-        public void TriggerEventInProfilesAndRemove(string eventID, int triggerNumber)
-        {
-            if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
-
-            foreach (var profile in sceneProfiles)
-                profile.TriggerAndRemoveWithID(eventID, triggerNumber);
-        }
-        public void TriggerAllEventsInProfilesAndRemove(int triggerNumber)
-        {
-            if (sceneProfiles == null || sceneProfiles.Count <= 0) return;
-
-            foreach (var profile in sceneProfiles)
-                profile.TriggerAndRemoveAll(triggerNumber);
-        }
-        public void TriggerEventInProfilesAndRemove(string eventID)
-        {
-            TriggerEventInProfilesAndRemove(eventID, 1);
-        }
         #endregion
         
         #region Random Actions
@@ -423,7 +369,7 @@ namespace Dhs5.SceneCreation
             Debug.Log(Log(true));
         }
 
-        public string Log(bool detailed = false)
+        public string Log(bool detailed = false, bool showEmpty = false)
         {
             StringBuilder sb = new();
 
@@ -490,7 +436,7 @@ namespace Dhs5.SceneCreation
             }
 
 
-            ChildLog(lines, sb, detailed);
+            ChildLog(lines, sb, detailed, showEmpty);
 
             RegisterElements();
             if (showEmpty || SceneEventsDico.IsReallyValid())
@@ -566,7 +512,7 @@ namespace Dhs5.SceneCreation
             #endregion
         }
 
-        protected virtual void ChildLog(List<string> lines, StringBuilder sb, bool detailed) { }
+        public virtual void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty) { }
         #endregion
 
         #region Dependencies

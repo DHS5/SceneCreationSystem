@@ -137,20 +137,31 @@ namespace Dhs5.SceneCreation
             }
         }
         // ----- REMOVE -----
-        public virtual void TriggerAndRemoveAll(int triggerNumber)
+        /// <summary>
+        /// For every <see cref="BaseSceneEvent"/> list in <see cref="sceneEventsList"/> : <br></br>
+        /// "<inheritdoc cref="SceneState.TriggerAndRemove{T}(List{T}, bool)"/> "
+        /// </summary>
+        /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
+        public virtual void TriggerAndRemove(bool onlyIfTriggered)
         {
             foreach (var l in sceneEventsList)
             {
-                l.TriggerAndRemoveAll(triggerNumber);
+                l.TriggerAndRemove(onlyIfTriggered);
             }
         }
-        public virtual void TriggerAndRemoveWithID(string eventID, int triggerNumber)
+        /// <summary>
+        /// For every <see cref="BaseSceneEvent"/> list in <see cref="sceneEventsList"/> : <br></br>
+        /// "<inheritdoc cref="SceneState.TriggerAndRemoveWithID{T}(List{T}, string, bool)"/> "
+        /// </summary>
+        /// <param name="eventID">ID of the <see cref="BaseSceneEvent"/>s to trigger</param>
+        /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
+        public virtual void TriggerAndRemoveWithID(string eventID, bool onlyIfTriggered)
         {
             if (HasEvent(eventID))
             {
                 foreach (var l in sceneEventsList)
                 {
-                    l.TriggerAndRemove(eventID, triggerNumber);
+                    l.TriggerAndRemoveWithID(eventID, onlyIfTriggered);
                 }
             }
         }
