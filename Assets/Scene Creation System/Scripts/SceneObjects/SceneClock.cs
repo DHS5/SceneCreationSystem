@@ -141,7 +141,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Dependencies
-        protected override List<int> ChildDependencies()
+        public override List<int> ChildDependencies()
         {
             return sceneTimelines.Dependencies();
         }

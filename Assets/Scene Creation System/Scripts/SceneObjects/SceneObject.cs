@@ -9,7 +9,7 @@ using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 namespace Dhs5.SceneCreation
 {
     [DisallowMultipleComponent]
-    public class SceneObject : MonoBehaviour, SceneState.ISceneVarDependant, SceneState.ISceneLogableWithChild
+    public class SceneObject : MonoBehaviour, SceneState.ISceneVarDependantWithChild, SceneState.ISceneLogableWithChild
     {
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
@@ -548,9 +548,8 @@ namespace Dhs5.SceneCreation
             }
         }
         public bool DependOn(int UID) { return Dependencies.Contains(UID); }
-        public void SetForbiddenUID(int UID) { }
 
-        protected virtual List<int> ChildDependencies() { return new(); }
+        public virtual List<int> ChildDependencies() { return new(); }
         #endregion
 
         #region Editor

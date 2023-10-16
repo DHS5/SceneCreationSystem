@@ -745,6 +745,13 @@ namespace Dhs5.SceneCreation
         {
             public List<int> Dependencies { get; }
             public bool DependOn(int UID);
+        }
+        public interface ISceneVarDependantWithChild : ISceneVarDependant
+        {
+            public List<int> ChildDependencies();
+        }
+        public interface ISceneVarDependantWithProhibition : ISceneVarDependant
+        {
             public void SetForbiddenUID(int UID);
         }
         public static List<int> Dependencies<T>(this List<T> list) where T : ISceneVarDependant
@@ -776,7 +783,7 @@ namespace Dhs5.SceneCreation
             }
             return false;
         }
-        public static void SetForbiddenUID<T>(this List<T> list, int UID) where T : ISceneVarDependant
+        public static void SetForbiddenUID<T>(this List<T> list, int UID) where T : ISceneVarDependantWithProhibition
         {
             foreach (var dependant in list)
             {

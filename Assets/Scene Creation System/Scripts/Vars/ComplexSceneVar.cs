@@ -15,7 +15,7 @@ namespace Dhs5.SceneCreation
     }
 
     [System.Serializable]
-    public class ComplexSceneVar : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependant
+    public class ComplexSceneVar : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependantWithProhibition
     {
         #region SetUp
         public void SetUp(SceneVariablesSO sceneVariablesSO)

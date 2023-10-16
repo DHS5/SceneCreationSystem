@@ -7,7 +7,7 @@ using System.Text;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneCondition : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependant
+    public class SceneCondition : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependantWithProhibition
     {
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
 

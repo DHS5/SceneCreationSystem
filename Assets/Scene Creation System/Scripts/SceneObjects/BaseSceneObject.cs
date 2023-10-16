@@ -9,7 +9,7 @@ using UnityEditor.PackageManager;
 
 namespace Dhs5.SceneCreation
 {
-    public abstract class BaseSceneObject : MonoBehaviour, SceneState.ISceneLogableWithChild
+    public abstract class BaseSceneObject : MonoBehaviour, SceneState.ISceneLogableWithChild, SceneState.ISceneVarDependantWithChild
     {
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
@@ -337,27 +337,28 @@ namespace Dhs5.SceneCreation
 
         #endregion
 
+
         #region SceneObject's specifics
-        public abstract bool DoStartScene { get; }
+        public virtual bool DoStartScene => false;
         /// <summary>
         /// Called on <see cref="SceneManager.StartScene"/> once the <see cref="SceneState"/> has been set up.
         /// </summary>
         /// <remarks>Must set <see cref="DoStartScene"/> to TRUE to be called.</remarks>
-        public virtual void OnStartScene() { }
+        public virtual bool OnStartScene() { return true; }
 
-        public abstract bool DoChangeScene { get; }
+        public virtual bool DoChangeScene => false;
         /// <summary>
         /// Called on <see cref="SceneManager.ChangeScene"/> when the Scene is going to change.
         /// </summary>
         /// <remarks>Must set <see cref="DoChangeScene"/> to TRUE to be called.</remarks>
-        public virtual void OnChangeScene() { }
+        public virtual bool OnChangeScene() { return true; }
 
-        public abstract bool DoGameOver { get; }
+        public virtual bool DoGameOver => false;
         /// <summary>
         /// Called on <see cref="SceneManager.GameOver"/> when the game is over.
         /// </summary>
         /// <remarks>Must set <see cref="DoGameOver"/> to TRUE to be called.</remarks>
-        public virtual void OnGameOver() { }
+        public virtual bool OnGameOver() { return true; }
         #endregion
 
         #region Profiles
@@ -376,7 +377,7 @@ namespace Dhs5.SceneCreation
 
             if (!profiles.IsValid()) return;
 
-            ClearProfiles();
+            Profiles_Clear();
 
             foreach (var profile in profiles)
                 AddProfile(profile);
@@ -419,7 +420,7 @@ namespace Dhs5.SceneCreation
             return result;
         }
 
-        public void ClearProfiles()
+        public void Profiles_Clear()
         {
             if (!SceneProfiles.IsValid())
             {
@@ -552,12 +553,12 @@ namespace Dhs5.SceneCreation
         [ContextMenu("Display Log")]
         private void DisplayLog()
         {
-            Debug.Log(Log(true, true));
+            Debug.Log(Log());
         }
 
-        public string Log(bool detailed = false, bool showEmpty = false)
+        public string Log()
         {
-            return ((SceneState.ISceneLogableWithChild)this).Log(detailed, showEmpty);
+            return ((SceneState.ISceneLogableWithChild)this).Log(true, true);
         }
         
         public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null)
@@ -715,9 +716,108 @@ namespace Dhs5.SceneCreation
             return true;
         }
 
-        public abstract void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null);
-        public abstract bool IsChildEmpty();
+        public virtual void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null) { }
+        public virtual bool IsChildEmpty() { return true; }
         #endregion
+
+        #region Dependencies
+        public List<int> Dependencies
+        {
+            get
+            {
+                List<int> dependencies = new List<int>();
+
+                RegisterSceneElements();
+
+                if (SceneListenersDico.IsReallyValid())
+                {
+                    foreach (var pair in SceneListenersDico)
+                    {
+                        if (pair.Value.IsValid())
+                            dependencies.AddRange(pair.Value.Dependencies());
+                    }
+                }
+                if (SceneEventsDico.IsReallyValid())
+                {
+                    foreach (var pair in SceneEventsDico)
+                    {
+                        if (pair.Value.IsValid())
+                            dependencies.AddRange(pair.Value.Dependencies());
+                    }
+                }
+                if (TweensDico.IsValid())
+                {
+                    foreach (var pair in TweensDico)
+                    {
+                        dependencies.AddRange(pair.Value.Dependencies);
+                    }
+                }
+                if (SceneScriptablesList.IsValid())
+                {
+                    foreach (var scriptable in SceneScriptablesList)
+                    {
+                        //if (scriptable != null)
+                        //    dependencies.AddRange(scriptable.Dependencies);
+                    }
+                }
+
+                dependencies.AddRange(ChildDependencies());
+
+                return dependencies;
+            }
+        }
+        public bool DependOn(int UID) { return Dependencies.Contains(UID); }
+
+        public virtual List<int> ChildDependencies() { return new(); }
+        #endregion
+
+        #region SceneClock Actions
+
+        /// <summary>
+        /// Starts the timeline named <paramref name="timelineID"/> from first step (step 0)
+        /// </summary>
+        /// <param name="timelineID">ID of the timeline to start</param>
+        [Preserve]
+        public void Clock_StartTimeline(string timelineID)
+        {
+            SceneClock.Instance.StartTimeline(timelineID);
+        }
+        /// <summary>
+        /// Starts the timeline named <paramref name="timelineID"/> from step <paramref name="step"/>
+        /// </summary>
+        /// <param name="timelineID">ID of the timeline to start</param>
+        /// <param name="step">Index of the step in the <b>TimelineObject</b> list of the <b>SceneTimeline</b></param>
+        [Preserve]
+        public void Clock_StartTimeline(string timelineID, int step)
+        {
+            SceneClock.Instance.StartTimeline(timelineID, step);
+        }
+
+        /// <summary>
+        /// Stops the timeline named <paramref name="timelineID"/>
+        /// </summary>
+        /// <param name="timelineID">ID of the timeline to stop</param>
+        [Preserve]
+        public void Clock_StopTimeline(string timelineID)
+        {
+            SceneClock.Instance.StopTimeline(timelineID);
+        }
+
+        /// <summary>
+        /// Makes the timeline <paramref name="timelineID"/> go to step <paramref name="step"/>.<br/>
+        /// If <paramref name="interrupt"/> is <b>true</b>, immediatly go to new step.<br/>
+        /// Else, wait for the current step to finish its execution.
+        /// </summary>
+        /// <param name="timelineID">ID of the timeline to change step</param>
+        /// <param name="step">Index of the step in the <b>TimelineObject</b> list of the <b>SceneTimeline</b></param>
+        /// <param name="interrupt">Whether to interrupt the execution of the current step</param>
+        [Preserve]
+        public void Clock_TimelineGoToStep(string timelineID, int step, bool interrupt)
+        {
+            SceneClock.Instance.GoToStep(timelineID, step, interrupt);
+        }
+        #endregion
+
 
         #region Utility
 
@@ -778,51 +878,26 @@ namespace Dhs5.SceneCreation
         #endregion
 
 
-
-        #region SceneClock Actions
-
+        #region Editor
         /// <summary>
-        /// Starts the timeline named <paramref name="timelineID"/> from first step (step 0)
+        /// !!! EDITOR FUNCTION !!!
         /// </summary>
-        /// <param name="timelineID">ID of the timeline to start</param>
-        [Preserve]
-        public void Clock_StartTimeline(string timelineID)
+        [ContextMenu("Get SceneVariablesSO")]
+        public bool GetSceneVariablesSOInScene()
         {
-            SceneClock.Instance.StartTimeline(timelineID);
-        }
-        /// <summary>
-        /// Starts the timeline named <paramref name="timelineID"/> from step <paramref name="step"/>
-        /// </summary>
-        /// <param name="timelineID">ID of the timeline to start</param>
-        /// <param name="step">Index of the step in the <b>TimelineObject</b> list of the <b>SceneTimeline</b></param>
-        [Preserve]
-        public void Clock_StartTimeline(string timelineID, int step)
-        {
-            SceneClock.Instance.StartTimeline(timelineID, step);
-        }
+#if UNITY_EDITOR
+            if (Application.isPlaying || this is SceneManager) return false;
+            SceneManager manager = FindObjectOfType<SceneManager>();
+            if (manager != null && manager != this)
+            {
+                sceneVariablesSO = manager.SceneVariablesSO;
 
-        /// <summary>
-        /// Stops the timeline named <paramref name="timelineID"/>
-        /// </summary>
-        /// <param name="timelineID">ID of the timeline to stop</param>
-        [Preserve]
-        public void Clock_StopTimeline(string timelineID)
-        {
-            SceneClock.Instance.StopTimeline(timelineID);
-        }
-
-        /// <summary>
-        /// Makes the timeline <paramref name="timelineID"/> go to step <paramref name="step"/>.<br/>
-        /// If <paramref name="interrupt"/> is <b>true</b>, immediatly go to new step.<br/>
-        /// Else, wait for the current step to finish its execution.
-        /// </summary>
-        /// <param name="timelineID">ID of the timeline to change step</param>
-        /// <param name="step">Index of the step in the <b>TimelineObject</b> list of the <b>SceneTimeline</b></param>
-        /// <param name="interrupt">Whether to interrupt the execution of the current step</param>
-        [Preserve]
-        public void Clock_TimelineGoToStep(string timelineID, int step, bool interrupt)
-        {
-            SceneClock.Instance.GoToStep(timelineID, step, interrupt);
+                UpdateSceneVariables();
+            }
+            return true;
+#else
+            return false;
+#endif
         }
         #endregion
     }

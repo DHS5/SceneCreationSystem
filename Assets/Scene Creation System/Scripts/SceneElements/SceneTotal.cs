@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Dhs5.SceneCreation
 {
     [System.Serializable]
-    public class SceneTotal : SceneState.ISceneVarTypedSetupable, SceneState.ISceneVarDependant
+    public class SceneTotal : SceneState.ISceneVarTypedSetupable, SceneState.ISceneVarDependantWithProhibition
     {
         #region Operator
         public enum Operator

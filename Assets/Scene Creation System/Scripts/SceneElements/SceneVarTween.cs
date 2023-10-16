@@ -7,7 +7,7 @@ using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneVarTween : SceneState.ISceneVarDependant, SceneState.ISceneObjectBelongable
+    public class SceneVarTween : SceneState.ISceneVarDependantWithProhibition, SceneState.ISceneObjectBelongable
     {
         [SerializeField] private SceneVarType type;
         public SceneVarType Type => type;

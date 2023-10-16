@@ -239,7 +239,6 @@ namespace Dhs5.SceneCreation
             }
         }
         public bool DependOn(int UID) { return Dependencies.Contains(UID); }
-        public void SetForbiddenUID(int UID) { }
         #endregion
     }
 
