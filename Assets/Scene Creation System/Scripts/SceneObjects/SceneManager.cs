@@ -123,12 +123,12 @@ namespace Dhs5.SceneCreation
 
         /// <summary>
         /// Function called in <see cref="Start"/> just before <see cref="SetSceneVars"/>.<br></br>
-        /// By default : <c>BalancingIndex = 0;</c><br></br>
+        /// By default : <c>BalancingIndex = IntersceneState.BalancingLevel;</c><br></br><br></br>
         /// Override this function to change the <see cref="BalancingIndex"/>.
         /// </summary>
         protected virtual void SetBalancingIndex()
         {
-            BalancingIndex = 0;
+            BalancingIndex = IntersceneState.BalancingLevel;
         }
 
         /// <summary>

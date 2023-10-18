@@ -13,6 +13,8 @@ namespace Dhs5.SceneCreation
     [CreateAssetMenu(fileName = "SceneVars", menuName = "Scene Creation/Scene Vars")]
     public class SceneVariablesSO : ScriptableObject
     {
+        [SerializeField] private SceneVariablesSO intersceneVariablesSO;
+
         public List<SceneVar> sceneVars;
         [HideInInspector]
         public List<SceneVar> sceneVarLinks;
@@ -126,12 +128,16 @@ namespace Dhs5.SceneCreation
 
 #if UNITY_EDITOR
             CleanBalancingSheets();
+
+            GetIntersceneVariablesSO();
 #endif
         }
 #if UNITY_EDITOR
         public void OnEditorEnable()
         {
             CleanBalancingSheets();
+
+            GetIntersceneVariablesSO();
         }
 #endif
 
@@ -161,6 +167,18 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+
+        #region Interscene Variables
+
+        /// <summary>
+        /// Editor only function to get the interscene variables from the settings
+        /// </summary>
+        private void GetIntersceneVariablesSO()
+        {
+            intersceneVariablesSO = SceneCreationSettings.instance.SceneVars;
+        }
+
+        #endregion
 
         #region Lists
         public List<string> VarStrings(List<SceneVar> vars)

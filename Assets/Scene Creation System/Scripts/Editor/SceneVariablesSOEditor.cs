@@ -5,6 +5,7 @@ using UnityEditor;
 using System.IO;
 using NUnit.Framework;
 using UnityEditorInternal;
+using System;
 
 namespace Dhs5.SceneCreation
 {
@@ -20,13 +21,22 @@ namespace Dhs5.SceneCreation
             sceneVariablesSO.OnEditorEnable();
 
             CreateBalancingSheetList("sceneBalancingSheets", "Balancing Sheets");
+            CreateSceneVarList("sceneVars", "Scene Variables");
         }
 
         public override void OnInspectorGUI()
         {
             //base.OnInspectorGUI();
             serializedObject.Update();
+
+            EditorGUILayout.LabelField("Inter-scene variables");
+            EditorGUI.BeginDisabledGroup(true);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("intersceneVariablesSO"));
+            EditorGUI.EndDisabledGroup();
+
+            EditorGUILayout.Space(15f);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVars"));
+            EditorGUILayout.Space(5f);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("complexSceneVars"));
 
             EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 1.5f);
@@ -37,19 +47,75 @@ namespace Dhs5.SceneCreation
             //    CreateBalancingSheetList("sceneBalancingSheets", "Balancing Sheets");
             //}
 
-            list.DoLayoutList();
+            balancingSheetList.DoLayoutList();
+            EditorGUILayout.Space(10f);
+            sceneVarList.DoLayoutList();
 
             serializedObject.ApplyModifiedProperties();
             UnityEditor.EditorUtility.SetDirty(target);
         }
 
-        ReorderableList list;
+        ReorderableList sceneVarList;
+        private void CreateSceneVarList(string listPropertyName, string displayName)
+        {
+            serializedObject.Update();
+            SerializedProperty textList = serializedObject.FindProperty(listPropertyName);
+
+            sceneVarList = new ReorderableList(serializedObject, textList, true, true, true, true)
+            {
+                drawHeaderCallback = rect =>
+                {
+                    EditorGUI.LabelField(rect, displayName);
+                },
+
+                drawElementCallback = (rect, index, active, focused) =>
+                {
+                    var element = textList.GetArrayElementAtIndex(index);
+
+                    EditorGUI.indentLevel++;
+                    EditorGUI.PropertyField(rect, element, true);
+                    EditorGUI.indentLevel--;
+                },
+
+                onAddDropdownCallback = (rect, list) =>
+                {
+                    var menu = new GenericMenu();
+                    SceneVarType type;
+                    foreach (var value in Enum.GetValues(typeof(SceneVarType)))
+                    {
+                        type = (SceneVarType)value;
+                        menu.AddItem(new GUIContent(type.ToString()), false, AddOfType, type);
+                    }
+                    menu.ShowAsContext();
+                }, 
+
+                onAddCallback = list =>
+                {
+                    //sceneVariablesSO.CreateNewSceneVar();
+                },
+
+                onRemoveCallback = list =>
+                {
+                    Debug.Log(list.index);
+                    //sceneVariablesSO.TryRemoveSceneVarAtIndex(list.index);
+                },
+                
+                elementHeightCallback = index => EditorGUI.GetPropertyHeight(textList.GetArrayElementAtIndex(index)),
+            };
+
+            void AddOfType(object type)
+            {
+                Debug.Log(type);
+            }
+        }
+        
+        ReorderableList balancingSheetList;
         private void CreateBalancingSheetList(string listPropertyName, string displayName)
         {
             serializedObject.Update();
             SerializedProperty textList = serializedObject.FindProperty(listPropertyName);
 
-            list = new ReorderableList(serializedObject, textList, true, true, true, false)
+            balancingSheetList = new ReorderableList(serializedObject, textList, true, true, true, false)
             {
                 drawHeaderCallback = rect =>
                 {

@@ -513,6 +513,22 @@ namespace Dhs5.SceneCreation
         }
 
         public virtual void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null) { }
+
+        #region Utility
+        public bool IsEmpty()
+        {
+            if (sceneListeners.IsValid()) return false;
+            if (sceneEvents.IsValid()) return false;
+            RegisterElements();
+            if (SceneEventsDico.IsReallyValid()) return false;
+            if (TweenDico.IsValid()) return false;
+            if (!IsChildEmpty()) return false;
+
+            return true;
+        }
+        public virtual bool IsChildEmpty() { return true; }
+        #endregion
+
         #endregion
 
         #region Dependencies
@@ -570,21 +586,6 @@ namespace Dhs5.SceneCreation
             }
 #endif
         }
-        #endregion
-
-        #region Utility
-        public bool IsEmpty()
-        {
-            if (sceneListeners.IsValid()) return false;
-            if (sceneEvents.IsValid()) return false;
-            RegisterElements();
-            if (SceneEventsDico.IsReallyValid()) return false;
-            if (TweenDico.IsValid()) return false;
-            if (!IsChildEmpty()) return false;
-
-            return true;
-        }
-        public virtual bool IsChildEmpty() { return true; }
         #endregion
     }
 }

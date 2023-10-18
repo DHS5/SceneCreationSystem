@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05233141e2000a9438e58b4671382bff, type: 3}
   m_Name: SceneVars
   m_EditorClassIdentifier: 
+  sceneVarSO: {fileID: 11400000, guid: 8386495758ffa854aa38e1c94d5c6415, type: 2}
   sceneVars:
   - uniqueID: 4629
     ID: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
