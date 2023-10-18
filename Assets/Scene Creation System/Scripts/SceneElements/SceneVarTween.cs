@@ -191,7 +191,7 @@ namespace Dhs5.SceneCreation
                 SceneVar var = sceneVariablesSO[sceneVarUniqueID];
                 if (var.IsLink)
                 {
-                    return sceneVariablesSO.complexSceneVars.Find(x => x.uniqueID == sceneVarUniqueID).Dependencies;
+                    return sceneVariablesSO.GetComplexSceneVarWithUID(sceneVarUniqueID).Dependencies;
                 }
                 return new() { sceneVarUniqueID };
             }
@@ -202,7 +202,7 @@ namespace Dhs5.SceneCreation
             if (sceneVarUniqueID == UID) return true;
             if (sceneVariablesSO[sceneVarUniqueID].IsLink)
             {
-                return sceneVariablesSO.complexSceneVars.Find(x => x.uniqueID == sceneVarUniqueID).DependOn(UID);
+                return sceneVariablesSO.GetComplexSceneVarWithUID(sceneVarUniqueID).DependOn(UID);
             }
             return false;
         }

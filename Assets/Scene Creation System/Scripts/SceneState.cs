@@ -279,12 +279,13 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Public setters
-        public static void SetSceneVars(SceneVariablesSO sceneVariablesSO, int balancingIndex = 0)
+        internal static void SetSceneVars(SceneVariablesSO sceneVariablesSO, int balancingIndex = 0)
         {
             Clear();
             if (sceneVariablesSO == null) return;
-            List<SceneVar> sceneVars = new(sceneVariablesSO.BalancedSceneVars(balancingIndex));
-            List<ComplexSceneVar> complexSceneVars = new(sceneVariablesSO.complexSceneVars);
+
+            List<SceneVar> sceneVars = sceneVariablesSO.BalancedSceneVars(balancingIndex);
+            List<ComplexSceneVar> complexSceneVars = sceneVariablesSO.ComplexSceneVars;
             SetSceneVars(sceneVars);
             SetComplexSceneVars(complexSceneVars);
             SetSceneLinks();
@@ -316,9 +317,9 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        public static void ActuBalancing(SceneVariablesSO sceneVariablesSO, int balancingIndex)
+        internal static void ActuBalancing(SceneVariablesSO sceneVariablesSO, int balancingIndex)
         {
-            foreach (var var in new List<SceneVar>(sceneVariablesSO.BalancedSceneVars(balancingIndex)))
+            foreach (var var in sceneVariablesSO.BalancedSceneVars(balancingIndex))
             {
                 if (var.IsStatic || var.IsRandom)
                 {
@@ -673,6 +674,7 @@ namespace Dhs5.SceneCreation
 
         public static List<T> Copy<T>(this List<T> list)
         {
+            if (list == null) return null;
             return new(list);
         }
         #endregion

@@ -12,6 +12,7 @@ namespace Dhs5.SceneCreation
         SerializedProperty typeProperty;
         SerializedProperty staticProperty;
         SerializedProperty randomProperty;
+        SerializedProperty linkProperty;
         SerializedProperty overrideProperty;
 
         private SerializedProperty hasMinProperty;
@@ -33,20 +34,21 @@ namespace Dhs5.SceneCreation
             typeProperty = property.FindPropertyRelative("type");
             staticProperty = property.FindPropertyRelative("isStatic");
             randomProperty = property.FindPropertyRelative("isRandom");
+            linkProperty = property.FindPropertyRelative("isLink");
             overrideProperty = property.FindPropertyRelative("overrideVar");
 
             type = (SceneVarType)typeProperty.enumValueIndex;
 
             EditorGUI.BeginProperty(position, label, property);
 
-            if (type == SceneVarType.EVENT) EditorGUI.BeginDisabledGroup(true);
+            EditorGUI.BeginDisabledGroup(type == SceneVarType.EVENT || linkProperty.boolValue);
             Rect overrideRect = new Rect(position.x + 10, position.y, position.width * 0.8f - 10, EditorGUIUtility.singleLineHeight);
             overrideProperty.boolValue = EditorGUI.ToggleLeft(overrideRect, "Override : " + idProperty.stringValue, overrideProperty.boolValue);
-            if (type == SceneVarType.EVENT) EditorGUI.EndDisabledGroup();
+            EditorGUI.EndDisabledGroup();
 
             // Unique ID
             Rect typeRect = new Rect(position.x + position.width * 0.81f, position.y, position.width * 0.19f, EditorGUIUtility.singleLineHeight);
-            EditorGUI.LabelField(typeRect, type.ToString());
+            EditorGUI.LabelField(typeRect, linkProperty.boolValue ? "LINK" : type.ToString());
             propertyHeight = EditorGUIUtility.singleLineHeight;
             propertyOffset = EditorGUIUtility.singleLineHeight;
 

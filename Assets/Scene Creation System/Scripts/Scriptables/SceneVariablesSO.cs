@@ -15,13 +15,17 @@ namespace Dhs5.SceneCreation
     {
         [SerializeField] private SceneVariablesSO intersceneVariablesSO;
 
-        public List<SceneVar> sceneVars;
-        [HideInInspector]
-        public List<SceneVar> sceneVarLinks;
-        public List<ComplexSceneVar> complexSceneVars;
+        [SerializeField] private List<SceneVar> sceneVars;
+
+        [SerializeField] private List<SceneVar> sceneVarLinks;
+
+        [SerializeField] private List<ComplexSceneVar> complexSceneVars;
 
         private int listSize = 0;
         private int complexListSize = 0;
+
+        public List<SceneVar> PureSceneVars => sceneVars.Copy();
+        public List<ComplexSceneVar> ComplexSceneVars => complexSceneVars.Copy();
 
         public List<SceneVar> SceneVars => sceneVarLinks != null ? sceneVars.Concat(sceneVarLinks).ToList() : sceneVars;
 
@@ -34,6 +38,63 @@ namespace Dhs5.SceneCreation
                 return sVar;
             }
         }
+
+        #region Scene Vars
+
+        public void AddSceneVarOfType(SceneVarType type)
+        {
+            sceneVars.Add(new(GenerateUniqueID(), type));
+        }
+
+        public void TryRemoveSceneVarAtIndex(int index)
+        {
+            if (sceneVars.IsIndexValid(index))
+            {
+                if (!sceneVars[index].IsLink)
+                {
+                    sceneVars.RemoveAt(index);
+                }
+                else
+                {
+                    Debug.LogError("Can't remove link");
+                }
+            }
+            else
+            {
+                Debug.LogError("Invalid index");
+            }
+        }
+
+        public bool CanRemoveAtIndex(int index)
+        {
+            return sceneVars.IsIndexValid(index) && !sceneVars[index].IsLink;
+        }
+        public bool IsLinkAtIndex(int index)
+        {
+            return sceneVars.IsIndexValid(index) && sceneVars[index].IsLink;
+        }
+
+        #endregion
+
+        #region Complex Scene Vars
+
+        public ComplexSceneVar GetComplexSceneVarWithUID(int UID)
+        {
+            ComplexSceneVar v = complexSceneVars.Find(x => x.uniqueID == UID);
+            if (v == null)
+            {
+                Debug.LogError("No Complex Scene Var with UID " + UID + " found in " + name);
+            }
+            return v;
+        }
+        public bool TryGetComplexSceneVarWithUID(int UID, out ComplexSceneVar complexSceneVar)
+        {
+            complexSceneVar = GetComplexSceneVarWithUID(UID);
+
+            return complexSceneVar != null;
+        }
+
+        #endregion
 
         #region IDs
         public int GetUniqueIDByIndex(int index)
@@ -108,7 +169,7 @@ namespace Dhs5.SceneCreation
             // Simple scene vars
             if (listSize == sceneVars.Count - 1 && listSize != 0)
             {
-                sceneVars[listSize].Reset = 911;
+                //sceneVars[listSize].Reset = 911;
             }
 
             listSize = sceneVars.Count;
@@ -343,14 +404,18 @@ namespace Dhs5.SceneCreation
         {
             List<SceneVar> vars;
 
-            if (sceneBalancingSheets == null || sceneBalancingSheets.Count == 0) vars = sceneVars;
+            if (!sceneBalancingSheets.IsValid()
+                || balancingIndex <= 0
+                || balancingIndex > sceneBalancingSheets.Count)
+            {
+                vars = PureSceneVars;
+            }
             else
             {
-                if (balancingIndex <= 0 || balancingIndex > sceneBalancingSheets.Count) vars = sceneVars;
-                else vars = sceneBalancingSheets[balancingIndex - 1].SceneVars;
+                vars = sceneBalancingSheets[balancingIndex - 1].SceneVars;
             }
 
-            return sceneVarLinks != null ? vars.Concat(sceneVarLinks).ToList() : vars;
+            return sceneVarLinks != null ? vars.Concat(sceneVarLinks.Copy()).ToList() : vars;
         }
         #endregion
     }

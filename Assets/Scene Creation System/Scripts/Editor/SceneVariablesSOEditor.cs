@@ -73,7 +73,9 @@ namespace Dhs5.SceneCreation
                     var element = textList.GetArrayElementAtIndex(index);
 
                     EditorGUI.indentLevel++;
+                    EditorGUI.BeginDisabledGroup(sceneVariablesSO.IsLinkAtIndex(index));
                     EditorGUI.PropertyField(rect, element, true);
+                    EditorGUI.EndDisabledGroup();
                     EditorGUI.indentLevel--;
                 },
 
@@ -87,17 +89,16 @@ namespace Dhs5.SceneCreation
                         menu.AddItem(new GUIContent(type.ToString()), false, AddOfType, type);
                     }
                     menu.ShowAsContext();
-                }, 
-
-                onAddCallback = list =>
-                {
-                    //sceneVariablesSO.CreateNewSceneVar();
                 },
 
                 onRemoveCallback = list =>
                 {
-                    Debug.Log(list.index);
-                    //sceneVariablesSO.TryRemoveSceneVarAtIndex(list.index);
+                    sceneVariablesSO.TryRemoveSceneVarAtIndex(list.index);
+                },
+
+                onCanRemoveCallback = list =>
+                {
+                    return sceneVariablesSO.CanRemoveAtIndex(list.index);
                 },
                 
                 elementHeightCallback = index => EditorGUI.GetPropertyHeight(textList.GetArrayElementAtIndex(index)),
@@ -105,7 +106,14 @@ namespace Dhs5.SceneCreation
 
             void AddOfType(object type)
             {
-                Debug.Log(type);
+                if (type is SceneVarType t)
+                {
+                    sceneVariablesSO.AddSceneVarOfType(t);
+                }
+                else
+                {
+                    Debug.LogError("Error in adding of type " + type);
+                }
             }
         }
         

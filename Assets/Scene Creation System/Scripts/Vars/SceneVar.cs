@@ -9,6 +9,17 @@ namespace Dhs5.SceneCreation
     public class SceneVar
     {
         #region Initialization
+
+        public SceneVar(int _uniqueID, SceneVarType _type)
+        {
+            uniqueID = _uniqueID;
+            type = _type;
+
+            isLink = false;
+            isStatic = false;
+            isRandom = false;
+        }
+
         public SceneVar(SceneVar var)
         {
             uniqueID = var.uniqueID;
@@ -31,6 +42,13 @@ namespace Dhs5.SceneCreation
         }
         public SceneVar(SceneVar sceneVar, BalancingVar bVar)
         {
+            if (sceneVar.uniqueID != bVar.uniqueID || sceneVar.type != bVar.type)
+            {
+                Debug.LogError("Wrong var balancing : " +
+                    "Scene Var " + sceneVar.uniqueID + " getting balanced by Balancing Var " + bVar.uniqueID);
+                return;
+            }
+
             uniqueID = sceneVar.uniqueID;
             ID = sceneVar.ID;
             type = sceneVar.type;

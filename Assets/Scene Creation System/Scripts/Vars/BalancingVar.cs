@@ -13,6 +13,12 @@ namespace Dhs5.SceneCreation
             ID = var.ID;
             type = var.type;
 
+            if (var.IsLink)
+            {
+                isLink = true;
+                return;
+            }
+
             var.GetStaticValues(out boolValue, out intValue, out floatValue, out stringValue);
 
             hasMin = var.hasMin;
@@ -50,6 +56,9 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] private bool isRandom = false;
         public bool IsRandom => isRandom;
+        
+        [SerializeField] private bool isLink = false;
+        public bool IsLink => isLink;
 
         [SerializeField] private float propertyHeight;
     }

@@ -10,22 +10,23 @@ namespace Dhs5.SceneCreation
 
         public List<BalancingVar> balancingVars;
 
-        public List<SceneVar> SceneVars => CreateSceneVarList();
+        public List<SceneVar> SceneVars => GetBalancedSceneVarList();
 
         #region SceneVar List Creation
-        private List<SceneVar> CreateSceneVarList()
+        private List<SceneVar> GetBalancedSceneVarList()
         {
+            List<SceneVar> vars = sceneVariablesSO.PureSceneVars;
             List<SceneVar> list = new();
 
-            for (int i = 0; i < sceneVariablesSO.sceneVars.Count; i++)
+            for (int i = 0; i < vars.Count; i++)
             {
                 if (balancingVars[i].overrideVar)
                 {
-                    list.Add(new(sceneVariablesSO.sceneVars[i], balancingVars[i]));
+                    list.Add(new(vars[i], balancingVars[i]));
                 }
                 else
                 {
-                    list.Add(sceneVariablesSO.sceneVars[i]);
+                    list.Add(vars[i]);
                 }
             }
 
@@ -36,8 +37,8 @@ namespace Dhs5.SceneCreation
         #region Template management
         public void ApplyTemplate()
         {
-            if (balancingVars == null) balancingVars = new();
-            balancingVars = ApplyTemplate(balancingVars, sceneVariablesSO.sceneVars);
+            balancingVars ??= new();
+            balancingVars = ApplyTemplate(balancingVars, sceneVariablesSO.PureSceneVars);
         }
         private List<BalancingVar> ApplyTemplate(List<BalancingVar> list, List<SceneVar> vars)
         {
