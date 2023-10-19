@@ -13,6 +13,7 @@ namespace Dhs5.SceneCreation
         public SceneVar(int _uniqueID, SceneVarType _type)
         {
             uniqueID = _uniqueID;
+            ID = "New Scene Var";
             type = _type;
 
             isLink = false;

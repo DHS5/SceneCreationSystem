@@ -374,7 +374,7 @@ MonoBehaviour:
       varTween:
         type: 1
         sceneVariablesSO: {fileID: 11400000}
-        sceneVarUniqueID: 3267
+        sceneVarUniqueID: 9478
         anyVar: 0
         canBeStatic: 1
         isStatic: 0
@@ -550,9 +550,9 @@ MonoBehaviour:
     type: 0
     conditions:
     - sceneVariablesSO: {fileID: 11400000}
-      var1UniqueID: 1832
+      var1UniqueID: 4629
       SceneVar2:
-        type: 1
+        type: 0
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9478
         anyVar: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
         stringValue: 
         forbiddenUID: 6670
         propertyHeight: 0
-      var2Type: 1
+      var2Type: 0
       boolComp: 0
       intComp: 0
       floatComp: 0

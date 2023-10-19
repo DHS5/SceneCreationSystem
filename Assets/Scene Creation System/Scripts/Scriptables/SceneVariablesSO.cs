@@ -94,6 +94,43 @@ namespace Dhs5.SceneCreation
             return complexSceneVar != null;
         }
 
+        public void AddComplexSceneVarOfType(ComplexSceneVarType type)
+        {
+            ComplexSceneVar complexVar = new(GenerateUniqueID(), type);
+
+            complexSceneVars.Add(complexVar);
+            sceneVars.Add(complexVar.Link);
+        }
+
+        public void TryRemoveComplexSceneVarAtIndex(int index)
+        {
+            if (complexSceneVars.IsIndexValid(index))
+            {
+                ComplexSceneVar v = complexSceneVars[index];
+                
+                if (sceneVars.Remove(v.Link))
+                {
+                    complexSceneVars.Remove(v);
+                }
+                else
+                {
+                    SceneVar v2 = sceneVars.Find(x => x.uniqueID == v.Link.uniqueID);
+                    if (v2 != null && sceneVars.Remove(v2))
+                    {
+                        complexSceneVars.Remove(v);
+                    }
+                    else
+                    {
+                        Debug.LogError("Can't find and remove link of " + v);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("Invalid index");
+            }
+        }
+
         #endregion
 
         #region IDs
@@ -177,7 +214,7 @@ namespace Dhs5.SceneCreation
             // Complex Scene vars
             if (complexListSize == complexSceneVars.Count - 1 && complexListSize != 0)
             {
-                complexSceneVars[complexListSize].Reset = 911;
+                //complexSceneVars[complexListSize].Reset = 911;
             }
 
             complexListSize = complexSceneVars.Count;

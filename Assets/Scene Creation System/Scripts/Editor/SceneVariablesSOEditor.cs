@@ -22,6 +22,7 @@ namespace Dhs5.SceneCreation
 
             CreateBalancingSheetList("sceneBalancingSheets", "Balancing Sheets");
             CreateSceneVarList("sceneVars", "Scene Variables");
+            CreateComplexSceneVarList("complexSceneVars", "Complex Scene Variables");
         }
 
         public override void OnInspectorGUI()
@@ -35,11 +36,11 @@ namespace Dhs5.SceneCreation
             EditorGUI.EndDisabledGroup();
 
             EditorGUILayout.Space(15f);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVars"));
-            EditorGUILayout.Space(5f);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("complexSceneVars"));
-
-            EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 1.5f);
+            //EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVars"));
+            //EditorGUILayout.Space(5f);
+            //EditorGUILayout.PropertyField(serializedObject.FindProperty("complexSceneVars"));
+            //
+            //EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 1.5f);
 
             //if (GUILayout.Button("Create Balancing Sheet"))
             //{
@@ -47,9 +48,11 @@ namespace Dhs5.SceneCreation
             //    CreateBalancingSheetList("sceneBalancingSheets", "Balancing Sheets");
             //}
 
-            balancingSheetList.DoLayoutList();
-            EditorGUILayout.Space(10f);
             sceneVarList.DoLayoutList();
+            EditorGUILayout.Space(10f);
+            complexSceneVarList.DoLayoutList();
+            EditorGUILayout.Space(10f);
+            balancingSheetList.DoLayoutList();
 
             serializedObject.ApplyModifiedProperties();
             UnityEditor.EditorUtility.SetDirty(target);
@@ -109,6 +112,61 @@ namespace Dhs5.SceneCreation
                 if (type is SceneVarType t)
                 {
                     sceneVariablesSO.AddSceneVarOfType(t);
+                }
+                else
+                {
+                    Debug.LogError("Error in adding of type " + type);
+                }
+            }
+        }
+        
+        ReorderableList complexSceneVarList;
+        private void CreateComplexSceneVarList(string listPropertyName, string displayName)
+        {
+            serializedObject.Update();
+            SerializedProperty textList = serializedObject.FindProperty(listPropertyName);
+
+            complexSceneVarList = new ReorderableList(serializedObject, textList, true, true, true, true)
+            {
+                drawHeaderCallback = rect =>
+                {
+                    EditorGUI.LabelField(rect, displayName);
+                },
+
+                drawElementCallback = (rect, index, active, focused) =>
+                {
+                    var element = textList.GetArrayElementAtIndex(index);
+
+                    EditorGUI.indentLevel++;
+                    EditorGUI.PropertyField(rect, element, true);
+                    EditorGUI.indentLevel--;
+                },
+
+                onAddDropdownCallback = (rect, list) =>
+                {
+                    var menu = new GenericMenu();
+                    ComplexSceneVarType type;
+                    foreach (var value in Enum.GetValues(typeof(ComplexSceneVarType)))
+                    {
+                        type = (ComplexSceneVarType)value;
+                        menu.AddItem(new GUIContent(type.ToString()), false, AddOfType, type);
+                    }
+                    menu.ShowAsContext();
+                },
+
+                onRemoveCallback = list =>
+                {
+                    sceneVariablesSO.TryRemoveComplexSceneVarAtIndex(list.index);
+                },
+                
+                elementHeightCallback = index => EditorGUI.GetPropertyHeight(textList.GetArrayElementAtIndex(index)),
+            };
+
+            void AddOfType(object type)
+            {
+                if (type is ComplexSceneVarType t)
+                {
+                    sceneVariablesSO.AddComplexSceneVarOfType(t);
                 }
                 else
                 {

@@ -40,6 +40,20 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        public ComplexSceneVar(int _uniqueID, ComplexSceneVarType _type)
+        {
+            uniqueID = _uniqueID;
+            ID = "New Complex Var";
+            type = _type;
+
+            conditions = new();
+            intTotals = new();
+            floatTotals = new();
+            sentences = new();
+
+            Link = SceneVar.CreateLink(this);
+        }
+
         public ComplexSceneVar(ComplexSceneVar var)
         {
             uniqueID = var.uniqueID;

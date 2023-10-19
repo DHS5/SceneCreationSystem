@@ -16,6 +16,7 @@ namespace Dhs5.SceneCreation
         private SerializedProperty typeProperty;
         private SerializedProperty staticProperty;
         private SerializedProperty randomProperty;
+        private SerializedProperty linkProperty;
 
         private SerializedProperty hasMinProperty;
         private SerializedProperty hasMaxProperty;
@@ -49,8 +50,20 @@ namespace Dhs5.SceneCreation
             typeProperty = property.FindPropertyRelative("type");
             staticProperty = property.FindPropertyRelative("isStatic");
             randomProperty = property.FindPropertyRelative("isRandom");
+            linkProperty = property.FindPropertyRelative("isLink");
             
             EditorGUI.BeginProperty(position, label, property);
+
+            if (linkProperty.boolValue)
+            {
+                Rect linkRect = new Rect(position.x, position.y, position.width * 0.69f, EditorGUIUtility.singleLineHeight);
+                EditorGUI.LabelField(linkRect, "LINK : " + idProperty.stringValue + " (" + (SceneVarType)typeProperty.enumValueIndex + ")");
+                Rect uniqueIDRect = new Rect(position.x + position.width * 0.7f, position.y,
+                    position.width * 0.3f, EditorGUIUtility.singleLineHeight);
+                EditorGUI.LabelField(uniqueIDRect, "Unique ID : " + uniqueIDProperty.intValue.ToString());
+                EndProperty();
+                return;
+            }
 
             Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
             property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, property.isExpanded ? "" : container[uniqueIDProperty.intValue].ToString());
@@ -62,7 +75,7 @@ namespace Dhs5.SceneCreation
                 EditorGUI.LabelField(nameRect, container[uniqueIDProperty.intValue].ID);
                 // Unique ID
                 Rect uniqueIDRect = new Rect(position.x + position.width * 0.6f, position.y, 
-                    position.width / 2, EditorGUIUtility.singleLineHeight);
+                    position.width * 0.4f, EditorGUIUtility.singleLineHeight);
                 EditorGUI.LabelField(uniqueIDRect, "Unique ID : " + uniqueIDProperty.intValue.ToString());
 
                 if (uniqueIDProperty.intValue == 0)
