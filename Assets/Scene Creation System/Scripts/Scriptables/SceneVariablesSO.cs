@@ -17,17 +17,12 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] private List<SceneVar> sceneVars;
 
-        [SerializeField] private List<SceneVar> sceneVarLinks;
-
         [SerializeField] private List<ComplexSceneVar> complexSceneVars;
-
-        private int listSize = 0;
-        private int complexListSize = 0;
 
         public List<SceneVar> PureSceneVars => sceneVars.Copy();
         public List<ComplexSceneVar> ComplexSceneVars => complexSceneVars.Copy();
 
-        public List<SceneVar> SceneVars => sceneVarLinks != null ? sceneVars.Concat(sceneVarLinks).ToList() : sceneVars;
+        public List<SceneVar> SceneVars => sceneVars;
 
         public SceneVar this[int uniqueID]
         {
@@ -114,15 +109,17 @@ namespace Dhs5.SceneCreation
                 }
                 else
                 {
-                    SceneVar v2 = sceneVars.Find(x => x.uniqueID == v.Link.uniqueID);
-                    if (v2 != null && sceneVars.Remove(v2))
-                    {
-                        complexSceneVars.Remove(v);
-                    }
-                    else
-                    {
-                        Debug.LogError("Can't find and remove link of " + v);
-                    }
+                    Debug.LogError("Link " + v.Link + " is not in the SceneVar list ? " + !sceneVars.Contains(v.Link));
+
+                    //SceneVar v2 = sceneVars.Find(x => x.uniqueID == v.Link.uniqueID);
+                    //if (v2 != null && sceneVars.Remove(v2))
+                    //{
+                    //    complexSceneVars.Remove(v);
+                    //}
+                    //else
+                    //{
+                    //    Debug.LogError("Can't find and remove link of " + v);
+                    //}
                 }
             }
             else
@@ -203,22 +200,6 @@ namespace Dhs5.SceneCreation
 
         private void OnValidate()
         {
-            // Simple scene vars
-            if (listSize == sceneVars.Count - 1 && listSize != 0)
-            {
-                //sceneVars[listSize].Reset = 911;
-            }
-
-            listSize = sceneVars.Count;
-
-            // Complex Scene vars
-            if (complexListSize == complexSceneVars.Count - 1 && complexListSize != 0)
-            {
-                //complexSceneVars[complexListSize].Reset = 911;
-            }
-
-            complexListSize = complexSceneVars.Count;
-
             ActuSceneVarLinks();
 
             complexSceneVars.SetUp(this);
@@ -241,27 +222,49 @@ namespace Dhs5.SceneCreation
 
         private void ActuSceneVarLinks()
         {
-            sceneVarLinks ??= new();
-            if (complexSceneVars.Count > sceneVarLinks.Count)
+            // Browse on Complex Scene Vars
+            foreach (var cVar in complexSceneVars)
             {
-                foreach (var var in complexSceneVars)
+                // If link is null, find it or create one
+                if (cVar.Link == null)
                 {
-                    if (var.Link == null || var.Link.uniqueID == 0)
+                    SceneVar lostLink = sceneVars.Find(v => v.uniqueID == cVar.uniqueID);
+
+                    if (lostLink == null)
                     {
-                        var.Link = SceneVar.CreateLink(var);
-                        sceneVarLinks.Add(var.Link);
+                        Debug.LogError("No Scene Var Link found for Complex Scene Var" + cVar.uniqueID + " , creating one");
+                        cVar.Link = SceneVar.CreateLink(cVar);
+                        sceneVars.Add(cVar.Link);
+                    }
+                    else
+                    {
+                        cVar.Link = lostLink;
+                    }
+                }
+
+                // If link exist but is not in the scene vars
+                else if (!sceneVars.Contains(cVar.Link))
+                {
+                    SceneVar lostLink = sceneVars.Find(v => v.uniqueID == cVar.uniqueID);
+
+                    if (lostLink == null)
+                    {
+                        Debug.LogError("Complex Scene Var link exist but can't find link in the SceneVar list, adding it");
+                        sceneVars.Add(cVar.Link);
+                    }
+                    else if (cVar.Link != lostLink)
+                    {
+                        cVar.Link = lostLink;
                     }
                 }
             }
-            if (complexSceneVars.Count < sceneVarLinks.Count)
+
+            // Browse on Scene Vars
+            foreach (var v in sceneVars.Copy())
             {
-                List<SceneVar> links = new(sceneVarLinks);
-                foreach (var var in links)
+                if (v.IsLink && !TryGetComplexSceneVarWithUID(v.uniqueID, out _))
                 {
-                    if (complexSceneVars.Find(x => x.uniqueID == var.uniqueID) == null)
-                    {
-                        sceneVarLinks.Remove(var);
-                    }
+                    sceneVars.Remove(v);
                 }
             }
         }
@@ -452,7 +455,9 @@ namespace Dhs5.SceneCreation
                 vars = sceneBalancingSheets[balancingIndex - 1].SceneVars;
             }
 
-            return sceneVarLinks != null ? vars.Concat(sceneVarLinks.Copy()).ToList() : vars;
+            return vars;
+
+            //return sceneVarLinks != null ? vars.Concat(sceneVarLinks.Copy()).ToList() : vars;
         }
         #endregion
     }

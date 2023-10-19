@@ -8,7 +8,7 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public class SceneVar
     {
-        #region Initialization
+        #region Constructors
 
         public SceneVar(int _uniqueID, SceneVarType _type)
         {
@@ -98,33 +98,6 @@ namespace Dhs5.SceneCreation
             return new(var.uniqueID, var.ID, var.BaseType, false, true, false);
         }
         
-        public int Reset
-        {
-            set
-            {
-                if (value != 911) return;
-
-                uniqueID = 0;
-                ID = "";
-                type = SceneVarType.BOOL;
-
-                boolValue = false;
-                intValue = 0;
-                floatValue = 0f;
-                stringValue = "";
-
-                isStatic = false;
-                isLink = false;
-                isRandom = false;
-
-                hasMin = false;
-                hasMax = false;
-                minInt = 0;
-                maxInt = 0;
-                minFloat = 0f;
-                maxFloat = 0f;
-            }
-        }
         #endregion
 
         public int uniqueID = 0;
@@ -249,10 +222,15 @@ namespace Dhs5.SceneCreation
                 stringValue = value;
             }
         }
+        /// <summary>
+        /// Value of this <see cref="SceneVar"/>
+        /// </summary>
+        /// <remarks>Runtime ONLY</remarks>
         public object Value
         {
             get
             {
+                if (isLink) return LinkValue;
                 switch (type)
                 {
                     case SceneVarType.BOOL: return BoolValue;
@@ -264,6 +242,10 @@ namespace Dhs5.SceneCreation
                 return null;
             }
         }
+        /// <summary>
+        /// Value of this <see cref="SceneVar"/>
+        /// </summary>
+        /// <remarks>Editor-safe value</remarks>
         public object EditorValue
         {
             get
@@ -279,6 +261,10 @@ namespace Dhs5.SceneCreation
                 return null;
             }
         }
+        /// <summary>
+        /// Value of the <see cref="ComplexSceneVar"/> this var is a Link for
+        /// </summary>
+        /// <remarks>Runtime ONLY</remarks>
         public object LinkValue => SceneState.GetComplexSceneVarValue(uniqueID);
 
         public void GetStaticValues(out bool boolVal, out int intVal, out float floatVal, out string stringVal)

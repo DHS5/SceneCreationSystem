@@ -148,7 +148,7 @@ namespace Dhs5.SceneCreation
         }
         private static void AddComplexVar(ComplexSceneVar variable)
         {
-            SceneVar link = GetSceneVar(variable.uniqueID);
+            //SceneVar link = GetSceneVar(variable.uniqueID);
             ComplexSceneVariables[variable.uniqueID] = new(variable);
         }
 
@@ -191,6 +191,7 @@ namespace Dhs5.SceneCreation
         {
             if (SceneVariables.ContainsKey(varUniqueID))
                 return SceneVariables[varUniqueID].Value;
+
             IncorrectID(varUniqueID);
             return null;
         }
@@ -304,10 +305,13 @@ namespace Dhs5.SceneCreation
         }
         private static void SetSceneLinks()
         {
+            // Browse on Complex Scene Vars
             foreach (var pair in ComplexSceneVariables)
             {
+                // Get all dependencies of the Complex Scene Var
                 foreach (var depUID in pair.Value.Dependencies)
                 {
+                    // Add a link from the dependency (SceneVar UID) to the dependant (Complex Scene Var)
                     if (!SceneVarLinks.ContainsKey(depUID))
                     {
                         SceneVarLinks[depUID] = new();

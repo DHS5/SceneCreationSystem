@@ -77,7 +77,9 @@ namespace Dhs5.SceneCreation
                     var element = textList.GetArrayElementAtIndex(index);
 
                     EditorGUI.indentLevel++;
+                    // Disable here
                     EditorGUI.PropertyField(rect, element, new GUIContent(balancingVars[index].ID), true);
+                    // 
                     EditorGUI.indentLevel--;
                 },
 

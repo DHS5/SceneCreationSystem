@@ -198,7 +198,7 @@ namespace Dhs5.SceneCreation
         }
         public bool DependOn(int UID)
         {
-            if (sceneVariablesSO[sceneVarUniqueID] == null || (canBeStatic && isStatic)) return false;
+            if ((canBeStatic && isStatic) || sceneVariablesSO[sceneVarUniqueID] == null) return false;
             if (sceneVarUniqueID == UID) return true;
             if (sceneVariablesSO[sceneVarUniqueID].IsLink)
             {

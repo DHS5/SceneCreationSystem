@@ -26,8 +26,6 @@ namespace Dhs5.SceneCreation
             sentences.SetUp(sceneVariablesSO, SceneVarType.STRING);
 
             UpdateLinkInfo();
-
-
         }
         private void UpdateLinkInfo()
         {
@@ -142,26 +140,10 @@ namespace Dhs5.SceneCreation
             sentences.SetForbiddenUID(uniqueID);
         }
 
-
-        public int Reset
-        {
-            set
-            {
-                if (value != 911) return;
-
-                uniqueID = 0;
-                ID = "";
-                type = ComplexSceneVarType.CONDITION;
-
-                conditions = new();
-                intTotals = new();
-                floatTotals = new();
-                sentences = new();
-
-                Link = null;
-            }
-        }
-
+        /// <summary>
+        /// The Link is only used in the Editor for <see cref="SceneVar"/>-picking <br></br>
+        /// At runtime, only the <see cref="uniqueID"/> will matter
+        /// </summary>
         public SceneVar Link;
 
         [SerializeField] private float propertyHeight;

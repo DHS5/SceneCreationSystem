@@ -242,7 +242,6 @@ MonoBehaviour:
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
-  sceneVarLinks:
   - uniqueID: 7301
     ID: Condition 1
     type: 0
