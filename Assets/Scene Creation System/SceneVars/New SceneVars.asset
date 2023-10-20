@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05233141e2000a9438e58b4671382bff, type: 3}
   m_Name: New SceneVars
   m_EditorClassIdentifier: 
-  intersceneVariablesSO: {fileID: 11400000}
+  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   sceneVars:
   - uniqueID: 3809
     ID: re

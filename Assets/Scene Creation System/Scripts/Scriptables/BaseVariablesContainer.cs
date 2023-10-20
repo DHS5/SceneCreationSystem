@@ -1,28 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using System.IO;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Dhs5.SceneCreation
 {
-    [CreateAssetMenu(fileName = "SceneVars", menuName = "Scene Creation/Scene Vars")]
-    public class SceneVariablesSO : ScriptableObject
+    public abstract class BaseVariablesContainer : ScriptableObject
     {
-        [SerializeField] private IntersceneVariablesSO intersceneVariablesSO;
+        [SerializeField] protected List<SceneVar> sceneVars;
 
-        [SerializeField] private List<SceneVar> sceneVars;
+        [SerializeField] protected List<ComplexSceneVar> complexSceneVars;
 
-        [SerializeField] private List<ComplexSceneVar> complexSceneVars;
 
-        public List<SceneVar> PureSceneVars => sceneVars.Copy();
-        public List<ComplexSceneVar> ComplexSceneVars => complexSceneVars.Copy();
-
-        public List<SceneVar> SceneVars => sceneVars;
+        public abstract List<SceneVar> SceneVars { get; }
 
         public SceneVar this[int uniqueID]
         {
@@ -33,6 +22,9 @@ namespace Dhs5.SceneCreation
                 return sVar;
             }
         }
+
+        protected abstract Vector2Int UIDRange { get; }
+
 
         #region Scene Vars
 
@@ -105,7 +97,7 @@ namespace Dhs5.SceneCreation
             if (complexSceneVars.IsIndexValid(index))
             {
                 ComplexSceneVar v = complexSceneVars[index];
-                
+
                 if (sceneVars.Remove(v.Link))
                 {
                     complexSceneVars.Remove(v);
@@ -126,7 +118,7 @@ namespace Dhs5.SceneCreation
 
         private void SetupComplexSceneVars()
         {
-            complexSceneVars.SetUp(this);
+            //complexSceneVars.SetUp(this);
             complexSceneVars.SetForbiddenUID(0);
         }
 
@@ -197,7 +189,7 @@ namespace Dhs5.SceneCreation
             if (uniqueID == 0) return -1;
             return SceneVars.FindIndex(v => v.uniqueID == uniqueID);
         }
-        
+
         private List<int> UniqueIDs
         {
             get
@@ -240,19 +232,20 @@ namespace Dhs5.SceneCreation
                 return list;
             }
         }
-        
-        public int GenerateUniqueID()
+
+        protected int GenerateUniqueID()
         {
             int uniqueID;
             List<int> uniqueIDs = UniqueIDs;
             do
             {
-                uniqueID = Random.Range(1, 10000);
+                uniqueID = Random.Range(UIDRange.x, UIDRange.y);
             } while (uniqueIDs.Contains(uniqueID));
-            
+
             return uniqueID;
         }
         #endregion
+
 
         private void OnValidate()
         {
@@ -260,37 +253,15 @@ namespace Dhs5.SceneCreation
 
             SetupComplexSceneVars();
 
-#if UNITY_EDITOR
-            CleanBalancingSheets();
-
-            GetIntersceneVariablesSO();
-#endif
-        }
-#if UNITY_EDITOR
-        public void OnEditorEnable()
-        {
-            CleanBalancingSheets();
-
-            GetIntersceneVariablesSO();
-        }
-#endif
-
-        
-
-        #region Interscene Variables
-
-        /// <summary>
-        /// Editor only function to get the interscene variables from the settings
-        /// </summary>
-        private void GetIntersceneVariablesSO()
-        {
-            intersceneVariablesSO = SceneCreationSettings.instance.IntersceneVars;
+            OnOnValidate();
         }
 
-        #endregion
+        protected virtual void OnOnValidate() { }
 
-        #region Lists
-        public List<string> VarStrings(List<SceneVar> vars)
+
+        #region Helper Functions
+
+        public static List<string> VarStrings(List<SceneVar> vars)
         {
             List<string> list = new();
             foreach (var var in vars)
@@ -302,173 +273,17 @@ namespace Dhs5.SceneCreation
             }
             return list;
         }
-        public int GetUniqueIDByIndex(List<SceneVar> vars, int index)
+        public static int GetUniqueIDByIndex(List<SceneVar> vars, int index)
         {
             if (index < 0 || index >= vars.Count) return 0;
             return vars[index].uniqueID;
         }
-        public int GetIndexByUniqueID(List<SceneVar> vars, int uniqueID)
+        public static int GetIndexByUniqueID(List<SceneVar> vars, int uniqueID)
         {
             if (uniqueID == 0) return -1;
             return vars.FindIndex(v => v.uniqueID == uniqueID);
         }
-        public List<SceneVar> GetListByType(SceneVarType type, bool precisely = false)
-        {
-            switch (type)
-            {
-                case SceneVarType.BOOL: return Booleans;
-                case SceneVarType.INT: return precisely ? Integers : Numbers;
-                case SceneVarType.FLOAT: return precisely ? Floats : Numbers;
-                case SceneVarType.STRING: return Strings;
-                case SceneVarType.EVENT: return Events;
-                default: return SceneVars;
-            }
-        }
 
-        public List<SceneVar> Statics
-        {
-            get => sceneVars != null ? sceneVars.FindAll(v => v.IsStatic) : null;
-        }
-        public List<SceneVar> Modifyables
-        {
-            get => sceneVars != null ? sceneVars.FindAll(v => !v.IsStatic && !v.IsRandom) : null;
-        }
-        public List<SceneVar> Listenables
-        {
-            get => SceneVars != null ? SceneVars.FindAll(v => !v.IsStatic && !v.IsRandom) : null;
-        }
-        public List<SceneVar> Conditionable
-        {
-            get => SceneVars != null ? SceneVars.FindAll(v => !v.IsStatic && v.type != SceneVarType.EVENT) : null;
-        }
-        public List<SceneVar> Booleans
-        {
-            get => SceneVars != null ? SceneVars.FindAll(v => v.type == SceneVarType.BOOL) : null;
-        }
-        public List<SceneVar> Numbers
-        {
-            get => SceneVars != null ? SceneVars.FindAll(v => v.type == SceneVarType.INT || v.type == SceneVarType.FLOAT) : null;
-        }
-        public List<SceneVar> Integers
-        {
-            get => SceneVars != null ? SceneVars.FindAll(v => v.type == SceneVarType.INT) : null;
-        }
-        public List<SceneVar> Floats
-        {
-            get => SceneVars != null ? SceneVars.FindAll(v => v.type == SceneVarType.FLOAT) : null;
-        }
-        public List<SceneVar> Strings
-        {
-            get => SceneVars != null ? SceneVars.FindAll(v => v.type == SceneVarType.STRING) : null;
-        }
-        public List<SceneVar> Events
-        {
-            get => sceneVars != null ? sceneVars.FindAll(v => v.type == SceneVarType.EVENT) : null;
-        }
-        public List<SceneVar> NonEvents
-        {
-            get => SceneVars != null ? SceneVars.FindAll(v => v.type != SceneVarType.EVENT) : null;
-        }
-        #endregion
-
-        #region Dependency
-        public List<SceneVar> CleanListOfCycleDependencies(List<SceneVar> list, int UID)
-        {
-            List<SceneVar> sceneVars = new();
-            foreach (SceneVar v in list)
-            {
-                if (!v.IsLink || !complexSceneVars.Find(x => x.uniqueID == v.uniqueID).DependOn(UID))
-                {
-                    sceneVars.Add(v);
-                }
-            }
-            return sceneVars;
-        }
-        #endregion
-
-        #region Balancing Sheets
-        public List<SceneBalancingSheetSO> sceneBalancingSheets;
-
-        readonly string baseName = "BalancingSheet";
-
-#if UNITY_EDITOR
-        public void CreateNewBalancingSheet()
-        {
-            string path = AssetDatabase.GetAssetPath(this);
-            path = path.Substring(0, path.LastIndexOf('/') + 1) + this.name + " BalancingSheets/";
-
-            SceneBalancingSheetSO balancingSheet = ScriptableObject.CreateInstance<SceneBalancingSheetSO>();
-            balancingSheet.sceneVariablesSO = this;
-            sceneBalancingSheets.Add(balancingSheet);
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            AssetDatabase.CreateAsset(balancingSheet, path + GetUniqueName(path) + ".asset");
-        }
-
-        private void CleanBalancingSheets()
-        {
-            if (!sceneBalancingSheets.IsValid()) return;
-
-            foreach (var sheet in sceneBalancingSheets.Copy())
-            {
-                if (sheet == null)
-                {
-                    sceneBalancingSheets.Remove(sheet);
-                }
-                else if (sheet.sceneVariablesSO != this)
-                {
-                    sheet.sceneVariablesSO = this;
-                }
-            }
-        }
-
-        private string GetUniqueName(string path)
-        {
-            List<string> names = new();
-            string current;
-
-            foreach (var name in Directory.GetFiles(path))
-            {
-                current = name.Remove(0, name.LastIndexOf('/') + 1);
-                current = current.Substring(0, current.LastIndexOf('.'));
-                names.Add(current);
-            }
-
-            if (names.Count < 1)
-            {
-                return baseName + "1";
-            }
-
-            int index = 1;
-
-            while (names.Contains(baseName + index))
-            {
-                index++;
-            }
-            return baseName + index;
-        }
-#endif
-        public List<SceneVar> BalancedSceneVars(int balancingIndex)
-        {
-            List<SceneVar> vars;
-
-            if (!sceneBalancingSheets.IsValid()
-                || balancingIndex <= 0
-                || balancingIndex > sceneBalancingSheets.Count)
-            {
-                vars = PureSceneVars;
-            }
-            else
-            {
-                vars = sceneBalancingSheets[balancingIndex - 1].SceneVars;
-            }
-
-            return vars;
-        }
         #endregion
     }
 }
