@@ -40,7 +40,8 @@ namespace Dhs5.SceneCreation
 
             if (container == null)
             {
-                container = (property.serializedObject.targetObject as SceneBalancingSheetSO).sceneVariablesSO;
+                if (property.serializedObject.targetObject is SceneBalancingSheetSO sceneBalancing)
+                container = sceneBalancing.sceneVariablesSO;
 
                 if (container == null) return;
             }
