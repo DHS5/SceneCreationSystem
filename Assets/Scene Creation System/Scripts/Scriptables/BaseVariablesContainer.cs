@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
+[assembly: InternalsVisibleTo("SceneCreationSystem.Editor")]
 namespace Dhs5.SceneCreation
 {
     public abstract class BaseVariablesContainer : ScriptableObject
     {
         [SerializeField] protected List<SceneVar> sceneVars;
 
-        [SerializeField] protected List<ComplexSceneVar> complexSceneVars;
+        //[SerializeField] protected List<ComplexSceneVar> complexSceneVars;
 
 
         public abstract List<SceneVar> SceneVars { get; }
@@ -28,7 +30,7 @@ namespace Dhs5.SceneCreation
 
         #region Scene Vars
 
-        public void AddSceneVarOfType(SceneVarType type)
+        public virtual void AddSceneVarOfType(SceneVarType type)
         {
             sceneVars.Add(new(GenerateUniqueID(), type));
         }
@@ -51,12 +53,26 @@ namespace Dhs5.SceneCreation
                 Debug.LogError("Invalid index");
             }
         }
+        protected virtual void RemoveSceneVar(SceneVar var)
+        {
+            if (sceneVars.Contains(var))
+            {
+                if (sceneVars.Remove(var))
+                    Debug.Log("Removed " + var);
+                else
+                    Debug.Log("Couldn't remove " + var);
+            }
+            else
+            {
+                Debug.LogError("Can't remove SceneVar " + var + " as it is not contained in " + name + " sceneVars");
+            }
+        }
 
-        public bool CanRemoveAtIndex(int index)
+        public virtual bool CanRemoveAtIndex(int index)
         {
             return sceneVars.IsIndexValid(index) && !sceneVars[index].IsLink;
         }
-        public bool IsLinkAtIndex(int index)
+        public virtual bool IsDisabledAtIndex(int index)
         {
             return sceneVars.IsIndexValid(index) && sceneVars[index].IsLink;
         }
@@ -64,7 +80,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Complex Scene Vars
-
+        /*
         #region Getters
         public ComplexSceneVar GetComplexSceneVarWithUID(int UID)
         {
@@ -118,7 +134,7 @@ namespace Dhs5.SceneCreation
 
         private void SetupComplexSceneVars()
         {
-            //complexSceneVars.SetUp(this);
+            complexSceneVars.SetUp(this);
             complexSceneVars.SetForbiddenUID(0);
         }
 
@@ -175,7 +191,7 @@ namespace Dhs5.SceneCreation
         }
 
         #endregion
-
+        */
         #endregion
 
         #region IDs
@@ -247,19 +263,40 @@ namespace Dhs5.SceneCreation
         #endregion
 
 
-        private void OnValidate()
-        {
-            UpdateSceneVarLinks();
-
-            SetupComplexSceneVars();
-
-            OnOnValidate();
-        }
-
-        protected virtual void OnOnValidate() { }
+        //private void OnValidate()
+        //{
+        //    UpdateSceneVarLinks();
+        //
+        //    SetupComplexSceneVars();
+        //
+        //    OnOnValidate();
+        //}
+        //
+        //protected virtual void OnOnValidate() { }
 
 
         #region Helper Functions
+
+        [ContextMenu("Clean")]
+        protected void CleanUp()
+        {
+            if (CallBaseCleanUp())
+            {
+                foreach (var var in sceneVars.Copy())
+                {
+                    if (var.uniqueID == 0)
+                        RemoveSceneVar(var);
+                }
+            }
+
+            ChildCleanUp();
+        }
+        protected virtual bool CallBaseCleanUp() => true;
+        protected virtual void ChildCleanUp() { }
+
+        #endregion
+
+        #region Static SceneVar List Functions
 
         public static List<string> VarStrings(List<SceneVar> vars)
         {

@@ -76,7 +76,7 @@ namespace Dhs5.SceneCreation
                     var element = textList.GetArrayElementAtIndex(index);
 
                     EditorGUI.indentLevel++;
-                    EditorGUI.BeginDisabledGroup(sceneVariablesSO.IsLinkAtIndex(index));
+                    EditorGUI.BeginDisabledGroup(sceneVariablesSO.IsDisabledAtIndex(index));
                     EditorGUI.PropertyField(rect, element, true);
                     EditorGUI.EndDisabledGroup();
                     EditorGUI.indentLevel--;

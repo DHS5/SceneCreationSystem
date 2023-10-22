@@ -9,7 +9,8 @@ namespace Dhs5.SceneCreation
     [CustomPropertyDrawer(typeof(SceneVar))]
     public class SceneVarEditor : PropertyDrawer
     {
-        private SceneVariablesSO container;
+        private BaseVariablesContainer container;
+        //private SceneVariablesSO container;
         
         private SerializedProperty uniqueIDProperty;
         private SerializedProperty idProperty;
@@ -36,7 +37,8 @@ namespace Dhs5.SceneCreation
             propertyOffset = 0;
             propertyHeight = 0;
 
-            container = property.serializedObject.targetObject as SceneVariablesSO;
+            container = property.serializedObject.targetObject as BaseVariablesContainer;
+            //container = property.serializedObject.targetObject as SceneVariablesSO;
 
             if (container == null)
             {
@@ -82,7 +84,10 @@ namespace Dhs5.SceneCreation
                 if (uniqueIDProperty.intValue == 0)
                 {
                     if (container != null)
-                        uniqueIDProperty.intValue = container.GenerateUniqueID();
+                    {
+                        Debug.LogError("There's a SceneVar with UID = 0 on " + container);
+                        //uniqueIDProperty.intValue = container.GenerateUniqueID();
+                    }
                     else
                     {
                         Debug.LogError("Can't generate unique ID for SceneVar that is not on a SceneVariablesSO");

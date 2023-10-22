@@ -10,7 +10,7 @@ namespace Dhs5.SceneCreation
     {
         #region Constructors
 
-        public SceneVar(int _uniqueID, SceneVarType _type)
+        public SceneVar(int _uniqueID, SceneVarType _type, bool global = false)
         {
             uniqueID = _uniqueID;
             ID = "New Scene Var";
@@ -19,6 +19,7 @@ namespace Dhs5.SceneCreation
             isLink = false;
             isStatic = false;
             isRandom = false;
+            isGlobal = global;
         }
 
         public SceneVar(SceneVar var)
@@ -125,6 +126,9 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] private bool isLink = false;
         public bool IsLink => isLink;
+        
+        [SerializeField] private bool isGlobal = false;
+        public bool IsGlobal => isGlobal;
 
         [SerializeField] private float propertyHeight;
 
@@ -293,13 +297,13 @@ namespace Dhs5.SceneCreation
         {
             if (type == SceneVarType.EVENT) return ID + " (EVENT)";
             if (IsLink) return ID + " (" + type.ToString() + " LINK)";
-            return ID + " (" + type.ToString() + ") = " + (isRandom ? " (random " + GetRange() + ")" : Value) + (isStatic ? " (static)" : "");
+            return (IsGlobal ? "(GLOBAL) " : "") + ID + " (" + type.ToString() + ") = " + (isRandom ? " (random " + GetRange() + ")" : Value) + (isStatic ? " (static)" : "");
         }
         public string PopupString()
         {
             if (type == SceneVarType.EVENT) return ID + " (EVENT)";
             if (IsLink) return ID + " (" + type.ToString() + " LINK)";
-            return ID + " (" + type.ToString() + ")" + (isStatic ? " = " + Value : "") + (isRandom ? " (random " + GetRange() + ")" : "");
+            return (IsGlobal ? "(GLOBAL) " : "") + ID + " (" + type.ToString() + ")" + (isStatic ? " = " + Value : "") + (isRandom ? " (random " + GetRange() + ")" : "");
         }
         public string RuntimeString()
         {

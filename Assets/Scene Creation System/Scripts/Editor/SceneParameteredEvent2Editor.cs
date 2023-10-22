@@ -72,13 +72,13 @@ namespace Dhs5.SceneCreation
 
                     List<SceneVar> sceneVarList = sceneVarContainer.NonEvents;
                     sceneVarUniqueIDP = property.FindPropertyRelative("paramUniqueID");
-                    int sceneVarIndexSave = sceneVarContainer.GetIndexByUniqueID(sceneVarList, sceneVarUniqueIDP.intValue);
+                    int sceneVarIndexSave = sceneVarList.GetIndexByUniqueID(sceneVarUniqueIDP.intValue);
                     if (sceneVarIndexSave == -1) sceneVarIndexSave = 0;
 
                     // SceneVar choice popup
-                    sceneVarIndex = EditorGUI.Popup(popupPosition, sceneVarIndexSave, sceneVarContainer.VarStrings(sceneVarList).ToArray());
-                    if (sceneVarContainer.GetUniqueIDByIndex(sceneVarList, sceneVarIndex) == 0) sceneVarIndex = sceneVarIndexSave;
-                    sceneVarUniqueIDP.intValue = sceneVarContainer.GetUniqueIDByIndex(sceneVarList, sceneVarIndex);
+                    sceneVarIndex = EditorGUI.Popup(popupPosition, sceneVarIndexSave, sceneVarList.VarStrings().ToArray());
+                    if (sceneVarList.GetUniqueIDByIndex(sceneVarIndex) == 0) sceneVarIndex = sceneVarIndexSave;
+                    sceneVarUniqueIDP.intValue = sceneVarList.GetUniqueIDByIndex(sceneVarIndex);
                     propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
 
                     // Type label

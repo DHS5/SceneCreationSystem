@@ -21,7 +21,7 @@ namespace Dhs5.SceneCreation
             //intersceneVariablesSO.OnEditorEnable();
 
             CreateSceneVarList("sceneVars", "Scene Variables");
-            CreateComplexSceneVarList("complexSceneVars", "Complex Scene Variables");
+            //CreateComplexSceneVarList("complexSceneVars", "Complex Scene Variables");
         }
 
         public override void OnInspectorGUI()
@@ -32,8 +32,8 @@ namespace Dhs5.SceneCreation
             EditorGUILayout.BeginVertical();
 
             sceneVarList.DoLayoutList();
-            EditorGUILayout.Space(10f);
-            complexSceneVarList.DoLayoutList();
+            //EditorGUILayout.Space(10f);
+            //complexSceneVarList.DoLayoutList();
 
             EditorGUILayout.EndVertical();
 
@@ -59,7 +59,7 @@ namespace Dhs5.SceneCreation
                     var element = textList.GetArrayElementAtIndex(index);
 
                     EditorGUI.indentLevel++;
-                    EditorGUI.BeginDisabledGroup(intersceneVariablesSO.IsLinkAtIndex(index));
+                    EditorGUI.BeginDisabledGroup(intersceneVariablesSO.IsDisabledAtIndex(index));
                     EditorGUI.PropertyField(rect, element, true);
                     EditorGUI.EndDisabledGroup();
                     EditorGUI.indentLevel--;
@@ -103,6 +103,7 @@ namespace Dhs5.SceneCreation
             }
         }
         
+        /*
         ReorderableList complexSceneVarList;
         private void CreateComplexSceneVarList(string listPropertyName, string displayName)
         {
@@ -157,5 +158,6 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+        */
     }
 }

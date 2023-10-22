@@ -59,13 +59,13 @@ namespace Dhs5.SceneCreation
             }
 
             sceneVarUniqueID1P = property.FindPropertyRelative("var1UniqueID");
-            int sceneVarIndexSave1 = sceneVarContainer.GetIndexByUniqueID(sceneVarList1, sceneVarUniqueID1P.intValue);
+            int sceneVarIndexSave1 = sceneVarList1.GetIndexByUniqueID(sceneVarUniqueID1P.intValue);
             if (sceneVarIndexSave1 == -1) sceneVarIndexSave1 = 0;
             // SceneVar1 choice popup
             Rect popup1Position = new Rect(position.x, position.y, position.width * 0.75f, EditorGUIUtility.singleLineHeight);
-            sceneVarIndex1 = EditorGUI.Popup(popup1Position, sceneVarIndexSave1, sceneVarContainer.VarStrings(sceneVarList1).ToArray());
-            if (sceneVarContainer.GetUniqueIDByIndex(sceneVarList1, sceneVarIndex1) == 0) sceneVarIndex1 = sceneVarIndexSave1;
-            sceneVarUniqueID1P.intValue = sceneVarContainer.GetUniqueIDByIndex(sceneVarList1, sceneVarIndex1);
+            sceneVarIndex1 = EditorGUI.Popup(popup1Position, sceneVarIndexSave1, sceneVarList1.VarStrings().ToArray());
+            if (sceneVarList1.GetUniqueIDByIndex(sceneVarIndex1) == 0) sceneVarIndex1 = sceneVarIndexSave1;
+            sceneVarUniqueID1P.intValue = sceneVarList1.GetUniqueIDByIndex(sceneVarIndex1);
 
             // Comparison operator
             Rect compPosition = new Rect(position.x + position.width * 0.76f, position.y + EditorGUIUtility.singleLineHeight * 0.5f, position.width * 0.24f, EditorGUIUtility.singleLineHeight);

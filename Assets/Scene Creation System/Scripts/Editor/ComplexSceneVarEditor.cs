@@ -34,7 +34,8 @@ namespace Dhs5.SceneCreation
             {
                 if (container != null)
                 {
-                    uniqueIDProperty.intValue = container.GenerateUniqueID();
+                    Debug.LogError("There's a ComplexSceneVar with UID = 0 on " + container);
+                    //uniqueIDProperty.intValue = container.GenerateUniqueID();
                 }
                 else
                 {
@@ -42,7 +43,7 @@ namespace Dhs5.SceneCreation
                 }
             }
 
-            SceneVar var = container[uniqueIDProperty.intValue];
+            ComplexSceneVar var = container.GetComplexSceneVarWithUID(uniqueIDProperty.intValue);
 
             Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
             property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, 

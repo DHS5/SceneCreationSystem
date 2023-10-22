@@ -17,9 +17,13 @@ namespace Dhs5.SceneCreation
     [System.Serializable]
     public class ComplexSceneVar : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependantWithProhibition
     {
+        [SerializeField] private SceneVariablesSO sceneVariablesSO;
+
         #region SetUp
-        public void SetUp(SceneVariablesSO sceneVariablesSO)
+        public void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
+            sceneVariablesSO = _sceneVariablesSO;
+
             conditions.SetUp(sceneVariablesSO);
             intTotals.SetUp(sceneVariablesSO, SceneVarType.INT);
             floatTotals.SetUp(sceneVariablesSO, SceneVarType.FLOAT);
@@ -49,7 +53,7 @@ namespace Dhs5.SceneCreation
             floatTotals = new();
             sentences = new();
 
-            Link = SceneVar.CreateLink(this);
+            //Link = SceneVar.CreateLink(this);
         }
 
         public ComplexSceneVar(ComplexSceneVar var)
@@ -63,7 +67,7 @@ namespace Dhs5.SceneCreation
             floatTotals = new(var.floatTotals);
             sentences = new(var.sentences);
 
-            Link = var.Link;
+            //Link = var.Link;
         }
 
         public int uniqueID = 0;
@@ -144,8 +148,21 @@ namespace Dhs5.SceneCreation
         /// The Link is only used in the Editor for <see cref="SceneVar"/>-picking <br></br>
         /// At runtime, only the <see cref="uniqueID"/> will matter
         /// </summary>
-        public SceneVar Link;
+        //public SceneVar Link;
+        /// <summary>
+        /// The Link is only used in the Editor for <see cref="SceneVar"/>-picking <br></br>
+        /// At runtime, only the <see cref="uniqueID"/> will matter
+        /// </summary>
+        public SceneVar Link => sceneVariablesSO[uniqueID];
 
         [SerializeField] private float propertyHeight;
+
+
+        #region Log
+        public override string ToString()
+        {
+            return ID + " (" + type.ToString() + ")";
+        }
+        #endregion
     }
 }

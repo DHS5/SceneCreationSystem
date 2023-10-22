@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05233141e2000a9438e58b4671382bff, type: 3}
   m_Name: SceneVars
   m_EditorClassIdentifier: 
-  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   sceneVars:
   - uniqueID: 9874
-    ID: 
+    ID: rthtrd
     type: 1
     boolValue: 0
     intValue: 0
@@ -30,11 +29,12 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
-    showDependencies: 0
+    showDependencies: 1
     sceneObjects: []
-  - uniqueID: 4666
-    ID: 
+  - uniqueID: 5884
+    ID: New Scene Var
     type: 0
     boolValue: 0
     intValue: 0
@@ -49,291 +49,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 2028
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 371
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 1475
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 8312
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: Total1
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 0
-    ID: 
-    type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -353,44 +69,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 1
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 3267
-    ID: Total2
-    type: 1
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 1
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 9762
-    ID: Total3
-    type: 1
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -410,12 +89,13 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
-  - uniqueID: 3055
-    ID: Condition2
-    type: 0
+  - uniqueID: 3267
+    ID: Total2
+    type: 1
     boolValue: 0
     intValue: 0
     floatValue: 0
@@ -429,11 +109,14 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
+  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   complexSceneVars:
-  - uniqueID: 1832
+  - sceneVariablesSO: {fileID: 11400000}
+    uniqueID: 1832
     ID: Total1
     type: 1
     conditions: []
@@ -456,28 +139,9 @@ MonoBehaviour:
       type: 1
     floatTotals: []
     sentences: []
-    Link:
-      uniqueID: 1832
-      ID: Total1
-      type: 1
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
     propertyHeight: 0
-  - uniqueID: 3267
+  - sceneVariablesSO: {fileID: 11400000}
+    uniqueID: 3267
     ID: Total2
     type: 1
     conditions: []
@@ -516,56 +180,9 @@ MonoBehaviour:
       type: 1
     floatTotals: []
     sentences: []
-    Link:
-      uniqueID: 3267
-      ID: Total2
-      type: 1
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
     propertyHeight: 0
-  - uniqueID: 9762
-    ID: Total3
-    type: 1
-    conditions: []
-    intTotals: []
-    floatTotals: []
-    sentences: []
-    Link:
-      uniqueID: 9762
-      ID: Total3
-      type: 1
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
-    propertyHeight: 0
-  - uniqueID: 6670
+  - sceneVariablesSO: {fileID: 11400000}
+    uniqueID: 6670
     ID: Condition1
     type: 0
     conditions: []
@@ -620,102 +237,6 @@ MonoBehaviour:
       type: 1
     floatTotals: []
     sentences: []
-    Link:
-      uniqueID: 6670
-      ID: Condition1
-      type: 0
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
-    propertyHeight: 0
-  - uniqueID: 3055
-    ID: Condition2
-    type: 0
-    conditions: []
-    intTotals:
-    - sceneVariablesSO: {fileID: 11400000}
-      varTween:
-        type: 1
-        sceneVariablesSO: {fileID: 11400000}
-        sceneVarUniqueID: 1075
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 3055
-        propertyHeight: 0
-      op: 0
-      type: 1
-    - sceneVariablesSO: {fileID: 11400000}
-      varTween:
-        type: 1
-        sceneVariablesSO: {fileID: 11400000}
-        sceneVarUniqueID: 9928
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 3055
-        propertyHeight: 0
-      op: 1
-      type: 1
-    - sceneVariablesSO: {fileID: 11400000}
-      varTween:
-        type: 1
-        sceneVariablesSO: {fileID: 11400000}
-        sceneVarUniqueID: 9928
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 1
-        boolValue: 0
-        intValue: 2
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 3055
-        propertyHeight: 0
-      op: 0
-      type: 1
-    floatTotals: []
-    sentences: []
-    Link:
-      uniqueID: 3055
-      ID: Condition2
-      type: 0
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
     propertyHeight: 0
   sceneBalancingSheets:
   - {fileID: 11400000, guid: 06ea4c52638575e43989dd5ce794b452, type: 2}

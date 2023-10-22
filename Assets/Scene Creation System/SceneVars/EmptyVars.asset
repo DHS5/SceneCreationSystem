@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05233141e2000a9438e58b4671382bff, type: 3}
   m_Name: EmptyVars
   m_EditorClassIdentifier: 
-  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   sceneVars:
   - uniqueID: 2348
     ID: Var Bool 1
@@ -30,9 +29,11 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
-    sceneObjects: []
+    sceneObjects:
+    - SceneObject
   - uniqueID: 8456
     ID: Var Bool 2
     type: 0
@@ -49,6 +50,7 @@ MonoBehaviour:
     isStatic: 1
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -68,6 +70,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 1
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -87,6 +90,7 @@ MonoBehaviour:
     isStatic: 1
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -106,6 +110,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -125,6 +130,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 1
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -144,6 +150,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -163,6 +170,7 @@ MonoBehaviour:
     isStatic: 1
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -182,6 +190,7 @@ MonoBehaviour:
     isStatic: 1
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -201,6 +210,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -220,6 +230,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -239,6 +250,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -258,6 +270,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -277,6 +290,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -296,6 +310,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -315,9 +330,11 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
+  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   complexSceneVars:
   - uniqueID: 7301
     ID: Condition 1
@@ -346,9 +363,9 @@ MonoBehaviour:
       logicOperator: 0
       forbiddenUID: 7301
     - sceneVariablesSO: {fileID: 11400000}
-      var1UniqueID: 2637
+      var1UniqueID: 2348
       SceneVar2:
-        type: 1
+        type: 0
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 4877
         anyVar: 0
@@ -360,7 +377,7 @@ MonoBehaviour:
         stringValue: 
         forbiddenUID: 7301
         propertyHeight: 0
-      var2Type: 1
+      var2Type: 0
       boolComp: 0
       intComp: 2
       floatComp: 0
@@ -368,9 +385,9 @@ MonoBehaviour:
       logicOperator: 1
       forbiddenUID: 7301
     - sceneVariablesSO: {fileID: 11400000}
-      var1UniqueID: 765
+      var1UniqueID: 2348
       SceneVar2:
-        type: 3
+        type: 0
         sceneVariablesSO: {fileID: 11400000}
         sceneVarUniqueID: 9449
         anyVar: 0
@@ -382,7 +399,7 @@ MonoBehaviour:
         stringValue: 
         forbiddenUID: 7301
         propertyHeight: 0
-      var2Type: 3
+      var2Type: 0
       boolComp: 0
       intComp: 0
       floatComp: 0
@@ -409,6 +426,7 @@ MonoBehaviour:
       isStatic: 0
       isRandom: 0
       isLink: 1
+      isGlobal: 0
       propertyHeight: 0
       showDependencies: 0
       sceneObjects: []
@@ -485,6 +503,7 @@ MonoBehaviour:
       isStatic: 0
       isRandom: 0
       isLink: 1
+      isGlobal: 0
       propertyHeight: 0
       showDependencies: 0
       sceneObjects: []
@@ -561,6 +580,7 @@ MonoBehaviour:
       isStatic: 0
       isRandom: 0
       isLink: 1
+      isGlobal: 0
       propertyHeight: 0
       showDependencies: 0
       sceneObjects: []
@@ -637,6 +657,7 @@ MonoBehaviour:
       isStatic: 0
       isRandom: 0
       isLink: 1
+      isGlobal: 0
       propertyHeight: 0
       showDependencies: 0
       sceneObjects: []

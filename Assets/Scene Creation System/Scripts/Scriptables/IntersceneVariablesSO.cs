@@ -12,5 +12,10 @@ namespace Dhs5.SceneCreation
 
         private Vector2Int uidRange = new Vector2Int(10001, 11000);
         protected override Vector2Int UIDRange => uidRange;
+
+        public override void AddSceneVarOfType(SceneVarType type)
+        {
+            sceneVars.Add(new(GenerateUniqueID(), type, true));
+        }
     }
 }

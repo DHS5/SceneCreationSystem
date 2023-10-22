@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05233141e2000a9438e58b4671382bff, type: 3}
   m_Name: New SceneVars
   m_EditorClassIdentifier: 
-  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   sceneVars:
   - uniqueID: 3809
     ID: re
@@ -30,6 +29,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 1
     sceneObjects: []
@@ -49,25 +49,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
-  - uniqueID: 4892
-    ID: 
-    type: 3
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -87,6 +69,7 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
@@ -106,83 +89,19 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
-  - uniqueID: 8279
-    ID: Total int
-    type: 1
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 1
-    propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
+  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   complexSceneVars:
-  - uniqueID: 9415
+  - sceneVariablesSO: {fileID: 11400000}
+    uniqueID: 9415
     ID: Sentence
     type: 3
     conditions: []
     intTotals: []
     floatTotals: []
     sentences: []
-    Link:
-      uniqueID: 9415
-      ID: Sentence
-      type: 3
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
-    propertyHeight: 0
-  - uniqueID: 8279
-    ID: Total int
-    type: 1
-    conditions: []
-    intTotals: []
-    floatTotals: []
-    sentences: []
-    Link:
-      uniqueID: 8279
-      ID: Total int
-      type: 1
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
     propertyHeight: 0
   sceneBalancingSheets: []

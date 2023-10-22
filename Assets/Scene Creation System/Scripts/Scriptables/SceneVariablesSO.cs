@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,31 +12,40 @@ using UnityEditor;
 namespace Dhs5.SceneCreation
 {
     [CreateAssetMenu(fileName = "SceneVars", menuName = "Scene Creation/Scene Vars")]
-    public class SceneVariablesSO : ScriptableObject
+    public class SceneVariablesSO : BaseVariablesContainer
     {
         [SerializeField] private IntersceneVariablesSO intersceneVariablesSO;
 
-        [SerializeField] private List<SceneVar> sceneVars;
-
+        //[SerializeField] private List<SceneVar> sceneVars;
+        
         [SerializeField] private List<ComplexSceneVar> complexSceneVars;
 
         public List<SceneVar> PureSceneVars => sceneVars.Copy();
         public List<ComplexSceneVar> ComplexSceneVars => complexSceneVars.Copy();
 
-        public List<SceneVar> SceneVars => sceneVars;
+        public override List<SceneVar> SceneVars => GetSceneVars();//sceneVars;
 
-        public SceneVar this[int uniqueID]
+        private List<SceneVar> GetSceneVars()
         {
-            get
+            if (intersceneVariablesSO != null && intersceneVariablesSO.SceneVars.IsValid())
             {
-                SceneVar sVar = SceneVars.Find(v => v.uniqueID == uniqueID);
-                if (sVar == null) Debug.LogError("Can't find SceneVar from UID " + uniqueID + " in " + name);
-                return sVar;
+                return sceneVars.Concat(intersceneVariablesSO.SceneVars).ToList();
             }
+            return sceneVars;
         }
 
-        #region Scene Vars
+        //public SceneVar this[int uniqueID]
+        //{
+        //    get
+        //    {
+        //        SceneVar sVar = SceneVars.Find(v => v.uniqueID == uniqueID);
+        //        if (sVar == null) Debug.LogError("Can't find SceneVar from UID " + uniqueID + " in " + name);
+        //        return sVar;
+        //    }
+        //}
 
+        #region Scene Vars
+        /*
         public void AddSceneVarOfType(SceneVarType type)
         {
             sceneVars.Add(new(GenerateUniqueID(), type));
@@ -68,11 +78,11 @@ namespace Dhs5.SceneCreation
         {
             return sceneVars.IsIndexValid(index) && sceneVars[index].IsLink;
         }
-
+        */
         #endregion
 
         #region Complex Scene Vars
-
+        
         #region Getters
         public ComplexSceneVar GetComplexSceneVarWithUID(int UID)
         {
@@ -92,12 +102,18 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region List Management
+
+        private void CreateLink(ComplexSceneVar complexSceneVar)
+        {
+            sceneVars.Add(SceneVar.CreateLink(complexSceneVar));
+        }
+
         public void AddComplexSceneVarOfType(ComplexSceneVarType type)
         {
             ComplexSceneVar complexVar = new(GenerateUniqueID(), type);
 
             complexSceneVars.Add(complexVar);
-            sceneVars.Add(complexVar.Link);
+            CreateLink(complexVar);
         }
 
         public void TryRemoveComplexSceneVarAtIndex(int index)
@@ -112,7 +128,7 @@ namespace Dhs5.SceneCreation
                 }
                 else
                 {
-                    Debug.LogError("Link " + v.Link + " is not in the SceneVar list ? " + !sceneVars.Contains(v.Link));
+                    Debug.LogError("Can't find Link of " + v + " in the SceneVar list");
                 }
             }
             else
@@ -138,55 +154,30 @@ namespace Dhs5.SceneCreation
             // Browse on Complex Scene Vars
             foreach (var cVar in complexSceneVars)
             {
-                // If link is null, find it or create one
+                // If link is null, create one
                 if (cVar.Link == null)
                 {
-                    SceneVar lostLink = sceneVars.Find(v => v.uniqueID == cVar.uniqueID);
-
-                    if (lostLink == null)
-                    {
-                        Debug.LogError("No Scene Var Link found for Complex Scene Var" + cVar.uniqueID + " , creating one");
-                        cVar.Link = SceneVar.CreateLink(cVar);
-                        sceneVars.Add(cVar.Link);
-                    }
-                    else
-                    {
-                        cVar.Link = lostLink;
-                    }
-                }
-
-                // If link exist but is not in the scene vars
-                else if (!sceneVars.Contains(cVar.Link))
-                {
-                    SceneVar lostLink = sceneVars.Find(v => v.uniqueID == cVar.uniqueID);
-
-                    if (lostLink == null)
-                    {
-                        Debug.LogError("Complex Scene Var link exist but can't find link in the SceneVar list, adding it");
-                        sceneVars.Add(cVar.Link);
-                    }
-                    else if (cVar.Link != lostLink)
-                    {
-                        cVar.Link = lostLink;
-                    }
+                    Debug.LogError("No Scene Var Link found for Complex Scene Var" + cVar.uniqueID + " , creating one");
+                    CreateLink(cVar);
                 }
             }
-
+            
             // Browse on Scene Vars
             foreach (var v in sceneVars.Copy())
             {
-                if (v.IsLink && !TryGetComplexSceneVarWithUID(v.uniqueID, out _))
+                if (v.IsLink && (!TryGetComplexSceneVarWithUID(v.uniqueID, out ComplexSceneVar cVar) || cVar.Link != v))
                 {
-                    sceneVars.Remove(v);
+                    RemoveSceneVar(v);
                 }
             }
         }
 
         #endregion
-
+        
         #endregion
 
         #region IDs
+        /*
         public int GetUniqueIDByIndex(int index)
         {
             if (index < 0 || index >= SceneVars.Count) return 0;
@@ -252,13 +243,18 @@ namespace Dhs5.SceneCreation
             
             return uniqueID;
         }
+        */
         #endregion
 
+        private Vector2Int uidRange = new Vector2Int(1, 10000);
+        protected override Vector2Int UIDRange => uidRange;
+
+        
         private void OnValidate()
         {
-            UpdateSceneVarLinks();
-
             SetupComplexSceneVars();
+
+            UpdateSceneVarLinks();
 
 #if UNITY_EDITOR
             CleanBalancingSheets();
@@ -266,8 +262,10 @@ namespace Dhs5.SceneCreation
             GetIntersceneVariablesSO();
 #endif
         }
+        
+
 #if UNITY_EDITOR
-        public void OnEditorEnable()
+        internal void OnEditorEnable()
         {
             CleanBalancingSheets();
 
@@ -290,6 +288,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Lists
+        /*
         public List<string> VarStrings(List<SceneVar> vars)
         {
             List<string> list = new();
@@ -312,6 +311,7 @@ namespace Dhs5.SceneCreation
             if (uniqueID == 0) return -1;
             return vars.FindIndex(v => v.uniqueID == uniqueID);
         }
+        */
         public List<SceneVar> GetListByType(SceneVarType type, bool precisely = false)
         {
             switch (type)
@@ -331,7 +331,7 @@ namespace Dhs5.SceneCreation
         }
         public List<SceneVar> Modifyables
         {
-            get => sceneVars != null ? sceneVars.FindAll(v => !v.IsStatic && !v.IsRandom) : null;
+            get => SceneVars != null ? SceneVars.FindAll(v => !v.IsStatic && !v.IsRandom && !v.IsLink) : null;
         }
         public List<SceneVar> Listenables
         {
@@ -469,6 +469,31 @@ namespace Dhs5.SceneCreation
 
             return vars;
         }
+        #endregion
+
+
+        #region Helper Functions
+
+        protected override bool CallBaseCleanUp() => false;
+        protected override void ChildCleanUp()
+        {
+            foreach (var var in sceneVars.Copy())
+            {
+                if (var.uniqueID == 0)
+                    RemoveSceneVar(var);
+                else if (var.IsLink)
+                {
+                    bool isLink = false;
+                    foreach (var cVar in complexSceneVars)
+                    {
+                        if (cVar.Link == var) isLink = true;
+                    }
+                    if (!isLink)
+                        RemoveSceneVar(var);
+                }
+            }
+        }
+
         #endregion
     }
 }

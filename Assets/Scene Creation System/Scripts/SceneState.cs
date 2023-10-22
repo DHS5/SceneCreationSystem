@@ -7,6 +7,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 using System.Text;
 using System.Runtime.CompilerServices;
 using static Dhs5.SceneCreation.SceneState;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Dhs5.SceneCreation
 {
@@ -1594,6 +1595,23 @@ namespace Dhs5.SceneCreation
             }
         }
         #endregion
+        #endregion
+
+        #region SceneVar List Methods
+
+        public static List<string> VarStrings(this List<SceneVar> vars)
+        {
+            return BaseVariablesContainer.VarStrings(vars);
+        }
+        public static int GetUniqueIDByIndex(this List<SceneVar> vars, int index)
+        {
+            return BaseVariablesContainer.GetUniqueIDByIndex(vars, index);
+        }
+        public static int GetIndexByUniqueID(this List<SceneVar> vars, int uniqueID)
+        {
+            return BaseVariablesContainer.GetIndexByUniqueID(vars, uniqueID);
+        }
+
         #endregion
         #endregion
     }

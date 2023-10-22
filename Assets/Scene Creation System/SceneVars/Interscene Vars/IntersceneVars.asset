@@ -12,5 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cda7ef96f7c07d48a703ffbc9dee744, type: 3}
   m_Name: IntersceneVars
   m_EditorClassIdentifier: 
-  sceneVars: []
-  complexSceneVars: []
+  sceneVars:
+  - uniqueID: 10811
+    ID: Global bool 1
+    type: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    isGlobal: 1
+    propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []

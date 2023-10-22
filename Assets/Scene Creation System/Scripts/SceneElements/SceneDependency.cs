@@ -22,13 +22,15 @@ namespace Dhs5.SceneCreation
             sceneVar.SetUp(_sceneVariablesSO, SceneVarType.INT, false, true);
         }
 
-        public static List<SceneObject> GetDependencies(SceneVariablesSO sceneVariablesSO, int UID)
+        public static List<SceneObject> GetDependencies(BaseVariablesContainer container, int UID)
         {
             List<SceneObject> sceneObjects = new();
 
             foreach (var so in GameObject.FindObjectsOfType<SceneObject>())
             {
-                if (so.SceneVariablesSO == sceneVariablesSO && so.DependOn(UID))
+                if ((container is IntersceneVariablesSO || 
+                    (container is SceneVariablesSO sceneVariablesSO && so.SceneVariablesSO == sceneVariablesSO)) 
+                    && so.DependOn(UID))
                 {
                     sceneObjects.Add(so);
                 }
@@ -36,12 +38,17 @@ namespace Dhs5.SceneCreation
 
             return sceneObjects;
         }
-        public static bool IsValidInCurrentScene(SceneVariablesSO sceneVariablesSO)
+        public static bool IsValidInCurrentScene(BaseVariablesContainer container)
         {
-            SceneManager manager = GameObject.FindObjectOfType<SceneManager>();
-            if (manager != null)
+            if (container is IntersceneVariablesSO) return true;
+
+            if (container is SceneVariablesSO sceneVariablesSO)
             {
-                return manager.SceneVariablesSO == sceneVariablesSO;
+                SceneManager manager = GameObject.FindObjectOfType<SceneManager>();
+                if (manager != null)
+                {
+                    return manager.SceneVariablesSO == sceneVariablesSO;
+                }
             }
             return false;
         }

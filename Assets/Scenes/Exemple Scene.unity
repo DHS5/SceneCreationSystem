@@ -247,12 +247,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
-  sceneListeners: []
-  sceneEvents: []
+  sceneListeners:
+  - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+    varUniqueID: 10811
+    hasCondition: 0
+    conditions: []
+    debug: 0
+    propertyHeight: 190.40001
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    triggers: []
+  sceneEvents:
+  - eventID: 
+    sceneConditions: []
+    sceneActions:
+    - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+      var1UniqueID: 10811
+      SceneVar2:
+        type: 0
+        sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+        sceneVarUniqueID: 2348
+        anyVar: 0
+        canBeStatic: 1
+        isStatic: 0
+        boolValue: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        forbiddenUID: 0
+        propertyHeight: 0
+      var2Type: 0
+      boolOP: 0
+      intOP: 0
+      floatOP: 0
+      stringOP: 0
+    sceneParameteredEvents: []
+    details:
+      debug: 0
+      limitedTrigger: 0
+      maxTriggerCount: 0
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
   spawnFrequency:
     type: 2
     sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
     sceneVarUniqueID: 4877
+    anyVar: 0
     canBeStatic: 1
     isStatic: 0
     boolValue: 0
@@ -265,6 +307,7 @@ MonoBehaviour:
     type: 1
     sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
     sceneVarUniqueID: 4877
+    anyVar: 0
     canBeStatic: 0
     isStatic: 0
     boolValue: 0
@@ -507,6 +550,9 @@ MonoBehaviour:
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
   sceneListeners: []
   sceneEvents: []
+  onSceneStart: []
+  onSceneChange: []
+  onGameOver: []
 --- !u!114 &8974798447256883763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,5 +566,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
-  sceneListeners: []
+  sceneListeners:
+  - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+    varUniqueID: 2348
+    hasCondition: 0
+    conditions: []
+    debug: 0
+    propertyHeight: 0
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    triggers: []
   sceneEvents: []

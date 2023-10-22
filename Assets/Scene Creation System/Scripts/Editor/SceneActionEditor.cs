@@ -65,14 +65,14 @@ namespace Dhs5.SceneCreation
             }
 
             sceneVarUniqueID1P = property.FindPropertyRelative("var1UniqueID");
-            int sceneVarIndexSave1 = sceneVarContainer.GetIndexByUniqueID(sceneVarList1, sceneVarUniqueID1P.intValue);
+            int sceneVarIndexSave1 = sceneVarList1.GetIndexByUniqueID(sceneVarUniqueID1P.intValue);
             if (sceneVarIndexSave1 == -1) sceneVarIndexSave1 = 0;
             // SceneVar1 choice popup
             //Rect popup1Position = new Rect(position.x, position.y, position.width * 0.35f, EditorGUIUtility.singleLineHeight);
             Rect popup1Position = new Rect(position.x, position.y, position.width * 0.72f, EditorGUIUtility.singleLineHeight);
-            sceneVarIndex1 = EditorGUI.Popup(popup1Position, sceneVarIndexSave1, sceneVarContainer.VarStrings(sceneVarList1).ToArray());
-            if (sceneVarContainer.GetUniqueIDByIndex(sceneVarList1, sceneVarIndex1) == 0) sceneVarIndex1 = sceneVarIndexSave1;
-            sceneVarUniqueID1P.intValue = sceneVarContainer.GetUniqueIDByIndex(sceneVarList1, sceneVarIndex1);
+            sceneVarIndex1 = EditorGUI.Popup(popup1Position, sceneVarIndexSave1, sceneVarList1.VarStrings().ToArray());
+            if (sceneVarList1.GetUniqueIDByIndex(sceneVarIndex1) == 0) sceneVarIndex1 = sceneVarIndexSave1;
+            sceneVarUniqueID1P.intValue = sceneVarList1.GetUniqueIDByIndex(sceneVarIndex1);
 
             // Operation creation
             //Rect opPosition = new Rect(position.x + position.width * 0.36f, position.y, position.width * 0.28f, EditorGUIUtility.singleLineHeight);
