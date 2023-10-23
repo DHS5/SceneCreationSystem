@@ -336,7 +336,8 @@ MonoBehaviour:
     sceneObjects: []
   intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   complexSceneVars:
-  - uniqueID: 7301
+  - sceneVariablesSO: {fileID: 11400000}
+    uniqueID: 7301
     ID: Condition 1
     type: 0
     conditions:
@@ -409,29 +410,9 @@ MonoBehaviour:
     intTotals: []
     floatTotals: []
     sentences: []
-    Link:
-      uniqueID: 7301
-      ID: Condition 1
-      type: 0
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      isGlobal: 0
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
     propertyHeight: 0
-  - uniqueID: 2637
+  - sceneVariablesSO: {fileID: 11400000}
+    uniqueID: 2637
     ID: Total INT 1
     type: 1
     conditions: []
@@ -486,29 +467,9 @@ MonoBehaviour:
       type: 1
     floatTotals: []
     sentences: []
-    Link:
-      uniqueID: 2637
-      ID: Total INT 1
-      type: 1
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      isGlobal: 0
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
     propertyHeight: 0
-  - uniqueID: 1089
+  - sceneVariablesSO: {fileID: 11400000}
+    uniqueID: 1089
     ID: Total FLOAT 1
     type: 2
     conditions: []
@@ -563,29 +524,9 @@ MonoBehaviour:
       op: 0
       type: 2
     sentences: []
-    Link:
-      uniqueID: 1089
-      ID: Total FLOAT 1
-      type: 2
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      isGlobal: 0
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
     propertyHeight: 0
-  - uniqueID: 765
+  - sceneVariablesSO: {fileID: 11400000}
+    uniqueID: 765
     ID: Sentence 1
     type: 3
     conditions: []
@@ -640,27 +581,6 @@ MonoBehaviour:
         propertyHeight: 0
       op: 0
       type: 3
-    Link:
-      uniqueID: 765
-      ID: Sentence 1
-      type: 3
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      hasMin: 0
-      hasMax: 0
-      minInt: 0
-      maxInt: 0
-      minFloat: 0
-      maxFloat: 0
-      isStatic: 0
-      isRandom: 0
-      isLink: 1
-      isGlobal: 0
-      propertyHeight: 0
-      showDependencies: 0
-      sceneObjects: []
     propertyHeight: 0
   sceneBalancingSheets:
   - {fileID: 11400000, guid: eb73dcf0b1035b4439276db635b25e7f, type: 2}

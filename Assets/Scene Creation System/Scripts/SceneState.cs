@@ -170,6 +170,10 @@ namespace Dhs5.SceneCreation
             {
                 SceneEventManager.TriggerEvent(varUniqueID, new(SceneVariables[varUniqueID], FormerValues[varUniqueID], sender, context));
             }
+            CheckChangedLink(varUniqueID, sender, context);
+        }
+        internal static void CheckChangedLink(int varUniqueID, SceneObject sender, SceneContext context)
+        {
             if (SceneVarLinks.ContainsKey(varUniqueID))
             {
                 foreach (var complexUID in SceneVarLinks[varUniqueID])
@@ -335,216 +339,306 @@ namespace Dhs5.SceneCreation
 
         public static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender, SceneContext context)
         {
-            if (SceneVariables.ContainsKey(varUniqueID))
+            if (varUniqueID > 10000)
             {
-                SceneVar var = SceneVariables[varUniqueID];
-                if (var.type == SceneVarType.BOOL && !var.IsStatic && !var.IsLink)
-                {
-                    SaveFormerValues();
-                    switch (op)
-                    {
-                        case BoolOperation.SET:
-                            SceneVariables[varUniqueID].BoolValue = param;
-                            break;
-                        case BoolOperation.INVERSE:
-                            SceneVariables[varUniqueID].BoolValue = !SceneVariables[varUniqueID].BoolValue;
-                            break;
-                        case BoolOperation.TO_TRUE:
-                            SceneVariables[varUniqueID].BoolValue = true;
-                            break;
-                        case BoolOperation.TO_FALSE:
-                            SceneVariables[varUniqueID].BoolValue = false;
-                            break;
-                        default:
-                            SceneVariables[varUniqueID].BoolValue = param;
-                            break;
-                    }
-                    ChangedVar(varUniqueID, sender, context);
-                    return;
-                }
-                IncorrectType(varUniqueID, SceneVarType.BOOL);
+                IntersceneState.ModifyBoolVar(varUniqueID, op, param, sender, context);
                 return;
             }
-            IncorrectID(varUniqueID);
+
+            if (CanModifyVar(varUniqueID, SceneVarType.BOOL, out SceneVar var))
+            {
+                SaveFormerValues();
+                if (CalculateBool(ref var, op, param))
+                    ChangedVar(varUniqueID, sender, context);
+                return;
+            }
         }
         public static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender, SceneContext context)
         {
-            if (SceneVariables.ContainsKey(varUniqueID))
+            if (varUniqueID > 10000)
             {
-                SceneVar var = SceneVariables[varUniqueID];
-                if (var.type == SceneVarType.INT && !var.IsStatic && !var.IsLink && !var.IsRandom)
-                {
-                    SaveFormerValues();
-                    switch (op)
-                    {
-                        case IntOperation.SET:
-                            var.IntValue = param;
-                            break;
-                        case IntOperation.ADD:
-                            var.IntValue += param;
-                            break;
-                        case IntOperation.SUBSTRACT:
-                            var.IntValue -= param;
-                            break;
-                        case IntOperation.MULTIPLY:
-                            var.IntValue *= param;
-                            break;
-                        case IntOperation.DIVIDE:
-                            var.IntValue /= param;
-                            break;
-                        case IntOperation.POWER:
-                            var.IntValue = (int)Mathf.Pow(var.IntValue, param);
-                            break;
-                        case IntOperation.TO_MIN:
-                            if (!var.hasMin) return;
-                            var.IntValue = var.minInt;
-                            break;
-                        case IntOperation.TO_MAX:
-                            if (!var.hasMax) return;
-                            var.IntValue = var.maxInt;
-                            break;
-                        case IntOperation.TO_NULL:
-                            var.IntValue = 0;
-                            break;
-                        case IntOperation.INCREMENT:
-                            var.IntValue++;
-                            break;
-                        case IntOperation.DECREMENT:
-                            var.IntValue--;
-                            break;
-                        
-                        default:
-                            var.IntValue = param;
-                            break;
-                    }
-                    if (var.hasMin || var.hasMax)
-                    {
-                        var.IntValue = (int)Mathf.Clamp(var.IntValue,
-                            var.hasMin ? var.minInt : -Mathf.Infinity,
-                            var.hasMax ? var.maxInt : Mathf.Infinity);
-                    }
-
-                    ChangedVar(varUniqueID, sender, context);
-                    return;
-                }
-                IncorrectType(varUniqueID, SceneVarType.INT);
+                //IntersceneState.ModifyIntVar(varUniqueID, op, param, sender, context);
                 return;
             }
-            IncorrectID(varUniqueID);
+
+            if (CanModifyVar(varUniqueID, SceneVarType.INT, out SceneVar var))
+            {
+                SaveFormerValues();
+                if (CalculateInt(ref var, op, param))
+                    ChangedVar(varUniqueID, sender, context);
+                return;
+            }
         }
         public static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender, SceneContext context)
         {
-            if (SceneVariables.ContainsKey(varUniqueID))
+            if (varUniqueID > 10000)
             {
-                SceneVar var = SceneVariables[varUniqueID];
-                if (var.type == SceneVarType.FLOAT && !var.IsStatic && !var.IsLink && !var.IsRandom)
-                {
-                    SaveFormerValues();
-                    switch (op)
-                    {
-                        case FloatOperation.SET:
-                            var.FloatValue = param;
-                            break;
-                        case FloatOperation.ADD:
-                            var.FloatValue += param;
-                            break;
-                        case FloatOperation.SUBSTRACT:
-                            var.FloatValue -= param;
-                            break;
-                        case FloatOperation.MULTIPLY:
-                            var.FloatValue *= param;
-                            break;
-                        case FloatOperation.DIVIDE:
-                            var.FloatValue /= param;
-                            break;
-                        case FloatOperation.POWER:
-                            var.FloatValue = Mathf.Pow(SceneVariables[varUniqueID].FloatValue, param);
-                            break;
-                        case FloatOperation.TO_MIN:
-                            if (!var.hasMin) return;
-                            var.FloatValue = var.minFloat;
-                            break;
-                        case FloatOperation.TO_MAX:
-                            if (!var.hasMax) return;
-                            var.FloatValue = var.maxFloat;
-                            break;
-                        case FloatOperation.TO_NULL:
-                            var.FloatValue = 0;
-                            break;
-                        case FloatOperation.INCREMENT:
-                            var.FloatValue++;
-                            break;
-                        case FloatOperation.DECREMENT:
-                            var.FloatValue--;
-                            break;
-
-                        default:
-                            var.FloatValue = param;
-                            break;
-                    }
-                    if (var.hasMin || var.hasMax)
-                    {
-                        var.FloatValue = (int)Mathf.Clamp(var.FloatValue,
-                            var.hasMin ? var.minFloat : -Mathf.Infinity,
-                            var.hasMax ? var.maxFloat : Mathf.Infinity);
-                    }
-
-                    ChangedVar(varUniqueID, sender, context);
-                    return;
-                }
-                IncorrectType(varUniqueID, SceneVarType.FLOAT);
+                //IntersceneState.ModifyFloatVar(varUniqueID, op, param, sender, context);
                 return;
             }
-            IncorrectID(varUniqueID);
+
+            if (CanModifyVar(varUniqueID, SceneVarType.FLOAT, out SceneVar var))
+            {
+                SaveFormerValues();
+                if (CalculateFloat(ref var, op, param))
+                    ChangedVar(varUniqueID, sender, context);
+                return;
+            }
         }
         public static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender, SceneContext context)
         {
-            if (SceneVariables.ContainsKey(varUniqueID))
+            if (varUniqueID > 10000)
             {
-                SceneVar var = SceneVariables[varUniqueID];
-                if (var.type == SceneVarType.STRING && !var.IsStatic && !var.IsLink)
-                {
-                    SaveFormerValues();
-                    switch (op)
-                    {
-                        case StringOperation.SET:
-                            SceneVariables[varUniqueID].StringValue = param;
-                            break;
-                        case StringOperation.APPEND:
-                            SceneVariables[varUniqueID].StringValue += param;
-                            break;
-                        case StringOperation.REMOVE:
-                            SceneVariables[varUniqueID].StringValue.Replace(param, "");
-                            break;
-
-                        default:
-                            SceneVariables[varUniqueID].StringValue = param;
-                            break;
-                    }
-                    ChangedVar(varUniqueID, sender, context);
-                    return;
-                }
-                IncorrectType(varUniqueID, SceneVarType.STRING);
+                //IntersceneState.ModifyStringVar(varUniqueID, op, param, sender, context);
                 return;
             }
-            IncorrectID(varUniqueID);
+
+            if (CanModifyVar(varUniqueID, SceneVarType.STRING, out SceneVar var))
+            {
+                SaveFormerValues();
+                if (CalculateString(ref var, op, param))
+                    ChangedVar(varUniqueID, sender, context);
+                return;
+            }
         }
         public static void TriggerEventVar(int varUniqueID, SceneObject sender, SceneContext context)
         {
-            if (SceneVariables.ContainsKey(varUniqueID))
+            if (varUniqueID > 10000)
             {
-                SceneVar var = SceneVariables[varUniqueID];
-                if (var.type == SceneVarType.EVENT)
-                {
-                    SaveFormerValues();
-                    ChangedVar(varUniqueID, sender, context);
-                    return;
-                }
-                IncorrectType(varUniqueID, SceneVarType.EVENT);
+                //IntersceneState.TriggerEventVar(varUniqueID, op, param, sender, context);
                 return;
             }
-            IncorrectID(varUniqueID);
+
+            if (CanModifyVar(varUniqueID, SceneVarType.EVENT, out SceneVar var))
+            {
+                SaveFormerValues();
+                ChangedVar(varUniqueID, sender, context);
+                return;
+            }
         }
+        #endregion
+
+        #region Var Operations
+
+        private static bool CanModifyVar(int uniqueID, SceneVarType type, out SceneVar var)
+        {
+            var = null;
+
+            // Check if the UID is valid
+            if (SceneVariables.ContainsKey(uniqueID))
+            {
+                var = SceneVariables[uniqueID];
+
+                // Check if the type is valid
+                if (var.type == type)
+                {
+                    // Check if the SceneVar is modifiable
+                    bool canModify = var.CanModify;
+
+                    if (!canModify)
+                    {
+                        Debug.LogError("Can't modify this SceneVar");
+                    }
+
+                    return canModify;
+                }
+                else
+                {
+                    IncorrectType(uniqueID, type);
+                    return false;
+                }
+            }
+            else
+            {
+                IncorrectID(uniqueID);
+                return false;
+            }
+        }
+
+        internal static bool CalculateBool(ref SceneVar var, BoolOperation op, bool param)
+        {
+            bool baseValue = var.BoolValue;
+            switch (op)
+            {
+                case BoolOperation.SET:
+                    var.BoolValue = param;
+                    return baseValue != param;
+                case BoolOperation.INVERSE:
+                    var.BoolValue = !baseValue;
+                    return true;
+                case BoolOperation.TO_TRUE:
+                    var.BoolValue = true;
+                    return !baseValue;
+                case BoolOperation.TO_FALSE:
+                    var.BoolValue = false;
+                    return baseValue;
+                default:
+                    var.BoolValue = param;
+                    return baseValue != param;
+            }
+        }
+        internal static bool CalculateInt(ref SceneVar var, IntOperation op, int param)
+        {
+            int baseValue = var.IntValue;
+            bool result;
+
+            switch (op)
+            {
+                case IntOperation.SET:
+                    var.IntValue = param;
+                    result = baseValue != param;
+                    break;
+                case IntOperation.ADD:
+                    var.IntValue += param;
+                    result = param != 0;
+                    break;
+                case IntOperation.SUBSTRACT:
+                    var.IntValue -= param;
+                    result = param != 0;
+                    break;
+                case IntOperation.MULTIPLY:
+                    var.IntValue *= param;
+                    result = param != 1;
+                    break;
+                case IntOperation.DIVIDE:
+                    var.IntValue /= param;
+                    result = param != 1;
+                    break;
+                case IntOperation.POWER:
+                    var.IntValue = (int)Mathf.Pow(var.IntValue, param);
+                    result = param != 1;
+                    break;
+                case IntOperation.TO_MIN:
+                    if (!var.hasMin) return false;
+                    var.IntValue = var.minInt;
+                    result = baseValue != var.minInt;
+                    break;
+                case IntOperation.TO_MAX:
+                    if (!var.hasMax) return false;
+                    var.IntValue = var.maxInt;
+                    result = baseValue != var.maxInt;
+                    break;
+                case IntOperation.TO_NULL:
+                    var.IntValue = 0;
+                    result = baseValue != 0;
+                    break;
+                case IntOperation.INCREMENT:
+                    var.IntValue++;
+                    result = true;
+                    break;
+                case IntOperation.DECREMENT:
+                    var.IntValue--;
+                    result = true;
+                    break;
+
+                default:
+                    var.IntValue = param;
+                    result = baseValue != param;
+                    break;
+            }
+
+            if (var.hasMin || var.hasMax)
+            {
+                var.IntValue = (int)Mathf.Clamp(var.IntValue,
+                    var.hasMin ? var.minInt : -Mathf.Infinity,
+                    var.hasMax ? var.maxInt : Mathf.Infinity);
+                result = var.IntValue != baseValue;
+            }
+
+            return result;
+        }
+        internal static bool CalculateFloat(ref SceneVar var, FloatOperation op, float param)
+        {
+            float baseValue = var.FloatValue;
+            bool result;
+
+            switch (op)
+            {
+                case FloatOperation.SET:
+                    var.FloatValue = param;
+                    result = baseValue != param;
+                    break;
+                case FloatOperation.ADD:
+                    var.FloatValue += param;
+                    result = param != 0;
+                    break;
+                case FloatOperation.SUBSTRACT:
+                    var.FloatValue -= param;
+                    result = param != 0;
+                    break;
+                case FloatOperation.MULTIPLY:
+                    var.FloatValue *= param;
+                    result = param != 1;
+                    break;
+                case FloatOperation.DIVIDE:
+                    var.FloatValue /= param;
+                    result = param != 1;
+                    break;
+                case FloatOperation.POWER:
+                    var.FloatValue = Mathf.Pow(var.FloatValue, param);
+                    result = param != 1;
+                    break;
+                case FloatOperation.TO_MIN:
+                    if (!var.hasMin) return false;
+                    var.FloatValue = var.minFloat;
+                    result = baseValue != var.minFloat;
+                    break;
+                case FloatOperation.TO_MAX:
+                    if (!var.hasMax) return false;
+                    var.FloatValue = var.maxFloat;
+                    result = baseValue != var.maxFloat;
+                    break;
+                case FloatOperation.TO_NULL:
+                    var.FloatValue = 0;
+                    result = baseValue != 0;
+                    break;
+                case FloatOperation.INCREMENT:
+                    var.FloatValue++;
+                    result = true;
+                    break;
+                case FloatOperation.DECREMENT:
+                    var.FloatValue--;
+                    result = true;
+                    break;
+
+                default:
+                    var.FloatValue = param;
+                    result = baseValue != param;
+                    break;
+            }
+
+            if (var.hasMin || var.hasMax)
+            {
+                var.FloatValue = (int)Mathf.Clamp(var.FloatValue,
+                    var.hasMin ? var.minFloat : -Mathf.Infinity,
+                    var.hasMax ? var.maxFloat : Mathf.Infinity);
+                result = baseValue != var.FloatValue;
+            }
+
+            return result;
+        }
+        internal static bool CalculateString(ref SceneVar var, StringOperation op, string param)
+        {
+            string baseValue = var.StringValue;
+
+            switch (op)
+            {
+                case StringOperation.SET:
+                    var.StringValue = param;
+                    return baseValue != param;
+                case StringOperation.APPEND:
+                    var.StringValue += param;
+                    return !string.IsNullOrEmpty(param);
+                case StringOperation.REMOVE:
+                    var.StringValue.Replace(param, "");
+                    return !string.IsNullOrEmpty(param);
+
+                default:
+                    var.StringValue = param;
+                    return baseValue != param;
+            }
+        }
+
         #endregion
 
         #region Log

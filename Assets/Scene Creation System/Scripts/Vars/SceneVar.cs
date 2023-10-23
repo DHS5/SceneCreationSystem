@@ -34,6 +34,7 @@ namespace Dhs5.SceneCreation
             isStatic = var.isStatic;
             isLink = var.isLink;
             isRandom = var.isRandom;
+            isGlobal = var.isGlobal;
 
             hasMin = var.hasMin;
             hasMax = var.hasMax;
@@ -61,6 +62,7 @@ namespace Dhs5.SceneCreation
             isStatic = sceneVar.IsStatic;
             isLink = sceneVar.isLink;
             isRandom = sceneVar.IsRandom;
+            isGlobal = sceneVar.isGlobal;
 
             hasMin = sceneVar.hasMin;
             hasMax = sceneVar.hasMax;
@@ -77,6 +79,7 @@ namespace Dhs5.SceneCreation
             isStatic = _isStatic;
             isLink = _isLink;
             isRandom = _isRandom;
+            isGlobal = false;
 
             switch (type)
             {
@@ -131,6 +134,26 @@ namespace Dhs5.SceneCreation
         public bool IsGlobal => isGlobal;
 
         [SerializeField] private float propertyHeight;
+
+        public bool CanModify
+        {
+            get
+            {
+                switch (type)
+                {
+                    case SceneVarType.EVENT: 
+                        return true;
+                    case SceneVarType.BOOL:
+                    case SceneVarType.STRING:
+                        return !IsStatic && !IsLink;
+                    case SceneVarType.INT:
+                    case SceneVarType.FLOAT:
+                        return !IsStatic && !IsLink && !IsRandom;
+                    default: 
+                        return false;
+                }
+            }
+        }
 
         #region Values
         public bool BoolValue
