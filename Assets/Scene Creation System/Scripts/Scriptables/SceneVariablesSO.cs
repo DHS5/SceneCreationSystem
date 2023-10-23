@@ -15,6 +15,7 @@ namespace Dhs5.SceneCreation
     public class SceneVariablesSO : BaseVariablesContainer
     {
         [SerializeField] private IntersceneVariablesSO intersceneVariablesSO;
+        public IntersceneVariablesSO IntersceneVariablesSO => intersceneVariablesSO;
 
         //[SerializeField] private List<SceneVar> sceneVars;
         

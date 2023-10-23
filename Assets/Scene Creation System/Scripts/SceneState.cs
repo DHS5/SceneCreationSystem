@@ -295,6 +295,7 @@ namespace Dhs5.SceneCreation
             SetSceneVars(sceneVars);
             SetComplexSceneVars(complexSceneVars);
             SetSceneLinks();
+            IntersceneState.SetGlobalVars(sceneVariablesSO.IntersceneVariablesSO);
         }
         private static void SetSceneVars(List<SceneVar> sceneVars)
         {
@@ -337,7 +338,7 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        public static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender, SceneContext context)
+        internal static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
@@ -353,11 +354,11 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        public static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender, SceneContext context)
+        internal static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
-                //IntersceneState.ModifyIntVar(varUniqueID, op, param, sender, context);
+                IntersceneState.ModifyIntVar(varUniqueID, op, param, sender, context);
                 return;
             }
 
@@ -369,11 +370,11 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        public static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender, SceneContext context)
+        internal static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
-                //IntersceneState.ModifyFloatVar(varUniqueID, op, param, sender, context);
+                IntersceneState.ModifyFloatVar(varUniqueID, op, param, sender, context);
                 return;
             }
 
@@ -385,11 +386,11 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        public static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender, SceneContext context)
+        internal static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
-                //IntersceneState.ModifyStringVar(varUniqueID, op, param, sender, context);
+                IntersceneState.ModifyStringVar(varUniqueID, op, param, sender, context);
                 return;
             }
 
@@ -401,11 +402,11 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        public static void TriggerEventVar(int varUniqueID, SceneObject sender, SceneContext context)
+        internal static void TriggerEventVar(int varUniqueID, SceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
-                //IntersceneState.TriggerEventVar(varUniqueID, op, param, sender, context);
+                IntersceneState.TriggerEventVar(varUniqueID, sender, context);
                 return;
             }
 
@@ -642,13 +643,13 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Log
-        private static void IncorrectID(int ID)
+        internal static void IncorrectID(int UID)
         {
-            Debug.LogError("Variable ID : '" + ID + "' doesn't exist in the current scene.");
+            Debug.LogError("Variable UID : '" + UID + "' doesn't exist in the current scene.");
         }
-        private static void IncorrectType(int ID, SceneVarType type)
+        internal static void IncorrectType(int UID, SceneVarType type)
         {
-            Debug.LogError("Variable ID : '" + ID + "' is not of type : '" + type.ToString() + "'.");
+            Debug.LogError("Variable UID : '" + UID + "' is not of type : '" + type.ToString() + "'.");
         }
         #endregion
 

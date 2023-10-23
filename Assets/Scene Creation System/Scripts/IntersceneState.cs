@@ -37,6 +37,8 @@ namespace Dhs5.SceneCreation
 
         #endregion
 
+        #region Global Vars Actions
+
         private static void SaveFormerValues()
         {
             if (!IntersceneVariables.IsValid()) return;
@@ -48,8 +50,6 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        #region Global Vars Actions
-
         private static void ChangedVar(int varUniqueID, SceneObject sender, SceneContext context)
         {
             if (IntersceneVariables.ContainsKey(varUniqueID))
@@ -59,36 +59,88 @@ namespace Dhs5.SceneCreation
             SceneState.CheckChangedLink(varUniqueID, sender, context);
         }
 
-        public static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender, SceneContext context)
+        internal static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender, SceneContext context)
         {
-            if (IntersceneVariables.ContainsKey(varUniqueID))
+            if (CanModifyVar(varUniqueID, SceneVarType.BOOL, out SceneVar var))
             {
-                SceneVar var = IntersceneVariables[varUniqueID];
-                if (var.type == SceneVarType.BOOL && !var.IsStatic && !var.IsLink)
-                {
-                    SaveFormerValues();
-                    switch (op)
-                    {
-                        case BoolOperation.SET:
-                            IntersceneVariables[varUniqueID].BoolValue = param;
-                            break;
-                        case BoolOperation.INVERSE:
-                            IntersceneVariables[varUniqueID].BoolValue = !IntersceneVariables[varUniqueID].BoolValue;
-                            break;
-                        case BoolOperation.TO_TRUE:
-                            IntersceneVariables[varUniqueID].BoolValue = true;
-                            break;
-                        case BoolOperation.TO_FALSE:
-                            IntersceneVariables[varUniqueID].BoolValue = false;
-                            break;
-                        default:
-                            IntersceneVariables[varUniqueID].BoolValue = param;
-                            break;
-                    }
+                SaveFormerValues();
+                if (SceneState.CalculateBool(ref var, op, param))
                     ChangedVar(varUniqueID, sender, context);
-                    return;
-                }
                 return;
+            }
+        }
+        internal static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender, SceneContext context)
+        {
+            if (CanModifyVar(varUniqueID, SceneVarType.INT, out SceneVar var))
+            {
+                SaveFormerValues();
+                if (SceneState.CalculateInt(ref var, op, param))
+                    ChangedVar(varUniqueID, sender, context);
+                return;
+            }
+        }
+        internal static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender, SceneContext context)
+        {
+            if (CanModifyVar(varUniqueID, SceneVarType.FLOAT, out SceneVar var))
+            {
+                SaveFormerValues();
+                if (SceneState.CalculateFloat(ref var, op, param))
+                    ChangedVar(varUniqueID, sender, context);
+                return;
+            }
+        }
+        internal static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender, SceneContext context)
+        {
+            if (CanModifyVar(varUniqueID, SceneVarType.STRING, out SceneVar var))
+            {
+                SaveFormerValues();
+                if (SceneState.CalculateString(ref var, op, param))
+                    ChangedVar(varUniqueID, sender, context);
+                return;
+            }
+        }
+        internal static void TriggerEventVar(int varUniqueID, SceneObject sender, SceneContext context)
+        {
+            if (CanModifyVar(varUniqueID, SceneVarType.EVENT, out SceneVar var))
+            {
+                SaveFormerValues();
+                ChangedVar(varUniqueID, sender, context);
+                return;
+            }
+        }
+
+        private static bool CanModifyVar(int uniqueID, SceneVarType type, out SceneVar var)
+        {
+            var = null;
+
+            // Check if the UID is valid
+            if (IntersceneVariables.ContainsKey(uniqueID))
+            {
+                var = IntersceneVariables[uniqueID];
+
+                // Check if the type is valid
+                if (var.type == type)
+                {
+                    // Check if the SceneVar is modifiable
+                    bool canModify = var.CanModify;
+
+                    if (!canModify)
+                    {
+                        Debug.LogError("Can't modify this SceneVar");
+                    }
+
+                    return canModify;
+                }
+                else
+                {
+                    SceneState.IncorrectType(uniqueID, type);
+                    return false;
+                }
+            }
+            else
+            {
+                SceneState.IncorrectID(uniqueID);
+                return false;
             }
         }
 

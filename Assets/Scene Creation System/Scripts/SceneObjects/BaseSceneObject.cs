@@ -11,8 +11,17 @@ namespace Dhs5.SceneCreation
 {
     public abstract class BaseSceneObject : MonoBehaviour, SceneState.ISceneLogableWithChild, SceneState.ISceneVarDependantWithChild
     {
-        [SerializeField] protected SceneVariablesSO sceneVariablesSO;
+        [SerializeField, HideInInspector] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
+
+        #region Private Editor References
+
+        /// <summary>
+        /// Editor only reference to the <see cref="SceneManager"/> of the Scene
+        /// </summary>
+        [SerializeField, HideInInspector] private SceneManager sceneManager;
+
+        #endregion
 
         #region Base
         private void Awake()
@@ -46,13 +55,37 @@ namespace Dhs5.SceneCreation
 
         private void OnValidate()
         {
-            UpdateSceneVariables();
+            if (GetSceneVariablesSO())
+            {
+                UpdateSceneVariables();
+            }
 
             OnSceneObjectValidate();
         }
         #endregion
 
         #region Automatisation
+        /// <summary>
+        /// Private function getting the <see cref="SceneManager"/> of the Scene and the <see cref="SceneVariablesSO"/>
+        /// </summary>
+        /// <returns>True if <see cref="SceneVariablesSO"/> is valid</returns>
+        private bool GetSceneVariablesSO()
+        {
+            if (this is SceneManager) return sceneVariablesSO != null;
+
+            if (sceneManager == null)
+            {
+                sceneManager = FindObjectOfType<SceneManager>();
+            }
+
+            if (sceneManager != null)
+            {
+                sceneVariablesSO = sceneManager.SceneVariablesSO;
+                return sceneVariablesSO != null;
+            }
+
+            return false;
+        }
         /// <summary>
         /// Called on <see cref="Awake"/>.<br></br><br></br>
         /// If overriden :<br></br>
@@ -875,30 +908,6 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
-        #endregion
-
-
-        #region Editor
-        /// <summary>
-        /// !!! EDITOR FUNCTION !!!
-        /// </summary>
-        [ContextMenu("Get SceneVariablesSO")]
-        public bool GetSceneVariablesSOInScene()
-        {
-#if UNITY_EDITOR
-            if (Application.isPlaying || this is SceneManager) return false;
-            SceneManager manager = FindObjectOfType<SceneManager>();
-            if (manager != null && manager != this)
-            {
-                sceneVariablesSO = manager.SceneVariablesSO;
-
-                UpdateSceneVariables();
-            }
-            return true;
-#else
-            return false;
-#endif
-        }
         #endregion
     }
 }

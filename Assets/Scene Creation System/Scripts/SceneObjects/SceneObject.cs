@@ -573,7 +573,7 @@ namespace Dhs5.SceneCreation
         /// !!! EDITOR FUNCTION !!!
         /// </summary>
         [ContextMenu("Get SceneVariablesSO")]
-        public void GetSceneVariablesSOInScene()
+        internal void GetSceneVariablesSOInScene()
         {
 #if UNITY_EDITOR
             if (Application.isPlaying || this is SceneManager) return;
