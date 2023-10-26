@@ -26,6 +26,10 @@ namespace Dhs5.SceneCreation
             }
             Instance = this;
         }
+
+
+        public static IntersceneVariablesSO IntersceneVariables => Instance.SceneVariablesSO.IntersceneVariables;
+        public static SceneObjectSettings Settings => Instance.SceneVariablesSO.Settings;
         #endregion
 
         [Header("Manager")]

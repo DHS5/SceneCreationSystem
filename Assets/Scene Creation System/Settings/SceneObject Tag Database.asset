@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01c7dfa721484e499fb3253b909b98d, type: 3}
+  m_Name: SceneObject Tag Database
+  m_EditorClassIdentifier: 
+  tag0: 
+  tag1: 
+  tag2: 
+  tag3: 
+  tag4: 
+  tag5: 
+  tag6: 
+  tag7: 
+  tag8: 
+  tag9: 
+  tag10: 
+  tag11: 
+  tag12: 
+  tag13: 
+  tag14: 
+  tag15: 
+  tag16: 
+  tag17: 
+  tag18: 
+  tag19: 
+  tag20: 
+  tag21: 
+  tag22: 
+  tag23: 
+  tag24: 
+  tag25: 
+  tag26: 
+  tag27: 
+  tag28: 
+  tag29: 
+  tag30: 
+  tag31: 
+  _names: []

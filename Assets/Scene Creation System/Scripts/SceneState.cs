@@ -295,7 +295,7 @@ namespace Dhs5.SceneCreation
             SetSceneVars(sceneVars);
             SetComplexSceneVars(complexSceneVars);
             SetSceneLinks();
-            IntersceneState.SetGlobalVars(sceneVariablesSO.IntersceneVariablesSO);
+            IntersceneState.SetGlobalVars(sceneVariablesSO.IntersceneVariables);
         }
         private static void SetSceneVars(List<SceneVar> sceneVars)
         {

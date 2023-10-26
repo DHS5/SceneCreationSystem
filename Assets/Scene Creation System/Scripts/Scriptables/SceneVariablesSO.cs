@@ -15,7 +15,10 @@ namespace Dhs5.SceneCreation
     public class SceneVariablesSO : BaseVariablesContainer
     {
         [SerializeField] private IntersceneVariablesSO intersceneVariablesSO;
-        public IntersceneVariablesSO IntersceneVariablesSO => intersceneVariablesSO;
+        public IntersceneVariablesSO IntersceneVariables => intersceneVariablesSO;
+        
+        [SerializeField] private SceneObjectSettings sceneObjectSettings;
+        public SceneObjectSettings Settings => sceneObjectSettings;
 
         //[SerializeField] private List<SceneVar> sceneVars;
         
@@ -260,7 +263,7 @@ namespace Dhs5.SceneCreation
 #if UNITY_EDITOR
             CleanBalancingSheets();
 
-            GetIntersceneVariablesSO();
+            GetSceneCreationSettings();
 #endif
         }
         
@@ -270,20 +273,21 @@ namespace Dhs5.SceneCreation
         {
             CleanBalancingSheets();
 
-            GetIntersceneVariablesSO();
+            GetSceneCreationSettings();
         }
 #endif
 
         
 
-        #region Interscene Variables
+        #region Scene Creation Settings
 
         /// <summary>
         /// Editor only function to get the interscene variables from the settings
         /// </summary>
-        private void GetIntersceneVariablesSO()
+        private void GetSceneCreationSettings()
         {
             intersceneVariablesSO = SceneCreationSettings.instance.IntersceneVars;
+            sceneObjectSettings = SceneCreationSettings.instance.SceneObjectSettings;
         }
 
         #endregion

@@ -14,6 +14,8 @@ namespace Dhs5.SceneCreation
     {
         SceneVariablesSO sceneVariablesSO;
 
+        bool detailFoldoutOpen;
+
         private void OnEnable()
         {
             sceneVariablesSO = target as SceneVariablesSO;
@@ -30,10 +32,14 @@ namespace Dhs5.SceneCreation
             //base.OnInspectorGUI();
             serializedObject.Update();
 
-            EditorGUILayout.LabelField("Inter-scene variables");
-            EditorGUI.BeginDisabledGroup(true);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("intersceneVariablesSO"));
-            EditorGUI.EndDisabledGroup();
+            detailFoldoutOpen = EditorGUILayout.Foldout(detailFoldoutOpen, "Scene Creation Settings");
+            if (detailFoldoutOpen)
+            {
+                EditorGUI.BeginDisabledGroup(true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("intersceneVariablesSO"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneObjectSettings"));
+                EditorGUI.EndDisabledGroup();
+            }
 
             EditorGUILayout.Space(15f);
             //EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVars"));
