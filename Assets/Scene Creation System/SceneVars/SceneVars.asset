@@ -114,6 +114,7 @@ MonoBehaviour:
     showDependencies: 0
     sceneObjects: []
   intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
+  sceneObjectSettings: {fileID: 11400000, guid: a6a34f1f1f87cc142ba6879bdbf57cee, type: 2}
   complexSceneVars:
   - sceneVariablesSO: {fileID: 11400000}
     uniqueID: 1832

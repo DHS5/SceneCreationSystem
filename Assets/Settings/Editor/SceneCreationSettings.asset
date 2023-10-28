@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   sceneObjectSettings: {fileID: 11400000, guid: a6a34f1f1f87cc142ba6879bdbf57cee, type: 2}
+  sceneCreationPrefabs:
+    sceneManagerPrefab: {fileID: 2626548491275406242, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
+    sceneClockPrefab: {fileID: 1445389896236721321, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+    sceneObjectPrefab: {fileID: 6447064889421450952, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
+    sceneSpawnerPrefab: {fileID: 27306850221925963, guid: ba8209f177475574c8e618244933ce3d, type: 3}
+    colliderSceneObjectPrefab: {fileID: 3206603541878113604, guid: e0dad96f1c2ec364a8ef63504d22fcaa, type: 3}

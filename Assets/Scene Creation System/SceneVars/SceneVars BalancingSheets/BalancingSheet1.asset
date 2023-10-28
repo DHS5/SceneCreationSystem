@@ -15,207 +15,27 @@ MonoBehaviour:
   sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
   balancingVars:
   - overrideVar: 0
-    uniqueID: 4629
-    ID: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    uniqueID: 9874
+    ID: rthtrd
+    type: 1
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 5884
+    ID: New Scene Var
     type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 0
-    uniqueID: 5895
-    ID: Blabla
-    type: 3
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: Elle existe
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 0
-    uniqueID: 9478
-    ID: TestInt1
-    type: 1
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 1
-    hasMax: 1
-    minInt: 0
-    maxInt: 57
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 1
-    uniqueID: 720
-    ID: TestFloat1
-    type: 2
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 0
-    uniqueID: 2612
-    ID: TestStatic
-    type: 2
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 1
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 0
-    uniqueID: 3693
-    ID: TestEvent
-    type: 4
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 1
-    uniqueID: 1175
-    ID: A
-    type: 1
-    boolValue: 0
-    intValue: 4
-    floatValue: 0
-    stringValue: 
-    hasMin: 1
-    hasMax: 1
-    minInt: 0
-    maxInt: 1
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 1
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 1
-    uniqueID: 9424
-    ID: B
-    type: 1
-    boolValue: 0
-    intValue: 8
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 1
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 1
-    uniqueID: 1075
-    ID: C
-    type: 1
-    boolValue: 0
-    intValue: 6
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 1
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 1
-    uniqueID: 9928
-    ID: D
-    type: 1
-    boolValue: 0
-    intValue: 84
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 1
-    uniqueID: 8758
-    ID: Rrrrraandom
-    type: 1
-    boolValue: 0
-    intValue: 7
-    floatValue: 0
-    stringValue: 
-    hasMin: 1
-    hasMax: 1
-    minInt: 8
-    maxInt: 15
-    minFloat: 0.5
-    maxFloat: 0.6
-    isStatic: 0
-    isRandom: 1
-    isLink: 0
-    propertyHeight: 18
-  - overrideVar: 0
-    uniqueID: 3209
-    ID: Timeline
-    type: 4
     boolValue: 0
     intValue: 0
     floatValue: 0
@@ -233,42 +53,6 @@ MonoBehaviour:
   - overrideVar: 0
     uniqueID: 1832
     ID: Total1
-    type: 1
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 1
-    propertyHeight: 18
-  - overrideVar: 0
-    uniqueID: 3267
-    ID: Total2
-    type: 1
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 1
-    propertyHeight: 18
-  - overrideVar: 0
-    uniqueID: 9762
-    ID: Total3
     type: 1
     boolValue: 0
     intValue: 0
@@ -303,9 +87,9 @@ MonoBehaviour:
     isLink: 1
     propertyHeight: 18
   - overrideVar: 0
-    uniqueID: 3055
-    ID: Condition2
-    type: 0
+    uniqueID: 3267
+    ID: Total2
+    type: 1
     boolValue: 0
     intValue: 0
     floatValue: 0

@@ -9,6 +9,8 @@ public class TestBaseSceneObject : BaseSceneObject
     [SerializeField] private List<SceneListener> listeners1;
     [SerializeField] private List<SceneSpecificListener> listeners2;
     [SerializeField] private List<SceneEvent> events;
+    [Space]
+    [SerializeField] private SceneObjectTag soTag;
 
     protected override void RegisterSceneElements()
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Dhs5.Utility.Settings;
+using System;
 
 #if UNITY_EDITOR
 using Dhs5.Utility.Settings.Editor;
@@ -22,5 +23,23 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] private SceneObjectSettings sceneObjectSettings;
         public SceneObjectSettings SceneObjectSettings => sceneObjectSettings;
+
+        [Space(20f)]
+
+        [SerializeField] private SceneCreationBasePrefabs sceneCreationPrefabs;
+        public SceneCreationBasePrefabs Prefabs => sceneCreationPrefabs;
+    }
+
+    [Serializable]
+    public struct SceneCreationBasePrefabs
+    {
+        [Header("Base")]
+        public GameObject sceneManagerPrefab;
+        public GameObject sceneClockPrefab;
+        public GameObject sceneObjectPrefab;
+        public GameObject sceneSpawnerPrefab;
+
+        [Header("Helpers")]
+        public GameObject colliderSceneObjectPrefab;
     }
 }

@@ -13,7 +13,7 @@ namespace Dhs5.SceneCreation
         public LayerMask layerMask;
         [Space(10f)]
         [Tooltip("Number of uses before deactivating the collider\n--> Set to -1 for infinite use\n--> Use Reload() to reset to the original number")]
-        [SerializeField] private int useNumber;
+        [SerializeField] private int useNumber = 1;
 
         [Header("Collision")]
         public List<SceneEvent<Collision>> onCollisionEnter;

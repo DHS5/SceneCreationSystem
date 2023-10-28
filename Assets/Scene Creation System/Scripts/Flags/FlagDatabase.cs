@@ -132,16 +132,20 @@ namespace Dhs5.SceneCreation
 
             List<string> names = new();
 
-            for (int i = 0; i < lastValid; i++)
+            string n;
+
+            for (int i = 0; i <= lastValid; i++)
             {
+                n = i + ": ";
                 if (!IsValid(i))
                 {
-                    names.Add("Empty");
+                    n += "--- Empty ---";
                 }
                 else
                 {
-                    names.Add(GetFlagAtIndex(i));
+                    n += GetFlagAtIndex(i);
                 }
+                names.Add(n);
             }
 
             return names;
@@ -170,7 +174,7 @@ namespace Dhs5.SceneCreation
             List<string> names = new();
             for (int i = 0; i < 32; i++)
             {
-                if (tag.Include(i)) names.Add(GetFlagAtIndex(i));
+                if (tag.Include(i) && IsValid(i)) names.Add(GetFlagAtIndex(i));
             }
 
             return names;
@@ -188,6 +192,16 @@ namespace Dhs5.SceneCreation
             return indexes;
         }
 
+        internal int CleanTag(SceneObjectTag tag)
+        {
+            int cleaner = 0;
+            for (int i = 0; i < 32; i++)
+            {
+                if (tag.Include(i) && !IsValid(i)) cleaner |= 1 << i;
+            }
+
+            return tag & (~cleaner);
+        }
         #endregion
     }
 }

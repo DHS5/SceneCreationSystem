@@ -14,6 +14,11 @@ namespace Dhs5.SceneCreation
         [SerializeField, HideInInspector] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
 
+        [SerializeField, HideInInspector] protected SceneObjectTag sceneObjectTag;
+        public SceneObjectTag Tag => sceneObjectTag;
+
+        public bool SVSONull => sceneVariablesSO == null;
+
         #region Private Editor References
 
         /// <summary>

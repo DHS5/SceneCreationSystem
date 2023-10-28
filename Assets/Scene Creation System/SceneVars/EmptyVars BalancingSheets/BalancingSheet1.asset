@@ -30,6 +30,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 0
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 8456
@@ -47,6 +48,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 0
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 4877
@@ -64,6 +66,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 0
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 9818
@@ -81,6 +84,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 1
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 4622
@@ -98,6 +102,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 0
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 6682
@@ -115,6 +120,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 0
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 9387
@@ -132,6 +138,7 @@ MonoBehaviour:
     maxFloat: 8.6
     isStatic: 0
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 7676
@@ -149,6 +156,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 1
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 1031
@@ -166,6 +174,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 0
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 9449
@@ -183,6 +192,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 1
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 5271
@@ -200,6 +210,7 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 0
     isRandom: 0
+    isLink: 0
     propertyHeight: 18
   - overrideVar: 0
     uniqueID: 8260
@@ -217,4 +228,77 @@ MonoBehaviour:
     maxFloat: 0
     isStatic: 0
     isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 7301
+    ID: Condition 1
+    type: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 1
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 2637
+    ID: Total INT 1
+    type: 1
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 1
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 1089
+    ID: Total FLOAT 1
+    type: 2
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 1
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 765
+    ID: Sentence 1
+    type: 3
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 1
     propertyHeight: 18

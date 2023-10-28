@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01c7dfa721484e499fb3253b909b98d, type: 3}
   m_Name: SceneObject Tag Database
   m_EditorClassIdentifier: 
-  tag0: 
-  tag1: 
+  tag0: First Tag
+  tag1: Second Tag
   tag2: 
-  tag3: 
-  tag4: 
+  tag3: Fourth Tag
+  tag4: Fifth Tag
   tag5: 
   tag6: 
   tag7: 
@@ -44,4 +44,8 @@ MonoBehaviour:
   tag29: 
   tag30: 
   tag31: 
-  _names: []
+  _names:
+  - First Tag
+  - Second Tag
+  - Empty
+  - Fourth Tag

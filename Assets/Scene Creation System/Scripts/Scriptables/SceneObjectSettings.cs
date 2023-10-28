@@ -7,7 +7,7 @@ namespace Dhs5.SceneCreation
     [CreateAssetMenu(fileName = "SceneObject Settings", menuName = "Scene Creation/Settings/SceneObject Settings")]
     public class SceneObjectSettings : ScriptableObject
     {
-        [SerializeField] private FlagDatabase _flagDatabase;
-        internal FlagDatabase FlagDatabase => _flagDatabase;
+        [SerializeField] private FlagDatabase _tagDatabase;
+        internal FlagDatabase TagDatabase => _tagDatabase;
     }
 }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89adf355e354ef943aa04305de580fe1, type: 3}
   m_Name: SceneObject Settings
   m_EditorClassIdentifier: 
-  _flagDatabase: {fileID: 11400000, guid: dbb7848c568e1a44f9f21ad17e62a971, type: 2}
+  _tagDatabase: {fileID: 11400000, guid: dbb7848c568e1a44f9f21ad17e62a971, type: 2}

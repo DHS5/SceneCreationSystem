@@ -48,9 +48,11 @@ MonoBehaviour:
   sceneVariablesSO: {fileID: 0}
   sceneListeners: []
   sceneEvents: []
+  collider: {fileID: 7665644596149139292}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+  useNumber: 1
   onCollisionEnter: []
   onCollisionStay: []
   onCollisionExit: []

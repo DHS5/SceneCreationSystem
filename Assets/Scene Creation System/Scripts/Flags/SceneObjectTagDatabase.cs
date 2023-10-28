@@ -12,7 +12,7 @@ namespace Dhs5.SceneCreation
             get
             {
 #if UNITY_EDITOR
-                return SceneCreationSettings.instance.SceneObjectSettings.FlagDatabase;
+                return SceneCreationSettings.instance.SceneObjectSettings.TagDatabase;
 #else
                 if (Application.isPlaying)
                 {

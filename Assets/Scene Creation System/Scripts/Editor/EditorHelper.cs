@@ -25,20 +25,6 @@ namespace Dhs5.SceneCreation
             return null;
         }
 
-        [MenuItem("SCS/Get SceneVariablesSO of current scene")]
-        public static void GetActiveSceneVariablesSO()
-        {
-            SceneManager manager = GameObject.FindObjectOfType<SceneManager>();
-            if (manager != null)
-            {
-                Selection.activeObject = manager.SceneVariablesSO;
-            }
-            else
-            {
-                Debug.LogError("Can't find the SceneManager of the current scene");
-            }
-        }
-
         [MenuItem("SCS/Setup all SceneObjects in current scene")]
         public static void SetAllSceneObjectSceneVariablesSO()
         {
@@ -91,6 +77,37 @@ namespace Dhs5.SceneCreation
 
             Selection.activeObject = newSceneVars;
         }
+
+        [MenuItem("SCS/Get/Interscene Variables Container", priority = 300)]
+        public static void GetIntersceneVariablesContainer()
+        {
+            Selection.activeObject = SceneCreationSettings.instance.IntersceneVars;
+        }
+        [MenuItem("SCS/Get/SceneObject Settings", priority = 301)]
+        public static void GetSceneObjectSettings()
+        {
+            Selection.activeObject = SceneCreationSettings.instance.SceneObjectSettings;
+        }
+        [MenuItem("SCS/Get/This Scene Variables Container", priority = 302)]
+        public static void GetActiveSceneVariablesSO()
+        {
+            SceneVariablesSO sceneVariablesSO = GetCurrentSceneVariablesSO();
+            if (sceneVariablesSO != null)
+            {
+                Selection.activeObject = sceneVariablesSO;
+            }
+            else
+            {
+                Debug.LogError("Can't find the SceneManager of the current scene");
+            }
+        }
+
+        [MenuItem("SCS/Get/SceneObject Tag Database", priority = 305)]
+        public static void GetSceneObjectTagDatabase()
+        {
+            Selection.activeObject = SceneObjectTagDatabase.Instance;
+        }
+        
 
         #region Log
         private static void DisplaySceneLog(bool detailed, bool showEmpty, bool color)
