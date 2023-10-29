@@ -17,7 +17,7 @@ namespace Dhs5.SceneCreation
         [SerializeField, HideInInspector] protected SceneObjectTag sceneObjectTag;
         public SceneObjectTag Tag => sceneObjectTag;
 
-        public bool SVSONull => sceneVariablesSO == null;
+        public virtual string DisplayName => "BaseSceneObject";
 
         #region Private Editor References
 
@@ -88,6 +88,10 @@ namespace Dhs5.SceneCreation
                 sceneVariablesSO = sceneManager.SceneVariablesSO;
                 return sceneVariablesSO != null;
             }
+            else
+            {
+                sceneVariablesSO = null;
+            }
 
             return false;
         }
@@ -154,6 +158,21 @@ namespace Dhs5.SceneCreation
         {
             DisableScriptablesList();
         }
+
+        #region Editor
+        /// <summary>
+        /// Editor only function called when the Editor of this object is enabled
+        /// </summary>
+        internal virtual void OnEditorEnable()
+        {
+            if (GetSceneVariablesSO())
+            {
+                UpdateSceneVariables();
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Abstracts

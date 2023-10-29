@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+  sceneObjectTag:
+    _value: 0
   sceneManager: {fileID: 7387320640639974492}
   listeners1: []
   listeners2: []
@@ -554,13 +556,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
-  sceneListeners: []
-  sceneEvents: []
+  sceneObjectTag:
+    _value: 0
+  sceneManager: {fileID: 7387320640639974492}
   collider: {fileID: 2512635144890340061}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+  infiniteUse: 1
   useNumber: 1
+  interactions: 0
   onCollisionEnter: []
   onCollisionStay: []
   onCollisionExit: []

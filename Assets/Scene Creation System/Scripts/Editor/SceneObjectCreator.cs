@@ -42,7 +42,8 @@ namespace Dhs5.SceneCreation
         [MenuItem(menuPath + "Helpers/Collider SceneObject", priority = 10, secondaryPriority = 10)]
         public static Collider_SObj CreateColliderSceneObject(MenuCommand menuCommand)
         {
-            return CreateSceneObject(SceneCreationSettings.instance.Prefabs.colliderSceneObjectPrefab, menuCommand) as Collider_SObj;
+            return null;
+            //return CreateSceneObject(SceneCreationSettings.instance.Prefabs.colliderSceneObjectPrefab, menuCommand) as Collider_SObj;
         }
         
         [MenuItem(menuPath + "SceneSpawner", priority = 10, secondaryPriority = 4)]
