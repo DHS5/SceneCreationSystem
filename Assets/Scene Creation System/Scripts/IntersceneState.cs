@@ -50,7 +50,7 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        private static void ChangedVar(int varUniqueID, SceneObject sender, SceneContext context)
+        private static void ChangedVar(int varUniqueID, BaseSceneObject sender, SceneContext context)
         {
             if (IntersceneVariables.ContainsKey(varUniqueID))
             {
@@ -59,7 +59,7 @@ namespace Dhs5.SceneCreation
             SceneState.CheckChangedLink(varUniqueID, sender, context);
         }
 
-        internal static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender, SceneContext context)
+        internal static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, BaseSceneObject sender, SceneContext context)
         {
             if (CanModifyVar(varUniqueID, SceneVarType.BOOL, out SceneVar var))
             {
@@ -69,7 +69,7 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        internal static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender, SceneContext context)
+        internal static void ModifyIntVar(int varUniqueID, IntOperation op, int param, BaseSceneObject sender, SceneContext context)
         {
             if (CanModifyVar(varUniqueID, SceneVarType.INT, out SceneVar var))
             {
@@ -79,7 +79,7 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        internal static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender, SceneContext context)
+        internal static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, BaseSceneObject sender, SceneContext context)
         {
             if (CanModifyVar(varUniqueID, SceneVarType.FLOAT, out SceneVar var))
             {
@@ -89,7 +89,7 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        internal static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender, SceneContext context)
+        internal static void ModifyStringVar(int varUniqueID, StringOperation op, string param, BaseSceneObject sender, SceneContext context)
         {
             if (CanModifyVar(varUniqueID, SceneVarType.STRING, out SceneVar var))
             {
@@ -99,7 +99,7 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        internal static void TriggerEventVar(int varUniqueID, SceneObject sender, SceneContext context)
+        internal static void TriggerEventVar(int varUniqueID, BaseSceneObject sender, SceneContext context)
         {
             if (CanModifyVar(varUniqueID, SceneVarType.EVENT, out SceneVar var))
             {

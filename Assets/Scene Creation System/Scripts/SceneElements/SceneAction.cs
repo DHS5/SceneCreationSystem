@@ -10,7 +10,7 @@ namespace Dhs5.SceneCreation
     public class SceneAction : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneVarDependant
     {
         public SceneVariablesSO sceneVariablesSO;
-        private SceneObject sceneObject;
+        private BaseSceneObject sceneObject;
 
         [SerializeField] private int var1UniqueID;
         public SceneVar SceneVar1 { get => SceneState.GetSceneVar(var1UniqueID); }
@@ -34,7 +34,7 @@ namespace Dhs5.SceneCreation
 
             SceneVar2.SetUp(sceneVariablesSO, var2Type, true);
         }
-        public void BelongTo(SceneObject _sceneObject)
+        public void BelongTo(BaseSceneObject _sceneObject)
         {
             sceneObject = _sceneObject;
         }

@@ -11,13 +11,13 @@ using UnityEditor;
 
 namespace Dhs5.SceneCreation
 {
-    public class SceneManager : SceneObject
+    public class SceneManager : BaseSceneObject
     {
         #region Singleton
         public static SceneManager Instance { get; private set; }
-        protected override void Awake_Ext()
+        protected override void OnSceneObjectAwake()
         {
-            base.Awake_Ext();
+            base.OnSceneObjectAwake();
 
             if (Instance != null)
             {
@@ -31,6 +31,8 @@ namespace Dhs5.SceneCreation
         public static IntersceneVariablesSO IntersceneVariables => Instance.SceneVariablesSO.IntersceneVariables;
         public static SceneObjectSettings Settings => Instance.SceneVariablesSO.Settings;
         #endregion
+
+        public override string DisplayName => "Scene Manager";
 
         [Header("Manager")]
         [Tooltip("Events called when the Scene starts,\n just before every SceneObject.OnStartScene()")]
@@ -65,17 +67,14 @@ namespace Dhs5.SceneCreation
         #region SceneObject Extension
         protected override void UpdateSceneVariables()
         {
-            base.UpdateSceneVariables();
-
-            onSceneStart.SetUp(sceneVariablesSO);
-            onSceneChange.SetUp(sceneVariablesSO);
+            Setup(onSceneStart, onSceneChange, onGameOver);
         }
-        protected override void RegisterElements()
+        protected override void RegisterSceneElements()
         {
-            base.RegisterElements();
-
-            Register(nameof(onSceneStart), onSceneStart);
-            Register(nameof(onSceneChange), onSceneChange);
+            RegisterEvents(
+                (nameof(onSceneStart), onSceneStart),
+                (nameof(onSceneChange), onSceneChange),
+                (nameof(onGameOver), onGameOver));
         }
         #endregion
 

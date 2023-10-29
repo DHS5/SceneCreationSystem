@@ -46,7 +46,7 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] protected Details details;
 
-        protected SceneObject sceneObject;
+        protected BaseSceneObject sceneObject;
         protected SceneContext context;
 
         protected abstract UnityEventBase GetUnityEvent();
@@ -93,7 +93,7 @@ namespace Dhs5.SceneCreation
             sceneActions.SetUp(_sceneVariablesSO);
             sceneParameteredEvents.SetUp(_sceneVariablesSO);
         }
-        public void BelongTo(SceneObject _sceneObject)
+        public void BelongTo(BaseSceneObject _sceneObject)
         {
             sceneObject = _sceneObject;
             sceneActions.BelongTo(_sceneObject);
@@ -312,7 +312,7 @@ namespace Dhs5.SceneCreation
         }
     }
 
-
+    /*
     [Serializable]
     public class SceneEvent2 : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable
     {
@@ -595,4 +595,5 @@ namespace Dhs5.SceneCreation
         }
         #endregion
     }
+    */
 }

@@ -164,7 +164,7 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        private static void ChangedVar(int varUniqueID, SceneObject sender, SceneContext context)
+        private static void ChangedVar(int varUniqueID, BaseSceneObject sender, SceneContext context)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
             {
@@ -172,7 +172,7 @@ namespace Dhs5.SceneCreation
             }
             CheckChangedLink(varUniqueID, sender, context);
         }
-        internal static void CheckChangedLink(int varUniqueID, SceneObject sender, SceneContext context)
+        internal static void CheckChangedLink(int varUniqueID, BaseSceneObject sender, SceneContext context)
         {
             if (SceneVarLinks.ContainsKey(varUniqueID))
             {
@@ -182,7 +182,7 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
-        private static void ChangedComplexVar(int complexUID, SceneObject sender, SceneContext context)
+        private static void ChangedComplexVar(int complexUID, BaseSceneObject sender, SceneContext context)
         {
             if (ComplexSceneVariables.ContainsKey(complexUID))
             {
@@ -338,7 +338,7 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        internal static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, SceneObject sender, SceneContext context)
+        internal static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, BaseSceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
@@ -354,7 +354,7 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        internal static void ModifyIntVar(int varUniqueID, IntOperation op, int param, SceneObject sender, SceneContext context)
+        internal static void ModifyIntVar(int varUniqueID, IntOperation op, int param, BaseSceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
@@ -370,7 +370,7 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        internal static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, SceneObject sender, SceneContext context)
+        internal static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, BaseSceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
@@ -386,7 +386,7 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        internal static void ModifyStringVar(int varUniqueID, StringOperation op, string param, SceneObject sender, SceneContext context)
+        internal static void ModifyStringVar(int varUniqueID, StringOperation op, string param, BaseSceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
@@ -402,7 +402,7 @@ namespace Dhs5.SceneCreation
                 return;
             }
         }
-        internal static void TriggerEventVar(int varUniqueID, SceneObject sender, SceneContext context)
+        internal static void TriggerEventVar(int varUniqueID, BaseSceneObject sender, SceneContext context)
         {
             if (varUniqueID > 10000)
             {
@@ -812,10 +812,10 @@ namespace Dhs5.SceneCreation
         #region Belongs
         public interface ISceneObjectBelongable
         {
-            public void BelongTo(SceneObject _sceneObject);
+            public void BelongTo(BaseSceneObject _sceneObject);
         }
         
-        public static void BelongTo<T>(this List<T> belongables, SceneObject sceneObject) where T : ISceneObjectBelongable
+        public static void BelongTo<T>(this List<T> belongables, BaseSceneObject sceneObject) where T : ISceneObjectBelongable
         {
             if (belongables == null || belongables.Count < 1) return;
 
@@ -1377,27 +1377,9 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneObject Trigger
-        public static void Trigger(this SceneObject sceneObject, SceneListener.SceneEventTrigger trigger, SceneEventParam param)
+        public static void Trigger(this BaseSceneObject sceneObject, List<SceneListener.SceneEventTrigger> triggers, SceneEventParam param)
         {
-            if (!trigger.random)
-            {
-                sceneObject.TriggerSceneEventsWithID(trigger.eventID, param);
-            }
-            else
-            {
-                if (!trigger.remove)
-                {
-                    sceneObject.TriggerRandom(trigger.eventID, param);
-                }
-                else
-                {
-                    sceneObject.TriggerRandomAndRemove(trigger.eventID, param);
-                }
-            }
-        }
-        public static void Trigger(this SceneObject sceneObject, List<SceneListener.SceneEventTrigger> triggers, SceneEventParam param)
-        {
-            if (triggers == null || triggers.Count <= 0) return;
+            if (!triggers.IsValid()) return;
 
             foreach (var trigger in triggers)
             {

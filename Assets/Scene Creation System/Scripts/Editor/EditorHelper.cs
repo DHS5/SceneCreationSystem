@@ -25,16 +25,16 @@ namespace Dhs5.SceneCreation
             return null;
         }
 
-        [MenuItem("SCS/Setup all SceneObjects in current scene")]
-        public static void SetAllSceneObjectSceneVariablesSO()
+        [MenuItem("SCS/Refresh all SceneObjects in current scene")]
+        public static void RefreshSceneObjects()
         {
-            SceneObject[] sceneObjects = GameObject.FindObjectsOfType<SceneObject>();
+            BaseSceneObject[] sceneObjects = GameObject.FindObjectsOfType<SceneObject>();
 
             if (sceneObjects.Length > 0)
             {
                 foreach (var sceneObject in sceneObjects)
                 {
-                    sceneObject.GetSceneVariablesSOInScene();
+                    sceneObject.Refresh();
                 }
             }
             else
@@ -73,7 +73,7 @@ namespace Dhs5.SceneCreation
                 SceneObjectCreator.CreateSceneClock(menuCommand);
             }
 
-            SetAllSceneObjectSceneVariablesSO();
+            RefreshSceneObjects();
 
             Selection.activeObject = newSceneVars;
         }

@@ -8,15 +8,17 @@ using System.Text;
 
 namespace Dhs5.SceneCreation
 {
-    public class SceneClock : SceneObject
+    public class SceneClock : BaseSceneObject
     {
+        public override string DisplayName => "Scene Clock";
+
         #region Singleton
 
         public static SceneClock Instance { get; private set; }
 
-        protected override void Awake_Ext()
+        protected override void OnSceneObjectAwake()
         {
-            base.Awake_Ext();
+            base.OnSceneObjectAwake();
 
             if (Instance != null)
             {
@@ -31,7 +33,7 @@ namespace Dhs5.SceneCreation
         [Header("Timelines")]
         public List<SceneTimeline> sceneTimelines;
 
-        #region Update SceneVariables
+        #region BaseSceneObject Extension
         protected override void Init()
         {
             base.Init();
@@ -40,16 +42,15 @@ namespace Dhs5.SceneCreation
         }
         protected override void UpdateSceneVariables()
         {
-            base.UpdateSceneVariables();
-
-            sceneTimelines.SetUp(sceneVariablesSO);
+            Setup(sceneTimelines);
         }
-        protected override void UpdateBelongings()
+        protected override void SetBelongings()
         {
-            base.UpdateBelongings();
+            base.SetBelongings();
 
-            sceneTimelines.BelongTo(this);
+            Belong(sceneTimelines);
         }
+        protected override void RegisterSceneElements() { }
         #endregion
 
         #region Listener functions

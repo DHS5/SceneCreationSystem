@@ -165,6 +165,12 @@ namespace Dhs5.SceneCreation
         /// </summary>
         internal virtual void OnEditorEnable()
         {
+            Refresh();
+        }
+
+        [ContextMenu("Refresh")]
+        internal void Refresh()
+        {
             if (GetSceneVariablesSO())
             {
                 UpdateSceneVariables();
@@ -401,21 +407,32 @@ namespace Dhs5.SceneCreation
         /// Called on <see cref="SceneManager.StartScene"/> once the <see cref="SceneState"/> has been set up.
         /// </summary>
         /// <remarks>Must set <see cref="DoStartScene"/> to TRUE to be called.</remarks>
-        public virtual bool OnStartScene() { return true; }
+        internal virtual bool OnStartScene() { return true; }
 
         public virtual bool DoChangeScene => false;
         /// <summary>
         /// Called on <see cref="SceneManager.ChangeScene"/> when the Scene is going to change.
         /// </summary>
         /// <remarks>Must set <see cref="DoChangeScene"/> to TRUE to be called.</remarks>
-        public virtual bool OnChangeScene() { return true; }
+        internal virtual bool OnChangeScene() { return true; }
 
         public virtual bool DoGameOver => false;
         /// <summary>
         /// Called on <see cref="SceneManager.GameOver"/> when the game is over.
         /// </summary>
         /// <remarks>Must set <see cref="DoGameOver"/> to TRUE to be called.</remarks>
-        public virtual bool OnGameOver() { return true; }
+        internal virtual bool OnGameOver() { return true; }
+        #endregion
+
+        #region Trigger
+
+        /// <summary>
+        /// Function called by a <see cref="SceneListener"/> when it has been instructed to Trigger its <see cref="BaseSceneObject"/>
+        /// </summary>
+        /// <param name="trigger"><see cref="SceneListener.SceneEventTrigger"/> informations on the Trigger</param>
+        /// <param name="param"><see cref="SceneEventParam"/> passed during the triggering</param>
+        internal virtual void Trigger(SceneListener.SceneEventTrigger trigger, SceneEventParam param) { }
+
         #endregion
 
         #region Profiles
@@ -899,12 +916,12 @@ namespace Dhs5.SceneCreation
         #region Belong
         protected void Belong<T>(T var) where T : SceneState.ISceneObjectBelongable
         {
-            //var.BelongTo(this);
+            var.BelongTo(this);
         }
         protected void Belong<T>(List<T> vars) where T : SceneState.ISceneObjectBelongable
         {
-            //if (vars.IsValid())
-            //  vars.BelongTo(this);
+            if (vars.IsValid())
+              vars.BelongTo(this);
         }
         protected void Belong<T>(params List<T>[] vars) where T : SceneState.ISceneObjectBelongable
         {

@@ -20,7 +20,7 @@ namespace Dhs5.SceneCreation
             varTween3.SetUp(sceneVariablesSO, varType3, true);
             varTween4.SetUp(sceneVariablesSO, varType4, true);
         }
-        public void BelongTo(SceneObject _sceneObject)
+        public void BelongTo(BaseSceneObject _sceneObject)
         {
             varTween0.BelongTo(_sceneObject);
             varTween1.BelongTo(_sceneObject);

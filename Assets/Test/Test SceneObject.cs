@@ -15,9 +15,9 @@ public class TestSceneObject : SceneObject
         Debug.Log(param.ToString());
     }
 
-    protected override void UpdateBelongings()
+    protected override void SetBelongings()
     {
-        base.UpdateBelongings();
+        base.SetBelongings();
 
         listeners.BelongTo(this);
     }
@@ -42,16 +42,16 @@ public class TestSceneObject : SceneObject
         listeners.SetEvents(Loog);
     }
 
-    protected override void OnEnable_Ext()
+    protected override void OnSceneObjectEnable()
     {
-        base.OnEnable_Ext();
+        base.OnSceneObjectEnable();
 
         listeners.Subscribe();
     }
 
-    protected override void OnDisable_Ext()
+    protected override void OnSceneObjectDisable()
     {
-        base.OnDisable_Ext();
+        base.OnSceneObjectDisable();
 
         listeners.Unsubscribe();
     }

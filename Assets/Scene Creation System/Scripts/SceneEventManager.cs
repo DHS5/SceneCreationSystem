@@ -77,7 +77,7 @@ namespace Dhs5.SceneCreation
 
     public class SceneEventParam
     {
-        public SceneEventParam(SceneVar _var, object _formerValue, SceneObject _sender, SceneContext _context)
+        public SceneEventParam(SceneVar _var, object _formerValue, BaseSceneObject _sender, SceneContext _context)
         { 
             Var = new(_var);
             FormerValue = _formerValue;
@@ -94,7 +94,7 @@ namespace Dhs5.SceneCreation
 
         public SceneVar Var { get; private set; }
         public object FormerValue { get; private set; }
-        public SceneObject Sender { get; private set; }
+        public BaseSceneObject Sender { get; private set; }
         public SceneContext Context { get; private set; }
 
         // Getters

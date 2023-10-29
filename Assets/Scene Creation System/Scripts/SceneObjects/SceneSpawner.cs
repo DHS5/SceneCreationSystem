@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Dhs5.SceneCreation
 {
-    public class SceneSpawner : SceneObject
+    public class SceneSpawner : BaseSceneObject
     {
         [Header("Spawner")]
         [SerializeField] private List<SpawnTemplate> templates;
@@ -95,7 +96,7 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
-        #region Interfaces
+        #region BaseSceneObject Extension
         protected override void Init()
         {
             base.Init();
@@ -104,15 +105,25 @@ namespace Dhs5.SceneCreation
         }
         protected override void UpdateSceneVariables()
         {
-            base.UpdateSceneVariables();
-
             templates.SetUp(sceneVariablesSO);
         }
-        protected override void UpdateBelongings()
+        protected override void SetBelongings()
         {
-            base.UpdateBelongings();
+            base.SetBelongings();
 
-            templates.BelongTo(this);
+            Belong(templates);
+        }
+        protected override void RegisterSceneElements() { }
+
+        // TODO
+        public override List<int> ChildDependencies()
+        {
+            return base.ChildDependencies();
+        }
+        // TODO
+        public override void ChildLog(List<string> lines, StringBuilder sb, bool detailed, bool showEmpty, string alinea = null)
+        {
+            base.ChildLog(lines, sb, detailed, showEmpty, alinea);
         }
         #endregion
 
@@ -156,7 +167,7 @@ namespace Dhs5.SceneCreation
             {
                 profiles.SetUp(sceneVariablesSO);
             }
-            public void BelongTo(SceneObject _sceneObject)
+            public void BelongTo(BaseSceneObject _sceneObject)
             {
                 Spawner = (SceneSpawner)_sceneObject;
             }

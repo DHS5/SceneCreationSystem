@@ -15,19 +15,20 @@ namespace Dhs5.SceneCreation
 
             sceneListeners.SetUp(sceneVariablesSO);
         }
-        public override void BelongTo(SceneObject _sceneObject)
+        public override void BelongTo(BaseSceneObject _sceneObject)
         {
             base.BelongTo(_sceneObject);
 
             sceneListeners.BelongTo(sceneObject);
         }
-        public override void Attach(SceneObject _sceneObject)
+        public override void Attach(BaseSceneObject _sceneObject)
         {
             base.Attach(_sceneObject);
 
             sceneListeners.Subscribe();
 
-            _sceneObject.OverrideListeners(this, sceneListeners);
+            if (_sceneObject is SceneObject so)
+                so.OverrideListeners(this, sceneListeners);
         }
         public override void Detach()
         {

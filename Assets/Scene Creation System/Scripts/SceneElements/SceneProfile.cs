@@ -12,7 +12,7 @@ namespace Dhs5.SceneCreation
     {
         protected SceneVariablesSO sceneVariablesSO;
 
-        protected SceneObject sceneObject;
+        protected BaseSceneObject sceneObject;
 
         #region SceneObject Override Permissions
         public abstract bool CanOverrideListeners { get; }
@@ -33,7 +33,7 @@ namespace Dhs5.SceneCreation
 
             // Set Up Scene Events, Tweens and Listeners
         }
-        public virtual void BelongTo(SceneObject _sceneObject)
+        public virtual void BelongTo(BaseSceneObject _sceneObject)
         {
             UpdateSceneEventsBelongings(_sceneObject);
             UpdateTweensBelongings(_sceneObject);
@@ -41,7 +41,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Overridable Functions
-        public virtual void Attach(SceneObject _sceneObject)
+        public virtual void Attach(BaseSceneObject _sceneObject)
         {
             sceneObject = _sceneObject;
 
@@ -104,7 +104,7 @@ namespace Dhs5.SceneCreation
                 s.Init();
             }
         }
-        private void UpdateSceneEventsBelongings(SceneObject _sceneObject)
+        private void UpdateSceneEventsBelongings(BaseSceneObject _sceneObject)
         {
             if (sceneEventsList == null || sceneEventsList.Count <= 0) return;
 
@@ -185,7 +185,7 @@ namespace Dhs5.SceneCreation
         {
             tweensList?.Clear();
         }
-        private void UpdateTweensBelongings(SceneObject _sceneObject)
+        private void UpdateTweensBelongings(BaseSceneObject _sceneObject)
         {
             if (tweensList == null || tweensList.Count <= 0) return;
 

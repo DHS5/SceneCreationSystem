@@ -13,7 +13,7 @@ namespace Dhs5.SceneCreation
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
 
-        protected SceneObject sceneObject;
+        protected BaseSceneObject sceneObject;
 
         // SceneVar selection
         [SerializeField] protected int varUniqueID;
@@ -65,7 +65,7 @@ namespace Dhs5.SceneCreation
 
             conditions.SetUp(sceneVariablesSO);
         }
-        public void BelongTo(SceneObject _sceneObject)
+        public void BelongTo(BaseSceneObject _sceneObject)
         {
             sceneObject = _sceneObject;
         }
@@ -206,6 +206,7 @@ namespace Dhs5.SceneCreation
         protected override void Trigger(SceneEventParam _param)
         {
             events.Invoke(_param);
+
             sceneObject.Trigger(triggers, _param);
         }
         #endregion

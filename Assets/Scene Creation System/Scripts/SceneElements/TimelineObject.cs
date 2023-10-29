@@ -35,7 +35,7 @@ namespace Dhs5.SceneCreation
             startCondition.SetUp(sceneVariablesSO);
             endLoopCondition.SetUp(sceneVariablesSO);
         }
-        public void BelongTo(SceneObject _sceneObject)
+        public void BelongTo(BaseSceneObject _sceneObject)
         {
             sceneEvents.BelongTo(_sceneObject);
         }

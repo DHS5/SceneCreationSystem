@@ -16,11 +16,12 @@ namespace Dhs5.SceneCreation
             sceneEvents.SetUp(sceneVariablesSO);
         }
 
-        public override void Attach(SceneObject _sceneObject)
+        public override void Attach(BaseSceneObject _sceneObject)
         {
             base.Attach(_sceneObject);
 
-            _sceneObject.OverrideEvents(this, sceneEvents);
+            if (_sceneObject is SceneObject so)
+                so.OverrideEvents(this, sceneEvents);
         }
 
         public override bool CanOverrideListeners => false;

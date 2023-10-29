@@ -9,11 +9,11 @@ namespace Dhs5.SceneCreation
     {
         public const string menuPath = "GameObject/SceneObjects/";
 
-        protected static SceneObject CreateSceneObject(GameObject prefab, MenuCommand menuCommand)
+        protected static BaseSceneObject CreateSceneObject(GameObject prefab, MenuCommand menuCommand)
         {
             GameObject obj = PrefabUtility.InstantiatePrefab(prefab, Selection.activeTransform) as GameObject;
-            SceneObject sceneObject = obj.GetComponent<SceneObject>();
-            if (sceneObject != null && sceneObject is not SceneManager) sceneObject.GetSceneVariablesSOInScene();
+            BaseSceneObject sceneObject = obj.GetComponent<BaseSceneObject>();
+            if (sceneObject != null && sceneObject is not SceneManager) sceneObject.Refresh();
             GameObjectUtility.SetParentAndAlign(obj, menuCommand?.context as GameObject);
             PrefabUtility.UnpackPrefabInstance(obj, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             Undo.RegisterCreatedObjectUndo(obj, "Create " + obj.name);
@@ -24,7 +24,7 @@ namespace Dhs5.SceneCreation
         [MenuItem(menuPath + "SceneObject", priority = 10, secondaryPriority = 3)]
         public static SceneObject CreateSimpleSceneObject(MenuCommand menuCommand)
         {
-            return CreateSceneObject(SceneCreationSettings.instance.Prefabs.sceneObjectPrefab, menuCommand);
+            return CreateSceneObject(SceneCreationSettings.instance.Prefabs.sceneObjectPrefab, menuCommand) as SceneObject;
         }
         
         [MenuItem(menuPath + "SceneManager", priority = 10, secondaryPriority = 1)]
@@ -42,8 +42,7 @@ namespace Dhs5.SceneCreation
         [MenuItem(menuPath + "Helpers/Collider SceneObject", priority = 10, secondaryPriority = 10)]
         public static Collider_SObj CreateColliderSceneObject(MenuCommand menuCommand)
         {
-            return null;
-            //return CreateSceneObject(SceneCreationSettings.instance.Prefabs.colliderSceneObjectPrefab, menuCommand) as Collider_SObj;
+            return CreateSceneObject(SceneCreationSettings.instance.Prefabs.colliderSceneObjectPrefab, menuCommand) as Collider_SObj;
         }
         
         [MenuItem(menuPath + "SceneSpawner", priority = 10, secondaryPriority = 4)]

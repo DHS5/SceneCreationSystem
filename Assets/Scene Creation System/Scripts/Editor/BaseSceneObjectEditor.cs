@@ -16,11 +16,14 @@ namespace Dhs5.SceneCreation
         Color backgroundColor;
         Color foregroundColor;
 
+        bool isManager = false;
+
         protected virtual bool DrawChildInspector => true;
 
         protected virtual void OnEnable()
         {
             baseSceneObject = target as BaseSceneObject;
+            if (baseSceneObject is SceneManager) isManager = true;
 
             baseSceneObject.OnEditorEnable();
         }
@@ -65,12 +68,14 @@ namespace Dhs5.SceneCreation
                 backgroundRect.y -= 1f;
                 EditorGUI.DrawRect(backgroundRect, backgroundColor);
 
-                GUI.contentColor = foregroundColor;
+                if (!isManager) GUI.contentColor = foregroundColor;
 
-                EditorGUI.BeginDisabledGroup(target is not SceneManager);
+                EditorGUI.BeginDisabledGroup(!isManager);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVariablesSO"), empty);
                 EditorGUI.EndDisabledGroup();
                 EditorGUILayout.Space(1f);
+
+                if (isManager) GUI.contentColor = foregroundColor;
 
                 Rect currentRect = EditorGUILayout.GetControlRect(false, 20f);
 

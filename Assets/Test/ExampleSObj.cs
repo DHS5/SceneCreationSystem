@@ -19,10 +19,9 @@ public class ExampleSObj : SceneObject
 
         spawnQuantity.SetUp(sceneVariablesSO, SceneVarType.INT, false);
     }
-
-    protected override void UpdateBelongings()
+    protected override void SetBelongings()
     {
-        base.UpdateBelongings();
+        base.SetBelongings();
 
         spawnFrequency.BelongTo(this);
 
