@@ -7,7 +7,7 @@ namespace Dhs5.SceneCreation
     [CreateAssetMenu(fileName = "SceneObject Tag Database", menuName = "Scene Creation/Database/Tags")]
     public class SceneObjectTagDatabase : FlagDatabase
     {
-        public static FlagDatabase Instance
+        public static SceneObjectTagDatabase Instance
         {
             get
             {
@@ -16,7 +16,7 @@ namespace Dhs5.SceneCreation
 #else
                 if (Application.isPlaying)
                 {
-                    return SceneManager.Settings.FlagDatabase;
+                    return SceneManager.Settings.SceneObjectTagDatabase;
                 }
 
                 return null;

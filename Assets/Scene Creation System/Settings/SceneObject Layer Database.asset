@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d01c7dfa721484e499fb3253b909b98d, type: 3}
-  m_Name: SceneObject Tag Database
+  m_Script: {fileID: 11500000, guid: 9590693b46b3df840884976a375525b4, type: 3}
+  m_Name: SceneObject Layer Database
   m_EditorClassIdentifier: 
-  flag0: First Tag
-  flag1: Second Tag
+  flag0: Base Layer
+  flag1: Default Layer
   flag2: 
-  flag3: Fourth Tag
-  flag4: Fifth tag
+  flag3: 
+  flag4: 
   flag5: 
   flag6: 
   flag7: 
@@ -45,8 +45,5 @@ MonoBehaviour:
   flag30: 
   flag31: 
   _names:
-  - '0: First Tag'
-  - '1: Second Tag'
-  - '2: --- Empty ---'
-  - '3: Fourth Tag'
-  - '4: Fifth tag'
+  - '0: Base Layer'
+  - '1: Default Layer'

@@ -51,9 +51,10 @@ namespace Dhs5.SceneCreation
                 SceneEventParam param = new(_param);
                 param.Context.UpRank(sceneObject.name, " listener received ", param.ToString());
 
-                Trigger(param);
                 if (debug)
                     DebugSceneListener(param.Context);
+
+                Trigger(param);
             }
         }
         #endregion

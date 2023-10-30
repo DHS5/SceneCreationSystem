@@ -41,7 +41,7 @@ namespace Dhs5.SceneCreation
 
         private void OnEnable()
         {
-            //SceneState.Register(this);
+            SceneState.Register(this);
 
             StartSubscription();
             EnableScriptables();
@@ -50,7 +50,7 @@ namespace Dhs5.SceneCreation
         }
         private void OnDisable()
         {
-            //SceneState.Unregister(this);
+            SceneState.Unregister(this);
 
             EndSubscription();
             DisableScriptables();
@@ -462,7 +462,7 @@ namespace Dhs5.SceneCreation
 
             SceneProfiles.Add(profile);
 
-            //profile.Attach(this);
+            profile.Attach(this);
         }
         public bool RemoveProfile(SceneProfile profile)
         {
@@ -934,12 +934,13 @@ namespace Dhs5.SceneCreation
         #region Link
         protected void Link<T>(T scriptable) where T : SceneScriptableObject
         {
-            //scriptable.Link(this);
+            scriptable.Link(this);
         }
         protected void Link<T>(List<T> scriptables) where T : SceneScriptableObject
         {
-            //if (scriptables.IsValid())
-            //    scriptables.Link(this);
+            if (scriptables.IsValid())
+                foreach (var scriptable in scriptables)
+                    Link(scriptable);
         }
         protected void Link<T>(params List<T>[] vars) where T : SceneScriptableObject
         {

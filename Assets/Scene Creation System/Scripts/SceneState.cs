@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Random = UnityEngine.Random;
-using static UnityEngine.EventSystems.EventTrigger;
 using System.Text;
-using System.Runtime.CompilerServices;
-using static Dhs5.SceneCreation.SceneState;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Dhs5.SceneCreation
 {
@@ -67,10 +62,10 @@ namespace Dhs5.SceneCreation
 
     public static class SceneState
     {
-        private static List<SceneObject> sceneObjects = new();
-        private static List<SceneObject> onStartScene_SOs = new();
-        private static List<SceneObject> onChangeScene_SOs = new();
-        private static List<SceneObject> onGameOver_SOs = new();
+        private static List<BaseSceneObject> sceneObjects = new();
+        private static List<BaseSceneObject> onStartScene_SOs = new();
+        private static List<BaseSceneObject> onChangeScene_SOs = new();
+        private static List<BaseSceneObject> onGameOver_SOs = new();
 
         private static Dictionary<int, SceneVar> SceneVariables = new();
         private static Dictionary<int, ComplexSceneVar> ComplexSceneVariables = new();
@@ -78,7 +73,7 @@ namespace Dhs5.SceneCreation
         private static Dictionary<int, object> FormerValues = new();
 
         #region Scene Object Registration
-        public static void Register(SceneObject sceneObject)
+        public static void Register(BaseSceneObject sceneObject)
         {
             if (sceneObjects.Contains(sceneObject)) return;
 
@@ -91,7 +86,7 @@ namespace Dhs5.SceneCreation
             if (sceneObject.DoGameOver)
                 onGameOver_SOs.Add(sceneObject);
         }
-        public static void Unregister(SceneObject sceneObject)
+        public static void Unregister(BaseSceneObject sceneObject)
         {
             if (!sceneObjects.Contains(sceneObject)) return;
 
@@ -192,7 +187,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Public accessors
-        public static object GetObjectValue(int varUniqueID)
+        internal static object GetObjectValue(int varUniqueID)
         {
             if (SceneVariables.ContainsKey(varUniqueID))
                 return SceneVariables[varUniqueID].Value;
@@ -201,11 +196,24 @@ namespace Dhs5.SceneCreation
             return null;
         }
 
-        public static SceneVar GetSceneVar(int uniqueID)
+        internal static SceneVar GetSceneVar(int uniqueID)
         {
-            return new SceneVar(SceneVariables[uniqueID]);
+            if (IntersceneState.IsGlobalVar(uniqueID))
+            {
+                return IntersceneState.GetSceneVar(uniqueID);
+            }
+
+            if (SceneVariables.ContainsKey(uniqueID))
+            {
+                return new SceneVar(SceneVariables[uniqueID]);
+            }
+            else
+            {
+                Debug.LogError("Unique ID " + uniqueID + " can't be found in this scene SceneVariables");
+                return null;
+            }
         }
-        public static object GetComplexSceneVarValue(int uniqueID)
+        internal static object GetComplexSceneVarValue(int uniqueID)
         {
             if (ComplexSceneVariables.ContainsKey(uniqueID))
             {
@@ -340,7 +348,7 @@ namespace Dhs5.SceneCreation
 
         internal static void ModifyBoolVar(int varUniqueID, BoolOperation op, bool param, BaseSceneObject sender, SceneContext context)
         {
-            if (varUniqueID > 10000)
+            if (IntersceneState.IsGlobalVar(varUniqueID))
             {
                 IntersceneState.ModifyBoolVar(varUniqueID, op, param, sender, context);
                 return;
@@ -356,7 +364,7 @@ namespace Dhs5.SceneCreation
         }
         internal static void ModifyIntVar(int varUniqueID, IntOperation op, int param, BaseSceneObject sender, SceneContext context)
         {
-            if (varUniqueID > 10000)
+            if (IntersceneState.IsGlobalVar(varUniqueID))
             {
                 IntersceneState.ModifyIntVar(varUniqueID, op, param, sender, context);
                 return;
@@ -372,7 +380,7 @@ namespace Dhs5.SceneCreation
         }
         internal static void ModifyFloatVar(int varUniqueID, FloatOperation op, float param, BaseSceneObject sender, SceneContext context)
         {
-            if (varUniqueID > 10000)
+            if (IntersceneState.IsGlobalVar(varUniqueID))
             {
                 IntersceneState.ModifyFloatVar(varUniqueID, op, param, sender, context);
                 return;
@@ -388,7 +396,7 @@ namespace Dhs5.SceneCreation
         }
         internal static void ModifyStringVar(int varUniqueID, StringOperation op, string param, BaseSceneObject sender, SceneContext context)
         {
-            if (varUniqueID > 10000)
+            if (IntersceneState.IsGlobalVar(varUniqueID))
             {
                 IntersceneState.ModifyStringVar(varUniqueID, op, param, sender, context);
                 return;
@@ -404,7 +412,7 @@ namespace Dhs5.SceneCreation
         }
         internal static void TriggerEventVar(int varUniqueID, BaseSceneObject sender, SceneContext context)
         {
-            if (varUniqueID > 10000)
+            if (IntersceneState.IsGlobalVar(varUniqueID))
             {
                 IntersceneState.TriggerEventVar(varUniqueID, sender, context);
                 return;
@@ -1410,7 +1418,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region SceneScriptableObjects management
-        public static void Link<T>(this List<T> scriptables, SceneObject sceneObject) where T : SceneScriptableObject
+        public static void Link<T>(this List<T> scriptables, BaseSceneObject sceneObject) where T : SceneScriptableObject
         {
             if (scriptables.IsValid())
             {

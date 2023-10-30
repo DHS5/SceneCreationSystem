@@ -107,6 +107,11 @@ namespace Dhs5.SceneCreation
         {
             Selection.activeObject = SceneObjectTagDatabase.Instance;
         }
+        [MenuItem("SCS/Get/SceneObject Layer Database", priority = 306)]
+        public static void GetSceneObjectLayerDatabase()
+        {
+            Selection.activeObject = SceneObjectLayerDatabase.Instance;
+        }
         
 
         #region Log

@@ -7,38 +7,38 @@ namespace Dhs5.SceneCreation
 {
     public abstract class FlagDatabase : ScriptableObject
     {
-        [SerializeField] protected string tag0;
-        [SerializeField] protected string tag1;
-        [SerializeField] protected string tag2;
-        [SerializeField] protected string tag3;
-        [SerializeField] protected string tag4;
-        [SerializeField] protected string tag5;
-        [SerializeField] protected string tag6;
-        [SerializeField] protected string tag7;
-        [SerializeField] protected string tag8;
-        [SerializeField] protected string tag9;
-        [SerializeField] protected string tag10;
-        [SerializeField] protected string tag11;
-        [SerializeField] protected string tag12;
-        [SerializeField] protected string tag13;
-        [SerializeField] protected string tag14;
-        [SerializeField] protected string tag15;
-        [SerializeField] protected string tag16;
-        [SerializeField] protected string tag17;
-        [SerializeField] protected string tag18;
-        [SerializeField] protected string tag19;
-        [SerializeField] protected string tag20;
-        [SerializeField] protected string tag21;
-        [SerializeField] protected string tag22;
-        [SerializeField] protected string tag23;
-        [SerializeField] protected string tag24;
-        [SerializeField] protected string tag25;
-        [SerializeField] protected string tag26;
-        [SerializeField] protected string tag27;
-        [SerializeField] protected string tag28;
-        [SerializeField] protected string tag29;
-        [SerializeField] protected string tag30;
-        [SerializeField] protected string tag31;
+        [SerializeField] protected string flag0;
+        [SerializeField] protected string flag1;
+        [SerializeField] protected string flag2;
+        [SerializeField] protected string flag3;
+        [SerializeField] protected string flag4;
+        [SerializeField] protected string flag5;
+        [SerializeField] protected string flag6;
+        [SerializeField] protected string flag7;
+        [SerializeField] protected string flag8;
+        [SerializeField] protected string flag9;
+        [SerializeField] protected string flag10;
+        [SerializeField] protected string flag11;
+        [SerializeField] protected string flag12;
+        [SerializeField] protected string flag13;
+        [SerializeField] protected string flag14;
+        [SerializeField] protected string flag15;
+        [SerializeField] protected string flag16;
+        [SerializeField] protected string flag17;
+        [SerializeField] protected string flag18;
+        [SerializeField] protected string flag19;
+        [SerializeField] protected string flag20;
+        [SerializeField] protected string flag21;
+        [SerializeField] protected string flag22;
+        [SerializeField] protected string flag23;
+        [SerializeField] protected string flag24;
+        [SerializeField] protected string flag25;
+        [SerializeField] protected string flag26;
+        [SerializeField] protected string flag27;
+        [SerializeField] protected string flag28;
+        [SerializeField] protected string flag29;
+        [SerializeField] protected string flag30;
+        [SerializeField] protected string flag31;
 
         #region Core Behaviour
 
@@ -61,38 +61,38 @@ namespace Dhs5.SceneCreation
 
             return index switch
             {
-                0 => tag0,
-                1 => tag1,
-                2 => tag2,
-                3 => tag3,
-                4 => tag4,
-                5 => tag5,
-                6 => tag6,
-                7 => tag7,
-                8 => tag8,
-                9 => tag9,
-                10 => tag10,
-                11 => tag11,
-                12 => tag12,
-                13 => tag13,
-                14 => tag14,
-                15 => tag15,
-                16 => tag16,
-                17 => tag17,
-                18 => tag18,
-                19 => tag19,
-                20 => tag20,
-                21 => tag21,
-                22 => tag22,
-                23 => tag23,
-                24 => tag24,
-                25 => tag25,
-                26 => tag26,
-                27 => tag27,
-                28 => tag28,
-                29 => tag29,
-                30 => tag30,
-                31 => tag31,
+                0 => flag0,
+                1 => flag1,
+                2 => flag2,
+                3 => flag3,
+                4 => flag4,
+                5 => flag5,
+                6 => flag6,
+                7 => flag7,
+                8 => flag8,
+                9 => flag9,
+                10 => flag10,
+                11 => flag11,
+                12 => flag12,
+                13 => flag13,
+                14 => flag14,
+                15 => flag15,
+                16 => flag16,
+                17 => flag17,
+                18 => flag18,
+                19 => flag19,
+                20 => flag20,
+                21 => flag21,
+                22 => flag22,
+                23 => flag23,
+                24 => flag24,
+                25 => flag25,
+                26 => flag26,
+                27 => flag27,
+                28 => flag28,
+                29 => flag29,
+                30 => flag30,
+                31 => flag31,
                 _ => null
             };
         }

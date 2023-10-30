@@ -106,6 +106,7 @@ namespace Dhs5.SceneCreation
 
         public override string ToString()
         {
+            if (Type == SceneVarType.EVENT) return "[" + UID + "] " + ID + " (EVENT) Triggered";
             return "[" + UID + "] " + ID + " (" + Type + ") = " + Value + " (before = " + FormerValue + ")";
         }
     }

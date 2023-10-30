@@ -43,26 +43,26 @@ namespace Dhs5.SceneCreation
         {
             if (SceneVar1 == null)
             {
-                Debug.LogError("Trigger doesn't have a SceneVar");
+                Debug.LogError("Can't trigger a SceneAction on a null SceneVar");
                 return;
             }
 
             switch (SceneVar1.type)
             {
                 case SceneVarType.BOOL:
-                    SceneState.ModifyBoolVar(var1UniqueID, boolOP, SceneVar2.BoolValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), boolOP.Description(), SceneVar2.BoolValue.ToString()));
+                    SceneState.ModifyBoolVar(var1UniqueID, boolOP, SceneVar2.BoolValue, sceneObject, context.Add(SceneVar1.RuntimeString(), boolOP.Description(), SceneVar2.BoolValue.ToString()));
                     break;
                 case SceneVarType.INT:
-                    SceneState.ModifyIntVar(var1UniqueID, intOP, SceneVar2.IntValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), intOP.Description(), SceneVar2.IntValue.ToString()));
+                    SceneState.ModifyIntVar(var1UniqueID, intOP, SceneVar2.IntValue, sceneObject, context.Add(SceneVar1.RuntimeString(), intOP.Description(), SceneVar2.IntValue.ToString()));
                     break;
                 case SceneVarType.FLOAT:
-                    SceneState.ModifyFloatVar(var1UniqueID, floatOP, SceneVar2.FloatValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), floatOP.Description(), SceneVar2.FloatValue.ToString()));
+                    SceneState.ModifyFloatVar(var1UniqueID, floatOP, SceneVar2.FloatValue, sceneObject, context.Add(SceneVar1.RuntimeString(), floatOP.Description(), SceneVar2.FloatValue.ToString()));
                     break;
                 case SceneVarType.STRING:
-                    SceneState.ModifyStringVar(var1UniqueID, stringOP, SceneVar2.StringValue, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), stringOP.Description(), SceneVar2.StringValue));
+                    SceneState.ModifyStringVar(var1UniqueID, stringOP, SceneVar2.StringValue, sceneObject, context.Add(SceneVar1.RuntimeString(), stringOP.Description(), SceneVar2.StringValue));
                     break;
                 case SceneVarType.EVENT:
-                    SceneState.TriggerEventVar(var1UniqueID, sceneObject, context.Add(EditorSceneVar1.RuntimeString(), " Trigger"));
+                    SceneState.TriggerEventVar(var1UniqueID, sceneObject, context.Add(SceneVar1.RuntimeString(), " Trigger"));
                     break;
 
                 default:

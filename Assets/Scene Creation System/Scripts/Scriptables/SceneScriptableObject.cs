@@ -9,11 +9,11 @@ namespace Dhs5.SceneCreation
         [SerializeField, HideInInspector] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
 
-        [SerializeField, HideInInspector] protected SceneObject sceneObject;
+        [SerializeField, HideInInspector] protected BaseSceneObject sceneObject;
 
         #region Link
         public bool Linked { get; private set; } = false;
-        public void Link(SceneObject _sceneObject)
+        public void Link(BaseSceneObject _sceneObject)
         {
             if (Linked)
             {
@@ -26,27 +26,15 @@ namespace Dhs5.SceneCreation
             sceneObject = _sceneObject;
 
             Init();
-            UpdateBelongings(_sceneObject);
+            SetBelongings(_sceneObject);
 
-            Awake_Ext();
+            OnScriptableAwake();
         }
 
         public void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
             sceneVariablesSO = _sceneVariablesSO;
             UpdateSceneVariables();
-        }
-        public void OnSceneObjectEnable()
-        {
-            RegisterElements();
-
-            OnEnable_Ext();
-        }
-        public void OnSceneObjectDisable()
-        {
-            UnregisterElements();
-
-            OnDisable_Ext();
         }
         #endregion
 
@@ -55,7 +43,19 @@ namespace Dhs5.SceneCreation
         {
             UpdateSceneVariables();
 
-            OnValidate_Ext();
+            OnScriptableValidate();
+        }
+        public void OnSceneObjectEnable()
+        {
+            RegisterElements();
+
+            OnScriptableEnable();
+        }
+        public void OnSceneObjectDisable()
+        {
+            UnregisterElements();
+
+            OnScriptableDisable();
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace Dhs5.SceneCreation
         /// Called on <see cref="Awake"/>.<br></br>
         /// Update the belongings of <see cref="SceneState.ISceneObjectBelongable"/>s elements to this object HERE.
         /// </summary>
-        protected abstract void UpdateBelongings(SceneObject sceneObject);
+        protected abstract void SetBelongings(BaseSceneObject sceneObject);
         /// <summary>
         /// Called on <see cref="OnValidate"/>.<br></br>
         /// Update the <see cref="Dhs5.SceneCreation.SceneVariablesSO"/> of <see cref="SceneState.ISceneVarSetupable"/> and <see cref="SceneState.ISceneVarTypedSetupable"/> elements HERE.
@@ -89,21 +89,21 @@ namespace Dhs5.SceneCreation
 
         #region Extensions
         /// <summary>
-        /// <see cref="Awake"/> extension.
+        /// Called on <see cref="Link(BaseSceneObject)"/>.
         /// </summary>
-        protected virtual void Awake_Ext() { }
+        protected virtual void OnScriptableAwake() { }
         /// <summary>
         /// <see cref="OnValidate"/> extension.
         /// </summary>
-        protected virtual void OnValidate_Ext() { }
+        protected virtual void OnScriptableValidate() { }
         /// <summary>
-        /// <see cref="OnEnable"/> extension.
+        /// <see cref="OnSceneObjectEnable"/> extension.
         /// </summary>
-        protected virtual void OnEnable_Ext() { }
+        protected virtual void OnScriptableEnable() { }
         /// <summary>
-        /// <see cref="OnDisable"/> extension.
+        /// <see cref="OnSceneObjectDisable"/> extension.
         /// </summary>
-        protected virtual void OnDisable_Ext() { }
+        protected virtual void OnScriptableDisable() { }
         #endregion
     }
 }

@@ -48,7 +48,7 @@ namespace Dhs5.SceneCreation
 
             EditorGUILayout.Space(2f);
 
-            if (baseSceneObject.SceneVariablesSO == null)
+            if (!isManager && baseSceneObject.SceneVariablesSO == null)
             {
                 EditorGUILayout.HelpBox("You need to setup the SceneManager and its SceneVariablesSO", MessageType.Error);
             }

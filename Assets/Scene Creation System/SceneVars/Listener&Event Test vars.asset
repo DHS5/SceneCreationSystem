@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cda7ef96f7c07d48a703ffbc9dee744, type: 3}
-  m_Name: IntersceneVars
+  m_Script: {fileID: 11500000, guid: 05233141e2000a9438e58b4671382bff, type: 3}
+  m_Name: Listener&Event Test vars
   m_EditorClassIdentifier: 
   sceneVars:
-  - uniqueID: 10811
-    ID: Global bool 1
-    type: 0
+  - uniqueID: 4774
+    ID: Sum
+    type: 1
     boolValue: 0
     intValue: 0
     floatValue: 0
@@ -29,16 +29,16 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
-    isGlobal: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
-  - uniqueID: 10271
-    ID: Global float 1
-    type: 2
+  - uniqueID: 9077
+    ID: Test Event
+    type: 4
     boolValue: 0
     intValue: 0
-    floatValue: 5.86
+    floatValue: 0
     stringValue: 
     hasMin: 0
     hasMax: 0
@@ -49,7 +49,11 @@ MonoBehaviour:
     isStatic: 0
     isRandom: 0
     isLink: 0
-    isGlobal: 1
+    isGlobal: 0
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
+  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
+  sceneObjectSettings: {fileID: 11400000, guid: a6a34f1f1f87cc142ba6879bdbf57cee, type: 2}
+  complexSceneVars: []
+  sceneBalancingSheets: []

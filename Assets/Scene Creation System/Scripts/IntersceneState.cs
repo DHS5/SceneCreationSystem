@@ -8,7 +8,7 @@ namespace Dhs5.SceneCreation
     {
         #region Global SceneVars
 
-        public static bool IsEmpty { get; private set; }
+        public static bool IsEmpty { get; private set; } = true;
 
         private static Dictionary<int, SceneVar> IntersceneVariables = new();
 
@@ -33,6 +33,11 @@ namespace Dhs5.SceneCreation
         private static void AddGlobalVar(SceneVar variable)
         {
             IntersceneVariables[variable.uniqueID] = new(variable);
+        }
+
+        internal static bool IsGlobalVar(int uniqueID)
+        {
+            return uniqueID > 10000;
         }
 
         #endregion
@@ -141,6 +146,29 @@ namespace Dhs5.SceneCreation
             {
                 SceneState.IncorrectID(uniqueID);
                 return false;
+            }
+        }
+
+        #endregion
+
+        #region Global Vars Getters
+
+        internal static SceneVar GetSceneVar(int uniqueID)
+        {
+            if (IsEmpty)
+            {
+                Debug.LogError("The IntersceneState is empty");
+                return null;
+            }
+
+            if (IntersceneVariables.ContainsKey(uniqueID))
+            {
+                return new(IntersceneVariables[uniqueID]);
+            }
+            else
+            {
+                Debug.LogError("Unique ID " + uniqueID + " can't be found in the Global SceneVariables");
+                return null;
             }
         }
 

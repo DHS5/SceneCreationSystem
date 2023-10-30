@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: SceneObject Settings
   m_EditorClassIdentifier: 
   _tagDatabase: {fileID: 11400000, guid: dbb7848c568e1a44f9f21ad17e62a971, type: 2}
+  _layerDatabase: {fileID: 11400000, guid: df641204fd1752846acb86c8a97b353e, type: 2}
