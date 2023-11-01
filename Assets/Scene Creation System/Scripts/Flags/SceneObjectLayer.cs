@@ -38,7 +38,10 @@ namespace Dhs5.SceneCreation
             return new(intVal);
         }
 
-        // TODO : IsContainedIn
+        public bool IsContainedIn(SceneObjectLayerMask mask)
+        {
+            return mask.Include(this);
+        }
 
 
         #endregion

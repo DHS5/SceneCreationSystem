@@ -148,7 +148,7 @@ namespace Dhs5.SceneCreation
                 {
                     flag = GetFlagAtIndex(i);
                     n += flag;
-                    names.Add(flag);
+                    names.Add(n);
                 }
                 allNames.Add(n);
             }
@@ -203,6 +203,16 @@ namespace Dhs5.SceneCreation
 
             return names;
         }
+        internal List<string> NamesOfMask(SceneObjectLayerMask mask)
+        {
+            List<string> names = new();
+            for (int i = 0; i < 32; i++)
+            {
+                if (mask.Include(i) && IsValid(i)) names.Add(GetFlagAtIndex(i));
+            }
+
+            return names;
+        }
 
         internal int IndexOfName(string name) => GetIndexOfFlag(name);
         internal List<int> IndexesOfNames(ICollection<string> names)
@@ -225,6 +235,26 @@ namespace Dhs5.SceneCreation
             }
 
             return tag & (~cleaner);
+        }
+        internal int CleanMask(SceneObjectLayerMask mask)
+        {
+            int cleaner = 0;
+            for (int i = 0; i < 32; i++)
+            {
+                if (mask.Include(i) && !IsValid(i)) cleaner |= 1 << i;
+            }
+
+            return mask & (~cleaner);
+        }
+        internal int CleanMask(FlagMask mask)
+        {
+            int cleaner = 0;
+            for (int i = 0; i < 32; i++)
+            {
+                if (mask.Include(i) && !IsValid(i)) cleaner |= 1 << i;
+            }
+
+            return mask & (~cleaner);
         }
         #endregion
     }

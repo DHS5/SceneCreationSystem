@@ -11,7 +11,7 @@ public class TestBaseSceneObject : BaseSceneObject
     [SerializeField] private List<SceneEvent> events;
     [Space]
     [SerializeField] private SceneObjectTag soTag;
-    [SerializeField] private SceneObjectLayer soLayer;
+    [SerializeField] private SceneObjectLayerMask soLayer;
 
     protected override void RegisterSceneElements()
     {

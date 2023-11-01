@@ -392,7 +392,7 @@ MonoBehaviour:
   soTag:
     _value: 3
   soLayer:
-    _value: 3
+    _value: 1
 --- !u!1 &1520984375
 GameObject:
   m_ObjectHideFlags: 0
