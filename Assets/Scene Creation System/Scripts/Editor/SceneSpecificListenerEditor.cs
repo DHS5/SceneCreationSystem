@@ -87,7 +87,7 @@ namespace Dhs5.SceneCreation
                 // Condition creation
                 if (hasConditionP.boolValue)
                 {
-                    conditionP = property.FindPropertyRelative("conditions");
+                    conditionP = property.FindPropertyRelative("condition");
                     Rect compPosition = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
                     EditorGUI.PropertyField(compPosition, conditionP);
                     propertyOffset += EditorGUI.GetPropertyHeight(conditionP);
