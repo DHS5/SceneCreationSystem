@@ -16,21 +16,29 @@ namespace Dhs5.SceneCreation
 
             EditorGUI.BeginProperty(position, label, property);
 
+            //valueProperty.intValue = EditorGUI.IntPopup(position, label.text, valueProperty.intValue, 
+            //    SceneObjectLayer.Layers.ToArray(), SceneObjectLayer.LayerValues.ToArray());
 
-            if (EditorGUI.DropdownButton(position, new GUIContent(SceneObjectLayer.LayerToName(valueProperty.intValue)), FocusType.Passive))
+            int currentValue = valueProperty.intValue;
+
+            if (EditorGUI.DropdownButton(position, new GUIContent(SceneObjectLayer.LayerToName(currentValue)), FocusType.Passive))
             {
                 List<string> list = SceneObjectLayer.Layers;
+                List<int> values = SceneObjectLayer.LayerValues;
                 GenericMenu menu = new();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    menu.AddItem(new GUIContent(list[i]), false, Choose, i);
+                    menu.AddItem(new GUIContent(list[i]), values[i] == currentValue, Choose, values[i]);
                 }
+                menu.AddSeparator("");
+                menu.AddItem(new GUIContent("Add Layer"), false, EditorHelper.GetSceneObjectLayerDatabase);
                 menu.ShowAsContext();
             }
 
             void Choose(object index)
             {
                 valueProperty.intValue = (int)index;
+                property.serializedObject.ApplyModifiedProperties();
             }
 
             EditorGUI.EndProperty();

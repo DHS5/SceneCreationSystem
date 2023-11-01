@@ -15,7 +15,7 @@ MonoBehaviour:
   flag0: Base Layer
   flag1: Default Layer
   flag2: 
-  flag3: 
+  flag3: Layer 3
   flag4: 
   flag5: 
   flag6: 
@@ -47,3 +47,6 @@ MonoBehaviour:
   _names:
   - '0: Base Layer'
   - '1: Default Layer'
+  - '2: --- Empty ---'
+  - '3: Layer 3'
+  _values: 000000000100000003000000

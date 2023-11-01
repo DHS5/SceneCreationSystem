@@ -21,6 +21,10 @@ namespace Dhs5.SceneCreation
         [SerializeField] private int _value;
 
         public string Name => LayerToName(this);
+        public override string ToString()
+        {
+            return _value + ": " + Name;
+        }
 
         #region Operation
 
@@ -42,6 +46,7 @@ namespace Dhs5.SceneCreation
         #region Statics
 
         public static List<string> Layers => SceneObjectLayerDatabase.Instance.Names;
+        internal static List<int> LayerValues => SceneObjectLayerDatabase.Instance.Values;
 
         internal static int NameToIndex(string layerName) => SceneObjectLayerDatabase.Instance.IndexOfName(layerName);
         internal static SceneObjectLayer NameToLayer(string layerName)

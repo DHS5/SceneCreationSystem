@@ -118,7 +118,7 @@ namespace Dhs5.SceneCreation
 
         #region Statics
 
-        public static List<string> Tags => SceneObjectTagDatabase.Instance.Names;
+        public static List<string> Tags => SceneObjectTagDatabase.Instance.AllNames;
 
         internal static int NameToIndex(string tagName) => SceneObjectTagDatabase.Instance.IndexOfName(tagName);
         internal static SceneObjectTag NameToTag(string tagName)

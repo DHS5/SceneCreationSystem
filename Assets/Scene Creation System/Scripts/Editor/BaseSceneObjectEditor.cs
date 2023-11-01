@@ -88,13 +88,17 @@ namespace Dhs5.SceneCreation
                     , new GUIContent("Layer", "Scene Object Layer of this object"), headerStyle);
                 GUI.contentColor = Color.white;
                 EditorGUI.PropertyField(new Rect
-                    (currentRect.x + currentRect.width * 0.06f, currentRect.y, currentRect.width * 0.43f, currentRect.height)
+                    (currentRect.x + currentRect.width * 0.06f, currentRect.y, currentRect.width * 0.41f, currentRect.height)
                     , serializedObject.FindProperty("sceneObjectTag"), empty);
+                EditorGUI.PropertyField(new Rect
+                    (currentRect.x + currentRect.width * 0.59f, currentRect.y, currentRect.width * 0.41f, currentRect.height)
+                    , serializedObject.FindProperty("sceneObjectLayer"), empty);
             }
 
             EditorGUILayout.Space(10f);
 
-            EditorGUILayout.LabelField(baseSceneObject.DisplayName, headerStyle);
+            //EditorGUILayout.LabelField(baseSceneObject.DisplayName, headerStyle);
+            EditorGUI.DropShadowLabel(EditorGUILayout.GetControlRect(false, 20f), baseSceneObject.DisplayName);
             
             //EditorGUILayout.Space(5f);
 

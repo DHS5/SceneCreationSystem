@@ -16,6 +16,9 @@ namespace Dhs5.SceneCreation
 
         [SerializeField, HideInInspector] protected SceneObjectTag sceneObjectTag;
         public SceneObjectTag Tag => sceneObjectTag;
+        
+        [SerializeField, HideInInspector] protected SceneObjectLayer sceneObjectLayer;
+        public SceneObjectLayer Layer => sceneObjectLayer;
 
         public virtual string DisplayName => "BaseSceneObject";
 

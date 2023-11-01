@@ -247,6 +247,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 7387320640639974492}
   sceneListeners:
   - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
     varUniqueID: 10811
@@ -378,12 +383,16 @@ MonoBehaviour:
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
   sceneObjectTag:
     _value: 0
+  sceneObjectLayer:
+    _value: 3
   sceneManager: {fileID: 7387320640639974492}
   listeners1: []
   listeners2: []
   events: []
   soTag:
-    _value: 27
+    _value: 3
+  soLayer:
+    _value: 3
 --- !u!1 &1520984375
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,8 +498,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
-  sceneListeners: []
-  sceneEvents: []
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 7387320640639974492}
   sceneTimelines: []
 --- !u!4 &1509976589678637557
 Transform:
@@ -557,6 +569,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
   sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
     _value: 0
   sceneManager: {fileID: 7387320640639974492}
   collider: {fileID: 2512635144890340061}
@@ -669,8 +683,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
-  sceneListeners: []
-  sceneEvents: []
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 0}
   onSceneStart: []
   onSceneChange: []
   onGameOver: []
@@ -702,5 +719,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 7387320640639974492}
   sceneListeners: []
   sceneEvents: []

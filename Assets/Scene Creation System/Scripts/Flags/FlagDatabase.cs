@@ -44,7 +44,8 @@ namespace Dhs5.SceneCreation
 
         private void OnValidate()
         {
-            Names = GetAllNames();
+            (Names, AllNames) = GetAllNames();
+            Values = GetAllValues();
         }
 
         #endregion
@@ -115,7 +116,7 @@ namespace Dhs5.SceneCreation
 
         private bool IsValid(int index) => !string.IsNullOrWhiteSpace(GetFlagAtIndex(index));
 
-        private List<string> GetAllNames()
+        private (List<string> names, List<string> allNames) GetAllNames()
         {
             int lastValid = -1;
 
@@ -128,11 +129,13 @@ namespace Dhs5.SceneCreation
                 }
             }
 
-            if (lastValid == -1) return null;
+            if (lastValid == -1) return (null, null);
 
             List<string> names = new();
+            List<string> allNames = new();
 
             string n;
+            string flag;
 
             for (int i = 0; i <= lastValid; i++)
             {
@@ -143,12 +146,29 @@ namespace Dhs5.SceneCreation
                 }
                 else
                 {
-                    n += GetFlagAtIndex(i);
+                    flag = GetFlagAtIndex(i);
+                    n += flag;
+                    names.Add(flag);
                 }
-                names.Add(n);
+                allNames.Add(n);
             }
 
-            return names;
+            return (names, allNames);
+        }
+
+        private List<int> GetAllValues()
+        {
+            List<int> list = new();
+
+            for (int i = 0; i < 32; i++)
+            {
+                if (IsValid(i))
+                {
+                    list.Add(i);
+                }
+            }
+
+            return list;
         }
 
         #endregion
@@ -157,6 +177,10 @@ namespace Dhs5.SceneCreation
 
         internal List<string> Names { get => _names; private set => _names = value; }
         [SerializeField, HideInInspector] private List<string> _names;
+        internal List<string> AllNames { get => _allNames; private set => _allNames = value; }
+        [SerializeField, HideInInspector] private List<string> _allNames;
+        internal List<int> Values { get => _values; private set => _values = value; }
+        [SerializeField, HideInInspector] private List<int> _values;
 
         internal string NameAtIndex(int index) => GetFlagAtIndex(index);
         internal List<string> NamesAtIndexes(ICollection<int> indexes)
