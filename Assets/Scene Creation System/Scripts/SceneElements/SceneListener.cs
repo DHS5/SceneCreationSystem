@@ -10,6 +10,105 @@ namespace Dhs5.SceneCreation
     [Serializable]
     public abstract class BaseSceneListener : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.ISceneSubscribable, SceneState.ISceneVarDependant, SceneState.ISceneLogableWithChild
     {
+        #region Listening Condition
+
+        [Serializable]
+        protected class Condition : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependant, SceneState.ISceneLogable
+        {
+            [SerializeField] protected bool layerCheck = false;
+            [SerializeField] protected SceneObjectLayerMask layerMask;
+            [SerializeField] protected bool tagCheck = false;
+            [SerializeField] protected SceneObjectTag tagMask;
+            [SerializeField] protected List<SceneCondition> sceneConditions;
+
+            public bool VerifyCondition(SceneEventParam param)
+            {
+                if (!layerCheck || layerMask.Include(param.Sender.Layer))
+                {
+                    if (!tagCheck || tagMask.ContainsAny(param.Sender.Tag))
+                    {
+                        return sceneConditions.VerifyConditions();
+                    }
+                }
+                return false;
+            }
+
+            #region Set Up
+            public void SetUp(SceneVariablesSO _sceneVariablesSO)
+            {
+                sceneConditions.SetUp(_sceneVariablesSO);
+            }
+            #endregion
+
+            #region Dependency
+
+            public virtual List<int> Dependencies => sceneConditions.Dependencies();
+
+            public bool DependOn(int UID) => Dependencies.Contains(UID);
+
+            #endregion
+
+            #region SceneLog
+
+            public List<string> LogLines(bool detailed = false, bool showEmpty = false, string alinea = null)
+            {
+                List<string> lines = new();
+                StringBuilder sb = new();
+
+                // First Alinea
+                if (alinea != null) sb.Append(alinea);
+
+                if (layerCheck)
+                {
+                    sb.Append("Sender Layer contained in : ");
+                    sb.Append(layerMask.NamesAsString);
+                    Line();
+                }
+
+                if (tagCheck)
+                {
+                    sb.Append("Sender Tag containes any in : ");
+                    sb.Append(tagMask.NamesAsString);
+                    Line();
+                }
+
+                if (sceneConditions.IsValid())
+                {
+                    for (int i = 0; i < sceneConditions.Count; i++)
+                    {
+                        sb.Append(sceneConditions[i].ToString());
+                        if (i < sceneConditions.Count - 1)
+                        {
+                            Line();
+                            sb.Append(sceneConditions[i].logicOperator);
+                        }
+                        Line();
+                    }
+                }
+
+                return lines;
+
+                #region Local
+                void Line()
+                {
+                    sb.Append('\n');
+                    lines.Add(sb.ToString());
+                    sb.Clear();
+                    if (alinea != null) sb.Append(alinea);
+                }
+                #endregion
+            }
+
+            public bool IsEmpty()
+            {
+                return !layerCheck && !tagCheck && !sceneConditions.IsValid();
+            }
+
+            #endregion
+        }
+
+        #endregion
+
         [SerializeField] protected SceneVariablesSO sceneVariablesSO;
         public SceneVariablesSO SceneVariablesSO => sceneVariablesSO;
 
@@ -30,7 +129,7 @@ namespace Dhs5.SceneCreation
         // Condition
         [SerializeField] protected bool hasCondition;
 
-        [SerializeField] protected List<SceneCondition> conditions;
+        [SerializeField] protected Condition condition;
 
         [SerializeField] protected bool debug = false;
         [SerializeField] protected float propertyHeight;
@@ -46,7 +145,7 @@ namespace Dhs5.SceneCreation
         }
         private void OnListenerEvent(SceneEventParam _param)
         {
-            if (VerifyConditions())
+            if (VerifyConditions(_param))
             {
                 SceneEventParam param = new(_param);
                 param.Context.UpRank(sceneObject.name, " listener received ", param.ToString());
@@ -64,7 +163,7 @@ namespace Dhs5.SceneCreation
         {
             sceneVariablesSO = _sceneVariablesSO;
 
-            conditions.SetUp(sceneVariablesSO);
+            condition.SetUp(sceneVariablesSO);
         }
         public void BelongTo(BaseSceneObject _sceneObject)
         {
@@ -73,9 +172,9 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Utility
-        private bool VerifyConditions()
+        private bool VerifyConditions(SceneEventParam param)
         {
-            return !hasCondition || conditions.VerifyConditions();
+            return !hasCondition || condition.VerifyCondition(param);
         }
         protected abstract void Trigger(SceneEventParam _param);
         #endregion
@@ -120,23 +219,12 @@ namespace Dhs5.SceneCreation
 
             if (detailed)
             {
-                if (hasCondition && conditions != null && conditions.Count > 0)
+                if (hasCondition && !condition.IsEmpty())
                 {
                     sb.Append("   * IF : ");
                     Line();
 
-                    for (int i = 0; i < conditions.Count; i++)
-                    {
-                        sb.Append("          ");
-                        sb.Append(conditions[i].ToString());
-                        if (i < conditions.Count - 1)
-                        {
-                            Line();
-                            sb.Append("          ");
-                            sb.Append(conditions[i].logicOperator);
-                        }
-                        Line();
-                    }
+                    lines.AddRange(condition.LogLines(detailed, showEmpty, "          "));
                 }
 
                 ChildLog(lines, sb, detailed, showEmpty, alinea);
@@ -173,7 +261,7 @@ namespace Dhs5.SceneCreation
                 List<int> dependencies = new List<int>() { UID };
 
                 if (hasCondition)
-                    dependencies.AddRange(conditions.Dependencies());
+                    dependencies.AddRange(condition.Dependencies);
                 return dependencies;
             }
         }

@@ -252,17 +252,7 @@ MonoBehaviour:
   sceneObjectLayer:
     _value: 0
   sceneManager: {fileID: 7387320640639974492}
-  sceneListeners:
-  - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
-    varUniqueID: 10811
-    hasCondition: 0
-    conditions: []
-    debug: 0
-    propertyHeight: 190.40001
-    events:
-      m_PersistentCalls:
-        m_Calls: []
-    triggers: []
+  sceneListeners: []
   sceneEvents:
   - eventID: 
     sceneConditions: []
@@ -386,7 +376,24 @@ MonoBehaviour:
   sceneObjectLayer:
     _value: 3
   sceneManager: {fileID: 7387320640639974492}
-  listeners1: []
+  listeners1:
+  - sceneVariablesSO: {fileID: 11400000, guid: 4e69493d8e51ce346954bce6e1059717, type: 2}
+    varUniqueID: 2348
+    hasCondition: 1
+    condition:
+      layerCheck: 1
+      layerMask:
+        _value: 1
+      tagCheck: 1
+      tagMask:
+        _value: 10
+      sceneConditions: []
+    debug: 0
+    propertyHeight: 0
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    triggers: []
   listeners2: []
   events: []
   soTag:
