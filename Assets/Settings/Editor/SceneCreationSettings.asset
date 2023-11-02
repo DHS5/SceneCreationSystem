@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
   sceneObjectSettings: {fileID: 11400000, guid: a6a34f1f1f87cc142ba6879bdbf57cee, type: 2}
+  sceneVariablesDirectory:
+    path: Assets/Scene Creation System/SceneVars
   sceneCreationPrefabs:
     sceneManagerPrefab: {fileID: 2626548491275406242, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
     sceneClockPrefab: {fileID: 1445389896236721321, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Dhs5.Utility.Settings;
 using System;
+using Dhs5.Utility.DirectoryPicker;
 
 #if UNITY_EDITOR
 using Dhs5.Utility.Settings.Editor;
@@ -23,6 +24,11 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] private SceneObjectSettings sceneObjectSettings;
         public SceneObjectSettings SceneObjectSettings => sceneObjectSettings;
+
+        [Space(20f)]
+
+        [SerializeField] private DirectoryPicker sceneVariablesDirectory;
+        public string SceneVariablesContainerPath => sceneVariablesDirectory.Path;
 
         [Space(20f)]
 

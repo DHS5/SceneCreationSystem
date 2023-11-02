@@ -78,17 +78,22 @@ namespace Dhs5.SceneCreation
             Selection.activeObject = newSceneVars;
         }
 
-        [MenuItem("SCS/Get/Interscene Variables Container", priority = 300)]
+        [MenuItem("SCS/Settings", priority = 0)]
+        public static void GetSceneCreationSettings()
+        {
+            SettingsService.OpenProjectSettings("Project/Scene Creation Settings");
+        }
+        [MenuItem("SCS/Get/Interscene Variables Container", priority = 301)]
         public static void GetIntersceneVariablesContainer()
         {
             Selection.activeObject = SceneCreationSettings.instance.IntersceneVars;
         }
-        [MenuItem("SCS/Get/SceneObject Settings", priority = 301)]
+        [MenuItem("SCS/Get/SceneObject Settings", priority = 302)]
         public static void GetSceneObjectSettings()
         {
             Selection.activeObject = SceneCreationSettings.instance.SceneObjectSettings;
         }
-        [MenuItem("SCS/Get/This Scene Variables Container", priority = 302)]
+        [MenuItem("SCS/Get/This Scene Variables Container", priority = 303)]
         public static void GetActiveSceneVariablesSO()
         {
             SceneVariablesSO sceneVariablesSO = GetCurrentSceneVariablesSO();
