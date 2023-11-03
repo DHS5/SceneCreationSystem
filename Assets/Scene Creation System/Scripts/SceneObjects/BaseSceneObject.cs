@@ -4,8 +4,6 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Scripting;
 using System.Text;
-using System.Runtime.CompilerServices;
-using UnityEditor.PackageManager;
 
 namespace Dhs5.SceneCreation
 {

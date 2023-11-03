@@ -25,7 +25,7 @@ namespace Dhs5.SceneCreation
             return null;
         }
 
-        [MenuItem("SCS/Refresh all SceneObjects in current scene")]
+        [MenuItem("SCS/Setup/Refresh SceneObjects", priority = 403)]
         public static void RefreshSceneObjects()
         {
             BaseSceneObject[] sceneObjects = GameObject.FindObjectsOfType<SceneObject>();
@@ -43,17 +43,46 @@ namespace Dhs5.SceneCreation
             }
         }
 
-        [MenuItem("SCS/Setup New Scene")]
-        public static void SetUpNewScene(MenuCommand menuCommand)
+        [MenuItem("SCS/Setup/Setup Project", priority = 401)]
+        internal static void SetupProject(MenuCommand menuCommand)
+        {
+            SceneCreationSettings.instance.SetupProject();
+        }
+        [MenuItem("SCS/Advanced/Show Settings Assets", priority = 1001)]
+        internal static void ShowSettingsAssets(MenuCommand menuCommand)
+        {
+            SceneCreationSettings.instance.SetSettingsAssetsVisibility(true);
+        }
+        [MenuItem("SCS/Advanced/Hide Settings Assets", priority = 1002)]
+        internal static void HideSettingsAssets(MenuCommand menuCommand)
+        {
+            SceneCreationSettings.instance.SetSettingsAssetsVisibility(false);
+        }
+
+
+        [MenuItem("SCS/Setup/Setup Scene", priority = 402)]
+        public static void SetUpScene(MenuCommand menuCommand)
         {
             Scene activeScene = EditorSceneManager.GetActiveScene();
             string sceneName = activeScene.name;
-            string newSceneVarsPath = activeScene.path.Substring(0, activeScene.path.LastIndexOf('/') + 1) + sceneName + "_SceneVars.asset";
+
+            string baseSceneVarPath = SceneCreationSettings.instance.SceneVariablesContainerPath + "/";
+            if (!Directory.Exists(baseSceneVarPath))
+            {
+                Directory.CreateDirectory(baseSceneVarPath);
+            }
+            string sceneVarDirPath = baseSceneVarPath + sceneName + "/";
+            if (!Directory.Exists(sceneVarDirPath))
+            {
+                Directory.CreateDirectory(baseSceneVarPath);
+            }
+
+            string newSceneVarsPath = sceneVarDirPath + sceneName + "_SceneVars.asset";
             SceneVariablesSO newSceneVars;
             if (!File.Exists(newSceneVarsPath))
             {
                 newSceneVars = ScriptableObject.CreateInstance<SceneVariablesSO>();
-                AssetDatabase.CreateAsset(newSceneVars, activeScene.path.Substring(0, activeScene.path.LastIndexOf('/') + 1) + sceneName + "_SceneVars.asset");
+                AssetDatabase.CreateAsset(newSceneVars, newSceneVarsPath);//activeScene.path.Substring(0, activeScene.path.LastIndexOf('/') + 1) + sceneName + "_SceneVars.asset");
             }
             else
             {

@@ -187,7 +187,7 @@ namespace Dhs5.SceneCreation
             serializedObject.Update();
             SerializedProperty textList = serializedObject.FindProperty(listPropertyName);
 
-            balancingSheetList = new ReorderableList(serializedObject, textList, true, true, true, false)
+            balancingSheetList = new ReorderableList(serializedObject, textList, true, true, true, true)
             {
                 drawHeaderCallback = rect =>
                 {
@@ -205,9 +205,14 @@ namespace Dhs5.SceneCreation
                     EditorGUI.indentLevel--;
                 },
 
-                onAddCallback = rect =>
+                onAddCallback = list =>
                 {
                     sceneVariablesSO.CreateNewBalancingSheet();
+                },
+
+                onRemoveCallback = list =>
+                {
+                    sceneVariablesSO.TryRemoveBalancingSheetAtIndex(list.index);
                 },
 
                 elementHeight = EditorGUIUtility.singleLineHeight

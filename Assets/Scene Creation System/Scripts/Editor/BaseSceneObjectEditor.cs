@@ -68,31 +68,60 @@ namespace Dhs5.SceneCreation
                 backgroundRect.y -= 1f;
                 EditorGUI.DrawRect(backgroundRect, backgroundColor);
 
+                Rect currentRect = EditorGUILayout.GetControlRect(false);
+
+                if (GUI.Button(new Rect
+                    (currentRect.x + currentRect.width * 0.89f, currentRect.y, currentRect.width * 0.05f, currentRect.height),
+                    EditorGUIUtility.IconContent("d_ToolSettings")))
+                {
+                    EditorHelper.GetSceneObjectSettings();
+                }
+                if (GUI.Button(new Rect
+                    (currentRect.x + currentRect.width * 0.95f, currentRect.y, currentRect.width * 0.05f, currentRect.height),
+                    EditorGUIUtility.IconContent("d__Popup")))
+                {
+                    EditorHelper.GetSceneCreationSettings();
+                }
+
                 if (!isManager) GUI.contentColor = foregroundColor;
 
                 EditorGUI.BeginDisabledGroup(!isManager);
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVariablesSO"), empty);
+                EditorGUI.PropertyField(new Rect
+                    (currentRect.x, currentRect.y, currentRect.width * 0.88f, currentRect.height),
+                    serializedObject.FindProperty("sceneVariablesSO"), empty);
                 EditorGUI.EndDisabledGroup();
+
                 EditorGUILayout.Space(1f);
 
                 if (isManager) GUI.contentColor = foregroundColor;
 
-                Rect currentRect = EditorGUILayout.GetControlRect(false, 20f);
+                currentRect = EditorGUILayout.GetControlRect(false, 20f);
 
-                // Tag
+                // Tag Text
                 EditorGUI.LabelField(new Rect
                     (currentRect.x, currentRect.y, currentRect.width * 0.06f, currentRect.height)
                     , new GUIContent("Tag", "Scene Object Tag of this object"), headerStyle);
+                // Layer Text
                 EditorGUI.LabelField(new Rect
                     (currentRect.x + currentRect.width * 0.51f, currentRect.y, currentRect.width * 0.08f, currentRect.height)
                     , new GUIContent("Layer", "Scene Object Layer of this object"), headerStyle);
                 GUI.contentColor = Color.white;
+                // Tag
                 EditorGUI.PropertyField(new Rect
-                    (currentRect.x + currentRect.width * 0.06f, currentRect.y, currentRect.width * 0.41f, currentRect.height)
+                    (currentRect.x + currentRect.width * 0.06f, currentRect.y, currentRect.width * 0.39f, currentRect.height)
                     , serializedObject.FindProperty("sceneObjectTag"), empty);
+                // Layer
                 EditorGUI.PropertyField(new Rect
                     (currentRect.x + currentRect.width * 0.59f, currentRect.y, currentRect.width * 0.41f, currentRect.height)
                     , serializedObject.FindProperty("sceneObjectLayer"), empty);
+
+                // Tag Button
+                if (GUI.Button(new Rect
+                    (currentRect.x + currentRect.width * 0.455f, currentRect.y, currentRect.width * 0.05f, currentRect.height * 0.9f),
+                    EditorGUIUtility.IconContent("d_FilterByLabel")))
+                {
+                    EditorHelper.GetSceneObjectTagDatabase();
+                }
             }
 
             EditorGUILayout.Space(10f);

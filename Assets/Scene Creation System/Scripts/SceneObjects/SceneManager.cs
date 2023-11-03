@@ -155,7 +155,7 @@ namespace Dhs5.SceneCreation
         /// Do not use at runtime !
         /// </summary>
         /// <param name="_sceneVariablesSO"></param>
-        public void SetSceneVariablesSO(SceneVariablesSO _sceneVariablesSO)
+        internal void SetSceneVariablesSO(SceneVariablesSO _sceneVariablesSO)
         {
 #if UNITY_EDITOR
             sceneVariablesSO = _sceneVariablesSO;

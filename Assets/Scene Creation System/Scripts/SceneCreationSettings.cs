@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using Dhs5.Utility.Settings;
 using System;
 using Dhs5.Utility.DirectoryPicker;
+using System.Linq;
 
 #if UNITY_EDITOR
 using Dhs5.Utility.Settings.Editor;
+using UnityEditor;
 #endif
 
 namespace Dhs5.SceneCreation
@@ -34,6 +35,85 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] private SceneCreationBasePrefabs sceneCreationPrefabs;
         public SceneCreationBasePrefabs Prefabs => sceneCreationPrefabs;
+
+
+        readonly string IntersceneVariablesName = "Interscene Variables Container";
+        readonly string SceneObjectSettingsName = "SceneObject Settings";
+        public void SetupProject()
+        {
+#if UNITY_EDITOR
+            string path = AssetDatabase.GetAssetPath(this);
+
+            UnityEngine.Object[] os = AssetDatabase.LoadAllAssetsAtPath(path);
+            List<UnityEngine.Object> objects = os.ToList();
+
+            foreach (UnityEngine.Object o in os)
+            {
+                Debug.Log(o);
+            }
+
+            intersceneVariablesSO = SetupObject<IntersceneVariablesSO>(intersceneVariablesSO, IntersceneVariablesName);
+
+            sceneObjectSettings = SetupObject<SceneObjectSettings>(sceneObjectSettings, SceneObjectSettingsName);
+
+            if (sceneObjectSettings != null)
+            {
+                sceneObjectSettings.SetupProject();
+            }
+
+            AssetDatabase.SaveAssets();
+
+            T SetupObject<T>(UnityEngine.Object obj, string correctName) where T : ScriptableObject
+            {
+                if (obj == null)
+                {
+                    UnityEngine.Object foundObj = objects.Find(o => o is T);
+                    if (foundObj != null)
+                    {
+                        obj = foundObj;
+                    }
+                    else
+                    {
+                        obj = CreateInstance<T>();
+                        AssetDatabase.AddObjectToAsset(obj, path);
+                        obj.name = correctName;
+                    }
+                }
+                else if (!objects.Contains(obj))
+                {
+                    UnityEngine.Object newObj = Instantiate(obj);
+                    AssetDatabase.AddObjectToAsset(newObj, path);
+                    AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(obj));
+                    obj = newObj;
+                }
+
+                if (obj != null)
+                {
+                    obj.hideFlags = HideFlags.HideInHierarchy;
+                }
+
+                return obj == null ? null : obj as T;
+            }
+#endif
+        }
+        internal void SetSettingsAssetsVisibility(bool show)
+        {
+#if UNITY_EDITOR
+            string path = AssetDatabase.GetAssetPath(this);
+
+            UnityEngine.Object[] os = AssetDatabase.LoadAllAssetsAtPath(path);
+
+            foreach (UnityEngine.Object o in os)
+            {
+                if (o != this)
+                {
+                    o.hideFlags = show ? HideFlags.None : HideFlags.HideInHierarchy;
+                    EditorUtility.SetDirty(o);
+                }
+            }
+            AssetDatabase.SaveAssets();
+#endif
+        }
     }
 
     [Serializable]

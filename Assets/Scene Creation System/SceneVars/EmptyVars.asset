@@ -1,6 +1,308 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
+--- !u!114 &-8062449086167272064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ab7d16c238e2140b0c6b3d4a448634, type: 3}
+  m_Name: BalancingSheet1.asset
+  m_EditorClassIdentifier: 
+  sceneVariablesSO: {fileID: -5890706412014597990}
+  balancingVars:
+  - overrideVar: 0
+    uniqueID: 2348
+    ID: Var Bool 1
+    type: 0
+    boolValue: 1
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 8456
+    ID: Var Bool 2
+    type: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 1
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 4877
+    ID: Var Int 1
+    type: 1
+    boolValue: 0
+    intValue: 5
+    floatValue: 0
+    stringValue: 
+    hasMin: 1
+    hasMax: 1
+    minInt: 0
+    maxInt: 15
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 1
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 9818
+    ID: Var Int 2
+    type: 1
+    boolValue: 0
+    intValue: 5
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 1
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 4622
+    ID: Var Int 3
+    type: 1
+    boolValue: 0
+    intValue: 7
+    floatValue: 0
+    stringValue: 
+    hasMin: 1
+    hasMax: 0
+    minInt: 3
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 6682
+    ID: Var Float 1
+    type: 2
+    boolValue: 0
+    intValue: 0
+    floatValue: 4.35
+    stringValue: 
+    hasMin: 1
+    hasMax: 1
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 8.6
+    isStatic: 0
+    isRandom: 1
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 9387
+    ID: Var Float 2
+    type: 2
+    boolValue: 0
+    intValue: 0
+    floatValue: 7.54
+    stringValue: 
+    hasMin: 0
+    hasMax: 1
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 8.6
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 7676
+    ID: Var Float 3
+    type: 2
+    boolValue: 0
+    intValue: 0
+    floatValue: 4.56
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 1
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 1031
+    ID: Var String 1
+    type: 3
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: Hello
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 1
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 9449
+    ID: Var String 2
+    type: 3
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: World
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 5271
+    ID: Var Event 1
+    type: 4
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 8260
+    ID: Var Event 2
+    type: 4
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 7301
+    ID: Condition 1
+    type: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 1
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 2637
+    ID: Total INT 1
+    type: 1
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 1
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 1089
+    ID: Total FLOAT 1
+    type: 2
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 1
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 765
+    ID: Sentence 1
+    type: 3
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 1
+    propertyHeight: 18
+--- !u!114 &-5890706412014597990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,19 +636,19 @@ MonoBehaviour:
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
-  intersceneVariablesSO: {fileID: 11400000, guid: 8714b02865a280b40a75ab54c397120e, type: 2}
-  sceneObjectSettings: {fileID: 11400000, guid: a6a34f1f1f87cc142ba6879bdbf57cee, type: 2}
+  intersceneVariablesSO: {fileID: 2931021990422469653, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
+  sceneObjectSettings: {fileID: -6873954747759285107, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
   complexSceneVars:
-  - sceneVariablesSO: {fileID: 11400000}
+  - sceneVariablesSO: {fileID: -5890706412014597990}
     uniqueID: 7301
     ID: Condition 1
     type: 0
     conditions:
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       var1UniqueID: 2348
       SceneVar2:
         type: 0
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 8456
         anyVar: 0
         canBeStatic: 1
@@ -364,11 +666,11 @@ MonoBehaviour:
       stringComp: 0
       logicOperator: 0
       forbiddenUID: 7301
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       var1UniqueID: 2348
       SceneVar2:
         type: 0
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 4877
         anyVar: 0
         canBeStatic: 1
@@ -386,11 +688,11 @@ MonoBehaviour:
       stringComp: 0
       logicOperator: 1
       forbiddenUID: 7301
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       var1UniqueID: 2348
       SceneVar2:
         type: 0
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 9449
         anyVar: 0
         canBeStatic: 1
@@ -412,16 +714,16 @@ MonoBehaviour:
     floatTotals: []
     sentences: []
     propertyHeight: 0
-  - sceneVariablesSO: {fileID: 11400000}
+  - sceneVariablesSO: {fileID: -5890706412014597990}
     uniqueID: 2637
     ID: Total INT 1
     type: 1
     conditions: []
     intTotals:
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 1
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 4877
         anyVar: 0
         canBeStatic: 1
@@ -434,10 +736,10 @@ MonoBehaviour:
         propertyHeight: 0
       op: 0
       type: 1
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 1
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 9818
         anyVar: 0
         canBeStatic: 1
@@ -450,10 +752,10 @@ MonoBehaviour:
         propertyHeight: 0
       op: 1
       type: 1
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 1
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 4622
         anyVar: 0
         canBeStatic: 1
@@ -469,17 +771,17 @@ MonoBehaviour:
     floatTotals: []
     sentences: []
     propertyHeight: 0
-  - sceneVariablesSO: {fileID: 11400000}
+  - sceneVariablesSO: {fileID: -5890706412014597990}
     uniqueID: 1089
     ID: Total FLOAT 1
     type: 2
     conditions: []
     intTotals: []
     floatTotals:
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 2
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 6682
         anyVar: 0
         canBeStatic: 1
@@ -492,10 +794,10 @@ MonoBehaviour:
         propertyHeight: 0
       op: 1
       type: 2
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 2
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 9818
         anyVar: 0
         canBeStatic: 1
@@ -508,10 +810,10 @@ MonoBehaviour:
         propertyHeight: 0
       op: 2
       type: 2
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 2
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 7676
         anyVar: 0
         canBeStatic: 1
@@ -526,7 +828,7 @@ MonoBehaviour:
       type: 2
     sentences: []
     propertyHeight: 0
-  - sceneVariablesSO: {fileID: 11400000}
+  - sceneVariablesSO: {fileID: -5890706412014597990}
     uniqueID: 765
     ID: Sentence 1
     type: 3
@@ -534,10 +836,10 @@ MonoBehaviour:
     intTotals: []
     floatTotals: []
     sentences:
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 3
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 1031
         anyVar: 0
         canBeStatic: 1
@@ -550,10 +852,10 @@ MonoBehaviour:
         propertyHeight: 0
       op: 0
       type: 3
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 3
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 9449
         anyVar: 0
         canBeStatic: 1
@@ -566,10 +868,10 @@ MonoBehaviour:
         propertyHeight: 0
       op: 0
       type: 3
-    - sceneVariablesSO: {fileID: 11400000}
+    - sceneVariablesSO: {fileID: -5890706412014597990}
       varTween:
         type: 3
-        sceneVariablesSO: {fileID: 11400000}
+        sceneVariablesSO: {fileID: -5890706412014597990}
         sceneVarUniqueID: 1031
         anyVar: 0
         canBeStatic: 1
@@ -584,6 +886,4 @@ MonoBehaviour:
       type: 3
     propertyHeight: 0
   sceneBalancingSheets:
-  - {fileID: 11400000, guid: eb73dcf0b1035b4439276db635b25e7f, type: 2}
-  - {fileID: 11400000, guid: 66dd2eb36d7ada0489ae159f009c2f50, type: 2}
-  - {fileID: 11400000, guid: 06839f8904fa64b4c9180055c429420e, type: 2}
+  - {fileID: -8062449086167272064}

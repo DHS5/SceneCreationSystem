@@ -241,11 +241,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
       propertyPath: onSceneStart.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartTimeline
+      value: Clock_StartTimeline
       objectReference: {fileID: 0}
     - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
       propertyPath: onSceneStart.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Dhs5.SceneCreation.SceneManager, SceneCreationSystem
+      value: Dhs5.SceneCreation.BaseSceneObject, SceneCreationSystem
       objectReference: {fileID: 0}
     - target: {fileID: 8746033221095546829, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
       propertyPath: onSceneStart.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -306,11 +306,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 43936166}
   listeners1:
   - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     varUniqueID: 9762
     hasCondition: 0
-    conditions: []
+    condition:
+      layerCheck: 0
+      layerMask:
+        _value: 0
+      tagCheck: 0
+      tagMask:
+        _value: 0
+      sceneConditions: []
     debug: 0
     propertyHeight: 190.40001
     events:
@@ -321,7 +333,14 @@ MonoBehaviour:
   - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     varUniqueID: 5895
     hasCondition: 0
-    conditions: []
+    condition:
+      layerCheck: 0
+      layerMask:
+        _value: 0
+      tagCheck: 0
+      tagMask:
+        _value: 0
+      sceneConditions: []
     debug: 0
     propertyHeight: 0
   events:
@@ -348,6 +367,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  soTag:
+    _value: 0
+  soLayer:
+    _value: 0
 --- !u!4 &117295664
 Transform:
   m_ObjectHideFlags: 0
@@ -393,8 +416,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-  sceneListeners: []
-  sceneEvents: []
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 43936166}
   templates:
   - templateID: Listening SceneObject
     prefab: {fileID: 6447064889421450952, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
@@ -416,7 +442,14 @@ MonoBehaviour:
         - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
           varUniqueID: 9478
           hasCondition: 0
-          conditions: []
+          condition:
+            layerCheck: 0
+            layerMask:
+              _value: 0
+            tagCheck: 0
+            tagMask:
+              _value: 0
+            sceneConditions: []
           debug: 0
           propertyHeight: 0
           events:
@@ -2603,11 +2636,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 43936166}
   sceneListeners:
   - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     varUniqueID: 9874
     hasCondition: 0
-    conditions: []
+    condition:
+      layerCheck: 0
+      layerMask:
+        _value: 0
+      tagCheck: 0
+      tagMask:
+        _value: 0
+      sceneConditions: []
     debug: 0
     propertyHeight: 0
     events:
@@ -2668,7 +2713,14 @@ MonoBehaviour:
   - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     varUniqueID: 9478
     hasCondition: 0
-    conditions: []
+    condition:
+      layerCheck: 0
+      layerMask:
+        _value: 0
+      tagCheck: 0
+      tagMask:
+        _value: 0
+      sceneConditions: []
     debug: 0
     propertyHeight: 0
   dependencies:
@@ -2687,12 +2739,12 @@ MonoBehaviour:
       forbiddenUID: 0
       propertyHeight: 0
     sceneObjects:
-    - {fileID: 43936166}
+    - {fileID: 0}
     - {fileID: 1192182893}
-    - {fileID: 1198601243}
+    - {fileID: 0}
     - {fileID: 1567954834}
     - {fileID: 1652975745}
-    - {fileID: 3840911906533732566}
+    - {fileID: 0}
     propertyHeight: 207.5
 --- !u!1 &1591041803
 GameObject:
@@ -4028,6 +4080,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 43936166}
   sceneListeners: []
   sceneEvents: []
 --- !u!114 &3840911906533732566
@@ -4043,13 +4100,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
-  sceneListeners: []
-  sceneEvents: []
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 43936166}
   collider: {fileID: 4477937185143235614}
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  infiniteUse: 1
   useNumber: 0
+  interactions: 0
   onCollisionEnter: []
   onCollisionStay: []
   onCollisionExit: []

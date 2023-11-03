@@ -155,6 +155,8 @@ MonoBehaviour:
   sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
   sceneObjectTag:
     _value: 0
+  sceneObjectLayer:
+    _value: 0
   sceneManager: {fileID: 8505160189827604224}
   sceneListeners: []
   sceneEvents:
@@ -877,12 +879,21 @@ MonoBehaviour:
   sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
   sceneObjectTag:
     _value: 0
+  sceneObjectLayer:
+    _value: 0
   sceneManager: {fileID: 8505160189827604224}
   sceneListeners:
   - sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
     varUniqueID: 4774
     hasCondition: 0
-    conditions: []
+    condition:
+      layerCheck: 0
+      layerMask:
+        _value: 0
+      tagCheck: 0
+      tagMask:
+        _value: 0
+      sceneConditions: []
     debug: 1
     propertyHeight: 0
     events:
@@ -895,7 +906,14 @@ MonoBehaviour:
   - sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
     varUniqueID: 9077
     hasCondition: 0
-    conditions: []
+    condition:
+      layerCheck: 0
+      layerMask:
+        _value: 0
+      tagCheck: 0
+      tagMask:
+        _value: 0
+      sceneConditions: []
     debug: 1
     propertyHeight: 0
     events:
@@ -980,6 +998,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
   sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
     _value: 0
   sceneManager: {fileID: 0}
   onSceneStart: []
