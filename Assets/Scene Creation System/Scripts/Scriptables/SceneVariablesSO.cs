@@ -47,15 +47,17 @@ namespace Dhs5.SceneCreation
 
         #endregion
 
-        //public SceneVar this[int uniqueID]
-        //{
-        //    get
-        //    {
-        //        SceneVar sVar = SceneVars.Find(v => v.uniqueID == uniqueID);
-        //        if (sVar == null) Debug.LogError("Can't find SceneVar from UID " + uniqueID + " in " + name);
-        //        return sVar;
-        //    }
-        //}
+        public new SceneVar this[int uniqueID] 
+        {
+            get
+            {
+                if (uniqueID > 10000) return IntersceneVariables[uniqueID];
+
+                SceneVar sVar = SceneVars.Find(v => v.uniqueID == uniqueID);
+                if (sVar == null) Debug.LogError("Can't find SceneVar from UID " + uniqueID + " in " + name);
+                return sVar;
+            }
+        }
 
         #region Scene Vars
         /*

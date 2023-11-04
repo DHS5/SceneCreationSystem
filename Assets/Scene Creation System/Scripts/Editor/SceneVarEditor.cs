@@ -245,7 +245,7 @@ namespace Dhs5.SceneCreation
                         {
                             if (SceneDependency.IsValidInCurrentScene(container))
                             {
-                                List<SceneObject> sceneObjects = SceneDependency.GetDependencies(container, uniqueIDProperty.intValue);
+                                List<BaseSceneObject> sceneObjects = SceneDependency.GetDependencies(container, uniqueIDProperty.intValue);
 
                                 soProperty.ClearArray();
 

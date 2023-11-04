@@ -20,7 +20,6 @@ namespace Dhs5.SceneCreation
 
         bool isManager = false;
 
-        protected virtual bool DrawChildInspector => true;
 
         protected virtual void OnEnable()
         {
@@ -62,16 +61,34 @@ namespace Dhs5.SceneCreation
 
         protected virtual void DrawDefault()
         {
-            if (DrawChildInspector) DrawPropertiesExcluding(serializedObject, "m_Script");
+            DrawPropertiesExcluding(serializedObject, "m_Script");
         }
         protected virtual void DrawSceneVars()
         {
             Editor editor = Editor.CreateEditor(baseSceneObject.SceneVariablesSO);
             editor.OnInspectorGUI();
         }
+
+        bool dependenciesFoldout;
         protected virtual void DrawDependencies()
         {
+            Rect r = EditorGUILayout.GetControlRect(false);
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneDependency"), true);
+
+            if (GUI.Button(new Rect(
+                r.x + r.width * 0.44f, r.y + EditorGUIUtility.singleLineHeight * 2.7f, 25f, r.height * 0.9f),
+                EditorGUIUtility.IconContent("d_RotateTool On")))
+            {
+                baseSceneObject.RefreshDependencies();
+            }
+
+            if (GUI.Button(new Rect(
+                r.x + r.width * 0.95f, r.y + EditorGUIUtility.singleLineHeight * 2.7f, 25f, r.height * 0.9f),
+                EditorGUIUtility.IconContent("d_RotateTool On")))
+            {
+                baseSceneObject.RefreshDependants();
+            }
         }
 
         protected int Header()

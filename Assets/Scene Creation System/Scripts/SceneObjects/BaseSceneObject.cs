@@ -802,6 +802,18 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Dependencies
+
+        #region Editor
+        internal void RefreshDependencies()
+        {
+            sceneDependency.GetSceneObjectDependencies(this);
+        }
+        internal void RefreshDependants()
+        {
+            sceneDependency.GetSceneVarDependants();
+        }
+        #endregion
+
         public List<int> Dependencies
         {
             get

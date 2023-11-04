@@ -32,6 +32,24 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 1139
+    ID: Event1
+    type: 4
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,6 +66,26 @@ MonoBehaviour:
   - uniqueID: 633
     ID: New Scene Var
     type: 0
+    boolValue: 0
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    isGlobal: 0
+    propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []
+  - uniqueID: 1139
+    ID: Event1
+    type: 4
     boolValue: 0
     intValue: 0
     floatValue: 0
@@ -92,6 +130,24 @@ MonoBehaviour:
     ID: New Scene Var
     type: 0
     boolValue: 1
+    intValue: 0
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    propertyHeight: 18
+  - overrideVar: 0
+    uniqueID: 1139
+    ID: Event1
+    type: 4
+    boolValue: 0
     intValue: 0
     floatValue: 0
     stringValue: 

@@ -12,7 +12,8 @@ namespace Dhs5.SceneCreation
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
 
         [SerializeField] private SceneVarTween sceneVar;
-        [SerializeField] private List<SceneObject> sceneObjects;
+        [SerializeField] private List<BaseSceneObject> sceneObjects = new();
+        [SerializeField] private List<string> sceneVars = new();
 
         [SerializeField] private float propertyHeight;
 
@@ -22,11 +23,43 @@ namespace Dhs5.SceneCreation
             sceneVar.SetUp(_sceneVariablesSO, SceneVarType.INT, false, true);
         }
 
-        public static List<SceneObject> GetDependencies(BaseVariablesContainer container, int UID)
+        internal void GetSceneObjectDependencies(BaseSceneObject baseSceneObject)
         {
-            List<SceneObject> sceneObjects = new();
+            sceneVars.Clear();
 
-            foreach (var so in GameObject.FindObjectsOfType<SceneObject>())
+            List<int> deps = new();
+
+            foreach (var d in baseSceneObject.Dependencies)
+            {
+                if (!deps.Contains(d))
+                {
+                    deps.Add(d);
+                }
+            }
+
+            foreach (var d in deps)
+            {
+                sceneVars.Add(sceneVariablesSO[d]?.PopupString());
+            }
+        }
+        internal void GetSceneVarDependants()
+        {
+            sceneObjects.Clear();
+
+            foreach (var so in GameObject.FindObjectsOfType<BaseSceneObject>())
+            {
+                if (so.DependOn(sceneVar.UID))
+                {
+                    sceneObjects.Add(so);
+                }
+            }
+        }
+
+        public static List<BaseSceneObject> GetDependencies(BaseVariablesContainer container, int UID)
+        {
+            List<BaseSceneObject> sceneObjects = new();
+
+            foreach (var so in GameObject.FindObjectsOfType<BaseSceneObject>())
             {
                 if ((container is IntersceneVariablesSO || 
                     (container is SceneVariablesSO sceneVariablesSO && so.SceneVariablesSO == sceneVariablesSO)) 

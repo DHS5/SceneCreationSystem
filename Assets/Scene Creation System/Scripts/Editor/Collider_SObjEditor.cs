@@ -10,8 +10,6 @@ namespace Dhs5.SceneCreation
     {
         Collider_SObj collider;
 
-        protected override bool DrawChildInspector => false;
-
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -19,10 +17,8 @@ namespace Dhs5.SceneCreation
             collider = (Collider_SObj)baseSceneObject;
         }
 
-        public override void OnInspectorGUI()
+        protected override void DrawDefault()
         {
-            base.OnInspectorGUI();
-
             EditorGUILayout.PropertyField(serializedObject.FindProperty("collider"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("layerMask"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("infiniteUse"));

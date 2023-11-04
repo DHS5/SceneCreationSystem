@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -20,6 +21,88 @@ namespace Dhs5.SceneCreation
         float propertyHeight;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            ReorderableList dependenciesList;
+            ReorderableList dependantsList;
+
+            tweenProperty = property.FindPropertyRelative("sceneVar");
+
+            SerializedProperty list1Prop = property.FindPropertyRelative("sceneVars");
+            SerializedProperty list2Prop = property.FindPropertyRelative("sceneObjects");
+
+            dependenciesList = new ReorderableList(property.serializedObject, list1Prop, false, true, false, false)
+            {
+                drawHeaderCallback = rect =>
+                {
+                    EditorGUI.LabelField(rect, "Dependencies");
+                },
+
+                drawElementCallback = (rect, index, active, focused) =>
+                {
+                    var element = list1Prop.GetArrayElementAtIndex(index);
+
+                    EditorGUI.indentLevel++;
+                    EditorGUI.LabelField(rect, element.stringValue);
+                    EditorGUI.indentLevel--;
+                },
+
+                elementHeightCallback = index =>
+                {
+                    var element = list1Prop.GetArrayElementAtIndex(index);
+
+                    return EditorGUI.GetPropertyHeight(element);
+                }
+            };
+            
+            dependantsList = new ReorderableList(property.serializedObject, list2Prop, false, true, false, false)
+            {
+                drawHeaderCallback = rect =>
+                {
+                    EditorGUI.LabelField(rect, "Dependants");
+                },
+
+                drawElementCallback = (rect, index, active, focused) =>
+                {
+                    var element = list2Prop.GetArrayElementAtIndex(index);
+
+                    EditorGUI.indentLevel++;
+                    EditorGUI.BeginDisabledGroup(true);
+                    EditorGUI.PropertyField(rect, element, GUIContent.none, true);
+                    EditorGUI.EndDisabledGroup();
+                    EditorGUI.indentLevel--;
+                },
+
+                elementHeightCallback = index =>
+                {
+                    var element = list2Prop.GetArrayElementAtIndex(index);
+
+                    return EditorGUI.GetPropertyHeight(element);
+                }
+            };
+
+            Rect dependenciesRect = new Rect(
+                position.x, position.y + EditorGUIUtility.singleLineHeight * 1.5f, 
+                position.width * 0.49f, position.height);
+            Rect dependantsRect = new Rect(
+                position.x + position.width * 0.51f, position.y + EditorGUIUtility.singleLineHeight * 1.5f, 
+                position.width * 0.49f, position.height);
+
+            Rect tweenRect = new Rect(
+                position.x + position.width * 0.51f, position.y, 
+                position.width * 0.49f, EditorGUIUtility.singleLineHeight);
+
+            EditorGUI.PropertyField(tweenRect, tweenProperty, GUIContent.none);
+
+
+            dependenciesList.DoList(dependenciesRect);
+            dependantsList.DoList(dependantsRect);
+
+            property.FindPropertyRelative("propertyHeight").floatValue =
+                //EditorGUIUtility.singleLineHeight * 1.5f + 
+                Mathf.Max(dependenciesList.GetHeight(), dependantsList.GetHeight());
+        }
+
+        public void OnGUIprout(Rect position, SerializedProperty property, GUIContent label)
         {
             propertyOffset = 0f;
             propertyHeight = 0f;
@@ -78,7 +161,7 @@ namespace Dhs5.SceneCreation
 
                 if (GUI.Button(buttonRect, "Get dependencies"))
                 {
-                    List<SceneObject> sceneObjects = SceneDependency.GetDependencies(
+                    List<BaseSceneObject> sceneObjects = SceneDependency.GetDependencies(
                         sceneVarContainer, tweenProperty.FindPropertyRelative("sceneVarUniqueID").intValue);
 
                     listProperty.ClearArray();
