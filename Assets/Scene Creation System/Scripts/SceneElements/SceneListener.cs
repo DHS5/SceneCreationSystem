@@ -13,16 +13,21 @@ namespace Dhs5.SceneCreation
         #region Listening Condition
 
         [Serializable]
-        protected class Condition : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependant, SceneState.ISceneLogable
+        public class Condition : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependant, SceneState.ISceneLogable
         {
+            [SerializeField] protected bool hasCondition = false;
+
             [SerializeField] protected bool layerCheck = false;
             [SerializeField] protected SceneObjectLayerMask layerMask;
             [SerializeField] protected bool tagCheck = false;
             [SerializeField] protected SceneObjectTag tagMask;
             [SerializeField] protected List<SceneCondition> sceneConditions;
 
+            public bool HasCondition => hasCondition;
             public bool VerifyCondition(SceneEventParam param)
             {
+                if (!hasCondition) return true;
+
                 if (!layerCheck || layerMask.Include(param.Sender.Layer))
                 {
                     if (!tagCheck || tagMask.ContainsAny(param.Sender.Tag))
@@ -101,7 +106,7 @@ namespace Dhs5.SceneCreation
 
             public bool IsEmpty()
             {
-                return !layerCheck && !tagCheck && !sceneConditions.IsValid();
+                return !hasCondition || (!layerCheck && !tagCheck && !sceneConditions.IsValid());
             }
 
             #endregion
@@ -125,9 +130,6 @@ namespace Dhs5.SceneCreation
         {
             get => sceneVariablesSO[varUniqueID];
         }
-
-        // Condition
-        [SerializeField] protected bool hasCondition;
 
         [SerializeField] protected Condition condition;
 
@@ -174,7 +176,7 @@ namespace Dhs5.SceneCreation
         #region Utility
         private bool VerifyConditions(SceneEventParam param)
         {
-            return !hasCondition || condition.VerifyCondition(param);
+            return condition.VerifyCondition(param);
         }
         protected abstract void Trigger(SceneEventParam _param);
         #endregion
@@ -219,7 +221,7 @@ namespace Dhs5.SceneCreation
 
             if (detailed)
             {
-                if (hasCondition && !condition.IsEmpty())
+                if (!condition.IsEmpty())
                 {
                     sb.Append("   * IF : ");
                     Line();
@@ -260,7 +262,7 @@ namespace Dhs5.SceneCreation
             {
                 List<int> dependencies = new List<int>() { UID };
 
-                if (hasCondition)
+                if (condition.HasCondition)
                     dependencies.AddRange(condition.Dependencies);
                 return dependencies;
             }

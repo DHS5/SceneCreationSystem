@@ -77,22 +77,12 @@ namespace Dhs5.SceneCreation
                 propertyOffset = EditorGUIUtility.singleLineHeight * 1.2f;
                 propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
 
-                // Condition
-                hasConditionP = property.FindPropertyRelative("hasCondition");
-                Rect togglePosition = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
-                EditorGUI.PropertyField(togglePosition, hasConditionP, new GUIContent("Conditionned"));
-                propertyHeight += EditorGUIUtility.singleLineHeight;
-                propertyOffset += EditorGUIUtility.singleLineHeight;
-
                 // Condition creation
-                if (hasConditionP.boolValue)
-                {
-                    conditionP = property.FindPropertyRelative("condition");
-                    Rect compPosition = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
-                    EditorGUI.PropertyField(compPosition, conditionP);
-                    propertyOffset += EditorGUI.GetPropertyHeight(conditionP);
-                    propertyHeight += EditorGUI.GetPropertyHeight(conditionP);
-                }
+                conditionP = property.FindPropertyRelative("condition");
+                Rect compPosition = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
+                EditorGUI.PropertyField(compPosition, conditionP, true);
+                propertyOffset += EditorGUI.GetPropertyHeight(conditionP) + 3f;
+                propertyHeight += EditorGUI.GetPropertyHeight(conditionP) + 3f;
 
                 propertyHeight += EditorGUIUtility.singleLineHeight * 0.3f;
                 propertyOffset += EditorGUIUtility.singleLineHeight * 0.3f;

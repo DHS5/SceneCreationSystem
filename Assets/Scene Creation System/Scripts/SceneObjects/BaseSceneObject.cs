@@ -18,6 +18,8 @@ namespace Dhs5.SceneCreation
         [SerializeField, HideInInspector] protected SceneObjectLayer sceneObjectLayer;
         public SceneObjectLayer Layer => sceneObjectLayer;
 
+        [SerializeField, HideInInspector] protected SceneDependency sceneDependency;
+
         public virtual string DisplayName => "BaseSceneObject";
 
         #region Private Editor References
@@ -26,6 +28,8 @@ namespace Dhs5.SceneCreation
         /// Editor only reference to the <see cref="SceneManager"/> of the Scene
         /// </summary>
         [SerializeField, HideInInspector] private SceneManager sceneManager;
+
+        [SerializeField, HideInInspector] private int currentPage;
 
         #endregion
 
@@ -63,6 +67,7 @@ namespace Dhs5.SceneCreation
         {
             if (GetSceneVariablesSO())
             {
+                Setup(sceneDependency);
                 UpdateSceneVariables();
             }
 
@@ -174,6 +179,7 @@ namespace Dhs5.SceneCreation
         {
             if (GetSceneVariablesSO())
             {
+                Setup(sceneDependency);
                 UpdateSceneVariables();
             }
         }

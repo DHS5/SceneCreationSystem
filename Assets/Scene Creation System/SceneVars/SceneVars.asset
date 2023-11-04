@@ -68,6 +68,8 @@ MonoBehaviour:
   intersceneVariablesSO: {fileID: 2931021990422469653, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
   sceneObjectSettings: {fileID: -6873954747759285107, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
   complexSceneVars: []
+  currentPage: 0
+  currentBalancingSheetIndex: 1
   sceneBalancingSheets:
   - {fileID: -3956815111701437579}
   - {fileID: 8248897221329637530}
@@ -85,11 +87,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneVariablesSO: {fileID: 11400000}
   balancingVars:
-  - overrideVar: 0
+  - overrideVar: 1
     uniqueID: 633
     ID: New Scene Var
     type: 0
-    boolValue: 0
+    boolValue: 1
     intValue: 0
     floatValue: 0
     stringValue: 

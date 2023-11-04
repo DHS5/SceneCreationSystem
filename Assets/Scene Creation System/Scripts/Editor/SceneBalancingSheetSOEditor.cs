@@ -34,22 +34,12 @@ namespace Dhs5.SceneCreation
 
             if (sceneVarNull)
             {
-                EditorGUILayout.LabelField("Can't find the corresponding SceneVariablesSO !");
+                EditorGUILayout.HelpBox("Can't find the corresponding SceneVariablesSO !", MessageType.Error);
                 EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 0.5f);
-            }
-
-            EditorGUI.BeginDisabledGroup(!sceneVarNull);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVariablesSO"));
-            EditorGUI.EndDisabledGroup();
-
-            if (sceneVarNull)
-            {
                 EditorGUILayout.EndVertical();
                 serializedObject.ApplyModifiedProperties();
                 return;
             }
-
-            EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 1.5f);
 
             list?.DoLayoutList();
             

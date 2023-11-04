@@ -13,6 +13,8 @@ namespace Dhs5.SceneCreation
 
         protected GUIContent empty = new GUIContent("");
 
+        protected string[] pageNames = new string[] { "Default", "Scene Vars", "Dependency" };
+
         Color backgroundColor;
         Color foregroundColor;
 
@@ -30,6 +32,54 @@ namespace Dhs5.SceneCreation
 
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
+
+            int header = Header();
+
+            EditorGUILayout.Space(10f);
+
+            //EditorGUILayout.LabelField(baseSceneObject.DisplayName, headerStyle);
+            EditorGUI.DropShadowLabel(EditorGUILayout.GetControlRect(false, 20f),
+                header == 0 ? baseSceneObject.DisplayName : pageNames[header]);
+
+            EditorGUILayout.Space(5f);
+
+            switch (header)
+            {
+                case 0:
+                    DrawDefault();
+                    break;
+                case 1:
+                    DrawSceneVars();
+                    break;
+                case 2:
+                    DrawDependencies();
+                    break;
+            }
+
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        protected virtual void DrawDefault()
+        {
+            if (DrawChildInspector) DrawPropertiesExcluding(serializedObject, "m_Script");
+        }
+        protected virtual void DrawSceneVars()
+        {
+            Editor editor = Editor.CreateEditor(baseSceneObject.SceneVariablesSO);
+            editor.OnInspectorGUI();
+        }
+        protected virtual void DrawDependencies()
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneDependency"), true);
+        }
+
+        protected int Header()
+        {
+            return Header(pageNames);
+        }
+        protected int Header(string[] menuNames)
+        {
             backgroundColor = new Color32(191, 247, 255, 255);
             foregroundColor = new Color(1f, 0.49f, 0f);
 
@@ -40,8 +90,6 @@ namespace Dhs5.SceneCreation
             };
             headerStyle.normal.textColor = Color.white;
 
-            serializedObject.Update();
-
             EditorGUI.BeginDisabledGroup(true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_Script"), empty);
             EditorGUI.EndDisabledGroup();
@@ -51,6 +99,7 @@ namespace Dhs5.SceneCreation
             if (!isManager && baseSceneObject.SceneVariablesSO == null)
             {
                 EditorGUILayout.HelpBox("You need to setup the SceneManager and its SceneVariablesSO", MessageType.Error);
+                return 0;
             }
             else
             {
@@ -58,11 +107,11 @@ namespace Dhs5.SceneCreation
                 lineRect.x -= 18f;
                 lineRect.width += 25f;
                 EditorGUI.DrawRect(lineRect, foregroundColor);
-                lineRect.y += 54f;
+                lineRect.y += 76f;
                 EditorGUI.DrawRect(lineRect, foregroundColor);
 
                 Rect backgroundRect = EditorGUILayout.GetControlRect(false, 1f);
-                backgroundRect.height = 50f;
+                backgroundRect.height = 72f;
                 backgroundRect.width += 25f;
                 backgroundRect.x -= 18f;
                 backgroundRect.y -= 1f;
@@ -122,18 +171,13 @@ namespace Dhs5.SceneCreation
                 {
                     EditorHelper.GetSceneObjectTagDatabase();
                 }
+
+                GUILayout.Space(2f);
+                SerializedProperty pageProp = serializedObject.FindProperty("currentPage");
+                pageProp.intValue = GUILayout.Toolbar(pageProp.intValue, menuNames);
+
+                return baseSceneObject.SceneVariablesSO == null ? 0 : pageProp.intValue;
             }
-
-            EditorGUILayout.Space(10f);
-
-            //EditorGUILayout.LabelField(baseSceneObject.DisplayName, headerStyle);
-            EditorGUI.DropShadowLabel(EditorGUILayout.GetControlRect(false, 20f), baseSceneObject.DisplayName);
-            
-            //EditorGUILayout.Space(5f);
-
-            if (DrawChildInspector) DrawPropertiesExcluding(serializedObject, "m_Script");
-
-            serializedObject.ApplyModifiedProperties();
         }
     }
 }

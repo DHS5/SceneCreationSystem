@@ -37,6 +37,16 @@ namespace Dhs5.SceneCreation
             return sceneVars;
         }
 
+
+        #region Private Editor Var
+
+        private enum Page { SceneVars = 0, ComplexSceneVars = 1, GlobalVars = 2, Balancing = 3 }
+        [SerializeField] private Page currentPage;
+
+        [SerializeField] private int currentBalancingSheetIndex;
+
+        #endregion
+
         //public SceneVar this[int uniqueID]
         //{
         //    get
@@ -85,7 +95,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Complex Scene Vars
-        
+
         #region Getters
         public ComplexSceneVar GetComplexSceneVarWithUID(int UID)
         {
@@ -399,7 +409,7 @@ namespace Dhs5.SceneCreation
 
             SceneBalancingSheetSO balancingSheet = ScriptableObject.CreateInstance<SceneBalancingSheetSO>();
             balancingSheet.sceneVariablesSO = this;
-            balancingSheet.name = GetUniqueName() + ".asset";
+            balancingSheet.name = GetUniqueName();
             balancingSheet.hideFlags = HideFlags.None;
             sceneBalancingSheets.Add(balancingSheet);
 
@@ -434,7 +444,6 @@ namespace Dhs5.SceneCreation
                 if (o != this)
                 {
                     current = o.name;
-                    current = current.Substring(0, current.LastIndexOf('.'));
                     names.Add(current);
                 }
             }
@@ -451,6 +460,15 @@ namespace Dhs5.SceneCreation
                 index++;
             }
             return baseName + index;
+        }
+
+        internal SceneBalancingSheetSO GetCurrentlySelectedBalancingSheet()
+        {
+            if (!sceneBalancingSheets.IsValid() || !sceneBalancingSheets.IsIndexValid(currentBalancingSheetIndex))
+            {
+                return null;
+            }
+            return sceneBalancingSheets[currentBalancingSheetIndex];
         }
 #endif
         public List<SceneVar> BalancedSceneVars(int balancingIndex)

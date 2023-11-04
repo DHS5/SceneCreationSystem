@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneVars:
   - uniqueID: 10811
-    ID: Global bool 1
+    ID: Global/bool 1
     type: 0
     boolValue: 0
     intValue: 0
@@ -180,11 +180,11 @@ MonoBehaviour:
     showDependencies: 0
     sceneObjects: []
   - uniqueID: 10271
-    ID: Global float 1
+    ID: Global/float 1
     type: 2
     boolValue: 0
     intValue: 0
-    floatValue: 5.86
+    floatValue: 5.87
     stringValue: 
     hasMin: 0
     hasMax: 0

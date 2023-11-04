@@ -885,5 +885,7 @@ MonoBehaviour:
       op: 0
       type: 3
     propertyHeight: 0
+  currentPage: 2
+  currentBalancingSheetIndex: 0
   sceneBalancingSheets:
   - {fileID: -8062449086167272064}

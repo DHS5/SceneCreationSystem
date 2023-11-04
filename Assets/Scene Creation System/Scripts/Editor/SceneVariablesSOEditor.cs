@@ -15,6 +15,7 @@ namespace Dhs5.SceneCreation
         SceneVariablesSO sceneVariablesSO;
 
         bool detailFoldoutOpen;
+        string[] pageNames = new string[] { "Scene Vars", "Complex Vars", "Global Vars", "Balancing" };
 
         private void OnEnable()
         {
@@ -32,7 +33,13 @@ namespace Dhs5.SceneCreation
             //base.OnInspectorGUI();
             serializedObject.Update();
 
-            detailFoldoutOpen = EditorGUILayout.Foldout(detailFoldoutOpen, "Scene Creation Settings");
+            Rect r = EditorGUILayout.BeginVertical();
+            GUI.Box(r, GUIContent.none, GUI.skin.window);
+
+            EditorGUILayout.Space(3f);
+            EditorGUI.indentLevel++;
+            
+            detailFoldoutOpen = EditorGUILayout.Foldout(detailFoldoutOpen, "Scene Creation Settings", true);
             if (detailFoldoutOpen)
             {
                 EditorGUI.BeginDisabledGroup(true);
@@ -40,28 +47,58 @@ namespace Dhs5.SceneCreation
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneObjectSettings"));
                 EditorGUI.EndDisabledGroup();
             }
+            EditorGUI.indentLevel--;
+            EditorGUILayout.Space(3f);
+
+            EditorGUILayout.EndVertical();
 
             EditorGUILayout.Space(15f);
-            //EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneVars"));
-            //EditorGUILayout.Space(5f);
-            //EditorGUILayout.PropertyField(serializedObject.FindProperty("complexSceneVars"));
+
+            SerializedProperty pageProp = serializedObject.FindProperty("currentPage");
+            pageProp.enumValueIndex = GUILayout.Toolbar(pageProp.enumValueIndex, pageNames);
+
+            switch (pageProp.enumValueIndex)
+            {
+                case 0:
+                    sceneVarList.DoLayoutList();
+                    break;
+                case 1:
+                    complexSceneVarList.DoLayoutList();
+                    break;
+                case 2:
+                    DisplayGlobalVars();
+                    break;
+                case 3:
+                    balancingSheetList.DoLayoutList();
+                    EditorGUILayout.Space(10f);
+                    DisplaySelectedBalancingSheet();
+                    break;
+            }
+            
+            //EditorGUILayout.Space(10f);
             //
-            //EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 1.5f);
-
-            //if (GUILayout.Button("Create Balancing Sheet"))
-            //{
-            //    sceneVariablesSO.CreateNewBalancingSheet();
-            //    CreateBalancingSheetList("sceneBalancingSheets", "Balancing Sheets");
-            //}
-
-            sceneVarList.DoLayoutList();
-            EditorGUILayout.Space(10f);
-            complexSceneVarList.DoLayoutList();
-            EditorGUILayout.Space(10f);
-            balancingSheetList.DoLayoutList();
+            //EditorGUILayout.Space(10f);
+            
 
             serializedObject.ApplyModifiedProperties();
             UnityEditor.EditorUtility.SetDirty(target);
+        }
+        private void DisplaySelectedBalancingSheet()
+        {
+            SceneBalancingSheetSO bs = sceneVariablesSO.GetCurrentlySelectedBalancingSheet();
+            if (bs == null) return;
+
+            EditorGUILayout.LabelField(bs.name, EditorStyles.boldLabel);
+            EditorGUILayout.Space(5f);
+            Editor editor = Editor.CreateEditor(bs);
+            editor.OnInspectorGUI();
+        }
+        private void DisplayGlobalVars()
+        {
+            if (sceneVariablesSO.IntersceneVariables == null) return;
+
+            Editor editor = Editor.CreateEditor(sceneVariablesSO.IntersceneVariables);
+            editor.OnInspectorGUI();
         }
 
         ReorderableList sceneVarList;
@@ -213,6 +250,11 @@ namespace Dhs5.SceneCreation
                 onRemoveCallback = list =>
                 {
                     sceneVariablesSO.TryRemoveBalancingSheetAtIndex(list.index);
+                },
+
+                onSelectCallback = list =>
+                {
+                    serializedObject.FindProperty("currentBalancingSheetIndex").intValue = list.index;
                 },
 
                 elementHeight = EditorGUIUtility.singleLineHeight
