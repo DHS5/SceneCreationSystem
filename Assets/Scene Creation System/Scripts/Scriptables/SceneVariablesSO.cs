@@ -10,7 +10,7 @@ using UnityEditor;
 
 namespace Dhs5.SceneCreation
 {
-    [CreateAssetMenu(fileName = "SceneVars", menuName = "Scene Creation/Scene Vars")]
+    //[CreateAssetMenu(fileName = "SceneVars", menuName = "Scene Creation/Scene Vars")]
     public class SceneVariablesSO : BaseVariablesContainer
     {
         [SerializeField] private IntersceneVariablesSO intersceneVariablesSO;

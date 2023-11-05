@@ -176,7 +176,7 @@ MonoBehaviour:
     sceneVars: []
     propertyHeight: 0
   sceneManager: {fileID: 3069936938828163008}
-  currentPage: 1
+  currentPage: 0
   listeners1: []
   listeners2: []
   events: []

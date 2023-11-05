@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Dhs5.SceneCreation
 {
-    [CreateAssetMenu(fileName = "IntersceneVars", menuName = "Scene Creation/Interscene Vars")]
+    //[CreateAssetMenu(fileName = "IntersceneVars", menuName = "Scene Creation/Interscene Vars")]
     public class IntersceneVariablesSO : BaseVariablesContainer
     {
         public override List<SceneVar> SceneVars => sceneVars;

@@ -29,7 +29,7 @@ namespace Dhs5.SceneCreation
 
 
         public static IntersceneVariablesSO IntersceneVariables => Instance.SceneVariablesSO.IntersceneVariables;
-        public static SceneObjectSettings Settings => Instance.SceneVariablesSO.Settings;
+        public static new SceneObjectSettings Settings => Instance.SceneVariablesSO.Settings;
         #endregion
 
         public override string DisplayName => "Scene Manager";

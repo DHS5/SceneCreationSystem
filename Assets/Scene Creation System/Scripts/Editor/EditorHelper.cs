@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace Dhs5.SceneCreation
 {
-    public static class EditorHelper
+    internal static class EditorHelper
     {
         public static SceneManager GetCurrentSceneManager()
         {
@@ -25,38 +25,18 @@ namespace Dhs5.SceneCreation
             return null;
         }
 
-        [MenuItem("SCS/Setup/Refresh SceneObjects", priority = 403)]
-        public static void RefreshSceneObjects()
-        {
-            BaseSceneObject[] sceneObjects = GameObject.FindObjectsOfType<BaseSceneObject>();
 
-            if (sceneObjects.Length > 0)
-            {
-                foreach (var sceneObject in sceneObjects)
-                {
-                    sceneObject.Refresh();
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Can't find any SceneObject in current scene");
-            }
+        [MenuItem("SCS/Settings", priority = 0)]
+        public static void GetSceneCreationSettings()
+        {
+            SettingsService.OpenProjectSettings("Project/Scene Creation Settings");
         }
 
+        #region Setup
         [MenuItem("SCS/Setup/Setup Project", priority = 401)]
         internal static void SetupProject(MenuCommand menuCommand)
         {
             SceneCreationSettings.instance.SetupProject();
-        }
-        [MenuItem("SCS/Advanced/Show Settings Assets", priority = 1001)]
-        internal static void ShowSettingsAssets(MenuCommand menuCommand)
-        {
-            SceneCreationSettings.instance.SetSettingsAssetsVisibility(true);
-        }
-        [MenuItem("SCS/Advanced/Hide Settings Assets", priority = 1002)]
-        internal static void HideSettingsAssets(MenuCommand menuCommand)
-        {
-            SceneCreationSettings.instance.SetSettingsAssetsVisibility(false);
         }
 
 
@@ -104,11 +84,26 @@ namespace Dhs5.SceneCreation
             Selection.activeObject = newSceneVars;
         }
 
-        [MenuItem("SCS/Settings", priority = 0)]
-        public static void GetSceneCreationSettings()
+        [MenuItem("SCS/Setup/Refresh SceneObjects", priority = 403)]
+        public static void RefreshSceneObjects()
         {
-            SettingsService.OpenProjectSettings("Project/Scene Creation Settings");
+            BaseSceneObject[] sceneObjects = GameObject.FindObjectsOfType<BaseSceneObject>();
+
+            if (sceneObjects.Length > 0)
+            {
+                foreach (var sceneObject in sceneObjects)
+                {
+                    sceneObject.Refresh();
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Can't find any SceneObject in current scene");
+            }
         }
+        #endregion
+
+        #region Get
         [MenuItem("SCS/Get/Interscene Variables Container", priority = 301)]
         public static void GetIntersceneVariablesContainer()
         {
@@ -143,7 +138,20 @@ namespace Dhs5.SceneCreation
         {
             Selection.activeObject = SceneObjectLayerDatabase.Instance;
         }
-        
+        #endregion
+
+        #region Advanced
+        [MenuItem("SCS/Advanced/Show Settings Assets", priority = 1001)]
+        internal static void ShowSettingsAssets(MenuCommand menuCommand)
+        {
+            SceneCreationSettings.instance.SetSettingsAssetsVisibility(true);
+        }
+        [MenuItem("SCS/Advanced/Hide Settings Assets", priority = 1002)]
+        internal static void HideSettingsAssets(MenuCommand menuCommand)
+        {
+            SceneCreationSettings.instance.SetSettingsAssetsVisibility(false);
+        }
+        #endregion
 
         #region Log
         private static void DisplaySceneLog(bool detailed, bool showEmpty, bool color)
@@ -234,10 +242,6 @@ namespace Dhs5.SceneCreation
             }
         }
         #endregion
-        #endregion
-
-        #region References
-
         #endregion
     }
 }

@@ -24,6 +24,22 @@ public class SubclassPickerDrawer : PropertyDrawer
     {
         return Assembly.GetAssembly(baseType).GetTypes().Where(t => t.IsClass && !t.IsAbstract && baseType.IsAssignableFrom(t));
     }
+    public List<System.Type> GetAllDerivedTypes(System.Type aType)
+    {
+        System.AppDomain aAppDomain = System.AppDomain.CurrentDomain;
+        var result = new List<System.Type>();
+        var assemblies = aAppDomain.GetAssemblies();
+        foreach (var assembly in assemblies)
+        {
+            var types = assembly.GetTypes();
+            foreach (var type in types)
+            {
+                if (type.IsClass && !type.IsAbstract && aType.IsAssignableFrom(type))
+                    result.Add(type);
+            }
+        }
+        return result;
+    }
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -50,7 +66,7 @@ public class SubclassPickerDrawer : PropertyDrawer
             });
 
             // inherited types
-            foreach (Type type in GetClasses(t))
+            foreach (Type type in GetAllDerivedTypes(t))// GetClasses(t))
             {
                 menu.AddItem(new GUIContent(type.Name), typeName == type.Name, () =>
                 {

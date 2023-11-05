@@ -150,13 +150,13 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Color Utility
-        private const string rootColor = "<color=#7E3600>";
-        private const string sceneObjectColor = "<color=#0000ff>";
-        private const string listenerColor = "<color=#00ff00>";
-        private const string eventColor = "<color=#ff0000>";
-        private const string extensionEventColor = "<color=#ff3b7d>";
-        private const string tweenColor = "<color=#ffad23>";
-        private const string timelineColor = "<color=#ad00ff>";
+        private const string rootColor = "<color=#7E3600ff>";
+        private const string sceneObjectColor = "<color=#0000ffff>";
+        private const string listenerColor = "<color=#00ff00ff>";
+        private const string eventColor = "<color=#ff0000ff>";
+        private const string extensionEventColor = "<color=#ff3b7dff>";
+        private const string tweenColor = "<color=#ffad23ff>";
+        private const string timelineColor = "<color=#ad00ffff>";
         private const string colorEnd = "</color>";
 
         private const string bold = "<b>";

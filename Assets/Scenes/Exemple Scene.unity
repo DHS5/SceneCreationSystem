@@ -706,6 +706,8 @@ MonoBehaviour:
       op: 0
       type: 3
     propertyHeight: 0
+  currentPage: 0
+  currentBalancingSheetIndex: 0
   sceneBalancingSheets:
   - {fileID: 11400000, guid: eb73dcf0b1035b4439276db635b25e7f, type: 2}
   - {fileID: 11400000, guid: 66dd2eb36d7ada0489ae159f009c2f50, type: 2}
@@ -838,7 +840,26 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000}
+      sceneVarUniqueID: 0
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects: []
+    sceneVars: []
+    propertyHeight: 0
   sceneManager: {fileID: 7387320640639974492}
+  currentPage: 0
   sceneListeners: []
   sceneEvents:
   - eventID: 
@@ -962,12 +983,34 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 3
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000}
+      sceneVarUniqueID: 2348
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects:
+    - {fileID: 1219402604}
+    - {fileID: 1467414747}
+    sceneVars:
+    - '[2348] Var Bool 1 (BOOL)'
+    propertyHeight: 88
   sceneManager: {fileID: 7387320640639974492}
+  currentPage: 2
   listeners1:
   - sceneVariablesSO: {fileID: 11400000}
     varUniqueID: 2348
-    hasCondition: 1
     condition:
+      hasCondition: 0
       layerCheck: 1
       layerMask:
         _value: 1
@@ -1096,7 +1139,26 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000}
+      sceneVarUniqueID: 0
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects: []
+    sceneVars: []
+    propertyHeight: 0
   sceneManager: {fileID: 7387320640639974492}
+  currentPage: 0
   sceneTimelines: []
 --- !u!4 &1509976589678637557
 Transform:
@@ -1166,7 +1228,26 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000}
+      sceneVarUniqueID: 0
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects: []
+    sceneVars: []
+    propertyHeight: 0
   sceneManager: {fileID: 7387320640639974492}
+  currentPage: 0
   collider: {fileID: 2512635144890340061}
   layerMask:
     serializedVersion: 2
@@ -1281,7 +1362,26 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000}
+      sceneVarUniqueID: 0
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects: []
+    sceneVars: []
+    propertyHeight: 0
   sceneManager: {fileID: 0}
+  currentPage: 0
   onSceneStart: []
   onSceneChange: []
   onGameOver: []
@@ -1317,6 +1417,25 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000}
+      sceneVarUniqueID: 0
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects: []
+    sceneVars: []
+    propertyHeight: 0
   sceneManager: {fileID: 7387320640639974492}
+  currentPage: 0
   sceneListeners: []
   sceneEvents: []

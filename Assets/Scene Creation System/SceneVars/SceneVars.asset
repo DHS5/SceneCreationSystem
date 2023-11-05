@@ -80,7 +80,7 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     isGlobal: 0
-    propertyHeight: 91.8
+    propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
   - uniqueID: 1139
@@ -107,7 +107,7 @@ MonoBehaviour:
   sceneObjectSettings: {fileID: -6873954747759285107, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
   complexSceneVars: []
   currentPage: 0
-  currentBalancingSheetIndex: 1
+  currentBalancingSheetIndex: 0
   sceneBalancingSheets:
   - {fileID: -3956815111701437579}
   - {fileID: 8248897221329637530}

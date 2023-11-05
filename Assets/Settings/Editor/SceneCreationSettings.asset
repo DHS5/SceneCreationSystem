@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tagDatabase: {fileID: 6004459988912774}
   _layerDatabase: {fileID: -5218766178788988799}
+  _eventColor: {r: 0, g: 0, b: 0, a: 0}
+  _debugLevel: 0
+  _level0Color: {r: 1, g: 0, b: 0, a: 1}
+  _level1Color: {r: 1, g: 0.5232177, b: 0, a: 1}
+  _level2Color: {r: 1, g: 0.7847884, b: 0, a: 1}
+  _level3Color: {r: 0.1910713, g: 0.8980392, b: 0, a: 1}
+  _level4Color: {r: 0, g: 0.5844414, b: 1, a: 1}
+  _level5Color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
 --- !u!114 &-5218766178788988799
 MonoBehaviour:
   m_ObjectHideFlags: 1

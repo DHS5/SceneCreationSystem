@@ -9,15 +9,48 @@ using UnityEditor;
 
 namespace Dhs5.SceneCreation
 {
-    [CreateAssetMenu(fileName = "SceneObject Settings", menuName = "Scene Creation/Settings/SceneObject Settings")]
+    //[CreateAssetMenu(fileName = "SceneObject Settings", menuName = "Scene Creation/Settings/SceneObject Settings")]
     public class SceneObjectSettings : ScriptableObject
     {
+        public static SceneObjectSettings Instance
+        {
+            get
+            {
+#if UNITY_EDITOR
+                return SceneCreationSettings.instance.SceneObjectSettings;
+#else
+                if (Application.isPlaying)
+                {
+                    return SceneManager.Settings;
+                }
+
+                return null;
+#endif
+            }
+        }
+
+        [Header("Databases")]
         [SerializeField] private SceneObjectTagDatabase _tagDatabase;
         internal SceneObjectTagDatabase TagDatabase => _tagDatabase;
 
         [SerializeField] private SceneObjectLayerDatabase _layerDatabase;
         internal SceneObjectLayerDatabase LayerDatabase => _layerDatabase;
 
+        [Header("Scene Log")]
+        [SerializeField] private Color _eventColor;
+
+        [Header("Debug")]
+        [SerializeField][Range(0, 5)] private int _debugLevel;
+        internal int DebugLevel => _debugLevel;
+
+        [SerializeField] private Color _level0Color; internal Color Level0Color => _level0Color;
+        [SerializeField] private Color _level1Color; internal Color Level1Color => _level1Color;
+        [SerializeField] private Color _level2Color; internal Color Level2Color => _level2Color;
+        [SerializeField] private Color _level3Color; internal Color Level3Color => _level3Color;
+        [SerializeField] private Color _level4Color; internal Color Level4Color => _level4Color;
+        [SerializeField] private Color _level5Color; internal Color Level5Color => _level5Color;
+
+        #region Editor
 
         readonly string TagDatabaseName = "SceneObject Tag Database";
         readonly string LayerDatabaseName = "SceneObject Layer Database";
@@ -74,5 +107,7 @@ namespace Dhs5.SceneCreation
             }
 #endif
         }
+
+        #endregion
     }
 }

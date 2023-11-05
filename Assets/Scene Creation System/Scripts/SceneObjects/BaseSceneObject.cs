@@ -22,6 +22,8 @@ namespace Dhs5.SceneCreation
 
         public virtual string DisplayName => "BaseSceneObject";
 
+        protected SceneObjectSettings Settings => sceneVariablesSO != null ? sceneVariablesSO.Settings : null;
+
         #region Private Editor References
 
         /// <summary>
@@ -182,6 +184,8 @@ namespace Dhs5.SceneCreation
                 Setup(sceneDependency);
                 UpdateSceneVariables();
             }
+
+            RefreshDependencies();
         }
 
         #endregion
@@ -909,6 +913,55 @@ namespace Dhs5.SceneCreation
         {
             SceneClock.Instance.GoToStep(timelineID, step, interrupt);
         }
+        #endregion
+
+        #region Debug
+
+        internal void DebugThis(int level, object message)
+        {
+            switch (level)
+            {
+                case 0: Debug0(message); break;
+                case 1: Debug1(message); break;
+                case 2: Debug2(message); break;
+                case 3: Debug3(message); break;
+                case 4: Debug4(message); break;
+                case 5: Debug5(message); break;
+            }
+        }
+        protected void Debug0(object o)
+        {
+            if (Settings != null)
+                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level0Color)}>{o}</color>", this);
+            else
+                Debug.Log($"<color=red>{o}</color>", this);
+        }
+        protected void Debug1(object o)
+        {
+            if (Settings != null && Settings.DebugLevel >= 1)
+                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level1Color)}>{o}</color>", this);
+        }
+        protected void Debug2(object o)
+        {
+            if (Settings != null && Settings.DebugLevel >= 2)
+                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level2Color)}>{o}</color>", this);
+        }
+        protected void Debug3(object o)
+        {
+            if (Settings != null && Settings.DebugLevel >= 3)
+                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level3Color)}>{o}</color>", this);
+        }
+        protected void Debug4(object o)
+        {
+            if (Settings != null && Settings.DebugLevel >= 4)
+                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level4Color)}>{o}</color>", this);
+        }
+        protected void Debug5(object o)
+        {
+            if (Settings != null && Settings.DebugLevel >= 5)
+                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level5Color)}>{o}</color>", this);
+        }
+
         #endregion
 
 

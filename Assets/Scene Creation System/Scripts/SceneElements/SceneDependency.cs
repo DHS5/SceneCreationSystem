@@ -19,7 +19,7 @@ namespace Dhs5.SceneCreation
         public void SetUp(SceneVariablesSO _sceneVariablesSO)
         {
             sceneVariablesSO = _sceneVariablesSO;
-            sceneVar.SetUp(_sceneVariablesSO, SceneVarType.INT, false, true);
+            sceneVar?.SetUp(_sceneVariablesSO, SceneVarType.INT, false, true);
         }
 
         internal void GetSceneObjectDependencies(BaseSceneObject baseSceneObject)

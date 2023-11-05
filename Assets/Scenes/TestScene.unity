@@ -514,9 +514,18 @@ MonoBehaviour:
     prefab: {fileID: 6447064889421450952, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
     parent: {fileID: 1156838774}
     profiles: []
+  - templateID: Listening SceneObject3
+    prefab: {fileID: 6447064889421450952, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
+    parent: {fileID: 1156838774}
+    profiles:
+    - rid: 5025193776030416903
   references:
     version: 2
     RefIds:
+    - rid: 5025193776030416903
+      type: {class: TestProfile, ns: , asm: Assembly-CSharp}
+      data:
+        specialEvents: []
     - rid: 5445051353052217347
       type: {class: SceneListenerProfile, ns: Dhs5.SceneCreation, asm: SceneCreationSystem}
       data:
