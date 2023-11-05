@@ -14,7 +14,7 @@ namespace Dhs5.SceneCreation
     {
         SceneVariablesSO sceneVariablesSO;
 
-        bool detailFoldoutOpen;
+        //bool detailFoldoutOpen;
         string[] pageNames = new string[] { "Scene Vars", "Complex Vars", "Global Vars", "Balancing" };
 
         private void OnEnable()
@@ -39,8 +39,8 @@ namespace Dhs5.SceneCreation
             EditorGUILayout.Space(3f);
             EditorGUI.indentLevel++;
             
-            detailFoldoutOpen = EditorGUILayout.Foldout(detailFoldoutOpen, "Scene Creation Settings", true);
-            if (detailFoldoutOpen)
+            //detailFoldoutOpen = EditorGUILayout.Foldout(detailFoldoutOpen, "Scene Creation Settings", true);
+            //if (detailFoldoutOpen)
             {
                 EditorGUI.BeginDisabledGroup(true);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("intersceneVariablesSO"));

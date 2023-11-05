@@ -871,11 +871,13 @@ namespace Dhs5.SceneCreation
                 return new();
             }
             List<int> dependencies = new();
+            List<int> temp;
             foreach (var dependant in list)
             {
-                if (dependant.Dependencies.IsValid())
+                temp = dependant.Dependencies;
+                if (temp.IsValid())
                 {
-                    foreach (var dep in dependant.Dependencies)
+                    foreach (var dep in temp)
                     {
                         if (!dependencies.Contains(dep))
                             dependencies.Add(dep);

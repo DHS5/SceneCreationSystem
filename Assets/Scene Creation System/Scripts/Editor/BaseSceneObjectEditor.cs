@@ -26,6 +26,8 @@ namespace Dhs5.SceneCreation
             baseSceneObject = target as BaseSceneObject;
             if (baseSceneObject is SceneManager) isManager = true;
 
+            pageNames[0] = baseSceneObject.DisplayName;
+
             baseSceneObject.OnEditorEnable();
         }
 
@@ -69,22 +71,21 @@ namespace Dhs5.SceneCreation
             editor.OnInspectorGUI();
         }
 
-        bool dependenciesFoldout;
         protected virtual void DrawDependencies()
         {
-            Rect r = EditorGUILayout.GetControlRect(false);
+            Rect r = EditorGUILayout.GetControlRect(false, 0f);
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneDependency"), true);
 
             if (GUI.Button(new Rect(
-                r.x + r.width * 0.44f, r.y + EditorGUIUtility.singleLineHeight * 2.7f, 25f, r.height * 0.9f),
+                r.x + r.width * 0.44f, r.y + EditorGUIUtility.singleLineHeight * 1.7f, 25f, EditorGUIUtility.singleLineHeight * 0.9f),
                 EditorGUIUtility.IconContent("d_RotateTool On")))
             {
                 baseSceneObject.RefreshDependencies();
             }
 
             if (GUI.Button(new Rect(
-                r.x + r.width * 0.95f, r.y + EditorGUIUtility.singleLineHeight * 2.7f, 25f, r.height * 0.9f),
+                r.x + r.width * 0.95f, r.y + EditorGUIUtility.singleLineHeight * 1.7f, 25f, EditorGUIUtility.singleLineHeight * 0.9f),
                 EditorGUIUtility.IconContent("d_RotateTool On")))
             {
                 baseSceneObject.RefreshDependants();

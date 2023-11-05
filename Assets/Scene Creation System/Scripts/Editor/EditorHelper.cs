@@ -28,7 +28,7 @@ namespace Dhs5.SceneCreation
         [MenuItem("SCS/Setup/Refresh SceneObjects", priority = 403)]
         public static void RefreshSceneObjects()
         {
-            BaseSceneObject[] sceneObjects = GameObject.FindObjectsOfType<SceneObject>();
+            BaseSceneObject[] sceneObjects = GameObject.FindObjectsOfType<BaseSceneObject>();
 
             if (sceneObjects.Length > 0)
             {
@@ -39,7 +39,7 @@ namespace Dhs5.SceneCreation
             }
             else
             {
-                Debug.LogError("Can't find any SceneObject in current scene");
+                Debug.LogWarning("Can't find any SceneObject in current scene");
             }
         }
 
@@ -71,17 +71,14 @@ namespace Dhs5.SceneCreation
             {
                 Directory.CreateDirectory(baseSceneVarPath);
             }
-            string sceneVarDirPath = baseSceneVarPath + sceneName + "/";
-            if (!Directory.Exists(sceneVarDirPath))
-            {
-                Directory.CreateDirectory(baseSceneVarPath);
-            }
 
-            string newSceneVarsPath = sceneVarDirPath + sceneName + "_SceneVars.asset";
+            string sceneVarName = sceneName + "_SceneVars";
+            string newSceneVarsPath = baseSceneVarPath + sceneVarName + ".asset";
             SceneVariablesSO newSceneVars;
             if (!File.Exists(newSceneVarsPath))
             {
                 newSceneVars = ScriptableObject.CreateInstance<SceneVariablesSO>();
+                newSceneVars.name = sceneVarName;
                 AssetDatabase.CreateAsset(newSceneVars, newSceneVarsPath);//activeScene.path.Substring(0, activeScene.path.LastIndexOf('/') + 1) + sceneName + "_SceneVars.asset");
             }
             else

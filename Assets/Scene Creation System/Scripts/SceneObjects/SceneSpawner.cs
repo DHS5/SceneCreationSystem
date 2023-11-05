@@ -8,7 +8,8 @@ namespace Dhs5.SceneCreation
 {
     public class SceneSpawner : BaseSceneObject
     {
-        [Header("Spawner")]
+        public override string DisplayName => "Scene Spawner";
+
         [SerializeField] private List<SpawnTemplate> templates;
 
         #region Spawn Behaviour

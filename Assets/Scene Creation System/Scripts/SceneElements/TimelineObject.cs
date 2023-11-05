@@ -138,7 +138,7 @@ namespace Dhs5.SceneCreation
 
                 dependencies.AddRange(startCondition.Dependencies);
                 dependencies.AddRange(sceneEvents.Dependencies());
-                dependencies.AddRange(endLoopCondition.Dependencies);
+                if (loop) dependencies.AddRange(endLoopCondition.Dependencies);
 
                 return dependencies;
             }

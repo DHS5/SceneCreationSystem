@@ -189,6 +189,7 @@ namespace Dhs5.SceneCreation
             {
                 if (IsStatic) return new();
                 SceneVar var = sceneVariablesSO[sceneVarUniqueID];
+                if (var == null) return new();
                 if (var.IsLink)
                 {
                     return sceneVariablesSO.GetComplexSceneVarWithUID(sceneVarUniqueID).Dependencies;

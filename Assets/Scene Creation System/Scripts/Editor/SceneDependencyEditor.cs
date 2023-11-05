@@ -98,11 +98,11 @@ namespace Dhs5.SceneCreation
             dependantsList.DoList(dependantsRect);
 
             property.FindPropertyRelative("propertyHeight").floatValue =
-                //EditorGUIUtility.singleLineHeight * 1.5f + 
-                Mathf.Max(dependenciesList.GetHeight(), dependantsList.GetHeight());
+                Mathf.Max(EditorGUIUtility.singleLineHeight * 4f, 
+                Mathf.Max(dependenciesList.GetHeight(), dependantsList.GetHeight()));
         }
 
-        public void OnGUIprout(Rect position, SerializedProperty property, GUIContent label)
+        public void OnGUIold(Rect position, SerializedProperty property, GUIContent label)
         {
             propertyOffset = 0f;
             propertyHeight = 0f;
@@ -221,7 +221,7 @@ namespace Dhs5.SceneCreation
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return property.isExpanded ? property.FindPropertyRelative("propertyHeight").floatValue : EditorGUIUtility.singleLineHeight * 1.3f;
+            return property.FindPropertyRelative("propertyHeight").floatValue;
         }
     }
 }

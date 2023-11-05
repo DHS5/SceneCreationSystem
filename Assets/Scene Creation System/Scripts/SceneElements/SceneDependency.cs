@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.VirtualTexturing;
 
 namespace Dhs5.SceneCreation
 {
@@ -39,7 +38,7 @@ namespace Dhs5.SceneCreation
 
             foreach (var d in deps)
             {
-                sceneVars.Add(sceneVariablesSO[d]?.PopupString());
+                sceneVars.Add(sceneVariablesSO[d]?.LogString());
             }
         }
         internal void GetSceneVarDependants()

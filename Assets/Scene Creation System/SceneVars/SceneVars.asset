@@ -80,7 +80,7 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     isGlobal: 0
-    propertyHeight: 0
+    propertyHeight: 91.8
     showDependencies: 0
     sceneObjects: []
   - uniqueID: 1139
