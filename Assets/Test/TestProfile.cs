@@ -7,10 +7,6 @@ public class TestProfile : SceneProfile
 {
     [SerializeField] private List<SceneEvent> specialEvents;
 
-    public override bool CanOverrideListeners => false;
-
-    public override bool CanOverrideEvents => false;
-
     protected override void RegisterSceneEventsLists()
     {
         
@@ -19,5 +15,12 @@ public class TestProfile : SceneProfile
     protected override void RegisterTweens()
     {
         
+    }
+
+    public override string Name => "Test Profile";
+
+    public override bool Override<T>(T overridingProfile)
+    {
+        return false;
     }
 }

@@ -113,6 +113,7 @@ namespace Dhs5.SceneCreation
         {
             LinkScriptables();
             InitEvents();
+            InitProfiles();
         }
         /// <summary>
         /// Called on <see cref="Awake"/>.<br></br><br></br>
@@ -125,6 +126,7 @@ namespace Dhs5.SceneCreation
             SetEventsBelongings();
             SetListenersBelongings();
             SetTweensBelongings();
+            SetProfileBelongings();
         }
         /// <summary>
         /// Called on <see cref="OnEnable"/>.<br></br><br></br>
@@ -135,6 +137,7 @@ namespace Dhs5.SceneCreation
         protected virtual void StartSubscription()
         {
             StartListenersSubscription();
+            StartProfileSubscription();
         }
         /// <summary>
         /// Called on <see cref="OnDisable"/>.<br></br><br></br>
@@ -145,6 +148,7 @@ namespace Dhs5.SceneCreation
         protected virtual void EndSubscription()
         {
             EndListenersSubscription();
+            EndProfileSubscription();
         }
         /// <summary>
         /// Called on <see cref="OnEnable"/>.<br></br><br></br>
@@ -222,6 +226,9 @@ namespace Dhs5.SceneCreation
         /// <item>
         /// <see cref="SceneScriptableObject"/>s with <see cref="RegisterScriptable{T}(T)"/>
         /// </item>
+        /// <item>
+        /// <see cref="SceneProfile"/>s with <see cref="RegisterProfile{T}(T)"/>
+        /// </item>
         /// </list>
         /// </summary>
         protected abstract void RegisterSceneElements();
@@ -251,11 +258,13 @@ namespace Dhs5.SceneCreation
         protected Dictionary<string, List<BaseSceneListener>> SceneListenersDico { get; private set; } = new();
         protected Dictionary<string, SceneVarTween> TweensDico { get; private set; } = new();
         protected List<SceneScriptableObject> SceneScriptablesList { get; private set; } = new();
+        protected List<SceneProfile> SceneRegisteredProfiles { get; private set; } = new();
 
         #region Events
         protected void RegisterEvent<T>(string name, List<T> list) where T : BaseSceneEvent
         {
-            SceneEventsDico[name] = list.Cast<BaseSceneEvent>().ToList();
+            if (list.IsValid())
+                SceneEventsDico[name] = list.Cast<BaseSceneEvent>().ToList();
         }
         protected void RegisterEvents<T>(params (string name, List<T> list)[] vars) where T : BaseSceneEvent
         {
@@ -268,7 +277,8 @@ namespace Dhs5.SceneCreation
         #region Listeners
         protected void RegisterListener<T>(string name, List<T> list) where T : BaseSceneListener
         {
-            SceneListenersDico[name] = list.Cast<BaseSceneListener>().ToList();
+            if (list.IsValid())
+                SceneListenersDico[name] = list.Cast<BaseSceneListener>().ToList();
         }
         protected void RegisterListeners<T>(params (string name, List<T> list)[] vars) where T : BaseSceneListener
         {
@@ -281,7 +291,8 @@ namespace Dhs5.SceneCreation
         #region Tweens
         protected void RegisterTween(string name, SceneVarTween tween)
         {
-            TweensDico[name] = tween;
+            if (tween != null)
+                TweensDico[name] = tween;
         }
         protected void RegisterTweens(params (string name, SceneVarTween tween)[] vars)
         {
@@ -294,7 +305,7 @@ namespace Dhs5.SceneCreation
         #region Scriptables
         protected void RegisterScriptable<T>(T scriptable) where T : SceneScriptableObject
         {
-            if (SceneScriptablesList.Contains(scriptable)) return;
+            if (scriptable == null || SceneScriptablesList.Contains(scriptable)) return;
 
             SceneScriptablesList.Add(scriptable);
         }
@@ -311,6 +322,31 @@ namespace Dhs5.SceneCreation
                     RegisterScriptable(scriptable);
         }
         #endregion
+
+        #region Profiles
+
+        protected void RegisterProfile<T>(T profile) where T : SceneProfile
+        {
+            if (profile != null)
+            {
+                if (HasRegisteredProfileOfType<T>())
+                {
+                    Debug0("Can't register 2 profiles of the same type : " + profile);
+                    return;
+                }
+
+                SceneRegisteredProfiles.Add(profile);
+            }
+        }
+        protected void RegisterProfiles(params SceneProfile[] profiles)
+        {
+            if (profiles.IsValid())
+                foreach (var profile in profiles)
+                    RegisterProfile(profile);
+        }
+
+        #endregion
+
 
         #region Utility
 
@@ -407,6 +443,51 @@ namespace Dhs5.SceneCreation
         }
         #endregion
 
+        #region Profiles
+
+        private void InitProfiles()
+        {
+            if (SceneRegisteredProfiles.IsValid())
+            {
+                foreach (var profile in SceneRegisteredProfiles)
+                {
+                    profile.Init();
+                }
+            }
+        }
+        private void SetProfileBelongings()
+        {
+            if (SceneRegisteredProfiles.IsValid())
+            {
+                foreach (var profile in SceneRegisteredProfiles)
+                {
+                    Belong(profile);
+                }
+            }
+        }
+        private void StartProfileSubscription()
+        {
+            if (SceneRegisteredProfiles.IsValid())
+            {
+                foreach (var profile in SceneRegisteredProfiles)
+                {
+                    profile.Subscribe();
+                }
+            }
+        }
+        private void EndProfileSubscription()
+        {
+            if (SceneRegisteredProfiles.IsValid())
+            {
+                foreach (var profile in SceneRegisteredProfiles)
+                {
+                    profile.Unsubscribe();
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -442,13 +523,45 @@ namespace Dhs5.SceneCreation
         /// </summary>
         /// <param name="trigger"><see cref="SceneListener.SceneEventTrigger"/> informations on the Trigger</param>
         /// <param name="param"><see cref="SceneEventParam"/> passed during the triggering</param>
-        internal virtual void Trigger(SceneListener.SceneEventTrigger trigger, SceneEventParam param) { }
+        public virtual void Trigger(SceneListener.SceneEventTrigger trigger, SceneEventParam param) { }
 
         #endregion
 
-        #region Profiles
-        protected List<SceneProfile> SceneProfiles { get; private set; } = new();
-        public int ProfileCount => SceneProfiles.Count;
+        #region Added Profiles
+        protected List<SceneProfile> SceneAddedProfiles { get; private set; } = new();
+        public int ProfileCount => SceneAddedProfiles.Count + SceneRegisteredProfiles.Count;
+
+        #region Registered Profiles
+
+        private T GetRegisteredProfileOfType<T>() where T : SceneProfile
+        {
+            if (!SceneRegisteredProfiles.IsValid()) return null;
+
+            return SceneRegisteredProfiles.Find(p => p is T) as T;
+        }
+        protected bool HasRegisteredProfileOfType<T>() where T : SceneProfile
+        {
+            return GetRegisteredProfileOfType<T>() != null;
+        }
+
+        public bool OverrideProfile<T>(T overridingProfile) where T : SceneProfile
+        {
+            for (int i = 0; i < SceneRegisteredProfiles.Count; i++)
+            {
+                if (SceneRegisteredProfiles[i] is T)
+                {
+                    if (SceneRegisteredProfiles[i].Override(overridingProfile))
+                    {
+                        SceneRegisteredProfiles[i].Attach(this);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        #endregion
 
         #region List Handling
         /// <summary>
@@ -458,99 +571,89 @@ namespace Dhs5.SceneCreation
         /// <param name="profiles"></param>
         public void ApplyProfiles(SceneVariablesSO _sceneVariablesSO, List<SceneProfile> profiles)
         {
-            sceneVariablesSO = _sceneVariablesSO;
+            if (sceneVariablesSO == null) sceneVariablesSO = _sceneVariablesSO;
 
             if (!profiles.IsValid()) return;
 
             Profiles_Clear();
 
             foreach (var profile in profiles)
-                AddProfile(profile);
+            {
+                ApplyProfile(profile);
+            }
         }
-        public void AddProfile(SceneProfile profile)
+        public void ApplyProfile(SceneProfile profile)
         {
             if (profile == null) return;
 
-            SceneProfiles.Add(profile);
+            if (!OverrideProfile(profile))
+            {
+                AddProfile(profile);
+            }
+        }
+        private void AddProfile(SceneProfile profile)
+        {
+            SceneAddedProfiles.Add(profile);
 
             profile.Attach(this);
         }
-        public bool RemoveProfile(SceneProfile profile)
-        {
-            if (!SceneProfiles.IsValid()) return false;
-
-            if (SceneProfiles.Contains(profile))
-            {
-                profile.Detach();
-                return SceneProfiles.Remove(profile);
-            }
-            return false;
-        }
+        
         public bool RemoveProfileOfType<T>() where T : SceneProfile
         {
-            if (!SceneProfiles.IsValid()) return false;
+            if (!SceneAddedProfiles.IsValid()) return false;
 
-            bool result = false;
-
-            foreach (var profile in SceneProfiles.Copy())
+            foreach (var profile in SceneAddedProfiles)
             {
-                if (profile is T p)
+                if (profile is T)
                 {
-                    p.Detach();
-                    SceneProfiles.Remove(p);
-                    result = true;
+                    return RemoveProfile(profile);
                 }
             }
 
-            return result;
+            return false;
+        }
+        private bool RemoveProfile(SceneProfile profile)
+        {
+            profile.Detach();
+            return SceneAddedProfiles.Remove(profile);
         }
 
         public void Profiles_Clear()
         {
-            if (!SceneProfiles.IsValid())
+            if (!SceneAddedProfiles.IsValid())
             {
-                SceneProfiles = new();
+                SceneAddedProfiles = new();
                 return;
             }
 
-            SceneProfiles.Detach();
-            SceneProfiles.Clear();
+            SceneAddedProfiles.Detach();
+            SceneAddedProfiles.Clear();
         }
         #endregion
 
         #region Get Profile
-        public SceneProfile GetProfileAtIndex(int index)
-        {
-            if (!SceneProfiles.IsValid() || !SceneProfiles.IsIndexValid(index)) return null;
-
-            return SceneProfiles[index];
-        }
         public T GetProfileOfType<T>() where T : SceneProfile
         {
-            if (!SceneProfiles.IsValid()) return null;
+            T registeredProfile = GetRegisteredProfileOfType<T>();
 
-            return SceneProfiles.Find(p => p is T) as T;
+            if (registeredProfile != null) return registeredProfile;
+
+            if (!SceneAddedProfiles.IsValid()) return null;
+
+            return SceneAddedProfiles.Find(p => p is T) as T;
         }
         public bool HasProfileOfType<T>() where T : SceneProfile
         {
-            if (!SceneProfiles.IsValid()) return false;
-
-            if (SceneProfiles.Find(p => p is T) != null) return true;
-            return false;
-        }
-        public bool HasProfile(SceneProfile profile)
-        {
-            if (!SceneProfiles.IsValid()) return false;
-
-            return SceneProfiles.Contains(profile);
+            return GetProfileOfType<T>() != null;
         }
         #endregion
 
         #region Actions
+
         // ----- CODE ONLY -----
         public bool TriggerProfileOfType<T>() where T : SceneProfile
         {
-            if (!SceneProfiles.IsValid()) return false;
+            if (!SceneAddedProfiles.IsValid()) return false;
 
             T profile = GetProfileOfType<T>();
             if (profile != null)
@@ -560,37 +663,23 @@ namespace Dhs5.SceneCreation
             }
             return false;
         }
-        public bool TriggerProfile(SceneProfile profile)
-        {
-            if (!SceneProfiles.IsValid() || !HasProfile(profile)) return false;
-
-            profile.Trigger();
-            return true;
-        }
-        public bool TriggerProfileAtIndex(int index)
-        {
-            SceneProfile profile = GetProfileAtIndex(index);
-
-            if (profile == null) return false;
-
-            profile.Trigger();
-            return true;
-        }
         // ----- EDITOR -----
         public void Profiles_TriggerAll()
         {
-            if (!SceneProfiles.IsValid()) return;
+            if (!SceneAddedProfiles.IsValid()) return;
 
-            foreach (var profile in SceneProfiles)
+            foreach (var profile in SceneAddedProfiles)
                 profile.Trigger();
         }
         public void Profiles_TriggerWithID(string eventID)
         {
-            if (!SceneProfiles.IsValid()) return;
+            if (!SceneAddedProfiles.IsValid()) return;
 
-            foreach (var profile in SceneProfiles)
+            foreach (var profile in SceneAddedProfiles)
                 profile.TriggerWithID(eventID);
         }
+
+        #region Blabla
         /// <summary>
         /// For every <see cref="SceneProfile"/> in <see cref="SceneProfiles"/> :<br></br>
         /// ""<inheritdoc cref="SceneProfile.TriggerAndRemove(bool)"/> ""
@@ -598,9 +687,9 @@ namespace Dhs5.SceneCreation
         /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
         public void Profiles_TriggerAndRemoveAll(bool onlyIfTriggered)
         {
-            if (!SceneProfiles.IsValid()) return;
+            if (!SceneAddedProfiles.IsValid()) return;
 
-            foreach (var profile in SceneProfiles)
+            foreach (var profile in SceneAddedProfiles)
                 profile.TriggerAndRemove(onlyIfTriggered);
         }
         // ----- COMPLEXE -----
@@ -612,23 +701,24 @@ namespace Dhs5.SceneCreation
         /// <param name="onlyIfTriggered">Whether to remove only triggered events or all of them</param>
         [Preserve] public void Profiles_TriggerAndRemoveWithID(string eventID, bool onlyIfTriggered)
         {
-            if (!SceneProfiles.IsValid()) return;
+            if (!SceneAddedProfiles.IsValid()) return;
 
-            foreach (var profile in SceneProfiles)
+            foreach (var profile in SceneAddedProfiles)
                 profile.TriggerAndRemoveWithID(eventID, onlyIfTriggered);
         }
         // ----- RANDOM -----
         public bool TriggerRandomInProfileOfType<T>(bool remove = false, string filter = null) where T : SceneProfile
         {
-            if (!SceneProfiles.IsValid()) return false;
+            if (!SceneAddedProfiles.IsValid()) return false;
 
-            foreach (var profile in SceneProfiles)
+            foreach (var profile in SceneAddedProfiles)
                 if (profile is T p)
                 {
                     return p.TriggerRandom(filter, remove);
                 }
             return false;
         }
+        #endregion
 
         #endregion
 

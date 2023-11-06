@@ -8,15 +8,17 @@ using Random = UnityEngine.Random;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public abstract class SceneProfile : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable
+    public abstract class SceneProfile : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneSubscribable
     {
         protected SceneVariablesSO sceneVariablesSO;
 
         protected BaseSceneObject sceneObject;
 
+        public abstract string Name { get; }
+
         #region SceneObject Override Permissions
-        public abstract bool CanOverrideListeners { get; }
-        public abstract bool CanOverrideEvents { get; }
+        public virtual bool CanOverrideListeners => false;
+        public virtual bool CanOverrideEvents => false;
         #endregion
 
         #region Interfaces
@@ -37,6 +39,14 @@ namespace Dhs5.SceneCreation
         {
             UpdateSceneEventsBelongings(_sceneObject);
             UpdateTweensBelongings(_sceneObject);
+        }
+        public virtual void Subscribe()
+        {
+
+        }
+        public virtual void Unsubscribe()
+        {
+
         }
         #endregion
 
@@ -67,6 +77,12 @@ namespace Dhs5.SceneCreation
         /// Function where all the <see cref="SceneVarTween"/> should be registered with <see cref="Register(SceneVarTween)"/>
         /// </summary>
         protected abstract void RegisterTweens();
+        #endregion
+
+        #region Profile Override
+
+        public abstract bool Override<T>(T overridingProfile) where T : SceneProfile;
+
         #endregion
 
         #region Scene Events Management

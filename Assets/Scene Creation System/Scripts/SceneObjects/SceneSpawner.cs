@@ -38,8 +38,8 @@ namespace Dhs5.SceneCreation
         /// </summary>
         /// <param name="templateID">ID of the template to spawn</param>
         /// <param name="parent">Override parent Transform</param>
-        /// <returns>The spawned <see cref="SceneObject"/></returns>
-        public SceneObject Spawn(string templateID, Transform parent = null)
+        /// <returns>The spawned <see cref="BaseSceneObject"/></returns>
+        public BaseSceneObject Spawn(string templateID, Transform parent = null)
         {
             if (templates == null || templates.Count <= 0) return null;
 
@@ -51,8 +51,8 @@ namespace Dhs5.SceneCreation
         /// </summary>
         /// <param name="templateID">ID of the template to spawn</param>
         /// <param name="parent">Override parent Transform</param>
-        /// <returns>The spawned <see cref="SceneObject"/></returns>
-        public SceneObject SpawnAndRemove(string templateID, Transform parent = null)
+        /// <returns>The spawned <see cref="BaseSceneObject"/></returns>
+        public BaseSceneObject SpawnAndRemove(string templateID, Transform parent = null)
         {
             if (templates == null || templates.Count <= 0) return null;
 
@@ -71,8 +71,8 @@ namespace Dhs5.SceneCreation
         /// </summary>
         /// <param name="preSpawnedObject">SceneObject's GameObject that just got instantiated</param>
         /// <param name="templateID">ID of the template to post spawn</param>
-        /// <returns>The post spawned <see cref="SceneObject"/></returns>
-        public SceneObject PostSpawn(GameObject preSpawnedObject, string templateID)
+        /// <returns>The post spawned <see cref="BaseSceneObject"/></returns>
+        public BaseSceneObject PostSpawn(GameObject preSpawnedObject, string templateID)
         {
             if (templates == null || templates.Count <= 0) return null;
 
@@ -83,8 +83,8 @@ namespace Dhs5.SceneCreation
         /// </summary>
         /// <param name="preSpawnedObject">SceneObject's GameObject that just got instantiated</param>
         /// <param name="templateID">ID of the template to post spawn</param>
-        /// <returns>The post spawned <see cref="SceneObject"/></returns>
-        public SceneObject PostSpawnAndRemove(GameObject preSpawnedObject, string templateID)
+        /// <returns>The post spawned <see cref="BaseSceneObject"/></returns>
+        public BaseSceneObject PostSpawnAndRemove(GameObject preSpawnedObject, string templateID)
         {
             if (templates == null || templates.Count <= 0) return null;
 
@@ -143,16 +143,16 @@ namespace Dhs5.SceneCreation
             public SceneSpawner Spawner { get; private set; }
 
             #region Behaviour
-            public SceneObject Spawn(SceneVariablesSO sceneVariablesSO, Transform overrideParent)
+            public BaseSceneObject Spawn(SceneVariablesSO sceneVariablesSO, Transform overrideParent)
             {
-                SceneObject sceneObject = Instantiate(prefab, overrideParent ?? parent).GetComponent<SceneObject>();
+                BaseSceneObject sceneObject = Instantiate(prefab, overrideParent ?? parent).GetComponent<BaseSceneObject>();
                 sceneObject.name = templateID;
                 sceneObject.ApplyProfiles(sceneVariablesSO, profiles);
                 return sceneObject;
             }
-            public SceneObject PostSpawn(SceneVariablesSO sceneVariablesSO, GameObject preSpawnedObject)
+            public BaseSceneObject PostSpawn(SceneVariablesSO sceneVariablesSO, GameObject preSpawnedObject)
             {
-                SceneObject sceneObject = preSpawnedObject.GetComponent<SceneObject>();
+                BaseSceneObject sceneObject = preSpawnedObject.GetComponent<BaseSceneObject>();
                 sceneObject.name = templateID;
                 sceneObject.ApplyProfiles(sceneVariablesSO, profiles);
                 return sceneObject;

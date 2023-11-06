@@ -41,9 +41,9 @@ public class Test : MonoBehaviour
 
     public void ProfileTest()
     {
-        SceneObject sceneObject = spawner.SpawnAndRemove("Listening SceneObject", null);
+        BaseSceneObject sceneObject = spawner.SpawnAndRemove("Listening SceneObject", null);
         Debug.Log(sceneObject.TriggerProfileOfType<SceneEventProfile>());
-        SceneObject sceneObject2 = spawner.SpawnAndRemove("Listening SceneObject2", null);
+        BaseSceneObject sceneObject2 = spawner.SpawnAndRemove("Listening SceneObject2", null);
         Debug.Log(sceneObject2.TriggerProfileOfType<SceneEventProfile>());
     }
 }

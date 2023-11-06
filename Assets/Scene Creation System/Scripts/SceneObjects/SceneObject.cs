@@ -71,7 +71,7 @@ namespace Dhs5.SceneCreation
             sceneEvents.TriggerRandom(param, filter, true);
         }
 
-        internal override void Trigger(SceneListener.SceneEventTrigger trigger, SceneEventParam param)
+        public override void Trigger(SceneListener.SceneEventTrigger trigger, SceneEventParam param)
         {
             if (!trigger.random)
             {

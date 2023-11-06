@@ -24,8 +24,20 @@ namespace Dhs5.SceneCreation
                 so.OverrideEvents(this, sceneEvents);
         }
 
-        public override bool CanOverrideListeners => false;
         public override bool CanOverrideEvents => true;
+
+        public override bool Override<T>(T overridingProfile)
+        {
+            if (overridingProfile is SceneEventProfile p)
+            {
+                sceneEvents.Clear();
+                sceneEvents.AddRange(p.sceneEvents);
+                return true;
+            }
+            return false;
+        }
+
+        public override string Name => "Scene Event Profile";
         #endregion
 
         #region Scene Events
