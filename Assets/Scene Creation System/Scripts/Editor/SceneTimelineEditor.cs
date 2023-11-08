@@ -28,15 +28,20 @@ namespace Dhs5.SceneCreation
 
             Rect foldoutPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
             property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, property.isExpanded ? "" : idProperty.stringValue);
+            propertyOffset += EditorGUIUtility.singleLineHeight * 0.25f;
+
             if (property.isExpanded)
             {
-                Rect idPosition = new Rect(position.x + 15, position.y + propertyOffset, position.width - 15, EditorGUIUtility.singleLineHeight);
+                EditorGUI.indentLevel++;
+
+                Rect idPosition = new Rect(position.x, position.y + propertyOffset, position.width - 15, EditorGUIUtility.singleLineHeight);
                 EditorGUI.PropertyField(idPosition, idProperty);
                 propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
 
                 Rect loopPosition = new Rect(position.x, position.y + propertyOffset, position.width,
                     EditorGUIUtility.singleLineHeight);
-                EditorGUI.PropertyField(loopPosition, loopProperty);
+                //EditorGUI.PropertyField(loopPosition, loopProperty);
+                loopProperty.boolValue = EditorGUI.ToggleLeft(loopPosition, new GUIContent("Loop", "Is this timeline looping ?"), loopProperty.boolValue);
                 propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
 
                 if (loopProperty.boolValue)
@@ -51,7 +56,11 @@ namespace Dhs5.SceneCreation
                     EditorGUIUtility.singleLineHeight);
                 EditorGUI.PropertyField(timelineObjPosition, timelineObjectsProperty);
                 propertyOffset += EditorGUI.GetPropertyHeight(timelineObjectsProperty);
+
+                EditorGUI.indentLevel--;
             }
+
+            EditorGUI.EndProperty();
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -62,7 +71,7 @@ namespace Dhs5.SceneCreation
             timelineObjectsProperty = property.FindPropertyRelative("steps");
 
             return property.isExpanded ? 
-                EditorGUIUtility.singleLineHeight * 2.4f + EditorGUI.GetPropertyHeight(timelineObjectsProperty)
+                EditorGUIUtility.singleLineHeight * 2.65f + EditorGUI.GetPropertyHeight(timelineObjectsProperty)
                     + (loopProperty.boolValue ? EditorGUI.GetPropertyHeight(conditionProperty) : 0)
                     : EditorGUIUtility.singleLineHeight * 1.3f;
         }

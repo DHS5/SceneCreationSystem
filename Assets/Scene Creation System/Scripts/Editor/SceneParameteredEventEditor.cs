@@ -229,14 +229,13 @@ namespace Dhs5.SceneCreation
                     property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, "Params");
                     propertyOffset += EditorGUIUtility.singleLineHeight;
                     propertyHeight += EditorGUIUtility.singleLineHeight;
-
-                    EditorGUI.indentLevel++;
                 }
 
                 SerializedProperty varTweenProperty;
                 for (int i = 0; i < parameters.Length; i++)
                 {
-                    Rect valueRect = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
+                    Rect valueRect = new Rect(
+                            position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
 
                     varTweenProperty = property.FindPropertyRelative("varTween" + i);
                     if (property.isExpanded) EditorGUI.PropertyField(valueRect, varTweenProperty, new GUIContent(parameters[i].Name));
@@ -264,11 +263,6 @@ namespace Dhs5.SceneCreation
                         propertyOffset += EditorGUI.GetPropertyHeight(varTweenProperty);
                         propertyHeight += EditorGUI.GetPropertyHeight(varTweenProperty);
                     }
-                }
-
-                if (parameters.Length > 0)
-                {
-                    EditorGUI.indentLevel--;
                 }
                 EditorGUI.indentLevel--;
 

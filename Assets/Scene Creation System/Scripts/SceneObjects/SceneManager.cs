@@ -34,7 +34,6 @@ namespace Dhs5.SceneCreation
 
         public override string DisplayName => "Scene Manager";
 
-        [Header("Manager")]
         [Tooltip("Events called when the Scene starts,\n just before every SceneObject.OnStartScene()")]
         [SerializeField] protected List<SceneEvent> onSceneStart;
         [Tooltip("Events called when the Scene is going to change,\n just before every SceneObject.OnChangeScene()")]

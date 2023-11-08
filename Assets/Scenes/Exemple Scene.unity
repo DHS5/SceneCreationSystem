@@ -856,7 +856,9 @@ MonoBehaviour:
       forbiddenUID: 0
       propertyHeight: 0
     sceneObjects: []
-    sceneVars: []
+    sceneVars:
+    - '[10811] Global/bool 1 (BOOL)'
+    - '[2348] Var Bool 1 (BOOL)'
     propertyHeight: 0
   sceneManager: {fileID: 7387320640639974492}
   currentPage: 0
@@ -890,6 +892,8 @@ MonoBehaviour:
       debug: 0
       limitedTrigger: 0
       maxTriggerCount: 0
+    page: 3
+    propertyHeight: 579
     unityEvent:
       m_PersistentCalls:
         m_Calls: []

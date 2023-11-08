@@ -62,7 +62,7 @@ namespace Dhs5.SceneCreation
             int sceneVarIndexSave1 = sceneVarList1.GetIndexByUniqueID(sceneVarUniqueID1P.intValue);
             if (sceneVarIndexSave1 == -1) sceneVarIndexSave1 = 0;
             // SceneVar1 choice popup
-            Rect popup1Position = new Rect(position.x, position.y, position.width * 0.75f, EditorGUIUtility.singleLineHeight);
+            Rect popup1Position = new Rect(position.x, position.y + 3f, position.width * 0.75f, EditorGUIUtility.singleLineHeight);
             sceneVarIndex1 = EditorGUI.Popup(popup1Position, sceneVarIndexSave1, sceneVarList1.VarStrings().ToArray());
             if (sceneVarList1.GetUniqueIDByIndex(sceneVarIndex1) == 0) sceneVarIndex1 = sceneVarIndexSave1;
             sceneVarUniqueID1P.intValue = sceneVarList1.GetUniqueIDByIndex(sceneVarIndex1);

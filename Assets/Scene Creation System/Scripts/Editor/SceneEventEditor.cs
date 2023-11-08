@@ -22,6 +22,10 @@ namespace Dhs5.SceneCreation
         protected float height;
 
         ReorderableList sceneParamedList;
+        ReorderableList sceneActionsList;
+        ReorderableList sceneConditionsList;
+
+        Color selectionBlue = new Color(0.75f, 0.75f, 1f);
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -34,13 +38,15 @@ namespace Dhs5.SceneCreation
             uEventProperty = property.FindPropertyRelative("unityEvent");
 
             if (sceneParamedList == null) sceneParamedList = CreateSceneParameteredEventsList(property);
+            if (sceneActionsList == null) sceneActionsList = CreateSceneActionsList(property);
+            if (sceneConditionsList == null) sceneConditionsList = CreateSceneConditionsList(property);
 
             EditorGUI.BeginProperty(position, label, property);
 
             Rect r = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
 
-            property.isExpanded = EditorGUI.Foldout(r, property.isExpanded, idProperty.stringValue);
-            r.y += EditorGUIUtility.singleLineHeight * 1.5f;
+            property.isExpanded = EditorGUI.Foldout(r, property.isExpanded, property.isExpanded ? "" : idProperty.stringValue);
+            r.y += EditorGUIUtility.singleLineHeight * 0.25f;
 
             if (property.isExpanded)
             {
@@ -52,7 +58,7 @@ namespace Dhs5.SceneCreation
                 EditorGUI.PropertyField(r, detailsProperty, true);
                 r.y += EditorGUI.GetPropertyHeight(detailsProperty);
 
-                r.y += EditorGUIUtility.singleLineHeight;
+                r.y += EditorGUIUtility.singleLineHeight * 0.5f;
                 r.height = EditorGUIUtility.singleLineHeight * 2.2f;
                 pageProperty.intValue = GUI.SelectionGrid(r, pageProperty.intValue, pageNames, 2);
 
@@ -73,20 +79,25 @@ namespace Dhs5.SceneCreation
             EditorGUI.EndProperty();
         }
 
+        float minHeight = EditorGUIUtility.singleLineHeight * 5f;
         private void DrawCurrentPage(Rect r, SerializedProperty property, int pageIndex)
         {
             switch (pageIndex)
             {
                 case 0:
                     {
-                        EditorGUI.PropertyField(r, conditionsProperty, true);
-                        height += EditorGUI.GetPropertyHeight(conditionsProperty);
+                        //EditorGUI.PropertyField(r, conditionsProperty, true);
+                        //height += EditorGUI.GetPropertyHeight(conditionsProperty);
+                        sceneConditionsList.DoList(r);
+                        height += Mathf.Max(sceneConditionsList.GetHeight(), minHeight);
                         break;
                     }
                 case 1:
                     {
-                        EditorGUI.PropertyField(r, actionsProperty, true);
-                        height += EditorGUI.GetPropertyHeight(actionsProperty);
+                        //EditorGUI.PropertyField(r, actionsProperty, true);
+                        //height += EditorGUI.GetPropertyHeight(actionsProperty);
+                        sceneActionsList.DoList(r);
+                        height += Mathf.Max(sceneActionsList.GetHeight(), minHeight);
                         break;
                     }
                 case 2:
@@ -100,7 +111,7 @@ namespace Dhs5.SceneCreation
                         //EditorGUI.PropertyField(r, paramedEventProperty, true);
                         //height += EditorGUI.GetPropertyHeight(paramedEventProperty);
                         sceneParamedList.DoList(r);
-                        height += Mathf.Max(sceneParamedList.GetHeight(), EditorGUIUtility.singleLineHeight * 5f);
+                        height += Mathf.Max(sceneParamedList.GetHeight(), minHeight);
                         break;
                     }
             }
@@ -110,6 +121,15 @@ namespace Dhs5.SceneCreation
         {
             return new ReorderableList(property.serializedObject, paramedEventProperty, true, true, true, true)
             {
+                drawElementBackgroundCallback = (rect, index, active, focused) =>
+                {
+                    if (active)
+                    {
+                        if (focused) GUI.backgroundColor = selectionBlue;
+                        GUI.Box(rect, GUIContent.none, GUI.skin.button);
+                        if (focused) GUI.backgroundColor = Color.white;
+                    }
+                },
                 drawHeaderCallback = rect =>
                 {
                     EditorGUI.LabelField(rect, "Scene Parametered Events");
@@ -122,7 +142,63 @@ namespace Dhs5.SceneCreation
                 {
                     return EditorGUI.GetPropertyHeight(paramedEventProperty.GetArrayElementAtIndex(index));
                 },
-                elementHeight = EditorGUIUtility.singleLineHeight * 2.5f
+                elementHeight = EditorGUIUtility.singleLineHeight * 2.6f
+            };
+        }
+        private ReorderableList CreateSceneActionsList(SerializedProperty property)
+        {
+            return new ReorderableList(property.serializedObject, actionsProperty, true, true, true, true)
+            {
+                drawElementBackgroundCallback = (rect, index, active, focused) =>
+                {
+                    if (active)
+                    {
+                        if (focused) GUI.backgroundColor = selectionBlue;
+                        GUI.Box(rect, GUIContent.none, GUI.skin.button);
+                        if (focused) GUI.backgroundColor = Color.white;
+                    }
+                },
+                drawHeaderCallback = rect =>
+                {
+                    EditorGUI.LabelField(rect, "Scene Actions");
+                },
+                drawElementCallback = (rect, index, active, focused) =>
+                {
+                    EditorGUI.PropertyField(rect, actionsProperty.GetArrayElementAtIndex(index), true);
+                },
+                elementHeightCallback = index =>
+                {
+                    return EditorGUI.GetPropertyHeight(actionsProperty.GetArrayElementAtIndex(index));
+                },
+                elementHeight = EditorGUIUtility.singleLineHeight * 2.6f
+            };
+        }
+        private ReorderableList CreateSceneConditionsList(SerializedProperty property)
+        {
+            return new ReorderableList(property.serializedObject, conditionsProperty, true, true, true, true)
+            {
+                drawElementBackgroundCallback = (rect, index, active, focused) =>
+                {
+                    if (active)
+                    {
+                        if (focused) GUI.backgroundColor = selectionBlue;
+                        GUI.Box(rect, GUIContent.none, GUI.skin.button);
+                        if (focused) GUI.backgroundColor = Color.white;
+                    }
+                },
+                drawHeaderCallback = rect =>
+                {
+                    EditorGUI.LabelField(rect, "Scene Conditions");
+                },
+                drawElementCallback = (rect, index, active, focused) =>
+                {
+                    EditorGUI.PropertyField(rect, conditionsProperty.GetArrayElementAtIndex(index), true);
+                },
+                elementHeightCallback = index =>
+                {
+                    return EditorGUI.GetPropertyHeight(conditionsProperty.GetArrayElementAtIndex(index));
+                },
+                elementHeight = EditorGUIUtility.singleLineHeight * 2.6f
             };
         }
 

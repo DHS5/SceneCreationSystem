@@ -28,7 +28,7 @@ namespace Dhs5.SceneCreation
             EditorGUI.indentLevel++;
 
             GUI.Box(new Rect(
-                position.x, position.y - 1f, position.width, GetPropertyHeight(property, label)),
+                position.x, position.y - 1f, position.width, GetPropertyHeight(property, label) + 2f),
                 GUIContent.none, GUI.skin.window);
 
             hasConditionProp.boolValue = EditorGUI.ToggleLeft(new Rect(

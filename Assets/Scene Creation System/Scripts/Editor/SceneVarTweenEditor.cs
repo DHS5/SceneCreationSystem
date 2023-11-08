@@ -25,6 +25,8 @@ namespace Dhs5.SceneCreation
 
         bool emptyLabel;
 
+        int prev;
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             emptyLabel = string.IsNullOrEmpty(label.text);
@@ -74,12 +76,12 @@ namespace Dhs5.SceneCreation
             if (sceneVarList == null || sceneVarList.Count == 0)
             {
                 // Label
-                Rect labelPosition = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.3f, EditorGUIUtility.singleLineHeight);
+                Rect labelPosition = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f, 115f, EditorGUIUtility.singleLineHeight);
                 EditorGUI.LabelField(labelPosition, label);
 
                 // SceneVar choice popup
-                Rect popupPosition = new Rect(position.x + (emptyLabel ? 0 : position.width * 0.32f), position.y + EditorGUIUtility.singleLineHeight * 0.25f,
-                    position.width * (emptyLabel ? 1f : 0.68f), EditorGUIUtility.singleLineHeight);
+                Rect popupPosition = new Rect(position.x + (emptyLabel ? 0 : 120f), position.y + EditorGUIUtility.singleLineHeight * 0.25f,
+                    position.width - (emptyLabel ? 0f : 120f), EditorGUIUtility.singleLineHeight);
                 string typeStr = "";
                 switch (type)
                 {
@@ -114,61 +116,34 @@ namespace Dhs5.SceneCreation
             propertyOffset += EditorGUIUtility.singleLineHeight * 0.25f;
             propertyHeight += EditorGUIUtility.singleLineHeight * 0.25f;
 
-            //if (type == SceneVarType.BOOL && (!canBeStaticP.boolValue || !isStaticP.boolValue))
-            //{
-            //    SerializedProperty boolTypeProperty = property.FindPropertyRelative("boolType");
-            //
-            //    Rect boolTypePosition = new Rect(position.x + position.width * 0.38f, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.3f, EditorGUIUtility.singleLineHeight);
-            //    EditorGUI.PropertyField(boolTypePosition, boolTypeProperty, new GUIContent(""));
-            //    propertyOffset += EditorGUIUtility.singleLineHeight * 1.25f;
-            //    propertyHeight += EditorGUIUtility.singleLineHeight * 1.25f;
-            //
-            //    SceneVarTween.BoolType boolType = (SceneVarTween.BoolType)boolTypeProperty.enumValueIndex;
-            //    if (boolType == SceneVarTween.BoolType.CONDITION)
-            //    {
-            //        string goodText = label.text;
-            //        isCondition = true;
-            //        SerializedProperty conditionProperty = property.FindPropertyRelative("sceneConditions");
-            //        Rect conditionPosition = new Rect(position.x + 16, position.y + propertyOffset, position.width - 20, EditorGUIUtility.singleLineHeight);
-            //        EditorGUI.PropertyField(conditionPosition, conditionProperty);
-            //        propertyHeight += EditorGUI.GetPropertyHeight(conditionProperty);
-            //        label.text = goodText;
-            //    }
-            //    else
-            //    {
-            //        propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
-            //    }
-            //    property.FindPropertyRelative("propertyHeight").floatValue = propertyHeight;
-            //}
-            //else
-            //{
-            //    property.FindPropertyRelative("propertyHeight").floatValue = EditorGUIUtility.singleLineHeight * 1.5f;
-            //}
-
             if (!canBeStaticP.boolValue)
             {
                 // Label
-                Rect labelPosition = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.3f, EditorGUIUtility.singleLineHeight);
+                Rect labelPosition = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f, 115f, EditorGUIUtility.singleLineHeight);
                 EditorGUI.LabelField(labelPosition, label);
 
                 // SceneVar choice popup
-                Rect popupPosition = new Rect(position.x + (emptyLabel ? 0 : position.width * 0.32f), position.y + propertyOffset, position.width * (emptyLabel ? 0.84f : 0.52f), EditorGUIUtility.singleLineHeight);
+                Rect popupPosition = new Rect(position.x + (emptyLabel ? 0 : 120f), position.y + propertyOffset, position.width - 60f - (emptyLabel ? 0f : 120f), EditorGUIUtility.singleLineHeight);
                 sceneVarIndex = EditorGUI.Popup(popupPosition, sceneVarIndexSave, sceneVarList.VarStrings().ToArray());
                 if (sceneVarList.GetUniqueIDByIndex(sceneVarIndex) == 0) sceneVarIndex = sceneVarIndexSave;
                 sceneVarUniqueIDP.intValue = sceneVarList.GetUniqueIDByIndex(sceneVarIndex);
 
+                prev = EditorGUI.indentLevel;
+                EditorGUI.indentLevel = 0;
                 // Label
-                Rect typePosition = new Rect(position.x + position.width * 0.85f, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.18f, EditorGUIUtility.singleLineHeight);
+                Rect typePosition = new Rect(position.x + (position.width - 55f), position.y + EditorGUIUtility.singleLineHeight * 0.25f, 55f, EditorGUIUtility.singleLineHeight);
                 EditorGUI.LabelField(typePosition, sceneVarContainer[sceneVarUniqueIDP.intValue].type.ToString());
+
+                EditorGUI.indentLevel = prev;
             }
             else
             {
                 // Label
-                Rect labelPosition = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.25f, EditorGUIUtility.singleLineHeight);
+                Rect labelPosition = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f, 115f, EditorGUIUtility.singleLineHeight);
                 EditorGUI.LabelField(labelPosition, label);
 
                 // SceneVar choice popup
-                Rect popupPosition = new Rect(position.x + (emptyLabel ? 0 : position.width * 0.27f), position.y + propertyOffset, position.width * (emptyLabel ? 0.72f : 0.45f), EditorGUIUtility.singleLineHeight);
+                Rect popupPosition = new Rect(position.x + (emptyLabel ? 0 : 120f), position.y + propertyOffset, position.width - 120f - (emptyLabel ? 0f : 120f), EditorGUIUtility.singleLineHeight);
                 if (!isStaticP.boolValue)
                 {
                     sceneVarIndex = EditorGUI.Popup(popupPosition, sceneVarIndexSave, sceneVarList.VarStrings().ToArray());
@@ -177,7 +152,7 @@ namespace Dhs5.SceneCreation
                 }
                 else
                 {
-                    string typeStr = "";
+                    string typeStr;
                     switch (type)
                     {
                         case SceneVarType.BOOL:
@@ -199,13 +174,17 @@ namespace Dhs5.SceneCreation
                     EditorGUI.PropertyField(popupPosition, property.FindPropertyRelative(typeStr + "Value"), new GUIContent(""));
                 }
 
+                prev = EditorGUI.indentLevel;
+                EditorGUI.indentLevel = 0;
                 // Label
-                Rect typePosition = new Rect(position.x + position.width * 0.73f, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.1f, EditorGUIUtility.singleLineHeight);
+                Rect typePosition = new Rect(position.x + (position.width - 115f), position.y + EditorGUIUtility.singleLineHeight * 0.25f, 55f, EditorGUIUtility.singleLineHeight);
                 EditorGUI.LabelField(typePosition, type.ToString());
 
                 // Static toggle
-                Rect staticRect = new Rect(position.x + position.width * 0.84f, position.y + EditorGUIUtility.singleLineHeight * 0.25f, position.width * 0.15f, EditorGUIUtility.singleLineHeight);
+                Rect staticRect = new Rect(position.x + (position.width - 60f), position.y + EditorGUIUtility.singleLineHeight * 0.25f, 60f, EditorGUIUtility.singleLineHeight);
                 isStaticP.boolValue = EditorGUI.ToggleLeft(staticRect, "Static", isStaticP.boolValue);
+
+                EditorGUI.indentLevel = prev;
             }
 
             // End
