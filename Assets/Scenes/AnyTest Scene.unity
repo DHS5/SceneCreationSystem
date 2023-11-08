@@ -439,7 +439,20 @@ MonoBehaviour:
   currentPage: 0
   onSceneStart: []
   onSceneChange: []
-  onGameOver: []
+  onGameOver:
+  - eventID: eebdx
+    sceneConditions: []
+    sceneActions: []
+    sceneParameteredEvents: []
+    details:
+      debug: 0
+      limitedTrigger: 0
+      maxTriggerCount: 0
+    page: 3
+    propertyHeight: 228
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &4508042984367300363
 MonoBehaviour:
   m_ObjectHideFlags: 0

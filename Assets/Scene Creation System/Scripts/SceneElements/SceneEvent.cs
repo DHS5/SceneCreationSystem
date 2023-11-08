@@ -36,7 +36,6 @@ namespace Dhs5.SceneCreation
         #endregion
 
         public string eventID;
-        [Space(5)]
 
         public List<SceneCondition> sceneConditions;
 
@@ -50,6 +49,13 @@ namespace Dhs5.SceneCreation
         protected SceneContext context;
 
         protected abstract UnityEventBase GetUnityEvent();
+
+        #region Editor properties
+
+        [SerializeField] private int page;
+        [SerializeField] private float propertyHeight;
+
+        #endregion
 
         #region Trigger Count
         /// <summary>

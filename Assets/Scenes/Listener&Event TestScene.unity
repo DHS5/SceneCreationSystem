@@ -157,7 +157,27 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
+      sceneVarUniqueID: 0
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects: []
+    sceneVars:
+    - '[4774] Sum (INT)'
+    propertyHeight: 0
   sceneManager: {fileID: 8505160189827604224}
+  currentPage: 0
   sceneListeners: []
   sceneEvents:
   - eventID: Add5
@@ -188,6 +208,8 @@ MonoBehaviour:
       debug: 0
       limitedTrigger: 0
       maxTriggerCount: 0
+    page: 0
+    propertyHeight: 153
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -881,12 +903,33 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
+      sceneVarUniqueID: 0
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects: []
+    sceneVars:
+    - '[4774] Sum (INT)'
+    - '[9077] Test Event (EVENT)'
+    propertyHeight: 0
   sceneManager: {fileID: 8505160189827604224}
+  currentPage: 0
   sceneListeners:
   - sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
     varUniqueID: 4774
-    hasCondition: 0
     condition:
+      hasCondition: 0
       layerCheck: 0
       layerMask:
         _value: 0
@@ -905,8 +948,8 @@ MonoBehaviour:
       remove: 0
   - sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
     varUniqueID: 9077
-    hasCondition: 0
     condition:
+      hasCondition: 0
       layerCheck: 0
       layerMask:
         _value: 0
@@ -949,6 +992,8 @@ MonoBehaviour:
       debug: 0
       limitedTrigger: 0
       maxTriggerCount: 0
+    page: 0
+    propertyHeight: 414
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1001,7 +1046,26 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
+  sceneDependency:
+    sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
+    sceneVar:
+      type: 1
+      sceneVariablesSO: {fileID: 11400000, guid: fcd290464857acd47addf1429fad4795, type: 2}
+      sceneVarUniqueID: 0
+      anyVar: 1
+      canBeStatic: 0
+      isStatic: 0
+      boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      forbiddenUID: 0
+      propertyHeight: 0
+    sceneObjects: []
+    sceneVars: []
+    propertyHeight: 0
   sceneManager: {fileID: 0}
+  currentPage: 0
   onSceneStart: []
   onSceneChange: []
   onGameOver: []

@@ -105,21 +105,21 @@ namespace Dhs5.SceneCreation
 
             EditorGUI.BeginProperty(position, label, property);
 
-            if (property.isExpanded)
-            {
-                Rect backgroundRect1 = new Rect(position.x - 10, position.y, position.width + 11, property.FindPropertyRelative("propertyHeight").floatValue);
-                EditorGUI.DrawRect(backgroundRect1, new Color(0.22f, 0.22f, 0.22f));
-            }
+            //if (property.isExpanded)
+            //{
+            //    Rect backgroundRect1 = new Rect(position.x - 10, position.y, position.width + 11, property.FindPropertyRelative("propertyHeight").floatValue);
+            //    EditorGUI.DrawRect(backgroundRect1, new Color(0.22f, 0.22f, 0.22f));
+            //}
             // FOLDOUT
-            Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-            property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, property.isExpanded ? empty : label, EditorStyles.foldoutHeader);
+            //Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+            //property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, property.isExpanded ? empty : label, EditorStyles.foldoutHeader);
             propertyOffset += EditorGUIUtility.singleLineHeight * 0.25f;
             propertyHeight += EditorGUIUtility.singleLineHeight * 0.25f;
 
-            if (property.isExpanded)
+            if (true)//property.isExpanded)
             {
-                Rect objRect = new Rect(position.x + 20, position.y + propertyOffset, (position.width - 20) * 0.3f, EditorGUIUtility.singleLineHeight);
-                Rect compRect = new Rect(position.x + 20 + (position.width - 20) * 0.31f, position.y + propertyOffset, (position.width - 20) * 0.69f, EditorGUIUtility.singleLineHeight);
+                Rect objRect = new Rect(position.x, position.y + propertyOffset, position.width * 0.49f, EditorGUIUtility.singleLineHeight);
+                Rect compRect = new Rect(position.x + position.width * 0.51f, position.y + propertyOffset, position.width * 0.49f, EditorGUIUtility.singleLineHeight);
                 propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
                 propertyHeight += EditorGUIUtility.singleLineHeight * 1.2f;
                 Rect methodsRect = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
@@ -220,15 +220,26 @@ namespace Dhs5.SceneCreation
                 tokenProperty.intValue = methodInfos[methodIndex].MetadataToken;
                 ParameterInfo[] parameters = methodInfos[methodIndex].GetParameters();
                 BaseEventAction.Argument[] parameterValues = new BaseEventAction.Argument[parameters.Length];
-                
+
                 // ---------------
+                EditorGUI.indentLevel++;
+                if (parameters.Length > 0)
+                {
+                    Rect foldoutRect = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
+                    property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, "Params");
+                    propertyOffset += EditorGUIUtility.singleLineHeight;
+                    propertyHeight += EditorGUIUtility.singleLineHeight;
+
+                    EditorGUI.indentLevel++;
+                }
+
                 SerializedProperty varTweenProperty;
                 for (int i = 0; i < parameters.Length; i++)
                 {
                     Rect valueRect = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
 
                     varTweenProperty = property.FindPropertyRelative("varTween" + i);
-                    EditorGUI.PropertyField(valueRect, varTweenProperty, new GUIContent(parameters[i].Name));
+                    if (property.isExpanded) EditorGUI.PropertyField(valueRect, varTweenProperty, new GUIContent(parameters[i].Name));
                     switch (parameters[i].ParameterType.Name)
                     {
                         case nameof(System.Single):
@@ -248,9 +259,18 @@ namespace Dhs5.SceneCreation
                             parameterValues[i] = new("");
                             break;
                     }
-                    propertyOffset += EditorGUI.GetPropertyHeight(varTweenProperty);
-                    propertyHeight += EditorGUI.GetPropertyHeight(varTweenProperty);
+                    if (property.isExpanded)
+                    {
+                        propertyOffset += EditorGUI.GetPropertyHeight(varTweenProperty);
+                        propertyHeight += EditorGUI.GetPropertyHeight(varTweenProperty);
+                    }
                 }
+
+                if (parameters.Length > 0)
+                {
+                    EditorGUI.indentLevel--;
+                }
+                EditorGUI.indentLevel--;
 
                 FieldInfo objField = property.serializedObject.targetObject.GetType().GetField(property.propertyPath);
                 FieldInfo actionField = typeof(SceneParameteredEvent).GetField("action");
@@ -287,7 +307,8 @@ namespace Dhs5.SceneCreation
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return property.isExpanded ? property.FindPropertyRelative("propertyHeight").floatValue : EditorGUIUtility.singleLineHeight;
+            return property.FindPropertyRelative("propertyHeight").floatValue;
+            //return property.isExpanded ? property.FindPropertyRelative("propertyHeight").floatValue : EditorGUIUtility.singleLineHeight;
         }
     }
 }
