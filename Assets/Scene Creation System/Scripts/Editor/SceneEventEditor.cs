@@ -37,9 +37,12 @@ namespace Dhs5.SceneCreation
             paramedEventProperty = property.FindPropertyRelative("sceneParameteredEvents");
             uEventProperty = property.FindPropertyRelative("unityEvent");
 
-            if (sceneParamedList == null) sceneParamedList = CreateSceneParameteredEventsList(property);
-            if (sceneActionsList == null) sceneActionsList = CreateSceneActionsList(property);
-            if (sceneConditionsList == null) sceneConditionsList = CreateSceneConditionsList(property);
+            if (sceneParamedList == null)
+                sceneParamedList = CreateSceneParameteredEventsList(property);
+            if (sceneActionsList == null)
+                sceneActionsList = CreateSceneActionsList(property);
+            if (sceneConditionsList == null)
+                sceneConditionsList = CreateSceneConditionsList(property);
 
             EditorGUI.BeginProperty(position, label, property);
 
@@ -61,8 +64,6 @@ namespace Dhs5.SceneCreation
                 r.y += EditorGUIUtility.singleLineHeight * 0.5f;
                 r.height = EditorGUIUtility.singleLineHeight * 2.2f;
                 pageProperty.intValue = GUI.SelectionGrid(r, pageProperty.intValue, pageNames, 2);
-
-                //height = r.y;
 
                 r.y += EditorGUIUtility.singleLineHeight * 2.5f;
                 r.height = EditorGUIUtility.singleLineHeight;

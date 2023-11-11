@@ -562,6 +562,8 @@ MonoBehaviour:
             debug: 0
             limitedTrigger: 0
             maxTriggerCount: 1
+          page: 0
+          propertyHeight: 0
           unityEvent:
             m_PersistentCalls:
               m_Calls:
@@ -1180,7 +1182,7 @@ MonoBehaviour:
   spawner: {fileID: 503539151}
   color: {r: 0.67836905, g: 0, b: 1, a: 0}
   sceneEvent:
-    eventID: 
+    eventID: fsfds
     sceneConditions: []
     sceneActions: []
     sceneParameteredEvents: []
@@ -1188,10 +1190,270 @@ MonoBehaviour:
       debug: 0
       limitedTrigger: 0
       maxTriggerCount: 1
+    page: 0
+    propertyHeight: 5220
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
   baseClasses: []
+  selectList:
+    list:
+    - eventID: Event n1
+      sceneConditions: []
+      sceneActions: []
+      sceneParameteredEvents: []
+      details:
+        debug: 0
+        limitedTrigger: 0
+        maxTriggerCount: 1
+      page: 0
+      propertyHeight: 198.3
+      unityEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    - eventID: Event n2
+      sceneConditions: []
+      sceneActions: []
+      sceneParameteredEvents: []
+      details:
+        debug: 0
+        limitedTrigger: 0
+        maxTriggerCount: 1
+      page: 0
+      propertyHeight: 258.3
+      unityEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    - eventID: Event n3
+      sceneConditions:
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+      sceneActions: []
+      sceneParameteredEvents: []
+      details:
+        debug: 0
+        limitedTrigger: 0
+        maxTriggerCount: 1
+      page: 0
+      propertyHeight: 256.3
+      unityEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1156838772}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    currentElement: 2
+    propertyHeight: 18
+  containers:
+  - conditions:
+      list:
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+  - conditions:
+      list:
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+      - sceneVariablesSO: {fileID: 0}
+        var1UniqueID: 0
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
   references:
     version: 2
     RefIds: []
@@ -1620,12 +1882,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneManager
+      value: 
+      objectReference: {fileID: 43936166}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneVariablesSO
       value: 
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneDependency.propertyHeight
@@ -1636,15 +1902,55 @@ PrefabInstance:
       value: First Timeline
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].ID
+      value: 2nd Timeline
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].ID
+      value: 3rd Timeline
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneDependency.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].loop
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneDependency.sceneVars.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneDependency.sceneVars.Array.data[0]
+      value: '[1139] Event1 (EVENT)'
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneDependency.sceneVar.sceneVarUniqueID
       value: 633
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneDependency.sceneVar.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1660,6 +1966,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1668,7 +1982,23 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.conditionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.conditionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].endLoopCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.timeToWait.type
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1688,7 +2018,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.iterationNumber.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.iterationNumber.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].endLoopCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.timeToWait.canBeStatic
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1697,6 +2043,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].endLoopCondition.iterationNumber.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.iterationNumber.intValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.iterationNumber.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.iterationNumber.intValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.iterationNumber.isStatic
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1712,6 +2074,30 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].sceneEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].sceneEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].sceneEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].sceneEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].endLoopCondition.iterationNumber.canBeStatic
       value: 1
       objectReference: {fileID: 0}
@@ -1721,6 +2107,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].endLoopCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.iterationNumber.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.timeToWait.sceneVarUniqueID
+      value: 10271
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.iterationNumber.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.timeToWait.sceneVarUniqueID
+      value: 10271
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.timeToWait.sceneVariablesSO
       value: 
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1748,11 +2158,59 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.eventVar.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.eventVar.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.conditionType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.eventVar.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.eventVar.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.eventVar.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.conditionType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.eventVar.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].endLoopCondition.iterationNumber.sceneVarUniqueID
       value: 9478
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].endLoopCondition.iterationNumber.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.iterationNumber.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].endLoopCondition.iterationNumber.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.iterationNumber.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].endLoopCondition.iterationNumber.sceneVariablesSO
       value: 
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1773,6 +2231,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[2].startCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.conditionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.conditionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.conditionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.conditionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.timeToWait.type
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1804,6 +2302,38 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.eventVar.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.eventVar.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.timeToWait.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].sceneEvents.Array.data[0].eventID
       value: Event 1
       objectReference: {fileID: 0}
@@ -1820,6 +2350,38 @@ PrefabInstance:
       value: Event 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.data[0].eventID
+      value: Event 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.data[1].eventID
+      value: Event 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].sceneEvents.Array.data[0].eventID
+      value: Event 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].sceneEvents.Array.data[0].eventID
+      value: Event 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.data[0].eventID
+      value: Event 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.data[1].eventID
+      value: Event 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].sceneEvents.Array.data[0].eventID
+      value: Event 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].sceneEvents.Array.data[0].eventID
+      value: Event 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].startCondition.timeToWait.isStatic
       value: 1
       objectReference: {fileID: 0}
@@ -1829,6 +2391,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[2].startCondition.timeToWait.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.timeToWait.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.timeToWait.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.timeToWait.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.timeToWait.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.timeToWait.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.timeToWait.isStatic
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1860,6 +2446,38 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.timeToWait.floatValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.timeToWait.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.timeToWait.floatValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.timeToWait.floatValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.timeToWait.floatValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.timeToWait.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.timeToWait.floatValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.timeToWait.floatValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].endLoopCondition.iterationNumber.type
       value: 1
       objectReference: {fileID: 0}
@@ -1884,6 +2502,54 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.iterationNumber.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.iterationNumber.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.iterationNumber.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.iterationNumber.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.iterationNumber.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.iterationNumber.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[1].endLoopCondition.timeToWait.floatValue
       value: 8.6
       objectReference: {fileID: 0}
@@ -1896,6 +2562,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.timeToWait.floatValue
+      value: 8.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.timeToWait.floatValue
+      value: 8.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].endLoopCondition.timeToWait.canBeStatic
       value: 1
       objectReference: {fileID: 0}
@@ -1905,6 +2579,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[2].endLoopCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.timeToWait.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.timeToWait.canBeStatic
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -1948,6 +2646,46 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.eventVar.sceneVarUniqueID
+      value: 3209
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.eventVar.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.eventVar.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.eventVar.sceneVarUniqueID
+      value: 1139
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.eventVar.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.eventVar.sceneVarUniqueID
+      value: 3209
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.eventVar.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.eventVar.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.eventVar.sceneVarUniqueID
+      value: 1139
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.eventVar.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[1].endLoopCondition.iterationNumber.intValue
       value: 2
       objectReference: {fileID: 0}
@@ -1969,6 +2707,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[2].startCondition.sceneConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.iterationNumber.intValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.iterationNumber.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.iterationNumber.intValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.iterationNumber.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.sceneConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.iterationNumber.intValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.iterationNumber.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.iterationNumber.intValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.iterationNumber.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.sceneConditions.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -2008,6 +2794,54 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.timeToWait.sceneVarUniqueID
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].startCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.timeToWait.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.timeToWait.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.timeToWait.sceneVarUniqueID
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].startCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.timeToWait.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.timeToWait.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].endLoopCondition.sceneConditions.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2026,6 +2860,14 @@ PrefabInstance:
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.data[2].sceneEvents.Array.data[0].eventID
       value: Event 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.sceneConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.sceneConditions.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].endLoopCondition.iterationNumber.canBeStatic
@@ -2059,6 +2901,62 @@ PrefabInstance:
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.data[0].startCondition.timeToWait.isStatic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.iterationNumber.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.iterationNumber.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.timeToWait.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.iterationNumber.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.iterationNumber.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.iterationNumber.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.timeToWait.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.iterationNumber.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.timeToWait.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.data[0].startCondition.timeToWait.floatValue
       value: 3
@@ -2128,6 +3026,46 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.iterationNumber.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.iterationNumber.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].endLoopCondition.iterationNumber.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.iterationNumber.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].endLoopCondition.iterationNumber.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.iterationNumber.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.iterationNumber.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].endLoopCondition.iterationNumber.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.iterationNumber.sceneVarUniqueID
+      value: 9478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.iterationNumber.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.data[1].startCondition.sceneConditions.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2180,6 +3118,22 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].var2Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].var2Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].var2Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].var2Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.data[0].endLoopCondition.iterationNumber.canBeStatic
       value: 1
       objectReference: {fileID: 0}
@@ -2212,6 +3166,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].boolComp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].boolComp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].var1UniqueID
       value: 4629
       objectReference: {fileID: 0}
@@ -2221,6 +3183,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].var1UniqueID
+      value: 9928
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].var1UniqueID
+      value: 4629
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].var1UniqueID
+      value: 5895
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].var1UniqueID
+      value: 9928
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].var1UniqueID
+      value: 4629
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].var1UniqueID
+      value: 5895
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].var1UniqueID
       value: 9928
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -2252,6 +3238,30 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].var1UniqueID
+      value: 633
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].SceneVar2.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].var1UniqueID
+      value: 633
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].SceneVar2.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].sceneVariablesSO
       value: 
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
@@ -2261,6 +3271,30 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].sceneVariablesSO
       value: 
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -2277,6 +3311,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.data[2].startCondition.sceneConditions.Array.data[0].var2Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.isStatic
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -2300,6 +3350,38 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.stringValue
+      value: ziejhfkezlf
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.stringValue
+      value: ziejhfkezlf
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.data[1].startCondition.sceneConditions.Array.data[0].var1UniqueID
       value: 4629
       objectReference: {fileID: 0}
@@ -2313,6 +3395,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].SceneVar2.canBeStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].SceneVar2.canBeStatic
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -2364,6 +3454,54 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].SceneVar2.sceneVarUniqueID
+      value: 6670
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.sceneVarUniqueID
+      value: 5895
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].SceneVar2.sceneVarUniqueID
+      value: 9424
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].SceneVar2.sceneVarUniqueID
+      value: 6670
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[0].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.sceneVarUniqueID
+      value: 5895
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].SceneVar2.sceneVarUniqueID
+      value: 9424
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].startCondition.sceneConditions.Array.data[0].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].SceneVar2.sceneVarUniqueID
       value: 633
       objectReference: {fileID: 0}
@@ -2389,6 +3527,46 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].timelineObjects.Array.data[1].startCondition.sceneConditions.Array.data[1].SceneVar2.isStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].SceneVar2.sceneVarUniqueID
+      value: 633
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].SceneVar2.sceneVarUniqueID
+      value: 633
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].endLoopCondition.sceneConditions.Array.data[0].SceneVar2.sceneVariablesSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -2468,6 +3646,30 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1198601243}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198601243}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198601243}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198601243}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198601243}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198601243}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198601243}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -2477,6 +3679,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -2492,6 +3718,30 @@ PrefabInstance:
       value: DebugContext
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugContext
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugContext
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugContext
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugContext
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugContext
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugContext
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Dhs5.SceneCreation.SceneClock, SceneCreationSystem
       objectReference: {fileID: 0}
@@ -2504,6 +3754,30 @@ PrefabInstance:
       value: Dhs5.SceneCreation.SceneClock, SceneCreationSystem
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dhs5.SceneCreation.SceneClock, SceneCreationSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dhs5.SceneCreation.SceneClock, SceneCreationSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dhs5.SceneCreation.SceneClock, SceneCreationSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dhs5.SceneCreation.SceneClock, SceneCreationSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dhs5.SceneCreation.SceneClock, SceneCreationSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dhs5.SceneCreation.SceneClock, SceneCreationSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -2513,6 +3787,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[1].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[0].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[1].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].sceneEvents.Array.data[0].unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5811698339757312643, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
@@ -2791,7 +4089,8 @@ MonoBehaviour:
       forbiddenUID: 0
       propertyHeight: 0
     sceneObjects: []
-    sceneVars: []
+    sceneVars:
+    - '[633] New Scene Var (BOOL)'
     propertyHeight: 0
   sceneManager: {fileID: 43936166}
   currentPage: 0
@@ -2825,6 +4124,8 @@ MonoBehaviour:
       debug: 0
       limitedTrigger: 0
       maxTriggerCount: 1
+    page: 0
+    propertyHeight: 0
     unityEvent:
       m_PersistentCalls:
         m_Calls:
@@ -2848,6 +4149,8 @@ MonoBehaviour:
       debug: 0
       limitedTrigger: 0
       maxTriggerCount: 1
+    page: 0
+    propertyHeight: 0
     unityEvent:
       m_PersistentCalls:
         m_Calls:
@@ -4264,7 +5567,8 @@ MonoBehaviour:
       propertyHeight: 0
     sceneObjects:
     - {fileID: 1652975745}
-    sceneVars: []
+    sceneVars:
+    - '[10271] Global/float 1 (FLOAT)'
     propertyHeight: 32
   sceneManager: {fileID: 43936166}
   currentPage: 0

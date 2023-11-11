@@ -4,6 +4,7 @@ using UnityEngine;
 using Dhs5.SceneCreation;
 using TMPro;
 using UnityEngine.Scripting;
+using System;
 
 public class Test : MonoBehaviour
 {
@@ -16,6 +17,17 @@ public class Test : MonoBehaviour
 
     //[SerializeReference, SubclassPicker] BaseClass baseClass;
     [SerializeReference, SubclassPicker] List<BaseClass> baseClasses = new();
+
+    [Space(20f)]
+    public SelectList<SceneEvent> selectList;
+    [Space(20f)]
+    public List<Container> containers;
+
+    [Serializable]
+    public class Container
+    {
+        public SceneElementList<SceneCondition> conditions;
+    }
 
     private void Awake()
     {
