@@ -32,11 +32,16 @@ namespace Dhs5.SceneCreation
         public string SceneVariablesContainerPath => sceneVariablesDirectory.Path;
 
         [Space(20f)]
+        [Header("Editor")]
 
         [SerializeField] private SceneCreationBasePrefabs sceneCreationPrefabs;
         public SceneCreationBasePrefabs Prefabs => sceneCreationPrefabs;
 
+        [SerializeField] private SceneCreationEditorColors editorColors;
+        public SceneCreationEditorColors EditorColors => editorColors;
 
+
+        #region Setup
         readonly string IntersceneVariablesName = "Interscene Variables Container";
         readonly string SceneObjectSettingsName = "SceneObject Settings";
         public void SetupProject()
@@ -114,6 +119,7 @@ namespace Dhs5.SceneCreation
             AssetDatabase.SaveAssets();
 #endif
         }
+        #endregion
     }
 
     [Serializable]
@@ -127,5 +133,13 @@ namespace Dhs5.SceneCreation
 
         [Header("Helpers")]
         public GameObject colliderSceneObjectPrefab;
+    }
+    
+    [Serializable]
+    public struct SceneCreationEditorColors
+    {
+        public Color headerBackground;
+        public Color headerForeground;
+        public Color selectionBlue;
     }
 }

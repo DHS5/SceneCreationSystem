@@ -745,7 +745,7 @@ namespace Dhs5.SceneCreation
 
         #region Extension Methods
         #region Utility
-        public static bool IsValid<T>(this List<T> list)
+        public static bool IsValid<T>(this IList<T> list)
         {
             return list != null && list.Count > 0;
         }
@@ -797,7 +797,7 @@ namespace Dhs5.SceneCreation
             public void SetUp(SceneVariablesSO sceneVariablesSO, SceneVarType type);
         }
         
-        public static void SetUp<T>(this List<T> setupables, SceneVariablesSO sceneVariablesSO) where T : ISceneVarSetupable
+        public static void SetUp<T>(this IList<T> setupables, SceneVariablesSO sceneVariablesSO) where T : ISceneVarSetupable
         {
             if (setupables == null || setupables.Count < 1) return;
 
@@ -806,7 +806,7 @@ namespace Dhs5.SceneCreation
                 setupable?.SetUp(sceneVariablesSO);
             }
         }
-        public static void SetUp<T>(this List<T> setupables, SceneVariablesSO sceneVariablesSO, SceneVarType type) where T : ISceneVarTypedSetupable
+        public static void SetUp<T>(this IList<T> setupables, SceneVariablesSO sceneVariablesSO, SceneVarType type) where T : ISceneVarTypedSetupable
         {
             if (setupables == null || setupables.Count < 1) return;
 
@@ -823,7 +823,7 @@ namespace Dhs5.SceneCreation
             public void BelongTo(BaseSceneObject _sceneObject);
         }
         
-        public static void BelongTo<T>(this List<T> belongables, BaseSceneObject sceneObject) where T : ISceneObjectBelongable
+        public static void BelongTo<T>(this IList<T> belongables, BaseSceneObject sceneObject) where T : ISceneObjectBelongable
         {
             if (belongables == null || belongables.Count < 1) return;
 
@@ -839,7 +839,7 @@ namespace Dhs5.SceneCreation
         {
             public void Init();
         }
-        public static void Init<T>(this List<T> initializables) where T : IInitializable
+        public static void Init<T>(this IList<T> initializables) where T : IInitializable
         {
             if (initializables == null || initializables.Count < 1) return;
 
@@ -864,7 +864,7 @@ namespace Dhs5.SceneCreation
         {
             public void SetForbiddenUID(int UID);
         }
-        public static List<int> Dependencies<T>(this List<T> list) where T : ISceneVarDependant
+        public static List<int> Dependencies<T>(this IList<T> list) where T : ISceneVarDependant
         {
             if (!list.IsValid())
             {
@@ -886,7 +886,7 @@ namespace Dhs5.SceneCreation
             }
             return dependencies;
         }
-        public static bool DependOn<T>(this List<T> list, int UID) where T : ISceneVarDependant
+        public static bool DependOn<T>(this IList<T> list, int UID) where T : ISceneVarDependant
         {
             foreach (var dependant in list)
             {
@@ -895,7 +895,7 @@ namespace Dhs5.SceneCreation
             }
             return false;
         }
-        public static void SetForbiddenUID<T>(this List<T> list, int UID) where T : ISceneVarDependantWithProhibition
+        public static void SetForbiddenUID<T>(this IList<T> list, int UID) where T : ISceneVarDependantWithProhibition
         {
             foreach (var dependant in list)
             {
@@ -944,7 +944,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Scene Condition list verification (Extension Method)
-        public static bool VerifyConditions(this List<SceneCondition> conditions)
+        public static bool VerifyConditions(this IList<SceneCondition> conditions)
         {
             if (conditions == null || conditions.Count < 1) return true;
         
@@ -1327,7 +1327,7 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Trigger a list of SceneActions or SceneParameteredEvents (Extension Method)
-        public static void Trigger(this List<SceneAction> sceneActions, SceneContext context)
+        public static void Trigger(this IList<SceneAction> sceneActions, SceneContext context)
         {
             if (sceneActions == null || sceneActions.Count < 1) return;
             
@@ -1336,7 +1336,7 @@ namespace Dhs5.SceneCreation
                 action.Trigger(context);
             }
         }
-        public static void Trigger(this List<SceneParameteredEvent> sceneEvents)
+        public static void Trigger(this IList<SceneParameteredEvent> sceneEvents)
         {
             if (sceneEvents == null || sceneEvents.Count < 1) return;
             

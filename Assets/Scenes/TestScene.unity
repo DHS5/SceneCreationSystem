@@ -394,6 +394,8 @@ MonoBehaviour:
     sceneVars:
     - '[633] New Scene Var (BOOL)'
     - '[10811] Global/bool 1 (BOOL)'
+    - '[10271] Global/float 1 (FLOAT)'
+    - '[1139] Event1 (EVENT)'
     propertyHeight: 88
   sceneManager: {fileID: 43936166}
   currentPage: 0
@@ -429,7 +431,85 @@ MonoBehaviour:
       sceneConditions: []
     debug: 0
     propertyHeight: 65.100006
-  events: []
+  events:
+  - eventID: 
+    sceneConditions:
+      list:
+      - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        var1UniqueID: 633
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+          sceneVarUniqueID: 633
+          anyVar: 0
+          canBeStatic: 1
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+    sceneActions:
+      list:
+      - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        var1UniqueID: 633
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+          sceneVarUniqueID: 633
+          anyVar: 0
+          canBeStatic: 1
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolOP: 0
+        intOP: 0
+        floatOP: 0
+        stringOP: 0
+      - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        var1UniqueID: 10271
+        SceneVar2:
+          type: 2
+          sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+          sceneVarUniqueID: 10271
+          anyVar: 0
+          canBeStatic: 1
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 2
+        boolOP: 0
+        intOP: 0
+        floatOP: 0
+        stringOP: 0
+    sceneParameteredEvents:
+      list: []
+    details:
+      debug: 0
+      limitedTrigger: 0
+      maxTriggerCount: 0
+    page: 0
+    propertyHeight: 383.9
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
   soTag:
     _value: 0
   soLayer:
@@ -555,9 +635,12 @@ MonoBehaviour:
       data:
         sceneEvents:
         - eventID: Event
-          sceneConditions: []
-          sceneActions: []
-          sceneParameteredEvents: []
+          sceneConditions:
+            list: []
+          sceneActions:
+            list: []
+          sceneParameteredEvents:
+            list: []
           details:
             debug: 0
             limitedTrigger: 0
@@ -1183,15 +1266,18 @@ MonoBehaviour:
   color: {r: 0.67836905, g: 0, b: 1, a: 0}
   sceneEvent:
     eventID: fsfds
-    sceneConditions: []
-    sceneActions: []
-    sceneParameteredEvents: []
+    sceneConditions:
+      list: []
+    sceneActions:
+      list: []
+    sceneParameteredEvents:
+      list: []
     details:
       debug: 0
       limitedTrigger: 0
       maxTriggerCount: 1
     page: 0
-    propertyHeight: 5220
+    propertyHeight: 1035
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1199,79 +1285,44 @@ MonoBehaviour:
   selectList:
     list:
     - eventID: Event n1
-      sceneConditions: []
-      sceneActions: []
-      sceneParameteredEvents: []
+      sceneConditions:
+        list: []
+      sceneActions:
+        list: []
+      sceneParameteredEvents:
+        list: []
       details:
         debug: 0
         limitedTrigger: 0
         maxTriggerCount: 1
-      page: 0
-      propertyHeight: 198.3
+      page: 3
+      propertyHeight: 172.5
       unityEvent:
         m_PersistentCalls:
           m_Calls: []
     - eventID: Event n2
-      sceneConditions: []
-      sceneActions: []
-      sceneParameteredEvents: []
+      sceneConditions:
+        list: []
+      sceneActions:
+        list: []
+      sceneParameteredEvents:
+        list: []
       details:
         debug: 0
         limitedTrigger: 0
         maxTriggerCount: 1
       page: 0
-      propertyHeight: 258.3
+      propertyHeight: 181.5
       unityEvent:
         m_PersistentCalls:
           m_Calls: []
     - eventID: Event n3
       sceneConditions:
-      - sceneVariablesSO: {fileID: 0}
-        var1UniqueID: 0
-        SceneVar2:
-          type: 0
-          sceneVariablesSO: {fileID: 0}
-          sceneVarUniqueID: 0
-          anyVar: 0
-          canBeStatic: 0
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-        var2Type: 0
-        boolComp: 0
-        intComp: 0
-        floatComp: 0
-        stringComp: 0
-        logicOperator: 0
-        forbiddenUID: 0
-      - sceneVariablesSO: {fileID: 0}
-        var1UniqueID: 0
-        SceneVar2:
-          type: 0
-          sceneVariablesSO: {fileID: 0}
-          sceneVarUniqueID: 0
-          anyVar: 0
-          canBeStatic: 0
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-        var2Type: 0
-        boolComp: 0
-        intComp: 0
-        floatComp: 0
-        stringComp: 0
-        logicOperator: 0
-        forbiddenUID: 0
-      sceneActions: []
-      sceneParameteredEvents: []
+        list: []
+      sceneActions:
+        list: []
+      sceneParameteredEvents:
+        list: []
       details:
         debug: 0
         limitedTrigger: 0
@@ -1293,7 +1344,7 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-    currentElement: 2
+    currentElement: 0
     propertyHeight: 18
   containers:
   - conditions:
@@ -1364,74 +1415,8 @@ MonoBehaviour:
         stringComp: 0
         logicOperator: 0
         forbiddenUID: 0
-      - sceneVariablesSO: {fileID: 0}
-        var1UniqueID: 0
-        SceneVar2:
-          type: 0
-          sceneVariablesSO: {fileID: 0}
-          sceneVarUniqueID: 0
-          anyVar: 0
-          canBeStatic: 0
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-        var2Type: 0
-        boolComp: 0
-        intComp: 0
-        floatComp: 0
-        stringComp: 0
-        logicOperator: 0
-        forbiddenUID: 0
   - conditions:
       list:
-      - sceneVariablesSO: {fileID: 0}
-        var1UniqueID: 0
-        SceneVar2:
-          type: 0
-          sceneVariablesSO: {fileID: 0}
-          sceneVarUniqueID: 0
-          anyVar: 0
-          canBeStatic: 0
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-        var2Type: 0
-        boolComp: 0
-        intComp: 0
-        floatComp: 0
-        stringComp: 0
-        logicOperator: 0
-        forbiddenUID: 0
-      - sceneVariablesSO: {fileID: 0}
-        var1UniqueID: 0
-        SceneVar2:
-          type: 0
-          sceneVariablesSO: {fileID: 0}
-          sceneVarUniqueID: 0
-          anyVar: 0
-          canBeStatic: 0
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-        var2Type: 0
-        boolComp: 0
-        intComp: 0
-        floatComp: 0
-        stringComp: 0
-        logicOperator: 0
-        forbiddenUID: 0
       - sceneVariablesSO: {fileID: 0}
         var1UniqueID: 0
         SceneVar2:
@@ -2604,6 +2589,14 @@ PrefabInstance:
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[2].steps.Array.data[2].endLoopCondition.timeToWait.canBeStatic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].sceneEvents.Array.data[0].propertyHeight
+      value: 648.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].sceneEvents.Array.data[1].propertyHeight
+      value: 657.3
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.Array.data[0].steps.Array.data[0].startCondition.eventVar.sceneVarUniqueID
@@ -4117,9 +4110,12 @@ MonoBehaviour:
       remove: 0
   sceneEvents:
   - eventID: Test
-    sceneConditions: []
-    sceneActions: []
-    sceneParameteredEvents: []
+    sceneConditions:
+      list: []
+    sceneActions:
+      list: []
+    sceneParameteredEvents:
+      list: []
     details:
       debug: 0
       limitedTrigger: 0
@@ -4142,9 +4138,12 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: TriggerAndRemove
-    sceneConditions: []
-    sceneActions: []
-    sceneParameteredEvents: []
+    sceneConditions:
+      list: []
+    sceneActions:
+      list: []
+    sceneParameteredEvents:
+      list: []
     details:
       debug: 0
       limitedTrigger: 0

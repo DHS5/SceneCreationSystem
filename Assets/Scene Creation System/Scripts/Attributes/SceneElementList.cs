@@ -105,7 +105,7 @@ namespace Dhs5.SceneCreation
             EditorGUI.EndProperty();
         }
 
-        Color selectionBlue = new Color(0.75f, 0.75f, 1f);
+        Color selectionBlue = SceneCreationSettings.instance.EditorColors.selectionBlue;
         private ReorderableList CreateSceneElementList(SerializedProperty property, SerializedProperty listProperty, GUIContent label)
         {
             return new ReorderableList(property.serializedObject, listProperty, true, true, true, true)
@@ -121,7 +121,10 @@ namespace Dhs5.SceneCreation
                 },
                 drawHeaderCallback = rect =>
                 {
+                    var prev = EditorGUI.indentLevel;
+                    EditorGUI.indentLevel = 0;
                     EditorGUI.LabelField(rect, label);
+                    EditorGUI.indentLevel = prev;
                 },
                 drawElementCallback = (rect, index, active, focused) =>
                 {

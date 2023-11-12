@@ -37,11 +37,11 @@ namespace Dhs5.SceneCreation
 
         public string eventID;
 
-        public List<SceneCondition> sceneConditions;
+        public SceneElementList<SceneCondition> sceneConditions;
 
-        public List<SceneAction> sceneActions;
+        public SceneElementList<SceneAction> sceneActions;
 
-        public List<SceneParameteredEvent> sceneParameteredEvents;
+        public SceneElementList<SceneParameteredEvent> sceneParameteredEvents;
 
         [SerializeField] protected Details details;
 

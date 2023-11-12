@@ -21,10 +21,6 @@ namespace Dhs5.SceneCreation
 
         protected float height;
 
-        ReorderableList sceneParamedList;
-        ReorderableList sceneActionsList;
-        ReorderableList sceneConditionsList;
-
         Color selectionBlue = new Color(0.75f, 0.75f, 1f);
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -36,13 +32,6 @@ namespace Dhs5.SceneCreation
             actionsProperty = property.FindPropertyRelative("sceneActions");
             paramedEventProperty = property.FindPropertyRelative("sceneParameteredEvents");
             uEventProperty = property.FindPropertyRelative("unityEvent");
-
-            if (sceneParamedList == null)
-                sceneParamedList = CreateSceneParameteredEventsList(property);
-            if (sceneActionsList == null)
-                sceneActionsList = CreateSceneActionsList(property);
-            if (sceneConditionsList == null)
-                sceneConditionsList = CreateSceneConditionsList(property);
 
             EditorGUI.BeginProperty(position, label, property);
 
@@ -87,18 +76,18 @@ namespace Dhs5.SceneCreation
             {
                 case 0:
                     {
-                        //EditorGUI.PropertyField(r, conditionsProperty, true);
-                        //height += EditorGUI.GetPropertyHeight(conditionsProperty);
-                        sceneConditionsList.DoList(r);
-                        height += Mathf.Max(sceneConditionsList.GetHeight(), minHeight);
+                        EditorGUI.PropertyField(r, conditionsProperty, true);
+                        height += EditorGUI.GetPropertyHeight(conditionsProperty);
+                        //sceneConditionsList.DoList(r);
+                        //height += Mathf.Max(sceneConditionsList.GetHeight(), minHeight);
                         break;
                     }
                 case 1:
                     {
-                        //EditorGUI.PropertyField(r, actionsProperty, true);
-                        //height += EditorGUI.GetPropertyHeight(actionsProperty);
-                        sceneActionsList.DoList(r);
-                        height += Mathf.Max(sceneActionsList.GetHeight(), minHeight);
+                        EditorGUI.PropertyField(r, actionsProperty, true);
+                        height += EditorGUI.GetPropertyHeight(actionsProperty);
+                        //sceneActionsList.DoList(r);
+                        //height += Mathf.Max(sceneActionsList.GetHeight(), minHeight);
                         break;
                     }
                 case 2:
@@ -109,10 +98,10 @@ namespace Dhs5.SceneCreation
                     }
                 case 3:
                     {
-                        //EditorGUI.PropertyField(r, paramedEventProperty, true);
-                        //height += EditorGUI.GetPropertyHeight(paramedEventProperty);
-                        sceneParamedList.DoList(r);
-                        height += Mathf.Max(sceneParamedList.GetHeight(), minHeight);
+                        EditorGUI.PropertyField(r, paramedEventProperty, true);
+                        height += EditorGUI.GetPropertyHeight(paramedEventProperty);
+                        //sceneParamedList.DoList(r);
+                        //height += Mathf.Max(sceneParamedList.GetHeight(), minHeight);
                         break;
                     }
             }

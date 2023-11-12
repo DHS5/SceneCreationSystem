@@ -105,14 +105,6 @@ namespace Dhs5.SceneCreation
 
             EditorGUI.BeginProperty(position, label, property);
 
-            //if (property.isExpanded)
-            //{
-            //    Rect backgroundRect1 = new Rect(position.x - 10, position.y, position.width + 11, property.FindPropertyRelative("propertyHeight").floatValue);
-            //    EditorGUI.DrawRect(backgroundRect1, new Color(0.22f, 0.22f, 0.22f));
-            //}
-            // FOLDOUT
-            //Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-            //property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, property.isExpanded ? empty : label, EditorStyles.foldoutHeader);
             propertyOffset += EditorGUIUtility.singleLineHeight * 0.25f;
             propertyHeight += EditorGUIUtility.singleLineHeight * 0.25f;
 
@@ -287,7 +279,7 @@ namespace Dhs5.SceneCreation
                     if (temp is IList list) temp = list[index1];
                     //else temp = property.serializedObject.targetObject.GetType().GetField(fieldName).GetValue(property.serializedObject.targetObject);
 
-                    SceneParameteredEvent paramedEvent = (temp.GetType().GetField("sceneParameteredEvents", fieldBF).GetValue(temp) as List<SceneParameteredEvent>)[index2];
+                    SceneParameteredEvent paramedEvent = (temp.GetType().GetField("sceneParameteredEvents", fieldBF).GetValue(temp) as IList<SceneParameteredEvent>)[index2];
                     //SceneParameteredEvent paramedEvent = (property.serializedObject.targetObject.GetType().GetField(fieldName).GetValue(property.serializedObject.targetObject) as List<SceneEvent>)[index1].sceneParameteredEvents[index2];
                     BaseEventAction baseEventAction = new(methodInfos[methodIndex].Name, target, parameterValues);
                     paramedEvent.action = baseEventAction;
@@ -301,8 +293,7 @@ namespace Dhs5.SceneCreation
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return property.FindPropertyRelative("propertyHeight").floatValue;
-            //return property.isExpanded ? property.FindPropertyRelative("propertyHeight").floatValue : EditorGUIUtility.singleLineHeight;
+            return Mathf.Max(EditorGUIUtility.singleLineHeight * 2f, property.FindPropertyRelative("propertyHeight").floatValue);
         }
     }
 }

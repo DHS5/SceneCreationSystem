@@ -98,6 +98,10 @@ MonoBehaviour:
     sceneObjectPrefab: {fileID: 6447064889421450952, guid: 283f5fe5160638443a30f3657e97bee7, type: 3}
     sceneSpawnerPrefab: {fileID: 27306850221925963, guid: ba8209f177475574c8e618244933ce3d, type: 3}
     colliderSceneObjectPrefab: {fileID: 3206603541878113604, guid: e0dad96f1c2ec364a8ef63504d22fcaa, type: 3}
+  editorColors:
+    headerBackground: {r: 0.7490196, g: 0.96862745, b: 1, a: 1}
+    headerForeground: {r: 1, g: 0.4901961, b: 0, a: 1}
+    selectionBlue: {r: 0.7490196, g: 0.8763551, b: 1, a: 1}
 --- !u!114 &6004459988912774
 MonoBehaviour:
   m_ObjectHideFlags: 1

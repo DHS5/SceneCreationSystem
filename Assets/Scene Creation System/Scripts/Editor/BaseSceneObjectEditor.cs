@@ -98,8 +98,8 @@ namespace Dhs5.SceneCreation
         }
         protected int Header(string[] menuNames)
         {
-            backgroundColor = new Color32(191, 247, 255, 255);
-            foregroundColor = new Color(1f, 0.49f, 0f);
+            backgroundColor = SceneCreationSettings.instance.EditorColors.headerBackground;//new Color32(191, 247, 255, 255);
+            foregroundColor = SceneCreationSettings.instance.EditorColors.headerForeground;//new Color(1f, 0.49f, 0f);
 
             GUIStyle headerStyle = new()
             {
