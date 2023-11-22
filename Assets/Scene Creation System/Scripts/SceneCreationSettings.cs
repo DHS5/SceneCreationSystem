@@ -20,10 +20,10 @@ namespace Dhs5.SceneCreation
         static SettingsProvider GetSettingsProvider() =>
         instance.GetSettingsProvider();
 
-        [SerializeField] private IntersceneVariablesSO intersceneVariablesSO;
+        [SerializeField][ReadOnly] private IntersceneVariablesSO intersceneVariablesSO;
         public IntersceneVariablesSO IntersceneVars => intersceneVariablesSO;
 
-        [SerializeField] private SceneObjectSettings sceneObjectSettings;
+        [SerializeField][ReadOnly] private SceneObjectSettings sceneObjectSettings;
         public SceneObjectSettings SceneObjectSettings => sceneObjectSettings;
 
         [Space(20f)]

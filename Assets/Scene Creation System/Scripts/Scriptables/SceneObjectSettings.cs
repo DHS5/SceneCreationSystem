@@ -30,10 +30,10 @@ namespace Dhs5.SceneCreation
         }
 
         [Header("Databases")]
-        [SerializeField] private SceneObjectTagDatabase _tagDatabase;
+        [SerializeField][ReadOnly] private SceneObjectTagDatabase _tagDatabase;
         internal SceneObjectTagDatabase TagDatabase => _tagDatabase;
 
-        [SerializeField] private SceneObjectLayerDatabase _layerDatabase;
+        [SerializeField][ReadOnly] private SceneObjectLayerDatabase _layerDatabase;
         internal SceneObjectLayerDatabase LayerDatabase => _layerDatabase;
 
         [Header("Scene Log")]
