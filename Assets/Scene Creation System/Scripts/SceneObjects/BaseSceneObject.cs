@@ -1060,7 +1060,7 @@ namespace Dhs5.SceneCreation
         #region Setup
         protected void Setup<T>(T var) where T : SceneState.ISceneVarSetupable
         {
-            var.SetUp(sceneVariablesSO);
+            var?.SetUp(sceneVariablesSO);
         }
         protected void Setup<T>(List<T> vars) where T : SceneState.ISceneVarSetupable
         {
