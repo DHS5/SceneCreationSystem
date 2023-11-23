@@ -140,7 +140,7 @@ namespace Dhs5.SceneCreation
         {
             if (eventDico.TryGetValue(keyEvent, out Action<SceneEventParam> thisEvent))
             {
-                thisEvent.Invoke(param);
+                thisEvent?.Invoke(param);
             }
         }
     }
