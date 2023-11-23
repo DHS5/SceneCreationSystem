@@ -122,7 +122,10 @@ namespace Dhs5.SceneCreation
             get
             {
                 List<int> dependencies = new() { var1UniqueID };
-                dependencies.AddRange(SceneVar2.Dependencies);
+                if (HasSecondParameter())
+                {
+                    dependencies.AddRange(SceneVar2.Dependencies);
+                }
                 return dependencies;
             }
         }
