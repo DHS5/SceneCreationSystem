@@ -210,6 +210,8 @@ namespace Dhs5.SceneCreation
         {
             get
             {
+                if (!SceneVars.IsValid()) return new();
+
                 List<int> list = new();
                 foreach (var var in SceneVars)
                 {
