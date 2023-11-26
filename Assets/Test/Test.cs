@@ -22,6 +22,8 @@ public class Test : MonoBehaviour
     public SelectList<SceneEvent> selectList;
     [Space(20f)]
     public List<Container> containers;
+    [Space(20f)]
+    public SceneTimelineList timelineList;
 
     [Serializable]
     public class Container

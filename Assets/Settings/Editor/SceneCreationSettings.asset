@@ -92,6 +92,7 @@ MonoBehaviour:
   sceneObjectSettings: {fileID: -6873954747759285107}
   sceneVariablesDirectory:
     path: Assets/Scene Creation System/SceneVars
+  _debugMode: 0
   sceneCreationPrefabs:
     sceneManagerPrefab: {fileID: 2626548491275406242, guid: f6106367823cb444aaeed1c8b6430e4b, type: 3}
     sceneClockPrefab: {fileID: 1445389896236721321, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}

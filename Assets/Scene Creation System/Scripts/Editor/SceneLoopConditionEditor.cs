@@ -25,20 +25,26 @@ namespace Dhs5.SceneCreation
             sceneConditionsProperty = property.FindPropertyRelative("sceneConditions");
 
             EditorGUI.BeginProperty(position, label, property);
-            
+
+            GUI.Box(new Rect(
+                position.x, position.y - 1f, position.width, GetPropertyHeight(property, label) + 2f),
+                GUIContent.none, GUI.skin.window);
+
             Rect foldoutPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
             property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, label);
             propertyOffset += EditorGUIUtility.singleLineHeight;
             if (property.isExpanded)
             {
+                EditorGUI.indentLevel++;
+
                 // Condition type choice
-                Rect typePosition = new Rect(position.x, position.y + propertyOffset, position.width,
+                Rect typePosition = new Rect(position.x, position.y + propertyOffset, position.width - 5f,
                     EditorGUIUtility.singleLineHeight);
                 EditorGUI.PropertyField(typePosition, conditionTypeProperty);
                 propertyOffset += EditorGUIUtility.singleLineHeight;
                 
                 // Param
-                Rect paramPosition = new Rect(position.x, position.y + propertyOffset, position.width,
+                Rect paramPosition = new Rect(position.x, position.y + propertyOffset, position.width - 5f,
                     EditorGUIUtility.singleLineHeight);
                 switch ((SceneLoopCondition.LoopConditionType)conditionTypeProperty.enumValueIndex)
                 {
@@ -55,11 +61,8 @@ namespace Dhs5.SceneCreation
                         propertyOffset += EditorGUIUtility.singleLineHeight * 1.5f;
                         break;
                 }
-                
-                Rect line1Rect = new Rect(position.x, position.y, position.width, 1);
-                Rect line2Rect = new Rect(position.x, position.y + propertyOffset, position.width, 1);
-                EditorGUI.DrawRect(line1Rect, Color.white);
-                EditorGUI.DrawRect(line2Rect, Color.white);
+
+                EditorGUI.indentLevel--;
             }
 
             // End

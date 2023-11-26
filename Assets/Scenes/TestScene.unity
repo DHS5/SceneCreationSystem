@@ -395,7 +395,6 @@ MonoBehaviour:
     - '[633] New Scene Var (BOOL)'
     - '[10811] Global/bool 1 (BOOL)'
     - '[10271] Global/float 1 (FLOAT)'
-    - '[1139] Event1 (EVENT)'
     propertyHeight: 88
   sceneManager: {fileID: 43936166}
   currentPage: 0
@@ -1277,7 +1276,7 @@ MonoBehaviour:
       limitedTrigger: 0
       maxTriggerCount: 1
     page: 0
-    propertyHeight: 1035
+    propertyHeight: 2160
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1295,8 +1294,8 @@ MonoBehaviour:
         debug: 0
         limitedTrigger: 0
         maxTriggerCount: 1
-      page: 3
-      propertyHeight: 172.5
+      page: 0
+      propertyHeight: 207
       unityEvent:
         m_PersistentCalls:
           m_Calls: []
@@ -1312,7 +1311,7 @@ MonoBehaviour:
         limitedTrigger: 0
         maxTriggerCount: 1
       page: 0
-      propertyHeight: 181.5
+      propertyHeight: 258.3
       unityEvent:
         m_PersistentCalls:
           m_Calls: []
@@ -1328,7 +1327,7 @@ MonoBehaviour:
         limitedTrigger: 0
         maxTriggerCount: 1
       page: 0
-      propertyHeight: 256.3
+      propertyHeight: 198.3
       unityEvent:
         m_PersistentCalls:
           m_Calls:
@@ -1439,6 +1438,407 @@ MonoBehaviour:
         stringComp: 0
         logicOperator: 0
         forbiddenUID: 0
+  timelineList:
+    list:
+    - ID: Timeline 1
+      loop: 1
+      endLoopCondition:
+        conditionType: 0
+        timeToWait:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        iterationNumber:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        sceneConditions: []
+      steps:
+      - startCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+          eventVar:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+        loop: 0
+        endLoopCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          iterationNumber:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+        sceneEvents: []
+      - startCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+          eventVar:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+        loop: 1
+        endLoopCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          iterationNumber:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+        sceneEvents: []
+    - ID: Timeline 2
+      loop: 1
+      endLoopCondition:
+        conditionType: 0
+        timeToWait:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        iterationNumber:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        sceneConditions: []
+      steps:
+      - startCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+          eventVar:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+        loop: 0
+        endLoopCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          iterationNumber:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+        sceneEvents: []
+      - startCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+          eventVar:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+        loop: 0
+        endLoopCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          iterationNumber:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+        sceneEvents: []
+      - startCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+          eventVar:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+        loop: 1
+        endLoopCondition:
+          conditionType: 0
+          timeToWait:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          iterationNumber:
+            type: 0
+            sceneVariablesSO: {fileID: 0}
+            sceneVarUniqueID: 0
+            anyVar: 0
+            canBeStatic: 0
+            isStatic: 0
+            boolValue: 0
+            intValue: 0
+            floatValue: 0
+            stringValue: 
+            forbiddenUID: 0
+            propertyHeight: 0
+          sceneConditions: []
+        sceneEvents: []
+    - ID: Timeline 3
+      loop: 1
+      endLoopCondition:
+        conditionType: 0
+        timeToWait:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        iterationNumber:
+          type: 0
+          sceneVariablesSO: {fileID: 0}
+          sceneVarUniqueID: 0
+          anyVar: 0
+          canBeStatic: 0
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        sceneConditions: []
+      steps: []
+    currentTimeline: 1
+    currentStep: 0
+    propertyHeight: 208.79999
   references:
     version: 2
     RefIds: []
