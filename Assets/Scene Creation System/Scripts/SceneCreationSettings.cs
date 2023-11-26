@@ -20,10 +20,10 @@ namespace Dhs5.SceneCreation
         static SettingsProvider GetSettingsProvider() =>
         instance.GetSettingsProvider();
 
-        [SerializeField][ReadOnly] private IntersceneVariablesSO intersceneVariablesSO;
+        [SerializeField][ReadOnly("_debugMode", inverse = true)] private IntersceneVariablesSO intersceneVariablesSO;
         public IntersceneVariablesSO IntersceneVars => intersceneVariablesSO;
 
-        [SerializeField][ReadOnly] private SceneObjectSettings sceneObjectSettings;
+        [SerializeField][ReadOnly("_debugMode", inverse = true)] private SceneObjectSettings sceneObjectSettings;
         public SceneObjectSettings SceneObjectSettings => sceneObjectSettings;
 
         [Space(20f)]
@@ -33,6 +33,10 @@ namespace Dhs5.SceneCreation
 
         [Space(20f)]
         [Header("Editor")]
+        [SerializeField] private bool _debugMode;
+        public bool IsInDebugMode => _debugMode;
+
+        [Space(10f)]
 
         [SerializeField] private SceneCreationBasePrefabs sceneCreationPrefabs;
         public SceneCreationBasePrefabs Prefabs => sceneCreationPrefabs;
