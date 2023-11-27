@@ -317,6 +317,171 @@ namespace Dhs5.SceneCreation
             return unityEvent;
         }
     }
+    
+    public class SceneEvent<T, U> : BaseSceneEvent
+    {
+        public UnityEvent<T, U> unityEvent;
+
+        public override bool Trigger()
+        {
+            if (IsTriggerValid())
+            {
+                CoreTrigger();
+                unityEvent?.Invoke(default, default);
+
+                DebugSceneEvent();
+
+                return true;
+            }
+            return false;
+        }
+
+        public bool Trigger(T param1, U param2)
+        {
+            if (IsTriggerValid())
+            {
+                // Context
+                if (param1 is SceneEventParam p1)
+                {
+                    context = p1.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+                else if (param2 is SceneEventParam p2)
+                {
+                    context = p2.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+
+                CoreTrigger();
+                unityEvent?.Invoke(param1, param2);
+
+                DebugSceneEvent();
+
+                return true;
+            }
+            return false;
+        }
+
+        protected override UnityEventBase GetUnityEvent()
+        {
+            return unityEvent;
+        }
+    }
+    
+    public class SceneEvent<T, U, V> : BaseSceneEvent
+    {
+        public UnityEvent<T, U, V> unityEvent;
+
+        public override bool Trigger()
+        {
+            if (IsTriggerValid())
+            {
+                CoreTrigger();
+                unityEvent?.Invoke(default, default, default);
+
+                DebugSceneEvent();
+
+                return true;
+            }
+            return false;
+        }
+
+        public bool Trigger(T param1, U param2, V param3)
+        {
+            if (IsTriggerValid())
+            {
+                // Context
+                if (param1 is SceneEventParam p1)
+                {
+                    context = p1.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+                else if (param2 is SceneEventParam p2)
+                {
+                    context = p2.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+                else if (param3 is SceneEventParam p3)
+                {
+                    context = p3.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+
+                CoreTrigger();
+                unityEvent?.Invoke(param1, param2, param3);
+
+                DebugSceneEvent();
+
+                return true;
+            }
+            return false;
+        }
+
+        protected override UnityEventBase GetUnityEvent()
+        {
+            return unityEvent;
+        }
+    }
+    
+    public class SceneEvent<T, U, V, W> : BaseSceneEvent
+    {
+        public UnityEvent<T, U, V, W> unityEvent;
+
+        public override bool Trigger()
+        {
+            if (IsTriggerValid())
+            {
+                CoreTrigger();
+                unityEvent?.Invoke(default, default, default, default);
+
+                DebugSceneEvent();
+
+                return true;
+            }
+            return false;
+        }
+
+        public bool Trigger(T param1, U param2, V param3, W param4)
+        {
+            if (IsTriggerValid())
+            {
+                // Context
+                if (param1 is SceneEventParam p1)
+                {
+                    context = p1.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+                else if (param2 is SceneEventParam p2)
+                {
+                    context = p2.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+                else if (param3 is SceneEventParam p3)
+                {
+                    context = p3.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+                else if (param4 is SceneEventParam p4)
+                {
+                    context = p4.Context;
+                    context.Add(sceneObject.name, " triggers : ", eventID);
+                }
+
+                CoreTrigger();
+                unityEvent?.Invoke(param1, param2, param3, param4);
+
+                DebugSceneEvent();
+
+                return true;
+            }
+            return false;
+        }
+
+        protected override UnityEventBase GetUnityEvent()
+        {
+            return unityEvent;
+        }
+    }
 
     /*
     [Serializable]

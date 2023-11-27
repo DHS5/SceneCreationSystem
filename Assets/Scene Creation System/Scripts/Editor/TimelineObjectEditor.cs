@@ -28,19 +28,19 @@ namespace Dhs5.SceneCreation
 
             EditorGUI.BeginProperty(position, label, property);
 
-            Rect foldoutPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-            property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, label.text.Replace("Element", "Step"));
-            propertyOffset += EditorGUIUtility.singleLineHeight;
-            if (property.isExpanded)
+            //Rect foldoutPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+            //property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, label.text.Replace("Element", "Step"));
+            //propertyOffset += EditorGUIUtility.singleLineHeight;
+            if (true)//property.isExpanded)
             {
                 Rect startConditionPosition = new Rect(position.x, position.y + propertyOffset, position.width, EditorGUIUtility.singleLineHeight);
                 EditorGUI.PropertyField(startConditionPosition, startConditionProperty, new GUIContent("Trigger condition"));
-                propertyOffset += EditorGUI.GetPropertyHeight(startConditionProperty);
+                propertyOffset += EditorGUI.GetPropertyHeight(startConditionProperty) + 3f;
 
                 Rect loopPosition = new Rect(position.x, position.y + propertyOffset, position.width,
                     EditorGUIUtility.singleLineHeight);
                 EditorGUI.PropertyField(loopPosition, loopProperty);
-                propertyOffset += EditorGUIUtility.singleLineHeight;
+                propertyOffset += EditorGUIUtility.singleLineHeight + 3f;
 
                 if (loopProperty.boolValue)
                 {
@@ -54,11 +54,6 @@ namespace Dhs5.SceneCreation
                     EditorGUIUtility.singleLineHeight);
                 EditorGUI.PropertyField(sceneEventsPosition, eventsProperty);
                 propertyOffset += EditorGUI.GetPropertyHeight(eventsProperty);
-                
-                //Rect timelineEventsPosition = new Rect(position.x, position.y + propertyOffset, position.width,
-                //    EditorGUIUtility.singleLineHeight);
-                //EditorGUI.PropertyField(timelineEventsPosition, timelineEventsProperty);
-                //propertyOffset += EditorGUI.GetPropertyHeight(timelineEventsProperty);
             }
         }
 
@@ -68,13 +63,10 @@ namespace Dhs5.SceneCreation
             startConditionProperty = property.FindPropertyRelative("startCondition");
             endConditionProperty = property.FindPropertyRelative("endLoopCondition");
             eventsProperty = property.FindPropertyRelative("sceneEvents");
-            //timelineEventsProperty = property.FindPropertyRelative("sceneTimelineEvents");
 
-            return property.isExpanded ? 
-                EditorGUIUtility.singleLineHeight * 2 + EditorGUI.GetPropertyHeight(startConditionProperty) 
-                    + EditorGUI.GetPropertyHeight(eventsProperty) //+ EditorGUI.GetPropertyHeight(timelineEventsProperty)
-                    + (loopProperty.boolValue ? EditorGUI.GetPropertyHeight(endConditionProperty) : 0)
-                    : EditorGUIUtility.singleLineHeight * 1.2f;
+            return EditorGUIUtility.singleLineHeight + 6f + EditorGUI.GetPropertyHeight(startConditionProperty)
+                    + EditorGUI.GetPropertyHeight(eventsProperty)
+                    + (loopProperty.boolValue ? EditorGUI.GetPropertyHeight(endConditionProperty) : 0);
         }
     }
 }

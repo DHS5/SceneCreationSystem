@@ -1276,7 +1276,7 @@ MonoBehaviour:
       limitedTrigger: 0
       maxTriggerCount: 1
     page: 0
-    propertyHeight: 2160
+    propertyHeight: 3708
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   timelineList:
     list:
     - ID: Timeline 1
-      loop: 1
+      loop: 0
       endLoopCondition:
         conditionType: 0
         timeToWait:
@@ -1838,7 +1838,7 @@ MonoBehaviour:
       steps: []
     currentTimeline: 1
     currentStep: 0
-    propertyHeight: 208.79999
+    propertyHeight: 22.5
   references:
     version: 2
     RefIds: []

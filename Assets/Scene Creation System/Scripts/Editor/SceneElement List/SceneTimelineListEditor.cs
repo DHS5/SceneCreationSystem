@@ -42,18 +42,27 @@ namespace Dhs5.SceneCreation
 
             EditorGUI.BeginProperty(position, label, property);
 
-            Rect r = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+            GUI.Box(new Rect(
+                position.x - 3f, position.y - 1f, position.width + 3f, GetPropertyHeight(property, label) + 2f),
+                GUIContent.none, GUI.skin.window);
+
+            Rect r = new Rect(position.x, position.y, position.width - 3f, EditorGUIUtility.singleLineHeight);
 
             property.isExpanded = EditorGUI.Foldout(r, property.isExpanded, label);
-            r.y += EditorGUIUtility.singleLineHeight;
+            r.y += EditorGUIUtility.singleLineHeight * 1.25f;
 
             if (property.isExpanded)
             {
                 Indent(10f);
 
+                EditorGUI.LabelField(r, "Timeline", EditorStyles.boldLabel);
+                r.y += EditorGUIUtility.singleLineHeight * 1.25f;
+
+                Indent(10f);
+
                 // Display Timeline Choice
                 if (GUI.Button(new Rect(r.x + (r.width - 52f), r.y, 25f, r.height),
-                    EditorGUIUtility.IconContent("d_Toolbar Plus")))
+                    EditorGUIUtility.IconContent("d_Toolbar Plus", "Add a timeline")))
                 {
                     AddTimeline();
                 }
@@ -68,7 +77,7 @@ namespace Dhs5.SceneCreation
                 }
 
                 if (GUI.Button(new Rect(r.x + (r.width - 25f), r.y, 25f, r.height),
-                    EditorGUIUtility.IconContent("d_Toolbar Minus")))
+                    EditorGUIUtility.IconContent("d_Toolbar Minus", "Remove this timeline")))
                 {
                     RemoveTimeline(timelineIndexProp.intValue);
                 }
@@ -88,11 +97,10 @@ namespace Dhs5.SceneCreation
                 r.y += EditorGUIUtility.singleLineHeight * 1.25f;
 
                 // Display Timeline Params
+                Indent(2f);
                 idProp = currentTimelineProp.FindPropertyRelative("ID");
                 loopProp = currentTimelineProp.FindPropertyRelative("loop");
                 loopEndProp = currentTimelineProp.FindPropertyRelative("endLoopCondition");
-
-                Indent(10f);
 
                 EditorGUI.PropertyField(r, idProp);
                 r.y += EditorGUI.GetPropertyHeight(idProp);
@@ -102,30 +110,41 @@ namespace Dhs5.SceneCreation
 
                 if (loopProp.boolValue)
                 {
+                    r.y += 3f;
                     EditorGUI.PropertyField(r, loopEndProp);
                     r.y += EditorGUI.GetPropertyHeight(loopEndProp);
                 }
 
                 r.y += EditorGUIUtility.singleLineHeight * 0.5f;
 
-                Indent(-10f);
+                // Separator
+                EditorGUI.DrawRect(new Rect(position.x + 1f, r.y, position.width - 3f, 1f), Color.grey);
+
+                r.y += EditorGUIUtility.singleLineHeight * 0.5f;
 
                 // Display Step Choice
+                Indent(-12f);
+
+                EditorGUI.LabelField(r, "Step", EditorStyles.boldLabel);
+                r.y += EditorGUIUtility.singleLineHeight * 1.25f;
+
+                Indent(10f);
+
                 if (stepIndexProp.intValue > 0 && 
                     GUI.Button(new Rect(r.x + (r.width - 106f), r.y, 25f, r.height),
-                    EditorGUIUtility.IconContent("HoverBar_Up")))
+                    EditorGUIUtility.IconContent("HoverBar_Up", "Move this step up")))
                 {
                     MoveStep(true, stepIndexProp.intValue);
                 }
                 if (stepIndexProp.intValue < stepsProp.arraySize - 1 && 
                     GUI.Button(new Rect(r.x + (r.width - 79f), r.y, 25f, r.height),
-                    EditorGUIUtility.IconContent("HoverBar_Down")))
+                    EditorGUIUtility.IconContent("HoverBar_Down", "Move this step down")))
                 {
                     MoveStep(false, stepIndexProp.intValue);
                 }
                 
                 if (GUI.Button(new Rect(r.x + (r.width - 52f), r.y, 25f, r.height),
-                    EditorGUIUtility.IconContent("d_Toolbar Plus")))
+                    EditorGUIUtility.IconContent("d_Toolbar Plus", "Add a step")))
                 {
                     AddStep();
                 }
@@ -140,7 +159,7 @@ namespace Dhs5.SceneCreation
                 }
 
                 if (GUI.Button(new Rect(r.x + (r.width - 25f), r.y, 25f, r.height),
-                    EditorGUIUtility.IconContent("d_Toolbar Minus")))
+                    EditorGUIUtility.IconContent("d_Toolbar Minus", "Remove this step")))
                 {
                     RemoveStep(stepIndexProp.intValue);
                     if (stepsProp.arraySize < 1)
@@ -157,12 +176,13 @@ namespace Dhs5.SceneCreation
 
                 currentStepProp = stepsProp.GetArrayElementAtIndex(stepIndexProp.intValue);
 
-                r.y += EditorGUIUtility.singleLineHeight * 1.25f;
+                r.y += EditorGUIUtility.singleLineHeight * 1.5f;
 
-                Indent(10f);
-
+                // Display Step
+                Indent(2f);
                 EditorGUI.PropertyField(r, currentStepProp, true);
                 r.y += EditorGUI.GetPropertyHeight(currentStepProp);
+                r.y += 5f;
                 Indent(-10f);
 
                 Indent(-10f);

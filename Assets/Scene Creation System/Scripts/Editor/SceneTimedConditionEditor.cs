@@ -27,7 +27,7 @@ namespace Dhs5.SceneCreation
             EditorGUI.BeginProperty(position, label, property);
 
             GUI.Box(new Rect(
-                position.x, position.y - 1f, position.width, GetPropertyHeight(property, label) + 2f),
+                position.x - 3f, position.y - 1f, position.width + 3f, GetPropertyHeight(property, label) + 2f),
                 GUIContent.none, GUI.skin.window);
 
             Rect foldoutPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
