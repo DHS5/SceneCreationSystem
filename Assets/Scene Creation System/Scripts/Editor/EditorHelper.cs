@@ -243,5 +243,15 @@ namespace Dhs5.SceneCreation
         }
         #endregion
         #endregion
+
+        #region Saves
+
+        [MenuItem("SCS/Saves/Settings", priority = 501)]
+        public static void SaveSceneCreationSettings()
+        {
+            Utility.ManualSaveSceneCreationSettings();
+        }
+
+        #endregion
     }
 }
