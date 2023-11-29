@@ -47,7 +47,7 @@ namespace Dhs5.SceneCreation
             EditorGUI.PropertyField(conditionPosition, endConditionProperty, new GUIContent("Loop End-condition"));
             propertyOffset += EditorGUI.GetPropertyHeight(endConditionProperty) + 5f;
 
-            Rect sceneEventsPosition = new Rect(position.x, position.y + propertyOffset, position.width,
+            Rect sceneEventsPosition = new Rect(position.x, position.y + propertyOffset, position.width - 2f,
                 EditorGUIUtility.singleLineHeight);
             EditorGUI.PropertyField(sceneEventsPosition, eventsProperty);
             propertyOffset += EditorGUI.GetPropertyHeight(eventsProperty);

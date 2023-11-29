@@ -16,12 +16,12 @@ public class Test : MonoBehaviour
     public SceneEvent sceneEvent;
 
     //[SerializeReference, SubclassPicker] BaseClass baseClass;
-    [SerializeReference, SubclassPicker] List<BaseClass> baseClasses = new();
-
-    [Space(20f)]
-    public SelectList<SceneEvent> selectList;
-    [Space(20f)]
-    public List<Container> containers;
+    //[SerializeReference, SubclassPicker] List<BaseClass> baseClasses = new();
+    //
+    //[Space(20f)]
+    //public SelectList<SceneEvent> selectList;
+    //[Space(20f)]
+    //public List<Container> containers;
     [Space(20f)]
     public SceneTimelineList timelineList;
 

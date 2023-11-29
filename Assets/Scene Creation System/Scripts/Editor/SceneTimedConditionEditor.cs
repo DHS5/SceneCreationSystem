@@ -30,8 +30,9 @@ namespace Dhs5.SceneCreation
                 position.x - 3f, position.y - 1f, position.width + 3f, GetPropertyHeight(property, label) + 2f),
                 GUIContent.none, GUI.skin.window);
 
-            Rect foldoutPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-            property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, label);
+            Rect foldoutPosition = new Rect(position.x + 13f, position.y, position.width - 13f, 
+                EditorGUIUtility.singleLineHeight);
+            property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, label, true);
             propertyOffset += EditorGUIUtility.singleLineHeight;
             if (property.isExpanded)
             {

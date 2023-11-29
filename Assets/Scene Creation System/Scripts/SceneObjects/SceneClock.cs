@@ -30,7 +30,6 @@ namespace Dhs5.SceneCreation
 
         #endregion
 
-        [Header("Timelines")]
         //public List<SceneTimeline> sceneTimelines;
         public SceneTimelineList sceneTimelines;
 

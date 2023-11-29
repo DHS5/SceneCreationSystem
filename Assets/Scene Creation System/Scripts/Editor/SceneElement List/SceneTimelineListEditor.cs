@@ -47,7 +47,7 @@ namespace Dhs5.SceneCreation
 
             Rect r = new Rect(position.x, position.y, position.width - 3f, EditorGUIUtility.singleLineHeight);
 
-            Indent(12f);
+            Indent(13f);
             property.isExpanded = EditorGUI.Foldout(r, property.isExpanded, label);
             r.y += EditorGUIUtility.singleLineHeight * 1.25f;
 

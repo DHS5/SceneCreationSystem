@@ -39,7 +39,7 @@ namespace Dhs5.SceneCreation
             if (!loopProperty.boolValue)
             {
                 EditorGUI.LabelField(new Rect(
-                position.x + 20f, position.y, position.width - 20f, EditorGUIUtility.singleLineHeight),
+                position.x + 35f, position.y, position.width - 35f, EditorGUIUtility.singleLineHeight),
                 label);
 
                 property.isExpanded = false;
@@ -48,7 +48,7 @@ namespace Dhs5.SceneCreation
             }
 
             property.isExpanded = EditorGUI.Foldout(new Rect(
-                position.x + 20f, position.y, position.width - 20f, EditorGUIUtility.singleLineHeight),
+                position.x + 35f, position.y, position.width - 35f, EditorGUIUtility.singleLineHeight),
                 property.isExpanded, label, true);
             propertyOffset += EditorGUIUtility.singleLineHeight;
             if (property.isExpanded)
