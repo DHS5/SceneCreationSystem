@@ -11,7 +11,6 @@ namespace Dhs5.SceneCreation
         private float propertyOffset;
         
         private SerializedProperty idProperty;
-        private SerializedProperty loopProperty;
         private SerializedProperty conditionProperty;
         private SerializedProperty timelineObjectsProperty;
         
@@ -20,7 +19,6 @@ namespace Dhs5.SceneCreation
             propertyOffset = 0;
             
             idProperty = property.FindPropertyRelative("ID");
-            loopProperty = property.FindPropertyRelative("loop");
             conditionProperty = property.FindPropertyRelative("endLoopCondition");
             timelineObjectsProperty = property.FindPropertyRelative("steps");
 
@@ -38,19 +36,10 @@ namespace Dhs5.SceneCreation
                 EditorGUI.PropertyField(idPosition, idProperty);
                 propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
 
-                Rect loopPosition = new Rect(position.x, position.y + propertyOffset, position.width,
+                Rect conditionPosition = new Rect(position.x, position.y + propertyOffset, position.width,
                     EditorGUIUtility.singleLineHeight);
-                //EditorGUI.PropertyField(loopPosition, loopProperty);
-                loopProperty.boolValue = EditorGUI.ToggleLeft(loopPosition, new GUIContent("Loop", "Is this timeline looping ?"), loopProperty.boolValue);
-                propertyOffset += EditorGUIUtility.singleLineHeight * 1.2f;
-
-                if (loopProperty.boolValue)
-                {
-                    Rect conditionPosition = new Rect(position.x, position.y + propertyOffset, position.width,
-                        EditorGUIUtility.singleLineHeight);
-                    EditorGUI.PropertyField(conditionPosition, conditionProperty, new GUIContent("Loop End-condition"));
-                    propertyOffset += EditorGUI.GetPropertyHeight(conditionProperty);
-                }
+                EditorGUI.PropertyField(conditionPosition, conditionProperty, new GUIContent("Loop End-condition"));
+                propertyOffset += EditorGUI.GetPropertyHeight(conditionProperty);
 
                 Rect timelineObjPosition = new Rect(position.x, position.y + propertyOffset, position.width,
                     EditorGUIUtility.singleLineHeight);
@@ -66,13 +55,12 @@ namespace Dhs5.SceneCreation
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             idProperty = property.FindPropertyRelative("ID");
-            loopProperty = property.FindPropertyRelative("loop");
             conditionProperty = property.FindPropertyRelative("endLoopCondition");
             timelineObjectsProperty = property.FindPropertyRelative("steps");
 
             return property.isExpanded ? 
                 EditorGUIUtility.singleLineHeight * 2.65f + EditorGUI.GetPropertyHeight(timelineObjectsProperty)
-                    + (loopProperty.boolValue ? EditorGUI.GetPropertyHeight(conditionProperty) : 0)
+                    + EditorGUI.GetPropertyHeight(conditionProperty)
                     : EditorGUIUtility.singleLineHeight * 1.3f;
         }
     }

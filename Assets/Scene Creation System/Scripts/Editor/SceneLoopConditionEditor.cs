@@ -10,6 +10,7 @@ namespace Dhs5.SceneCreation
     {
         private float propertyOffset;
         
+        private SerializedProperty loopProperty;
         private SerializedProperty conditionTypeProperty;
         private SerializedProperty timeToWaitProperty;
         private SerializedProperty iterationNumberProperty;
@@ -19,6 +20,7 @@ namespace Dhs5.SceneCreation
         {
             propertyOffset = 0;
             
+            loopProperty = property.FindPropertyRelative("loop");
             conditionTypeProperty = property.FindPropertyRelative("conditionType");
             timeToWaitProperty = property.FindPropertyRelative("timeToWait");
             iterationNumberProperty = property.FindPropertyRelative("iterationNumber");
@@ -30,8 +32,24 @@ namespace Dhs5.SceneCreation
                 position.x - 3f, position.y - 1f, position.width + 3f, GetPropertyHeight(property, label) + 2f),
                 GUIContent.none, GUI.skin.window);
 
-            Rect foldoutPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-            property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, label);
+            loopProperty.boolValue = EditorGUI.ToggleLeft(new Rect(
+                position.x + 3f, position.y, 15f, EditorGUIUtility.singleLineHeight),
+                GUIContent.none, loopProperty.boolValue);
+
+            if (!loopProperty.boolValue)
+            {
+                EditorGUI.LabelField(new Rect(
+                position.x + 20f, position.y, position.width - 20f, EditorGUIUtility.singleLineHeight),
+                label);
+
+                property.isExpanded = false;
+                EditorGUI.EndProperty();
+                return;
+            }
+
+            property.isExpanded = EditorGUI.Foldout(new Rect(
+                position.x + 20f, position.y, position.width - 20f, EditorGUIUtility.singleLineHeight),
+                property.isExpanded, label, true);
             propertyOffset += EditorGUIUtility.singleLineHeight;
             if (property.isExpanded)
             {
@@ -74,9 +92,10 @@ namespace Dhs5.SceneCreation
             conditionTypeProperty = property.FindPropertyRelative("conditionType");
             sceneConditionsProperty = property.FindPropertyRelative("sceneConditions");
             return property.isExpanded ? 
-                conditionTypeProperty.enumValueIndex == 0 ? EditorGUI.GetPropertyHeight(sceneConditionsProperty) + EditorGUIUtility.singleLineHeight * 2.4f : 
+                conditionTypeProperty.enumValueIndex == 0 ? 
+                EditorGUI.GetPropertyHeight(sceneConditionsProperty) + EditorGUIUtility.singleLineHeight * 2.4f : 
                     EditorGUIUtility.singleLineHeight * 3.8f
-                : EditorGUIUtility.singleLineHeight * 1.4f;
+                : EditorGUIUtility.singleLineHeight * 1.1f;
         }
     }
 }

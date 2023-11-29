@@ -71,6 +71,15 @@ namespace Dhs5.SceneCreation
         {
             return list.GetEnumerator();
         }
+
+        public SceneTimeline Find(Predicate<SceneTimeline> match)
+        {
+            return list.Find(match);
+        }
+        public List<SceneTimeline> FindAll(Predicate<SceneTimeline> match)
+        {
+            return list.FindAll(match);
+        }
         #endregion
     }
 }

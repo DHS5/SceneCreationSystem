@@ -18,6 +18,8 @@ namespace Dhs5.SceneCreation
         }
 
         public LoopConditionType conditionType;
+
+        [SerializeField] private bool loop;
         
         public SceneVarTween timeToWait;
         public SceneVarTween iterationNumber;
@@ -26,8 +28,8 @@ namespace Dhs5.SceneCreation
         
         private float startTime;
         private int currentIteration = 0;
-        
-        
+
+        public bool DoLoop => loop;
         public bool TimedCondition
         {
             get => conditionType == LoopConditionType.TIMED;

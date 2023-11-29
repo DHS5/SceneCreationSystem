@@ -11,10 +11,11 @@ namespace Dhs5.SceneCreation
     public class SceneTimeline : SceneState.ISceneVarSetupable, SceneState.ISceneObjectBelongable, SceneState.IInitializable, SceneState.ISceneVarDependant, SceneState.ISceneLogable
     {
         public string ID;
-        public bool loop;
         public SceneLoopCondition endLoopCondition;
         [FormerlySerializedAs("timelineObjects")]
         public List<TimelineObject> steps;
+
+        public bool Loop => endLoopCondition.DoLoop;
         
         public bool IsActive { get; private set; }
         public TimelineContext Context { get; private set; }
@@ -68,7 +69,7 @@ namespace Dhs5.SceneCreation
                     yield return StartCoroutine(currentTimelineObject.Process(Context));
                 }
                 SetUpQueue();
-            } while (loop && !endLoopCondition.CurrentConditionResult);
+            } while (Loop && !endLoopCondition.CurrentConditionResult);
             //Debug.LogError(ID + " ended at : " + Time.time);
 
             IsActive = false;
@@ -155,7 +156,7 @@ namespace Dhs5.SceneCreation
             if (detailed)
             {
 
-                if (loop)
+                if (Loop)
                 {
                     lines.AddRange(endLoopCondition.LogLines(detailed));
                 }
@@ -208,7 +209,7 @@ namespace Dhs5.SceneCreation
                 List<int> dependencies = new();
 
                 dependencies.AddRange(steps.Dependencies());
-                dependencies.AddRange(endLoopCondition.Dependencies);
+                if (Loop) dependencies.AddRange(endLoopCondition.Dependencies);
 
                 return dependencies;
             }

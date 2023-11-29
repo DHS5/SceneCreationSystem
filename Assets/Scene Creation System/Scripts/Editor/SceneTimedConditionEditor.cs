@@ -80,7 +80,7 @@ namespace Dhs5.SceneCreation
             return property.isExpanded ? 
                 conditionTypeProperty.enumValueIndex == 0 ? EditorGUIUtility.singleLineHeight * 3.8f :
                     EditorGUI.GetPropertyHeight(sceneConditionsProperty) + EditorGUIUtility.singleLineHeight * 2.4f
-                    : EditorGUIUtility.singleLineHeight * 1.2f;
+                    : EditorGUIUtility.singleLineHeight * 1.1f;
         }
     }
 }

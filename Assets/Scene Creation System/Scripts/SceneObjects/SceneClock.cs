@@ -31,7 +31,8 @@ namespace Dhs5.SceneCreation
         #endregion
 
         [Header("Timelines")]
-        public List<SceneTimeline> sceneTimelines;
+        //public List<SceneTimeline> sceneTimelines;
+        public SceneTimelineList sceneTimelines;
 
         #region BaseSceneObject Extension
         protected override void Init()
@@ -156,14 +157,14 @@ namespace Dhs5.SceneCreation
         {
             CurrentStep = current;
             CurrentStepNumber = stepNumber;
-            IsCurrentStepLooping = current.loop;
+            IsCurrentStepLooping = current.Loop;
             CurrentStepLoopIteration = 0;
             CurrentStepStartTime = Time.time;
             CurrentStepTriggerTime = -1f;
 
             PreviousStep = null;
             TimelineID = timeline.ID;
-            IsTimelineLooping = timeline.loop;
+            IsTimelineLooping = timeline.Loop;
             TimelineLoopIteration = 1;
             TimelineStartTime = Time.time;
         }
@@ -171,7 +172,7 @@ namespace Dhs5.SceneCreation
         {
             CurrentStep = current;
             CurrentStepNumber = stepNumber;
-            IsCurrentStepLooping = current.loop;
+            IsCurrentStepLooping = current.Loop;
             CurrentStepLoopIteration = 0;
             CurrentStepStartTime = Time.time;
             CurrentStepTriggerTime = -1f;

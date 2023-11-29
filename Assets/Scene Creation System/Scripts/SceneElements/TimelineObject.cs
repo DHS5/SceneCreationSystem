@@ -12,13 +12,16 @@ namespace Dhs5.SceneCreation
     {
         public string TimelineID { get; private set; }
         public int StepNumber { get; private set; }
-        
+
+        [SerializeField] private string ID;
         public SceneTimedCondition startCondition;
-        public bool loop;
         public SceneLoopCondition endLoopCondition;
+        public bool Loop => endLoopCondition.DoLoop;
         
         // Action
         public List<SceneEvent<TimelineContext>> sceneEvents;
+
+        [SerializeField] private float propertyHeight;
 
         private IEnumerator startConditionCR;
         private bool executing;
@@ -64,7 +67,7 @@ namespace Dhs5.SceneCreation
                     Trigger(context);
                 }
 
-            } while (loop && !endLoopCondition.CurrentConditionResult && executing);
+            } while (Loop && !endLoopCondition.CurrentConditionResult && executing);
         }
 
         private void Trigger(TimelineContext context)
@@ -105,7 +108,7 @@ namespace Dhs5.SceneCreation
                 lines.AddRange(events.LogLines(detailed, showEmpty, alinea + "     "));
             }
 
-            if (loop)
+            if (Loop)
             {
                 lines.AddRange(endLoopCondition.LogLines(detailed, alinea));
             }
@@ -138,7 +141,7 @@ namespace Dhs5.SceneCreation
 
                 dependencies.AddRange(startCondition.Dependencies);
                 dependencies.AddRange(sceneEvents.Dependencies());
-                if (loop) dependencies.AddRange(endLoopCondition.Dependencies);
+                if (Loop) dependencies.AddRange(endLoopCondition.Dependencies);
 
                 return dependencies;
             }

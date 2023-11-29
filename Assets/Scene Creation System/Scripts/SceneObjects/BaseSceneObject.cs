@@ -1062,12 +1062,12 @@ namespace Dhs5.SceneCreation
         {
             var?.SetUp(sceneVariablesSO);
         }
-        protected void Setup<T>(List<T> vars) where T : SceneState.ISceneVarSetupable
+        protected void Setup<T>(IList<T> vars) where T : SceneState.ISceneVarSetupable
         {
             if (vars.IsValid())
                 vars.SetUp(sceneVariablesSO);
         }
-        protected void Setup<T>(params List<T>[] vars) where T : SceneState.ISceneVarSetupable
+        protected void Setup<T>(params IList<T>[] vars) where T : SceneState.ISceneVarSetupable
         {
             if (vars.IsValid())
                 foreach (var var in vars)
@@ -1080,12 +1080,12 @@ namespace Dhs5.SceneCreation
         {
             var.BelongTo(this);
         }
-        protected void Belong<T>(List<T> vars) where T : SceneState.ISceneObjectBelongable
+        protected void Belong<T>(IList<T> vars) where T : SceneState.ISceneObjectBelongable
         {
             if (vars.IsValid())
               vars.BelongTo(this);
         }
-        protected void Belong<T>(params List<T>[] vars) where T : SceneState.ISceneObjectBelongable
+        protected void Belong<T>(params IList<T>[] vars) where T : SceneState.ISceneObjectBelongable
         {
             if (vars.IsValid())
                 foreach (var var in vars)

@@ -1276,7 +1276,7 @@ MonoBehaviour:
       limitedTrigger: 0
       maxTriggerCount: 1
     page: 0
-    propertyHeight: 3708
+    propertyHeight: 5661
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1441,9 +1441,9 @@ MonoBehaviour:
   timelineList:
     list:
     - ID: Timeline 1
-      loop: 0
       endLoopCondition:
         conditionType: 0
+        loop: 0
         timeToWait:
           type: 0
           sceneVariablesSO: {fileID: 0}
@@ -1501,9 +1501,9 @@ MonoBehaviour:
             stringValue: 
             forbiddenUID: 0
             propertyHeight: 0
-        loop: 0
         endLoopCondition:
           conditionType: 0
+          loop: 0
           timeToWait:
             type: 0
             sceneVariablesSO: {fileID: 0}
@@ -1532,6 +1532,7 @@ MonoBehaviour:
             propertyHeight: 0
           sceneConditions: []
         sceneEvents: []
+        propertyHeight: 0
       - startCondition:
           conditionType: 0
           timeToWait:
@@ -1561,9 +1562,9 @@ MonoBehaviour:
             stringValue: 
             forbiddenUID: 0
             propertyHeight: 0
-        loop: 1
         endLoopCondition:
           conditionType: 0
+          loop: 0
           timeToWait:
             type: 0
             sceneVariablesSO: {fileID: 0}
@@ -1592,10 +1593,11 @@ MonoBehaviour:
             propertyHeight: 0
           sceneConditions: []
         sceneEvents: []
+        propertyHeight: 0
     - ID: Timeline 2
-      loop: 1
       endLoopCondition:
         conditionType: 0
+        loop: 1
         timeToWait:
           type: 0
           sceneVariablesSO: {fileID: 0}
@@ -1653,9 +1655,9 @@ MonoBehaviour:
             stringValue: 
             forbiddenUID: 0
             propertyHeight: 0
-        loop: 0
         endLoopCondition:
           conditionType: 0
+          loop: 1
           timeToWait:
             type: 0
             sceneVariablesSO: {fileID: 0}
@@ -1684,6 +1686,7 @@ MonoBehaviour:
             propertyHeight: 0
           sceneConditions: []
         sceneEvents: []
+        propertyHeight: 67.600006
       - startCondition:
           conditionType: 0
           timeToWait:
@@ -1713,9 +1716,9 @@ MonoBehaviour:
             stringValue: 
             forbiddenUID: 0
             propertyHeight: 0
-        loop: 0
         endLoopCondition:
           conditionType: 0
+          loop: 0
           timeToWait:
             type: 0
             sceneVariablesSO: {fileID: 0}
@@ -1744,6 +1747,7 @@ MonoBehaviour:
             propertyHeight: 0
           sceneConditions: []
         sceneEvents: []
+        propertyHeight: 0
       - startCondition:
           conditionType: 0
           timeToWait:
@@ -1773,9 +1777,9 @@ MonoBehaviour:
             stringValue: 
             forbiddenUID: 0
             propertyHeight: 0
-        loop: 1
         endLoopCondition:
           conditionType: 0
+          loop: 0
           timeToWait:
             type: 0
             sceneVariablesSO: {fileID: 0}
@@ -1804,10 +1808,11 @@ MonoBehaviour:
             propertyHeight: 0
           sceneConditions: []
         sceneEvents: []
+        propertyHeight: 0
     - ID: Timeline 3
-      loop: 1
       endLoopCondition:
         conditionType: 0
+        loop: 0
         timeToWait:
           type: 0
           sceneVariablesSO: {fileID: 0}
@@ -1838,7 +1843,7 @@ MonoBehaviour:
       steps: []
     currentTimeline: 1
     currentStep: 0
-    propertyHeight: 22.5
+    propertyHeight: 248.40001
   references:
     version: 2
     RefIds: []

@@ -27,7 +27,6 @@ namespace Dhs5.SceneCreation
 
 
         SerializedProperty idProp;
-        SerializedProperty loopProp;
         SerializedProperty loopEndProp;
 
         int currentTimelineIndex;
@@ -48,12 +47,13 @@ namespace Dhs5.SceneCreation
 
             Rect r = new Rect(position.x, position.y, position.width - 3f, EditorGUIUtility.singleLineHeight);
 
+            Indent(12f);
             property.isExpanded = EditorGUI.Foldout(r, property.isExpanded, label);
             r.y += EditorGUIUtility.singleLineHeight * 1.25f;
 
             if (property.isExpanded)
             {
-                Indent(10f);
+                //Indent(10f);
 
                 EditorGUI.LabelField(r, "Timeline", EditorStyles.boldLabel);
                 r.y += EditorGUIUtility.singleLineHeight * 1.25f;
@@ -99,21 +99,14 @@ namespace Dhs5.SceneCreation
                 // Display Timeline Params
                 Indent(2f);
                 idProp = currentTimelineProp.FindPropertyRelative("ID");
-                loopProp = currentTimelineProp.FindPropertyRelative("loop");
                 loopEndProp = currentTimelineProp.FindPropertyRelative("endLoopCondition");
 
                 EditorGUI.PropertyField(r, idProp);
                 r.y += EditorGUI.GetPropertyHeight(idProp);
-                
-                EditorGUI.PropertyField(r, loopProp);
-                r.y += EditorGUI.GetPropertyHeight(loopProp);
 
-                if (loopProp.boolValue)
-                {
-                    r.y += 3f;
-                    EditorGUI.PropertyField(r, loopEndProp);
-                    r.y += EditorGUI.GetPropertyHeight(loopEndProp);
-                }
+                r.y += 3f;
+                EditorGUI.PropertyField(r, loopEndProp);
+                r.y += EditorGUI.GetPropertyHeight(loopEndProp);
 
                 r.y += EditorGUIUtility.singleLineHeight * 0.5f;
 
@@ -206,7 +199,6 @@ namespace Dhs5.SceneCreation
         {
             listProp.InsertArrayElementAtIndex(listProp.arraySize);
             listProp.GetArrayElementAtIndex(listProp.arraySize - 1).FindPropertyRelative("ID").stringValue = "Timeline " + listProp.arraySize;
-            listProp.GetArrayElementAtIndex(listProp.arraySize - 1).FindPropertyRelative("loop").boolValue = false;
             listProp.GetArrayElementAtIndex(listProp.arraySize - 1).FindPropertyRelative("steps").ClearArray();
             timelineIndexProp.intValue = listProp.arraySize - 1;
             stepIndexProp.intValue = 0;
@@ -226,7 +218,7 @@ namespace Dhs5.SceneCreation
             for (int i = 0; i < options.Length; i++)
             {
                 id = property.GetArrayElementAtIndex(i).FindPropertyRelative("ID").stringValue;
-                options[i] = string.IsNullOrEmpty(id) ? ("Element " + i) : (i + ": " + id);
+                options[i] = "Timeline " + i + ": " + id;
                 values[i] = i;
             }
             return (options, values);
@@ -250,11 +242,13 @@ namespace Dhs5.SceneCreation
         }
         private (string[], int[]) GetStepsDisplayOptions(SerializedProperty property)
         {
+            string id;
             string[] options = new string[property.arraySize];
             int[] values = new int[property.arraySize];
             for (int i = 0; i < options.Length; i++)
             {
-                options[i] = "Step " + i;
+                id = property.GetArrayElementAtIndex(i).FindPropertyRelative("ID").stringValue;
+                options[i] = "Step " + i + ": " + id;
                 values[i] = i;
             }
             return (options, values);
