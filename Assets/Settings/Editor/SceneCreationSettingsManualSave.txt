@@ -212,3 +212,23 @@ MonoBehaviour:
     propertyHeight: 0
     showDependencies: 0
     sceneObjects: []
+  - uniqueID: 10387
+    ID: Global/int 1
+    type: 1
+    boolValue: 0
+    intValue: 3
+    floatValue: 0
+    stringValue: 
+    hasMin: 0
+    hasMax: 0
+    minInt: 0
+    maxInt: 0
+    minFloat: 0
+    maxFloat: 0
+    isStatic: 0
+    isRandom: 0
+    isLink: 0
+    isGlobal: 1
+    propertyHeight: 0
+    showDependencies: 0
+    sceneObjects: []

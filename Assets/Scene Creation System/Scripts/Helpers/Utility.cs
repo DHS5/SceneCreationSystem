@@ -23,5 +23,10 @@ namespace Dhs5.SceneCreation
             string settingsContent = File.ReadAllText(Application.dataPath + SceneCreationSettingsPath);
             File.WriteAllText(Application.dataPath + SceneCreationSettingsManualSavePath, settingsContent);
         }
+        public static void LoadFromManualSaveSceneCreationSettings()
+        {
+            string settingsContent = File.ReadAllText(Application.dataPath + SceneCreationSettingsManualSavePath);
+            File.WriteAllText(Application.dataPath + SceneCreationSettingsPath, settingsContent);
+        }
     }
 }
