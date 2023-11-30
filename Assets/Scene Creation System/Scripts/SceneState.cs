@@ -618,7 +618,7 @@ namespace Dhs5.SceneCreation
 
             if (var.hasMin || var.hasMax)
             {
-                var.FloatValue = (int)Mathf.Clamp(var.FloatValue,
+                var.FloatValue = Mathf.Clamp(var.FloatValue,
                     var.hasMin ? var.minFloat : -Mathf.Infinity,
                     var.hasMax ? var.maxFloat : Mathf.Infinity);
                 result = baseValue != var.FloatValue;
