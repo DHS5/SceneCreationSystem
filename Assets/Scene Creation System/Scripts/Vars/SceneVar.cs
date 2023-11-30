@@ -333,6 +333,12 @@ namespace Dhs5.SceneCreation
             if (type == SceneVarType.EVENT) return "[" + uniqueID + "] " + ID + " (EVENT)";
             return "[" + uniqueID + "] " + ID + " (" + type.ToString() + ") = " + Value;
         }
+        public string RuntimeCompleteString()
+        {
+            if (type == SceneVarType.EVENT) return "[" + uniqueID + "] " + ID + " (EVENT)";
+            if (IsRandom) return "[" + uniqueID + "] " + ID + " (RANDOM " + type.ToString() + ")";
+            return "[" + uniqueID + "] " + ID + " (" + (IsStatic ? "STATIC " : "") + type.ToString() + ") = " + Value;
+        }
         public string LogString()
         {
             return "[" + uniqueID + "] " + ID + " (" + type + ")" + (IsStatic ? " = " +  EditorValue : null);

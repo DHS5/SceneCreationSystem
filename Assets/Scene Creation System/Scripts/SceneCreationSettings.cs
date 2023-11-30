@@ -44,13 +44,6 @@ namespace Dhs5.SceneCreation
         [SerializeField] private SceneCreationEditorColors editorColors;
         public SceneCreationEditorColors EditorColors => editorColors;
 
-        protected override void OnValidate()
-        {
-            base.OnValidate();
-
-            Utility.AutoSaveSceneCreationSettings();
-        }
-
         #region Setup
         readonly string IntersceneVariablesName = "Interscene Variables Container";
         readonly string SceneObjectSettingsName = "SceneObject Settings";

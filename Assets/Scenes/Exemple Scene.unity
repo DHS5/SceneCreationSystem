@@ -856,44 +856,25 @@ MonoBehaviour:
       forbiddenUID: 0
       propertyHeight: 0
     sceneObjects: []
-    sceneVars:
-    - '[10811] Global/bool 1 (BOOL)'
-    - '[2348] Var Bool 1 (BOOL)'
+    sceneVars: []
     propertyHeight: 0
   sceneManager: {fileID: 7387320640639974492}
   currentPage: 0
   sceneListeners: []
   sceneEvents:
   - eventID: 
-    sceneConditions: []
+    sceneConditions:
+      list: []
     sceneActions:
-    - sceneVariablesSO: {fileID: 11400000}
-      var1UniqueID: 10811
-      SceneVar2:
-        type: 0
-        sceneVariablesSO: {fileID: 11400000}
-        sceneVarUniqueID: 2348
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      var2Type: 0
-      boolOP: 0
-      intOP: 0
-      floatOP: 0
-      stringOP: 0
-    sceneParameteredEvents: []
+      list: []
+    sceneParameteredEvents:
+      list: []
     details:
       debug: 0
       limitedTrigger: 0
       maxTriggerCount: 0
-    page: 3
-    propertyHeight: 579
+    page: 1
+    propertyHeight: 387.3
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1009,7 +990,7 @@ MonoBehaviour:
     - '[2348] Var Bool 1 (BOOL)'
     propertyHeight: 88
   sceneManager: {fileID: 7387320640639974492}
-  currentPage: 2
+  currentPage: 0
   listeners1:
   - sceneVariablesSO: {fileID: 11400000}
     varUniqueID: 2348
@@ -1163,7 +1144,11 @@ MonoBehaviour:
     propertyHeight: 0
   sceneManager: {fileID: 7387320640639974492}
   currentPage: 0
-  sceneTimelines: []
+  sceneTimelines:
+    list: []
+    currentTimeline: 0
+    currentStep: 0
+    propertyHeight: 0
 --- !u!4 &1509976589678637557
 Transform:
   m_ObjectHideFlags: 0

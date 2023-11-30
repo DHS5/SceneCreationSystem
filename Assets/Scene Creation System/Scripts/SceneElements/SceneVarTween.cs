@@ -53,6 +53,8 @@ namespace Dhs5.SceneCreation
             type = _type;
             if (type != SceneVarType.EVENT) canBeStatic = _canBeStatic;
             else canBeStatic = false;
+
+            if (!canBeStatic) isStatic = false;
         }
         public void BelongTo(BaseSceneObject _sceneObject)
         {

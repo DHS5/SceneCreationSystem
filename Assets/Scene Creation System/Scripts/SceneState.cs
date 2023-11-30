@@ -187,6 +187,12 @@ namespace Dhs5.SceneCreation
         #endregion
 
         #region Public accessors
+
+        internal static Dictionary<int, SceneVar> GetCurrentSceneVars()
+        {
+            return new(SceneVariables);
+        }
+
         internal static object GetObjectValue(int varUniqueID)
         {
             if (SceneVariables.ContainsKey(varUniqueID))

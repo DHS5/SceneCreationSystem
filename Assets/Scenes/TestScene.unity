@@ -1276,7 +1276,7 @@ MonoBehaviour:
       limitedTrigger: 0
       maxTriggerCount: 1
     page: 0
-    propertyHeight: 2187
+    propertyHeight: 1224
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1690,7 +1690,7 @@ MonoBehaviour:
       steps: []
     currentTimeline: 0
     currentStep: 1
-    propertyHeight: 271.40002
+    propertyHeight: 22.5
 --- !u!4 &1156838774
 Transform:
   m_ObjectHideFlags: 0
@@ -2113,7 +2113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: currentPage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneManager
@@ -2132,8 +2132,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneDependency.sceneVar.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.propertyHeight
-      value: 271.4
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneDependency.propertyHeight
@@ -2141,6 +2145,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
       propertyPath: sceneTimelines.list.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
+      propertyPath: sceneDependency.sceneVar.anyVar
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5199212714266728506, guid: 680ddd9afc099204cb9d8bfeb0693663, type: 3}
