@@ -7,7 +7,7 @@ using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneVarTween : SceneState.ISceneVarDependantWithProhibition, SceneState.ISceneObjectBelongable
+    public class SceneVarTween : SceneState.ISceneVarDependantWithProhibition, SceneState.ISceneObjectBelongable, SceneState.IPotentialRandom
     {
         [SerializeField] private SceneVarType type;
         public SceneVarType Type => type;
@@ -45,6 +45,7 @@ namespace Dhs5.SceneCreation
             get => sceneVariablesSO[sceneVarUniqueID];
         }
 
+        public bool IsRandom => SceneVar.IsRandom;
 
         public void SetUp(SceneVariablesSO _sceneVariablesSO, SceneVarType _type, bool _canBeStatic = false, bool _anyVar = false)
         {

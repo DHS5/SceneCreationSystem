@@ -154,6 +154,19 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+        /// <summary>
+        /// Whether it is a Link to a random ComplexSceneVar
+        /// </summary>
+        /// <remarks>Runtime only !</remarks>
+        public bool IsLinkRandom
+        {
+            get
+            {
+                if (!IsLink) return false;
+
+                return SceneState.GetComplexSceneVar(uniqueID).IsRandom;
+            }
+        }
 
         #region Values
         public bool BoolValue
@@ -336,7 +349,7 @@ namespace Dhs5.SceneCreation
         public string RuntimeCompleteString()
         {
             if (type == SceneVarType.EVENT) return "[" + uniqueID + "] " + ID + " (EVENT)";
-            if (IsRandom) return "[" + uniqueID + "] " + ID + " (RANDOM " + type.ToString() + ")";
+            if (IsRandom || IsLinkRandom) return "[" + uniqueID + "] " + ID + " (RANDOM " + type.ToString() + ")";
             return "[" + uniqueID + "] " + ID + " (" + (IsStatic ? "STATIC " : "") + type.ToString() + ") = " + Value;
         }
         public string LogString()

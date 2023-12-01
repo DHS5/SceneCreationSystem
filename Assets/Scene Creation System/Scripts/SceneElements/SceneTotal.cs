@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Dhs5.SceneCreation
 {
     [System.Serializable]
-    public class SceneTotal : SceneState.ISceneVarTypedSetupable, SceneState.ISceneVarDependantWithProhibition
+    public class SceneTotal : SceneState.ISceneVarTypedSetupable, SceneState.ISceneVarDependantWithProhibition, SceneState.IPotentialRandom
     {
         #region Operator
         public enum Operator
@@ -39,6 +39,13 @@ namespace Dhs5.SceneCreation
             varTween.SetUp(sceneVariablesSO, this.type, true);
         }
 
+        public bool IsRandom
+        {
+            get
+            {
+                return varTween.IsRandom;
+            }
+        }
 
         public List<int> Dependencies
         {

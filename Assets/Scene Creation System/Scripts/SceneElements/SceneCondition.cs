@@ -7,7 +7,7 @@ using System.Text;
 namespace Dhs5.SceneCreation
 {
     [Serializable]
-    public class SceneCondition : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependantWithProhibition
+    public class SceneCondition : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependantWithProhibition, SceneState.IPotentialRandom
     {
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
 
@@ -18,6 +18,16 @@ namespace Dhs5.SceneCreation
 
         [SerializeField] private SceneVarTween SceneVar2;
         [SerializeField] private SceneVarType var2Type;
+
+        public bool IsRandom
+        {
+            get
+            {
+                if (SceneVar1.IsRandom) return true;
+                if (HasSecondParameter() && SceneVar2.IsRandom) return true;
+                return false;
+            }
+        }
 
         public BoolComparison boolComp;
 

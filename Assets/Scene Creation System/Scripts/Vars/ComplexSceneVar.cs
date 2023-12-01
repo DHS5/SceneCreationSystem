@@ -15,7 +15,7 @@ namespace Dhs5.SceneCreation
     }
 
     [System.Serializable]
-    public class ComplexSceneVar : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependantWithProhibition
+    public class ComplexSceneVar : SceneState.ISceneVarSetupable, SceneState.ISceneVarDependantWithProhibition, SceneState.IPotentialRandom
     {
         [SerializeField] private SceneVariablesSO sceneVariablesSO;
 
@@ -108,6 +108,22 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+
+        public bool IsRandom
+        {
+            get
+            {
+                switch (type)
+                {
+                    case ComplexSceneVarType.CONDITION: return conditions.HasRandom();
+                    case ComplexSceneVarType.TOTAL_INT: return intTotals.HasRandom();
+                    case ComplexSceneVarType.TOTAL_FLOAT: return floatTotals.HasRandom();
+                    case ComplexSceneVarType.SENTENCE:
+                    default: return false;
+                }
+            }
+        }
+
         public List<int> Dependencies
         {
             get

@@ -219,6 +219,15 @@ namespace Dhs5.SceneCreation
                 return null;
             }
         }
+        internal static ComplexSceneVar GetComplexSceneVar(int uniqueID)
+        {
+            if (ComplexSceneVariables.ContainsKey(uniqueID))
+            {
+                return ComplexSceneVariables[uniqueID];
+            }
+            Debug.LogError("The ComplexSceneVar with UID : " + uniqueID + " doesn't exist");
+            return null;
+        }
         internal static object GetComplexSceneVarValue(int uniqueID)
         {
             if (ComplexSceneVariables.ContainsKey(uniqueID))
@@ -908,6 +917,29 @@ namespace Dhs5.SceneCreation
                 dependant.SetForbiddenUID(UID);
             }
         }
+        #endregion
+
+        #region Randoms
+
+        public interface IPotentialRandom
+        {
+            public bool IsRandom { get; }
+        }
+
+        public static bool HasRandom<T>(this IList<T> randoms) where T : IPotentialRandom
+        {
+            if (!randoms.IsValid()) return false;
+
+            foreach (var random in randoms)
+            {
+                if (random != null && random.IsRandom)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         #endregion
 
         #region Log
