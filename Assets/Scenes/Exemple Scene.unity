@@ -1148,7 +1148,7 @@ MonoBehaviour:
     list: []
     currentTimeline: 0
     currentStep: 0
-    propertyHeight: 0
+    propertyHeight: 22.5
 --- !u!4 &1509976589678637557
 Transform:
   m_ObjectHideFlags: 0

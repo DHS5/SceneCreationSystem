@@ -39,6 +39,8 @@ namespace Dhs5.SceneCreation
             canBeStaticP = property.FindPropertyRelative("canBeStatic");
             isStaticP = property.FindPropertyRelative("isStatic");
 
+            sceneVarUniqueIDP = property.FindPropertyRelative("sceneVarUniqueID");
+
             EditorGUI.BeginProperty(position, label, property);
 
             sceneVariablesSO = property.FindPropertyRelative("sceneVariablesSO");
@@ -73,11 +75,24 @@ namespace Dhs5.SceneCreation
             }
 
             // Test if list empty
-            if (sceneVarList == null || sceneVarList.Count == 0)
+            if (!sceneVarList.IsValid())
             {
                 // Label
                 Rect labelPosition = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f, 115f, EditorGUIUtility.singleLineHeight);
                 EditorGUI.LabelField(labelPosition, label);
+
+                if (!canBeStaticP.boolValue)
+                {
+                    EditorGUI.LabelField(
+                        new Rect(position.x + 130f, position.y + EditorGUIUtility.singleLineHeight * 0.25f,
+                        position.width - 130f, EditorGUIUtility.singleLineHeight),
+                        "No SceneVar available");
+
+                    sceneVarUniqueIDP.intValue = -1;
+
+                    EditorGUI.EndProperty();
+                    return;
+                }
 
                 // SceneVar choice popup
                 Rect popupPosition = new Rect(position.x + (emptyLabel ? 0 : 120f), position.y + EditorGUIUtility.singleLineHeight * 0.25f,
@@ -102,14 +117,12 @@ namespace Dhs5.SceneCreation
                         return;
                 }
                 EditorGUI.PropertyField(popupPosition, property.FindPropertyRelative(typeStr + "Value"), new GUIContent(""));
-                canBeStaticP.boolValue = true;
                 isStaticP.boolValue = true;
 
                 EditorGUI.EndProperty();
                 return;
             }
 
-            sceneVarUniqueIDP = property.FindPropertyRelative("sceneVarUniqueID");
             sceneVarIndexSave = sceneVarList.GetIndexByUniqueID(sceneVarUniqueIDP.intValue);
             if (sceneVarIndexSave == -1) sceneVarIndexSave = 0;
 
