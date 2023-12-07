@@ -53,6 +53,19 @@ namespace Dhs5.SceneCreation
                 }
             }
         }
+        internal static List<BaseSceneObject> GetSceneVarDependants(int UID)
+        {
+            List<BaseSceneObject> sceneObjs = new();
+            foreach (var so in GameObject.FindObjectsOfType<BaseSceneObject>())
+            {
+                if (so.DependOn(UID))
+                {
+                    sceneObjs.Add(so);
+                }
+            }
+
+            return sceneObjs;
+        }
 
         public static List<BaseSceneObject> GetDependencies(BaseVariablesContainer container, int UID)
         {

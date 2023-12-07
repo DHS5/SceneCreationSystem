@@ -18,8 +18,6 @@ namespace Dhs5.SceneCreation
         [SerializeField, HideInInspector] protected SceneObjectLayer sceneObjectLayer;
         public SceneObjectLayer Layer => sceneObjectLayer;
 
-        [SerializeField, HideInInspector] protected SceneDependency sceneDependency;
-
         public virtual string DisplayName => "BaseSceneObject";
 
         protected SceneObjectSettings Settings => sceneVariablesSO != null ? sceneVariablesSO.Settings : null;
@@ -69,7 +67,6 @@ namespace Dhs5.SceneCreation
         {
             if (GetSceneVariablesSO())
             {
-                Setup(sceneDependency);
                 UpdateSceneVariables();
             }
 
@@ -185,11 +182,8 @@ namespace Dhs5.SceneCreation
         {
             if (GetSceneVariablesSO())
             {
-                Setup(sceneDependency);
                 UpdateSceneVariables();
             }
-
-            RefreshDependencies();
         }
 
         #endregion
@@ -898,13 +892,29 @@ namespace Dhs5.SceneCreation
         #region Dependencies
 
         #region Editor
-        internal void RefreshDependencies()
+        internal List<string> GetDisplayDependencies()
         {
-            sceneDependency.GetSceneObjectDependencies(this);
-        }
-        internal void RefreshDependants()
-        {
-            sceneDependency.GetSceneVarDependants();
+            List<string> dependencies = new();
+            Dictionary<int, int> deps = new();
+
+            foreach (var d in Dependencies)
+            {
+                if (deps.ContainsKey(d))
+                {
+                    deps[d]++;
+                }
+                else
+                {
+                    deps[d] = 1;
+                }
+            }
+
+            foreach (var d in deps)
+            {
+                dependencies.Add(sceneVariablesSO[d.Key]?.LogString() + "   x" + d.Value);
+            }
+
+            return dependencies;
         }
         #endregion
 

@@ -368,12 +368,5 @@ namespace Dhs5.SceneCreation
             Debug.LogError("This SceneVar is a random " + type + ", you can't set its value");
         }
         #endregion
-
-        #region Editor
-#if UNITY_EDITOR
-        [SerializeField] private bool showDependencies;
-        [SerializeField] private List<string> sceneObjects;
-#endif
-        #endregion
     }
 }

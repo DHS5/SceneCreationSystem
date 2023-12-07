@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Dhs5.SceneCreation
@@ -13,7 +14,7 @@ namespace Dhs5.SceneCreation
 
         protected GUIContent empty = new GUIContent("");
 
-        protected string[] pageNames = new string[] { "Default", "Scene Vars", "Dependency" };
+        protected string[] pageNames = new string[] { "Default", "Scene Vars", "Dependencies" };
 
         Color backgroundColor;
         Color foregroundColor;
@@ -29,6 +30,8 @@ namespace Dhs5.SceneCreation
             pageNames[0] = baseSceneObject.DisplayName;
 
             baseSceneObject.OnEditorEnable();
+            
+            CreateDependenciesList();
         }
 
         public override void OnInspectorGUI()
@@ -71,25 +74,39 @@ namespace Dhs5.SceneCreation
             editor.OnInspectorGUI();
         }
 
+        ReorderableList dependenciesList;
         protected virtual void DrawDependencies()
         {
             Rect r = EditorGUILayout.GetControlRect(false, 0f);
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneDependency"), true);
+            dependenciesList.DoLayoutList();
 
             if (GUI.Button(new Rect(
-                r.x + r.width * 0.44f, r.y + EditorGUIUtility.singleLineHeight * 1.7f, 25f, EditorGUIUtility.singleLineHeight * 0.9f),
+                r.x + r.width -30f, r.y + 2f, 30f, 30f),
                 EditorGUIUtility.IconContent("d_RotateTool On")))
             {
-                baseSceneObject.RefreshDependencies();
+                CreateDependenciesList();
             }
+        }
+        private void CreateDependenciesList()
+        {
+            List<string> dependencies = baseSceneObject.GetDisplayDependencies();
+            dependenciesList = new ReorderableList(dependencies, typeof(string), false, true, false, false)
+            {
+                drawHeaderCallback = rect =>
+                {
+                    EditorGUI.LabelField(rect, "Dependencies");
+                },
 
-            if (GUI.Button(new Rect(
-                r.x + r.width * 0.95f, r.y + EditorGUIUtility.singleLineHeight * 1.7f, 25f, EditorGUIUtility.singleLineHeight * 0.9f),
-                EditorGUIUtility.IconContent("d_RotateTool On")))
-            {
-                baseSceneObject.RefreshDependants();
-            }
+                drawElementCallback = (rect, index, active, focused) =>
+                {
+                    EditorGUI.indentLevel++;
+                    EditorGUI.LabelField(rect, dependencies[index]);
+                    EditorGUI.indentLevel--;
+                },
+
+                elementHeight = EditorGUIUtility.singleLineHeight * 1.1f,
+            };
         }
 
         protected int Header()
