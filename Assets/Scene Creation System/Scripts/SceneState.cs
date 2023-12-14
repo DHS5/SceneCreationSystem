@@ -905,7 +905,7 @@ namespace Dhs5.SceneCreation
         {
             foreach (var dependant in list)
             {
-                if (!dependant.DependOn(UID))
+                if (dependant.DependOn(UID))
                     return true;
             }
             return false;
