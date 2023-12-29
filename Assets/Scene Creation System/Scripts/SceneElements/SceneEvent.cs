@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using System.Text;
-using UnityEditor.PackageManager;
-using System.Runtime.Remoting.Contexts;
 
 namespace Dhs5.SceneCreation
 {

@@ -16,9 +16,11 @@ namespace Dhs5.SceneCreation
     [Settings(SettingsUsage.EditorProject, "Scene Creation Settings")]
     public class SceneCreationSettings : Settings<SceneCreationSettings>
     {
+#if UNITY_EDITOR
         [SettingsProvider]
         static SettingsProvider GetSettingsProvider() =>
         instance.GetSettingsProvider();
+#endif
 
         [SerializeField][ReadOnly("_debugMode", inverse = true)] private IntersceneVariablesSO intersceneVariablesSO;
         public IntersceneVariablesSO IntersceneVars => intersceneVariablesSO;
