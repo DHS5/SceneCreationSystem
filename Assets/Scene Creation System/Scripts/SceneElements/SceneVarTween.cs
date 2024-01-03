@@ -21,6 +21,9 @@ namespace Dhs5.SceneCreation
         // Static
         [SerializeField] private bool anyVar;
 
+        [SerializeField] private bool canBeInactive;
+        [SerializeField] private bool isActive;
+
         [SerializeField] private bool canBeStatic;
         [SerializeField] private bool isStatic;
 
@@ -34,6 +37,7 @@ namespace Dhs5.SceneCreation
         [SerializeField] private float propertyHeight;
 
         private bool IsStatic => canBeStatic && isStatic;
+        private bool IsActive => !canBeInactive || isActive;
 
         private SceneVar SceneVar
         {
@@ -46,7 +50,8 @@ namespace Dhs5.SceneCreation
 
         public bool IsRandom => SceneVar.IsRandom;
 
-        public void SetUp(SceneVariablesSO _sceneVariablesSO, SceneVarType _type, bool _canBeStatic = false, bool _anyVar = false)
+        public void SetUp(SceneVariablesSO _sceneVariablesSO, SceneVarType _type
+            , bool _canBeStatic = false, bool _anyVar = false, bool _canBeInactive = false)
         {
             anyVar = _anyVar;
             sceneVariablesSO = _sceneVariablesSO;
@@ -54,7 +59,10 @@ namespace Dhs5.SceneCreation
             if (type != SceneVarType.EVENT) canBeStatic = _canBeStatic;
             else canBeStatic = false;
 
+            canBeInactive = _canBeInactive;
+
             if (!canBeStatic) isStatic = false;
+            if (!canBeInactive) isActive = true;
         }
         public void BelongTo(BaseSceneObject _sceneObject)
         {
@@ -68,6 +76,11 @@ namespace Dhs5.SceneCreation
         {
             get
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return null;
+                }
                 switch (type)
                 {
                     case SceneVarType.BOOL: return BoolValue;
@@ -82,15 +95,25 @@ namespace Dhs5.SceneCreation
         {
             get
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return false;
+                }
                 if (IsStatic) return boolValue;
                 if (SceneVar.type != SceneVarType.BOOL) IncorrectType(SceneVarType.BOOL);
                 return SceneVar.BoolValue;
             }
             set
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return;
+                }
                 if (SceneVar.type != SceneVarType.BOOL)
                 {
-                    IncorrectType(SceneVarType.BOOL);
+                    IncorrectType(SceneVar.type);
                     return;
                 }
                 if (IsStatic)
@@ -105,6 +128,11 @@ namespace Dhs5.SceneCreation
         {
             get
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return 0;
+                }
                 if (IsStatic) return intValue;
                 if (SceneVar.type == SceneVarType.FLOAT) return (int)SceneVar.FloatValue;
                 if (SceneVar.type != SceneVarType.INT) IncorrectType(SceneVarType.INT);
@@ -112,9 +140,14 @@ namespace Dhs5.SceneCreation
             }
             set
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return;
+                }
                 if (SceneVar.type != SceneVarType.INT)
                 {
-                    IncorrectType(SceneVarType.INT);
+                    IncorrectType(SceneVar.type);
                     return;
                 }
                 if (IsStatic)
@@ -129,6 +162,11 @@ namespace Dhs5.SceneCreation
         {
             get
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return 0f;
+                }
                 if (IsStatic) return floatValue;
                 if (SceneVar.type == SceneVarType.INT) return SceneVar.IntValue;
                 if (SceneVar.type != SceneVarType.FLOAT) IncorrectType(SceneVarType.FLOAT);
@@ -136,9 +174,14 @@ namespace Dhs5.SceneCreation
             }
             set
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return;
+                }
                 if (SceneVar.type != SceneVarType.FLOAT)
                 {
-                    IncorrectType(SceneVarType.FLOAT);
+                    IncorrectType(SceneVar.type);
                     return;
                 }
                 if (IsStatic)
@@ -153,15 +196,25 @@ namespace Dhs5.SceneCreation
         {
             get
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return null;
+                }
                 if (IsStatic) return stringValue;
                 if (SceneVar.type != SceneVarType.STRING) IncorrectType(SceneVarType.STRING);
                 return SceneVar.StringValue;
             }
             set
             {
+                if (!IsActive)
+                {
+                    InactiveTween();
+                    return;
+                }
                 if (SceneVar.type != SceneVarType.STRING)
                 {
-                    IncorrectType(SceneVarType.STRING);
+                    IncorrectType(SceneVar.type);
                     return;
                 }
                 if (IsStatic)
@@ -174,9 +227,14 @@ namespace Dhs5.SceneCreation
         }
         public void Trigger()
         {
+            if (!IsActive)
+            {
+                InactiveTween();
+                return;
+            }
             if (SceneVar.type != SceneVarType.EVENT)
             {
-                IncorrectType(SceneVarType.EVENT);
+                IncorrectType(SceneVar.type);
                 return;
             }
             SceneState.TriggerEventVar(sceneVarUniqueID, sceneObject, context.Add("Trigger"));
@@ -189,6 +247,7 @@ namespace Dhs5.SceneCreation
         {
             get
             {
+                if (!IsActive) return new();
                 if (IsStatic) return new();
                 SceneVar var = sceneVariablesSO[sceneVarUniqueID];
                 if (var == null) return new();
@@ -201,7 +260,7 @@ namespace Dhs5.SceneCreation
         }
         public bool DependOn(int UID)
         {
-            if ((canBeStatic && isStatic) || sceneVariablesSO[sceneVarUniqueID] == null) return false;
+            if (IsStatic || !IsActive || sceneVariablesSO[sceneVarUniqueID] == null) return false;
             if (sceneVarUniqueID == UID) return true;
             if (sceneVariablesSO[sceneVarUniqueID].IsLink)
             {
@@ -229,10 +288,15 @@ namespace Dhs5.SceneCreation
         {
             Debug.LogError("This SceneVarTween is a " + SceneVar.type + " and not a " + type);
         }
+        private void InactiveTween()
+        {
+            Debug.LogError("This SceneVarTween is inactive");
+        }
 
         #region Log
         public string LogString()
         {
+            if (!IsActive) return "INACTIVE";
             return IsStatic ? Value.ToString() : EditorSceneVar.LogString();
         }
         #endregion

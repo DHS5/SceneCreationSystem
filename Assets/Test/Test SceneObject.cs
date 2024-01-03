@@ -9,6 +9,8 @@ public class TestSceneObject : SceneObject
     public List<SceneSpecificListener> listeners;
     [Space(15f)]
     public List<SceneDependency> dependencies;
+    [Space(15f)]
+    public SceneVarTween _tween;
 
     public void Test(SceneEventParam param)
     {
@@ -28,6 +30,7 @@ public class TestSceneObject : SceneObject
         listeners.SetUp(sceneVariablesSO);
         listeners.SetEvents(Loog);
         dependencies.SetUp(sceneVariablesSO);
+        _tween.SetUp(SceneVariablesSO, SceneVarType.BOOL, false, false, true);
     }
 
     private void Loog(SceneEventParam param)

@@ -16,6 +16,9 @@ namespace Dhs5.SceneCreation
 
         private SerializedProperty canBeStaticP;
         private SerializedProperty isStaticP;
+        
+        private SerializedProperty canBeInactiveP;
+        private SerializedProperty isActiveP;
 
         int sceneVarIndex = 0;
         int sceneVarIndexSave = 0;
@@ -38,6 +41,9 @@ namespace Dhs5.SceneCreation
 
             canBeStaticP = property.FindPropertyRelative("canBeStatic");
             isStaticP = property.FindPropertyRelative("isStatic");
+
+            canBeInactiveP = property.FindPropertyRelative("canBeInactive");
+            isActiveP = property.FindPropertyRelative("isActive");
 
             sceneVarUniqueIDP = property.FindPropertyRelative("sceneVarUniqueID");
 
@@ -121,6 +127,24 @@ namespace Dhs5.SceneCreation
 
                 EditorGUI.EndProperty();
                 return;
+            }
+
+            if (canBeInactiveP.boolValue)
+            {
+                float xOffset = 20f;
+                Rect isActiveRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f,
+                    xOffset, EditorGUIUtility.singleLineHeight);
+                isActiveP.boolValue = EditorGUI.ToggleLeft(isActiveRect, GUIContent.none, isActiveP.boolValue);
+                position.x += xOffset;
+                position.width -= xOffset;
+
+                if (!isActiveP.boolValue)
+                {
+                    EditorGUI.LabelField(new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight * 0.25f, 115f, EditorGUIUtility.singleLineHeight)
+                        , label);
+                    EditorGUI.EndProperty();
+                    return;
+                }
             }
 
             sceneVarIndexSave = sceneVarList.GetIndexByUniqueID(sceneVarUniqueIDP.intValue);
