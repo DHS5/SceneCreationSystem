@@ -38,6 +38,8 @@ namespace Dhs5.SceneCreation
         [SerializeField] protected List<SceneEvent> onSceneStart;
         [Tooltip("Events called when the Scene is going to change,\n just before every SceneObject.OnChangeScene()")]
         [SerializeField] protected List<SceneEvent> onSceneChange;
+        [Tooltip("Events called when the Scene is completed,\n just before every SceneObject.OnCompleteScene()")]
+        [SerializeField] protected List<SceneEvent> onSceneComplete;
         [Tooltip("Events called on GameOver,\n just before every SceneObject.OnGameOver()")]
         [SerializeField] protected List<SceneEvent> onGameOver;
 
@@ -50,6 +52,10 @@ namespace Dhs5.SceneCreation
         /// </summary>
         public static event Action SceneChangeEvent;
         /// <summary>
+        /// Event called when the Scene is completed for non-<see cref="SceneObject"/> elements to subscribe
+        /// </summary>
+        public static event Action SceneCompleteEvent;
+        /// <summary>
         /// Event called on GameOver for non-<see cref="SceneObject"/> elements to subscribe
         /// </summary>
         public static event Action GameOverEvent;
@@ -61,6 +67,11 @@ namespace Dhs5.SceneCreation
             SetSceneVars();
 
             StartScene();
+        }
+
+        protected virtual void Update()
+        {
+            UpdateScene();
         }
 
         #region SceneObject Extension
@@ -79,8 +90,17 @@ namespace Dhs5.SceneCreation
 
 
         #region Scene Main Events
+        public int FrameIndex { get; private set; }
+        protected virtual void UpdateScene()
+        {
+            SceneState.UpdateScene(FrameIndex);
+            FrameIndex++;
+        }
+
         protected virtual void StartScene()
         {
+            FrameIndex = 0;
+
             onSceneStart.Trigger();
             SceneState.StartScene();
 
@@ -92,6 +112,13 @@ namespace Dhs5.SceneCreation
             SceneState.ChangeScene();
 
             SceneChangeEvent?.Invoke();
+        }
+        public virtual void CompleteScene()
+        {
+            onSceneComplete.Trigger();
+            SceneState.CompleteScene();
+
+            SceneCompleteEvent?.Invoke();
         }
         public virtual void GameOver()
         {

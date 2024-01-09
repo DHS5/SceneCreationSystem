@@ -63,9 +63,13 @@ namespace Dhs5.SceneCreation
     public static class SceneState
     {
         private static List<BaseSceneObject> sceneObjects = new();
-        private static List<BaseSceneObject> onStartScene_SOs = new();
-        private static List<BaseSceneObject> onChangeScene_SOs = new();
-        private static List<BaseSceneObject> onGameOver_SOs = new();
+
+        private static event Action onStartScene;
+        private static event Action onChangeScene;
+        private static event Action onCompleteScene;
+        private static event Action onGameOver;
+
+        private static event Action<int> onSceneUpdate;
 
         private static Dictionary<int, SceneVar> SceneVariables = new();
         private static Dictionary<int, ComplexSceneVar> ComplexSceneVariables = new();
@@ -80,11 +84,16 @@ namespace Dhs5.SceneCreation
             sceneObjects.Add(sceneObject);
 
             if (sceneObject.DoStartScene)
-                onStartScene_SOs.Add(sceneObject);
+                onStartScene += sceneObject.OnStartScene;
             if (sceneObject.DoChangeScene)
-                onChangeScene_SOs.Add(sceneObject);
+                onChangeScene += sceneObject.OnChangeScene;
+            if (sceneObject.DoCompleteScene)
+                onCompleteScene += sceneObject.OnCompleteScene;
             if (sceneObject.DoGameOver)
-                onGameOver_SOs.Add(sceneObject);
+                onGameOver += sceneObject.OnGameOver;
+
+            if (sceneObject.DoUpdateScene)
+                onSceneUpdate += sceneObject.OnUpdateScene;
         }
         public static void Unregister(BaseSceneObject sceneObject)
         {
@@ -93,41 +102,37 @@ namespace Dhs5.SceneCreation
             sceneObjects.Remove(sceneObject);
 
             if (sceneObject.DoStartScene)
-                onStartScene_SOs.Remove(sceneObject);
+                onStartScene -= sceneObject.OnStartScene;
             if (sceneObject.DoChangeScene)
-                onChangeScene_SOs.Remove(sceneObject);
+                onChangeScene -= sceneObject.OnChangeScene;
+            if (sceneObject.DoCompleteScene)
+                onCompleteScene -= sceneObject.OnCompleteScene;
             if (sceneObject.DoGameOver)
-                onGameOver_SOs.Remove(sceneObject);
+                onGameOver -= sceneObject.OnGameOver;
+
+            if (sceneObject.DoUpdateScene)
+                onSceneUpdate -= sceneObject.OnUpdateScene;
         }
         public static void StartScene()
         {
-            if (onStartScene_SOs.IsValid()) return;
-
-            foreach (SceneObject sceneObject in onStartScene_SOs)
-            {
-                if (sceneObject != null && sceneObject.enabled)
-                    sceneObject.OnStartScene();
-            }
+            onStartScene?.Invoke();
         }
         public static void ChangeScene()
         {
-            if (onChangeScene_SOs.IsValid()) return;
-
-            foreach (SceneObject sceneObject in onChangeScene_SOs)
-            {
-                if (sceneObject != null && sceneObject.enabled)
-                    sceneObject.OnChangeScene();
-            }
+            onChangeScene?.Invoke();
+        }
+        public static void CompleteScene()
+        {
+            onCompleteScene?.Invoke();
         }
         public static void GameOver()
         {
-            if (onGameOver_SOs.IsValid()) return;
+            onGameOver?.Invoke();
+        }
 
-            foreach (SceneObject sceneObject in onGameOver_SOs)
-            {
-                if (sceneObject != null && sceneObject.enabled)
-                    sceneObject.OnGameOver();
-            }
+        public static void UpdateScene(int frameIndex)
+        {
+            onSceneUpdate?.Invoke(frameIndex);
         }
         #endregion
 

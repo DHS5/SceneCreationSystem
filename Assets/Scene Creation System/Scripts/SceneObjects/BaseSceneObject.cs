@@ -495,21 +495,35 @@ namespace Dhs5.SceneCreation
         /// Called on <see cref="SceneManager.StartScene"/> once the <see cref="SceneState"/> has been set up.
         /// </summary>
         /// <remarks>Must set <see cref="DoStartScene"/> to TRUE to be called.</remarks>
-        internal virtual bool OnStartScene() { return true; }
+        internal virtual void OnStartScene() { }
+        
+        public virtual bool DoUpdateScene => false;
+        /// <summary>
+        /// Called on <see cref="SceneManager.UpdateScene"/> once per frame.
+        /// </summary>
+        /// <remarks>Must set <see cref="DoUpdateScene"/> to TRUE to be called.</remarks>
+        internal virtual void OnUpdateScene(int frameIndex) { }
 
         public virtual bool DoChangeScene => false;
         /// <summary>
         /// Called on <see cref="SceneManager.ChangeScene"/> when the Scene is going to change.
         /// </summary>
         /// <remarks>Must set <see cref="DoChangeScene"/> to TRUE to be called.</remarks>
-        internal virtual bool OnChangeScene() { return true; }
+        internal virtual void OnChangeScene() { }
+        
+        public virtual bool DoCompleteScene => false;
+        /// <summary>
+        /// Called on <see cref="SceneManager.CompleteScene"/> when the Scene is completed.
+        /// </summary>
+        /// <remarks>Must set <see cref="DoCompleteScene"/> to TRUE to be called.</remarks>
+        internal virtual void OnCompleteScene() { }
 
         public virtual bool DoGameOver => false;
         /// <summary>
         /// Called on <see cref="SceneManager.GameOver"/> when the game is over.
         /// </summary>
         /// <remarks>Must set <see cref="DoGameOver"/> to TRUE to be called.</remarks>
-        internal virtual bool OnGameOver() { return true; }
+        internal virtual void OnGameOver() { }
         #endregion
 
         #region Trigger
