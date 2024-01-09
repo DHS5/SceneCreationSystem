@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4660582384840526481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8964103937746370020}
+  - component: {fileID: 6391722933122690033}
+  m_Layer: 0
+  m_Name: Test BaseSceneObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8964103937746370020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4660582384840526481}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6391722933122690033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4660582384840526481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954e2a9ab901585439ceac2c93464199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+  sceneObjectTag:
+    _value: 0
+  sceneObjectLayer:
+    _value: 0
+  sceneManager: {fileID: 0}
+  currentPage: 0
+  listeners1:
+  - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    varUniqueID: 633
+    condition:
+      hasCondition: 0
+      layerCheck: 0
+      layerMask:
+        _value: 0
+      tagCheck: 0
+      tagMask:
+        _value: 0
+      sceneConditions: []
+    debug: 0
+    propertyHeight: 0
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    triggers: []
+  listeners2:
+  - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+    varUniqueID: 10811
+    condition:
+      hasCondition: 0
+      layerCheck: 0
+      layerMask:
+        _value: 0
+      tagCheck: 0
+      tagMask:
+        _value: 0
+      sceneConditions: []
+    debug: 0
+    propertyHeight: 65.100006
+  events:
+  - eventID: 
+    sceneConditions:
+      list:
+      - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        var1UniqueID: 633
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+          sceneVarUniqueID: 633
+          anyVar: 0
+          canBeInactive: 0
+          isActive: 1
+          canBeStatic: 1
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolComp: 0
+        intComp: 0
+        floatComp: 0
+        stringComp: 0
+        logicOperator: 0
+        forbiddenUID: 0
+    sceneActions:
+      list:
+      - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        var1UniqueID: 633
+        SceneVar2:
+          type: 0
+          sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+          sceneVarUniqueID: 633
+          anyVar: 0
+          canBeInactive: 0
+          isActive: 1
+          canBeStatic: 1
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 0
+        boolOP: 0
+        intOP: 0
+        floatOP: 0
+        stringOP: 0
+      - sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+        var1UniqueID: 10271
+        SceneVar2:
+          type: 2
+          sceneVariablesSO: {fileID: 11400000, guid: 6daecc33d7514524ebb6ff4338fa958d, type: 2}
+          sceneVarUniqueID: 10271
+          anyVar: 0
+          canBeInactive: 0
+          isActive: 1
+          canBeStatic: 1
+          isStatic: 0
+          boolValue: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          forbiddenUID: 0
+          propertyHeight: 0
+        var2Type: 2
+        boolOP: 0
+        intOP: 0
+        floatOP: 0
+        stringOP: 0
+    sceneParameteredEvents:
+      list: []
+    details:
+      debug: 0
+      limitedTrigger: 0
+      maxTriggerCount: 0
+    page: 0
+    propertyHeight: 383.9
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  soTag:
+    _value: 0
+  soLayer:
+    _value: 0

@@ -31,7 +31,7 @@ namespace Dhs5.SceneCreation
 
             baseSceneObject.OnEditorEnable();
             
-            CreateDependenciesList();
+            CreateDependenciesList(new());
         }
 
         public override void OnInspectorGUI()
@@ -85,12 +85,11 @@ namespace Dhs5.SceneCreation
                 r.x + r.width -30f, r.y + 2f, 30f, 30f),
                 EditorGUIUtility.IconContent("d_RotateTool On")))
             {
-                CreateDependenciesList();
+                CreateDependenciesList(baseSceneObject.GetDisplayDependencies());
             }
         }
-        private void CreateDependenciesList()
+        private void CreateDependenciesList(List<string> dependencies)
         {
-            List<string> dependencies = baseSceneObject.GetDisplayDependencies();
             dependenciesList = new ReorderableList(dependencies, typeof(string), false, true, false, false)
             {
                 drawHeaderCallback = rect =>

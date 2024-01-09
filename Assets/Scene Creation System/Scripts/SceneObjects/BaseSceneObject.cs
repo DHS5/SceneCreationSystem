@@ -24,12 +24,14 @@ namespace Dhs5.SceneCreation
 
         #region Private Editor References
 
+#if UNITY_EDITOR
         /// <summary>
         /// Editor only reference to the <see cref="SceneManager"/> of the Scene
         /// </summary>
         [SerializeField, HideInInspector] private SceneManager sceneManager;
 
         [SerializeField, HideInInspector] private int currentPage;
+#endif
 
         #endregion
 
