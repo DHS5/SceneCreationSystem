@@ -64,12 +64,18 @@ namespace Dhs5.SceneCreation
     {
         private static List<BaseSceneObject> sceneObjects = new();
 
-        private static event Action onStartScene;
-        private static event Action onChangeScene;
-        private static event Action onCompleteScene;
-        private static event Action onGameOver;
+        //private static event Action onStartScene;
+        //private static event Action onChangeScene;
+        //private static event Action onCompleteScene;
+        //private static event Action onGameOver;
+        //
+        //private static event Action<int> onSceneUpdate;
 
-        private static event Action<int> onSceneUpdate;
+        private static List<IOnStartScene> onStartSceneObjects = new();
+        private static List<IOnChangeScene> onChangeSceneObjects = new();
+        private static List<IOnCompleteScene> onCompleteSceneObjects = new();
+        private static List<IOnUpdateScene> onUpdateSceneObjects = new();
+        private static List<IOnGameOver> onGameOverObjects = new();
 
         private static Dictionary<int, SceneVar> SceneVariables = new();
         private static Dictionary<int, ComplexSceneVar> ComplexSceneVariables = new();
@@ -83,17 +89,23 @@ namespace Dhs5.SceneCreation
 
             sceneObjects.Add(sceneObject);
 
-            if (sceneObject.DoStartScene)
-                onStartScene += sceneObject.OnStartScene;
-            if (sceneObject.DoChangeScene)
-                onChangeScene += sceneObject.OnChangeScene;
-            if (sceneObject.DoCompleteScene)
-                onCompleteScene += sceneObject.OnCompleteScene;
-            if (sceneObject.DoGameOver)
-                onGameOver += sceneObject.OnGameOver;
+            if (sceneObject is IOnStartScene onStartSO) onStartSceneObjects.Add(onStartSO);
+            if (sceneObject is IOnChangeScene onChangeSO) onChangeSceneObjects.Add(onChangeSO);
+            if (sceneObject is IOnCompleteScene onCompleteSO) onCompleteSceneObjects.Add(onCompleteSO);
+            if (sceneObject is IOnUpdateScene onUpdateSO) onUpdateSceneObjects.Add(onUpdateSO);
+            if (sceneObject is IOnGameOver onGameOverSO) onGameOverObjects.Add(onGameOverSO);
 
-            if (sceneObject.DoUpdateScene)
-                onSceneUpdate += sceneObject.OnUpdateScene;
+            //if (sceneObject.DoStartScene)
+            //    onStartScene += sceneObject.OnStartScene;
+            //if (sceneObject.DoChangeScene)
+            //    onChangeScene += sceneObject.OnChangeScene;
+            //if (sceneObject.DoCompleteScene)
+            //    onCompleteScene += sceneObject.OnCompleteScene;
+            //if (sceneObject.DoGameOver)
+            //    onGameOver += sceneObject.OnGameOver;
+            //
+            //if (sceneObject.DoUpdateScene)
+            //    onSceneUpdate += sceneObject.OnUpdateScene;
         }
         public static void Unregister(BaseSceneObject sceneObject)
         {
@@ -101,38 +113,59 @@ namespace Dhs5.SceneCreation
 
             sceneObjects.Remove(sceneObject);
 
-            if (sceneObject.DoStartScene)
-                onStartScene -= sceneObject.OnStartScene;
-            if (sceneObject.DoChangeScene)
-                onChangeScene -= sceneObject.OnChangeScene;
-            if (sceneObject.DoCompleteScene)
-                onCompleteScene -= sceneObject.OnCompleteScene;
-            if (sceneObject.DoGameOver)
-                onGameOver -= sceneObject.OnGameOver;
+            if (sceneObject is IOnStartScene onStartSO) onStartSceneObjects.Remove(onStartSO);
+            if (sceneObject is IOnChangeScene onChangeSO) onChangeSceneObjects.Remove(onChangeSO);
+            if (sceneObject is IOnCompleteScene onCompleteSO) onCompleteSceneObjects.Remove(onCompleteSO);
+            if (sceneObject is IOnUpdateScene onUpdateSO) onUpdateSceneObjects.Remove(onUpdateSO);
+            if (sceneObject is IOnGameOver onGameOverSO) onGameOverObjects.Remove(onGameOverSO);
 
-            if (sceneObject.DoUpdateScene)
-                onSceneUpdate -= sceneObject.OnUpdateScene;
+            //if (sceneObject.DoStartScene)
+            //    onStartScene -= sceneObject.OnStartScene;
+            //if (sceneObject.DoChangeScene)
+            //    onChangeScene -= sceneObject.OnChangeScene;
+            //if (sceneObject.DoCompleteScene)
+            //    onCompleteScene -= sceneObject.OnCompleteScene;
+            //if (sceneObject.DoGameOver)
+            //    onGameOver -= sceneObject.OnGameOver;
+            //
+            //if (sceneObject.DoUpdateScene)
+            //    onSceneUpdate -= sceneObject.OnUpdateScene;
         }
         public static void StartScene()
         {
-            onStartScene?.Invoke();
+            foreach (var o in onStartSceneObjects)
+                o.OnStartScene();
+
+            //onStartScene?.Invoke();
         }
         public static void ChangeScene()
         {
-            onChangeScene?.Invoke();
+            foreach (var o in onChangeSceneObjects)
+                o.OnChangeScene();
+
+            //onChangeScene?.Invoke();
         }
         public static void CompleteScene()
         {
-            onCompleteScene?.Invoke();
+            foreach (var o in onCompleteSceneObjects)
+                o.OnCompleteScene();
+
+            //onCompleteScene?.Invoke();
         }
         public static void GameOver()
         {
-            onGameOver?.Invoke();
+            foreach (var o in onGameOverObjects)
+                o.OnGameOver();
+
+            //onGameOver?.Invoke();
         }
 
         public static void UpdateScene(int frameIndex)
         {
-            onSceneUpdate?.Invoke(frameIndex);
+            foreach (var o in onUpdateSceneObjects)
+                o.OnUpdateScene(frameIndex);
+
+            //onSceneUpdate?.Invoke(frameIndex);
         }
         #endregion
 

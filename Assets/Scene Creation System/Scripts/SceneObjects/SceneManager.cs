@@ -17,19 +17,35 @@ namespace Dhs5.SceneCreation
         public static SceneManager Instance { get; private set; }
         protected override void OnSceneObjectAwake()
         {
-            base.OnSceneObjectAwake();
-
             if (Instance != null)
             {
                 Destroy(gameObject);
                 return;
             }
             Instance = this;
+
+            base.OnSceneObjectAwake();
         }
 
 
-        public static IntersceneVariablesSO IntersceneVariables => Instance.SceneVariablesSO.IntersceneVariables;
-        public static new SceneObjectSettings Settings => Instance.SceneVariablesSO.Settings;
+        public static IntersceneVariablesSO IntersceneVariables
+        {
+            get
+            {
+                if (Instance != null) return Instance.SceneVariablesSO.IntersceneVariables;
+                Debug.LogError("No SceneManager Instance in the scene");
+                return null;
+            }
+        }
+        public static new SceneObjectSettings Settings
+        {
+            get
+            {
+                if (Instance != null) return Instance.SceneVariablesSO.Settings;
+                Debug.LogError("No SceneManager Instance in the scene");
+                return null;
+            }
+        }
         #endregion
 
         public override string DisplayName => "Scene Manager";

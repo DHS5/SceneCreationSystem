@@ -7,6 +7,27 @@ using System.Text;
 
 namespace Dhs5.SceneCreation
 {
+    public interface IOnStartScene
+    {
+        public void OnStartScene();
+    }
+    public interface IOnChangeScene
+    {
+        public void OnChangeScene();
+    }
+    public interface IOnCompleteScene
+    {
+        public void OnCompleteScene();
+    }
+    public interface IOnUpdateScene
+    {
+        public void OnUpdateScene(int frameIndex);
+    }
+    public interface IOnGameOver
+    {
+        public void OnGameOver();
+    }
+
     public abstract class BaseSceneObject : MonoBehaviour, SceneState.ISceneLogableWithChild, SceneState.ISceneVarDependantWithChild
     {
         [SerializeField, HideInInspector] protected SceneVariablesSO sceneVariablesSO;
@@ -327,7 +348,7 @@ namespace Dhs5.SceneCreation
             {
                 if (HasRegisteredProfileOfType<T>())
                 {
-                    Debug0("Can't register 2 profiles of the same type : " + profile);
+                    SceneDebugger.Log("Can't register 2 profiles of the same type : " + profile, this);
                     return;
                 }
 
@@ -490,6 +511,7 @@ namespace Dhs5.SceneCreation
 
 
         #region SceneObject's specifics
+        /*
         public virtual bool DoStartScene => false;
         /// <summary>
         /// Called on <see cref="SceneManager.StartScene"/> once the <see cref="SceneState"/> has been set up.
@@ -524,6 +546,7 @@ namespace Dhs5.SceneCreation
         /// </summary>
         /// <remarks>Must set <see cref="DoGameOver"/> to TRUE to be called.</remarks>
         internal virtual void OnGameOver() { }
+        */
         #endregion
 
         #region Trigger
@@ -1033,50 +1056,7 @@ namespace Dhs5.SceneCreation
 
         #region Debug
 
-        internal void DebugThis(int level, object message)
-        {
-            switch (level)
-            {
-                case 0: Debug0(message); break;
-                case 1: Debug1(message); break;
-                case 2: Debug2(message); break;
-                case 3: Debug3(message); break;
-                case 4: Debug4(message); break;
-                case 5: Debug5(message); break;
-            }
-        }
-        protected void Debug0(object o)
-        {
-            if (Settings != null)
-                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level0Color)}>{o}</color>", this);
-            else
-                Debug.Log($"<color=red>{o}</color>", this);
-        }
-        protected void Debug1(object o)
-        {
-            if (Settings != null && Settings.DebugLevel >= 1)
-                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level1Color)}>{o}</color>", this);
-        }
-        protected void Debug2(object o)
-        {
-            if (Settings != null && Settings.DebugLevel >= 2)
-                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level2Color)}>{o}</color>", this);
-        }
-        protected void Debug3(object o)
-        {
-            if (Settings != null && Settings.DebugLevel >= 3)
-                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level3Color)}>{o}</color>", this);
-        }
-        protected void Debug4(object o)
-        {
-            if (Settings != null && Settings.DebugLevel >= 4)
-                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level4Color)}>{o}</color>", this);
-        }
-        protected void Debug5(object o)
-        {
-            if (Settings != null && Settings.DebugLevel >= 5)
-                Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(Settings.Level5Color)}>{o}</color>", this);
-        }
+        
 
         #endregion
 

@@ -55,7 +55,7 @@ namespace Dhs5.SceneCreation
         }
         public void TriggerSceneEventsWithID(string eventID, SceneEventParam param)
         {
-            Debug3(name + " trigger SceneEvents with ID : " + eventID);
+            SceneDebugger.Log(name + " trigger SceneEvents with ID : " + eventID, this, 3);
             sceneEvents.TriggerWithID(param, eventID);
         }
         public void TriggerRandom(string filter, SceneEventParam param)

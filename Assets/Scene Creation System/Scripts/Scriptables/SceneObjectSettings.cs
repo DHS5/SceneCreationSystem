@@ -43,6 +43,20 @@ namespace Dhs5.SceneCreation
         [SerializeField][Range(0, 5)] private int _debugLevel;
         internal int DebugLevel => _debugLevel;
 
+
+        internal Color LevelToColor(int level)
+        {
+            switch (level)
+            {
+                case 0: return _level0Color;
+                case 1: return _level1Color;
+                case 2: return _level2Color;
+                case 3: return _level3Color;
+                case 4: return _level4Color;
+                case 5: return _level5Color;
+            }
+            return Color.white;
+        }
         [SerializeField] private Color _level0Color; internal Color Level0Color => _level0Color;
         [SerializeField] private Color _level1Color; internal Color Level1Color => _level1Color;
         [SerializeField] private Color _level2Color; internal Color Level2Color => _level2Color;
