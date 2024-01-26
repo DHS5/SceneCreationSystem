@@ -13,24 +13,6 @@ MonoBehaviour:
   m_Name: AnyTest Scene_SceneVars
   m_EditorClassIdentifier: 
   sceneVars:
-  - uniqueID: 5659
-    ID: Test String
-    type: 3
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    hasMin: 0
-    hasMax: 0
-    minInt: 0
-    maxInt: 0
-    minFloat: 0
-    maxFloat: 0
-    isStatic: 0
-    isRandom: 0
-    isLink: 0
-    isGlobal: 0
-    propertyHeight: 0
   - uniqueID: 4696
     ID: Test Event
     type: 4
@@ -48,7 +30,7 @@ MonoBehaviour:
     isRandom: 0
     isLink: 0
     isGlobal: 0
-    propertyHeight: 0
+    propertyHeight: 48.600002
   intersceneVariablesSO: {fileID: 2931021990422469653, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
   sceneObjectSettings: {fileID: -6873954747759285107, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
   complexSceneVars: []
