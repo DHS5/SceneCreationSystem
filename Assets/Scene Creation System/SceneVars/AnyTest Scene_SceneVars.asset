@@ -31,8 +31,6 @@ MonoBehaviour:
     isLink: 0
     isGlobal: 0
     propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
   - uniqueID: 4696
     ID: Test Event
     type: 4
@@ -51,8 +49,6 @@ MonoBehaviour:
     isLink: 0
     isGlobal: 0
     propertyHeight: 0
-    showDependencies: 0
-    sceneObjects: []
   intersceneVariablesSO: {fileID: 2931021990422469653, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
   sceneObjectSettings: {fileID: -6873954747759285107, guid: f62f165c943adfc4fa080ebb6a56e229, type: 2}
   complexSceneVars: []

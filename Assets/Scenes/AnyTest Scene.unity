@@ -157,45 +157,9 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
-  sceneDependency:
-    sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-    sceneVar:
-      type: 1
-      sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-      sceneVarUniqueID: 0
-      anyVar: 1
-      canBeStatic: 0
-      isStatic: 0
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      forbiddenUID: 0
-      propertyHeight: 0
-    sceneObjects: []
-    sceneVars:
-    - '[5659] Test String (STRING)'
-    propertyHeight: 0
   sceneManager: {fileID: 3069936938828163008}
   currentPage: 0
-  listeners1:
-  - sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-    varUniqueID: 5659
-    condition:
-      hasCondition: 0
-      layerCheck: 0
-      layerMask:
-        _value: 0
-      tagCheck: 0
-      tagMask:
-        _value: 0
-      sceneConditions: []
-    debug: 0
-    propertyHeight: 0
-    events:
-      m_PersistentCalls:
-        m_Calls: []
-    triggers: []
+  listeners1: []
   listeners2: []
   events: []
   soTag:
@@ -435,99 +399,12 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
-  sceneDependency:
-    sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-    sceneVar:
-      type: 1
-      sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-      sceneVarUniqueID: 4696
-      anyVar: 1
-      canBeStatic: 0
-      isStatic: 0
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      forbiddenUID: 0
-      propertyHeight: 0
-    sceneObjects: []
-    sceneVars: []
-    propertyHeight: 108
   sceneManager: {fileID: 0}
   currentPage: 0
   onSceneStart: []
-  onSceneChange:
-  - eventID: 
-    sceneConditions:
-    - sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-      var1UniqueID: 5659
-      SceneVar2:
-        type: 3
-        sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-        sceneVarUniqueID: 5659
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      var2Type: 3
-      boolComp: 0
-      intComp: 0
-      floatComp: 0
-      stringComp: 0
-      logicOperator: 0
-      forbiddenUID: 0
-    - sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-      var1UniqueID: 5659
-      SceneVar2:
-        type: 3
-        sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-        sceneVarUniqueID: 5659
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      var2Type: 3
-      boolComp: 0
-      intComp: 0
-      floatComp: 0
-      stringComp: 0
-      logicOperator: 0
-      forbiddenUID: 0
-    sceneActions: []
-    sceneParameteredEvents: []
-    details:
-      debug: 0
-      limitedTrigger: 0
-      maxTriggerCount: 0
-    page: 0
-    propertyHeight: 256.3
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  onGameOver:
-  - eventID: 
-    sceneConditions: []
-    sceneActions: []
-    sceneParameteredEvents: []
-    details:
-      debug: 0
-      limitedTrigger: 0
-      maxTriggerCount: 0
-    page: 0
-    propertyHeight: 198.3
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls: []
+  onSceneChange: []
+  onSceneComplete: []
+  onGameOver: []
 --- !u!114 &4508042984367300363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,120 +422,13 @@ MonoBehaviour:
     _value: 0
   sceneObjectLayer:
     _value: 0
-  sceneDependency:
-    sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-    sceneVar:
-      type: 1
-      sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-      sceneVarUniqueID: 10811
-      anyVar: 1
-      canBeStatic: 0
-      isStatic: 0
-      boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      forbiddenUID: 0
-      propertyHeight: 0
-    sceneObjects: []
-    sceneVars:
-    - '[10271] Global/float 1 (FLOAT)'
-    propertyHeight: 72
   sceneManager: {fileID: 3069936938828163008}
   currentPage: 0
   sceneTimelines:
-  - ID: ythdgz
-    loop: 1
-    endLoopCondition:
-      conditionType: 0
-      timeToWait:
-        type: 2
-        sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-        sceneVarUniqueID: 0
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      iterationNumber:
-        type: 1
-        sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-        sceneVarUniqueID: 0
-        anyVar: 0
-        canBeStatic: 1
-        isStatic: 0
-        boolValue: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        forbiddenUID: 0
-        propertyHeight: 0
-      sceneConditions: []
-    steps:
-    - startCondition:
-        conditionType: 0
-        timeToWait:
-          type: 2
-          sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-          sceneVarUniqueID: 10271
-          anyVar: 0
-          canBeStatic: 1
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-        sceneConditions: []
-        eventVar:
-          type: 4
-          sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-          sceneVarUniqueID: 0
-          anyVar: 0
-          canBeStatic: 0
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-      loop: 0
-      endLoopCondition:
-        conditionType: 0
-        timeToWait:
-          type: 2
-          sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-          sceneVarUniqueID: 0
-          anyVar: 0
-          canBeStatic: 1
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-        iterationNumber:
-          type: 1
-          sceneVariablesSO: {fileID: 11400000, guid: 813772885f858ef428eba893511d98cc, type: 2}
-          sceneVarUniqueID: 0
-          anyVar: 0
-          canBeStatic: 1
-          isStatic: 0
-          boolValue: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          forbiddenUID: 0
-          propertyHeight: 0
-        sceneConditions: []
-      sceneEvents: []
+    list: []
+    currentTimeline: 0
+    currentStep: 0
+    propertyHeight: 0
 --- !u!1 &7108816755112764312
 GameObject:
   m_ObjectHideFlags: 0

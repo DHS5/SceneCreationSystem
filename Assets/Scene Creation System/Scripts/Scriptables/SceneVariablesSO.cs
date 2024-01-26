@@ -32,7 +32,7 @@ namespace Dhs5.SceneCreation
         {
             if (intersceneVariablesSO != null && intersceneVariablesSO.SceneVars.IsValid())
             {
-                return sceneVars.Concat(intersceneVariablesSO.SceneVars).ToList();
+                return sceneVars.IsValid() ? sceneVars.Concat(intersceneVariablesSO.SceneVars).ToList() : intersceneVariablesSO.SceneVars;
             }
             return sceneVars;
         }
@@ -52,6 +52,12 @@ namespace Dhs5.SceneCreation
             get
             {
                 if (uniqueID > 10000) return IntersceneVariables[uniqueID];
+
+                if (!sceneVars.IsValid())
+                {
+                    Debug.LogError("No SceneVars found in " + name);
+                    return null;
+                }
 
                 SceneVar sVar = SceneVars.Find(v => v.uniqueID == uniqueID);
                 if (sVar == null) Debug.LogError("Can't find SceneVar from UID " + uniqueID + " in " + name);
